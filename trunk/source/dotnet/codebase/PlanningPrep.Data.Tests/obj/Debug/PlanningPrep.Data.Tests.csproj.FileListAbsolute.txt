@@ -1,0 +1,16 @@
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\OPUS.Data.Tests.dll.config
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\OPUS.Data.Tests.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\OPUS.Data.Tests.pdb
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\PlanningPrep.Core.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\PlanningPrep.Data.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\PlanningPrep.Models.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\Microsoft.Practices.ObjectBuilder2.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\Microsoft.Practices.Unity.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\PlanningPrep.Models.pdb
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\PlanningPrep.Data.pdb
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\bin\Debug\PlanningPrep.Core.pdb
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\obj\Debug\ResolveAssemblyReference.cache
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\obj\Debug\OPUS.Data.Tests.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Data.Tests\obj\Debug\OPUS.Data.Tests.pdb

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<entity-daos>
+  <!-- infrastructure related daos -->
+  <entity name="HistoryData" daoType="PlanningPrep.Data.History.HistoryDataDAO, PlanningPrep.Data" />
+  <entity name="User" daoType="PlanningPrep.Data.Users.UserDAO, PlanningPrep.Data" />
+  <entity name="UserActivity" daoType="PlanningPrep.Data.Users.UserActivityDAO, PlanningPrep.Data" />
+  <entity name="Role" daoType="PlanningPrep.Data.Roles.RoleDAO, PlanningPrep.Data" />
+</entity-daos>

@@ -1,0 +1,13 @@
+E:\CodeRefactor\OPUS.Models\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\bin\Debug\OPUS.Models.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\bin\Debug\OPUS.Models.pdb
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\bin\Debug\Pantheon.Core.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\bin\Debug\Microsoft.Practices.ObjectBuilder2.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\bin\Debug\Pantheon.Core.pdb
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\obj\Debug\OPUS.Models.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Models\obj\Debug\OPUS.Models.pdb
