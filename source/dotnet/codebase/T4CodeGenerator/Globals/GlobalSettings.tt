@@ -1,0 +1,212 @@
+<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="txt" #>
+
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="EnvDTE80" #>
+<#@ assembly name="EnvDTE90" #>
+<#@ assembly name="System.Configuration" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ assembly name="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"#>
+<#@ assembly name="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"#>
+<#@ assembly name="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" #>
+<#@ assembly name="Microsoft.VisualStudio.OLE.Interop" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.9.0" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.Design" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.Interop" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.Interop.8.0" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.Interop.9.0" #>
+
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ Import namespace="System.Collections" #>
+<#@ Import namespace="System.Collections.Specialized" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Configuration" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data.Common" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Globalization" #>
+<#@ import namespace="Microsoft.SqlServer.Management.Common" #>
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#+
+    
+    //Server server = new Server("(local)");
+    Database database = new Database(new Server("(local)"), "nqf-opus-refactor");
+    string TableName;
+    Table Base_Table;
+
+    string FormattedBaseTableName; 
+    List<Column> BaseTableCollection = new List<Column>();
+    List<Column> SQLCollection = new List<Column>();
+	StringCollection AuditCreateCollection = new StringCollection();
+	string[] AuditFields = new string[] {"CreatedBy", "CreatedByDateTime", "LastModifiedBy", "LastModifiedByDateTime"};
+	string[] EntityFields = new string[] {"Id","Active", "Deleted", "Locked"};	
+	int NoOfColumns;
+	string dbSchemaOwner = "[dbo].";
+	string AuthorName = "[Developer Name]";
+	string ClientName = "NQF";
+	string ProjectName = "OPUS";
+	
+	public void InitDB() 
+	{
+		Base_Table = new Table(database, TableName);
+		Base_Table.Refresh();
+		
+		if(TableName.EndsWith("s"))
+		{
+			FormattedBaseTableName = TableName.Substring(0, TableName.Length - 1);
+		}
+		else
+		{
+			FormattedBaseTableName = TableName;
+		}
+		
+		AuditCreateCollection.AddRange(AuditFields);
+		AuditCreateCollection.AddRange(EntityFields);
+		
+		foreach( Column col in Base_Table.Columns )
+		{
+			if ( !AuditCreateCollection.Contains(col.Name) )
+			{
+				BaseTableCollection.Add(col);
+			}
+			
+			SQLCollection.Add(col);
+		}
+	}
+	
+	public string GetDataType(string columnType)
+	{
+		string dataTypeName;
+		
+		switch ( columnType.ToUpper() )
+		{
+		  case "INT":
+		  case "SMALLINT":
+			dataTypeName = "int";				
+			break;
+		  case "BIGINT":
+		  case "NUMERIC": 
+			dataTypeName = "long";				
+			break;
+		  case "DECIMAL": 
+			dataTypeName = "decimal";				
+			break;
+		  case "DATETIME":
+		  case "SMALLDATETIME":
+			dataTypeName = "DateTime";
+			break;
+		  case "XMLDOCUMENT":
+			dataTypeName = "XmlDocument";
+			break;
+		  case "BIT":
+		  case "TINYINT":
+			dataTypeName = "bool";
+			break;
+		  case "VARCHAR":
+		  case "NVARCHAR":
+		  case "CHAR":
+		  case "TEXT":
+			dataTypeName = "string";
+			break;
+		  case "VARBINARY":
+		  case "IMAGE":
+			dataTypeName = "byte[]";
+			break;
+		  default:
+			dataTypeName = "object";
+			break;
+		}
+		
+		return dataTypeName;
+	}
+	
+	public string GetDataTypeDeclaration(DataType dataType)
+	{
+		string result = dataType.Name;
+		
+		switch( dataType.SqlDataType )
+		{
+			case SqlDataType.Binary:
+			case SqlDataType.Char:
+				result += string.Format("({0}) ", dataType.MaximumLength);
+				break;
+			case SqlDataType.NChar:
+			case SqlDataType.NVarChar:
+			case SqlDataType.VarBinary:
+			case SqlDataType.VarChar:
+				result += string.Format("({0}) ", dataType.MaximumLength);
+				break;
+			case SqlDataType.NVarCharMax:
+			case SqlDataType.VarBinaryMax:
+			case SqlDataType.VarCharMax:
+				result += " (max)";
+				break;
+			case SqlDataType.Decimal:
+			case SqlDataType.Numeric:
+				result += string.Format(" ({0}, {1})", dataType.NumericPrecision, dataType.NumericScale);
+				break;
+		}
+		
+		return result;
+	}
+	
+	public void SimpleGet( Column col )
+	{
+		WriteLine("get;");
+	}
+	
+	public void SimpleSet(Column col)
+	{
+		WriteLine("set;");
+	}
+
+	public void StoredProcedureComments(string procedureName, string method )
+	{
+		WriteLine("-- =============================================");
+		WriteLine("-- Author:		{0} (Pantheon Inc.)", AuthorName );
+		WriteLine("-- Create date: {0}", DateTime.Now);
+		WriteLine("-- Description: {0} Into Table {1}", method, procedureName);
+		WriteLine("-- =============================================");
+		WriteLine("-- sp{0}{1} ...........", procedureName, method);
+	}
+
+	public void ClassComments(string className)
+	{
+		WriteLine("#region File Info/History");
+		WriteLine("/*");
+		WriteLine(" * =============================================");
+		WriteLine(" * Project Name: [Project Name]");
+		WriteLine(" * Assembly:	   [Assembly Name]");
+		WriteLine(" * Name:		{0}", className);
+		WriteLine(" * Purpose: {0} entity class ", className);
+		WriteLine(" * Language: C# SDK version 3.5");
+		WriteLine(" * Change History");
+		WriteLine(" * =============================================");
+		WriteLine(" * {1}	{0}		Initial Code", DateTime.Now, AuthorName );
+		WriteLine(" * =============================================");
+		WriteLine(" */");
+		WriteLine("#endregion");
+	}
+	
+	public string SplitClassName(string p1)
+	{
+		StringBuilder returnString = new StringBuilder();
+		
+		// Define a regular expression for repeated words.
+		MatchCollection matches = new Regex(@"(\P{lu}+)|(\p{lu}+\P{lu}*)").Matches(p1);
+		foreach( Match match in matches)
+		{
+			returnString.Append(String.Format("{0} ", match.Value));
+		}
+		
+		return returnString.ToString().Trim();
+	} 
+#>

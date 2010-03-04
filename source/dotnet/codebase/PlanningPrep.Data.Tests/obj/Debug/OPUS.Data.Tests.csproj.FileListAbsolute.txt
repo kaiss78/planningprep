@@ -1,0 +1,2 @@
+E:\CodeRefactor\OPUS.Data.Tests\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\OPUS.Data.Tests\obj\Debug\ResolveAssemblyReference.cache

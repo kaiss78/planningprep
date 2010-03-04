@@ -1,0 +1,15 @@
+E:\CodeRefactor\Pantheon.Core\obj\Debug\ResolveAssemblyReference.cache
+E:\CodeRefactor\Pantheon.Core\obj\Debug\Pantheon.Core.Properties.EnterpriseLibraryResources.resources
+E:\CodeRefactor\Pantheon.Core\obj\Debug\Pantheon.Core.csproj.GenerateResource.Cache
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\bin\Debug\Pantheon.Core.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\bin\Debug\Pantheon.Core.pdb
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\bin\Debug\Microsoft.Practices.ObjectBuilder2.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\obj\Debug\Pantheon.Core.Properties.EnterpriseLibraryResources.resources
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\obj\Debug\Pantheon.Core.csproj.GenerateResource.Cache
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\obj\Debug\Pantheon.Core.dll
+D:\Projects\PlanningPrep.com\source\dotnet\codebase\CodeRefactor\CodeBase\Pantheon.Core\obj\Debug\Pantheon.Core.pdb

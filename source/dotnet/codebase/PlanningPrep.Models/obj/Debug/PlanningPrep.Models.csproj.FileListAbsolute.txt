@@ -1,0 +1,12 @@
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\bin\Debug\PlanningPrep.Models.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\bin\Debug\PlanningPrep.Models.pdb
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\bin\Debug\PlanningPrep.Core.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\bin\Debug\Microsoft.Practices.Unity.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\bin\Debug\Microsoft.Practices.ObjectBuilder2.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\bin\Debug\PlanningPrep.Core.pdb
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\obj\Debug\ResolveAssemblyReference.cache
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\obj\Debug\PlanningPrep.Models.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Models\obj\Debug\PlanningPrep.Models.pdb

@@ -1,0 +1,29 @@
+
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spUserRolesGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spUserRolesGetForUser]
+GO
+CREATE PROCEDURE [dbo].[spUserRolesGetForUser] 
+	   @UserId bigint
+	,  @RoleId bigint
+AS
+-- =============================================
+-- Author:		Jason Duffus (Pantheon Inc.)
+-- Create date: 2/21/2010 6:48:00 PM
+-- Description: GetForUser Into Table UserRoles
+-- =============================================
+-- spUserRolesGetForUser ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[UserRoles] tab  WITH(NOLOCK)
+		WHERE  tab.[UserId]= @UserId
+		  AND  tab.[RoleId]= @RoleId
+		ORDER BY tab.[Id] DESC, isnull(tab.[LastModifiedByDateTime],tab.[CreatedByDateTime]) DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+

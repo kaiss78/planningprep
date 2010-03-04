@@ -1,0 +1,56 @@
+# Microsoft Developer Studio Project File - Database Project
+Begin DataProject = "OPUS.Database"
+   MSDTVersion = "80"
+   Begin Folder = "Backup"
+      Node = "nqf_opus_dev_refactor.bak"
+   End
+   Begin Folder = "Change Scripts"
+   End
+   Begin DBRefFolder = "Database References"
+      Begin DBRefNode = "jamaica.nqf-opus-refactor.dbo"
+         ConnectStr = "Data Source=(local);Initial Catalog=nqf-opus-refactor;Integrated Security=True"
+         Provider = "{91510608-8809-4020-8897-FBA057E22D54}"
+         Colorizer = 6
+      End
+   End
+   Begin Folder = "Schemas"
+      Begin Folder = "Constraints"
+      End
+      Begin Folder = "Keys"
+      End
+      Begin Folder = "Tables"
+         Script = "Customers.sql"
+         Script = "Schema-Scripts.sql"
+         Script = "Users.sql"
+      End
+   End
+   Begin Folder = "Scripts"
+      Begin Folder = "Functions"
+      End
+      Begin Folder = "StoredProcedures"
+         Script = "All-StoredProcedures.sql"
+         Script = "spHistoryDataSet.sql"
+         Script = "spProjectGetAll.sql"
+         Script = "spProjectGetById.sql"
+         Script = "spProjectSet.sql"
+         Script = "spProjectTypeSet.sql"
+         Script = "spRoleGetAllForUser.sql"
+         Script = "spRoleSet.sql"
+         Script = "spUserActivitiesGetByUserId.sql"
+         Script = "spUserActivity.sql"
+         Script = "spUserActivityGetByActivityType.sql"
+         Script = "spUserDelete.sql"
+         Script = "spUserGetAll.sql"
+         Script = "spUserGetById.sql"
+         Script = "spUserRoleSet.sql"
+         Script = "spUserSet.sql"
+      End
+      Begin Folder = "Views"
+         Script = "vw_ProjectSubmission.sql"
+      End
+   End
+   Begin Folder = "Security"
+   End
+   Begin Folder = "Static Data Scripts"
+   End
+End
