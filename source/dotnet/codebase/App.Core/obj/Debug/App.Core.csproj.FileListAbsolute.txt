@@ -1,0 +1,14 @@
+G:\projects\source\dotnet\codebase\Pantheon.Core\bin\Debug\Pantheon.Core.dll
+G:\projects\source\dotnet\codebase\Pantheon.Core\bin\Debug\Pantheon.Core.pdb
+G:\projects\source\dotnet\codebase\Pantheon.Core\obj\Debug\ResolveAssemblyReference.cache
+G:\projects\source\dotnet\codebase\Pantheon.Core\obj\Debug\Pantheon.Core.Properties.EnterpriseLibraryResources.resources
+G:\projects\source\dotnet\codebase\Pantheon.Core\obj\Debug\App.Core.csproj.GenerateResource.Cache
+G:\projects\source\dotnet\codebase\Pantheon.Core\obj\Debug\Pantheon.Core.dll
+G:\projects\source\dotnet\codebase\Pantheon.Core\obj\Debug\Pantheon.Core.pdb
+G:\projects\source\dotnet\codebase\App.Core\obj\Debug\ResolveAssemblyReference.cache
+G:\projects\source\dotnet\codebase\App.Core\obj\Debug\App.Core.csproj.GenerateResource.Cache
+G:\projects\source\dotnet\codebase\App.Core\bin\Debug\App.Core.dll
+G:\projects\source\dotnet\codebase\App.Core\bin\Debug\App.Core.pdb
+G:\projects\source\dotnet\codebase\App.Core\obj\Debug\App.Core.Properties.EnterpriseLibraryResources.resources
+G:\projects\source\dotnet\codebase\App.Core\obj\Debug\App.Core.dll
+G:\projects\source\dotnet\codebase\App.Core\obj\Debug\App.Core.pdb

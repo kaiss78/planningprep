@@ -1,0 +1,10 @@
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Core\bin\Debug\PlanningPrep.Core.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Core\bin\Debug\PlanningPrep.Core.pdb
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Core\bin\Debug\Microsoft.Practices.Unity.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Core\bin\Debug\Microsoft.Practices.ObjectBuilder2.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Core\obj\Debug\ResolveAssemblyReference.cache
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Core\obj\Debug\PlanningPrep.Core.Properties.EnterpriseLibraryResources.resources
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Core\obj\Debug\PlanningPrep.Core.csproj.GenerateResource.Cache
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Core\obj\Debug\PlanningPrep.Core.dll
+E:\planningprep\source\dotnet\codebase\PlanningPrep.Core\obj\Debug\PlanningPrep.Core.pdb
