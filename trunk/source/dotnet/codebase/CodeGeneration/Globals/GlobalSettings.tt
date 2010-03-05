@@ -37,7 +37,7 @@
 <#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
 <#+
     
-    //Server server = new Server("(local)");
+
     Database database = new Database(new Server("(local)"), "PlanningPrep");
     string TableName = "ProductCategory";
     
