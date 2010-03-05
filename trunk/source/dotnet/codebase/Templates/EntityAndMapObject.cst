@@ -1,0 +1,43 @@
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a C# class for use with NHibnate" %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the mapping file is based on" %>
+<%@ Property Name="Namespace" Type="System.String" Default="MyNamespace.Data" Category="Object" Description="The class namespace that the mapping file should use" %>
+<%@ Property Name="Assembly" Type="System.String" Default="MyApp.MyAssembly" Category="Object" Description="The assembly that the class will be used in" %>
+<%@ Property Name="RemoveTablePrefix" Type="System.String" Default="tbl" Category="Object" Description="The prefix to remove from table names" %>
+<%@ Property Name="ForceId" Type="System.Boolean" Default="true" Category="Object" Description="Force Id for identity column" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<!-- #include file="NHibernate.inc" -->
+<%-- 
+This template demonstrates using properties defined in external assemblies.
+
+CodeSmith is 100% extensible.  A property can be any .NET type that has designer support.
+This includes all of the standard .NET data types and most other standard .NET types as well.
+
+You can also create your own custom property types or you can use one any of the custom types
+included in CodeSmith.  This template uses the included SchemaExplorer.TableSchema type and is
+defined in the SchemaExplorer assembly.  This type provides access to nearly all possible schema
+information about a particular database table.
+--%>
+
+#region DTO Class Generator
+<% foreach (ColumnSchema column in this.SourceTable.Columns) { %>
+	private <%= MemberType(column) %> <%= MemberName(column) %>;
+<% } %>
+
+<% foreach (ColumnSchema column in this.SourceTable.Columns) { %>
+	public <%= MemberType(column)%> <%= PropertyName(column) %>
+	{
+		get { return <%= MemberName(column) %>; }			
+		set { <%= MemberName(column) %> = value; }		
+	}
+<% } %>
+#endregion DTO Class Generator
+
+#region Set Object Properties
+	<% foreach (ColumnSchema column in this.SourceTable.Columns) { %>
+		<%=CamelCase(SourceTable.Name)%>.<%=PropertyName(column)%> = <%=GetReaderString(column)%>;
+	<% } %>	
+#endregion Map Object Properties
