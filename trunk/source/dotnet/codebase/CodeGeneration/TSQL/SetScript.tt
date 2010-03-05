@@ -1,0 +1,237 @@
+<#@ include file="../Globals/GlobalSettings.tt" #>
+<#
+
+	InitDB();
+	NoOfColumns=0;
+	WriteLine(string.Format("IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp{0}Set]') AND type in (N'P', N'PC'))", FormattedBaseTableName));
+	WriteLine(string.Format("DROP PROCEDURE [dbo].[sp{0}Set]", FormattedBaseTableName));
+	WriteLine("GO");
+	WriteLine(string.Format("CREATE PROCEDURE [dbo].[sp{0}Set] ", FormattedBaseTableName));
+    PushIndent("\t");
+	bool firstcol = true;
+	int fourthCol = 0;
+	foreach( Column column in SQLCollection)
+	{
+			if( fourthCol == NoOfColumns ) {
+				Write(firstcol?" @":", @");
+				WriteLine("{0} {1}", column.Name, GetDataTypeDeclaration(column.DataType));
+				firstcol=false;
+				fourthCol = 0;
+			}
+			else {
+				Write(firstcol?" @":", @");
+				Write("{0} {1}", column.Name, GetDataTypeDeclaration(column.DataType));
+				firstcol=false;
+				fourthCol++;
+			}
+	}
+	WriteLine("");
+	PopIndent();
+	WriteLine("As");
+	WriteLine("Begin");
+	StoredProcedureComments(Base_Table.Name, "Set");
+	PushIndent("\t");
+	
+	PushIndent("\t");
+	foreach(Column column in Base_Table.Columns)
+	{
+		if( column.InPrimaryKey )
+		{
+			WriteLine("IF (@{0} >0)", column.Name);
+			WriteLine("Begin");
+			break;
+		}
+	}
+	
+	CreateUpdates(Base_Table);
+	
+	WriteLine("End");		
+	WriteLine("Else");
+	WriteLine("Begin");
+	PushIndent("\t");
+	CreateInserts(Base_Table);
+	
+	SetPrimaryKeyValue(Base_Table);
+	PopIndent();
+	WriteLine("End");
+	PopIndent();
+	ReturnPrimaryKeyValue(Base_Table);
+	PopIndent();
+WriteLine("End");
+#>
+<#+ 
+	public void CreateInserts(Table prmTable)
+	{
+		WriteLine("Insert Into {0}[{1}]" ,dbSchemaOwner ,prmTable.Name );
+		PushIndent("\t");
+		SetInsertFieldColumns(prmTable,"[","]");
+		PopIndent();
+		WriteLine(" VALUES ");
+		PushIndent("\t");
+		SetPassedColumns(prmTable,"@");
+		PopIndent();
+	}
+
+	public void SetPassedColumns(Table prmTable, string strPrm)
+	{
+		int fourthCol=0;
+		bool firstcol = true;
+		foreach( Column column in prmTable.Columns )
+		{
+			if ( !column.InPrimaryKey )
+			{
+				if( fourthCol == NoOfColumns )
+				{
+					WriteLine("{0}{1}{2}",firstcol?"( ":", ", strPrm, column.Name );
+					firstcol=false;
+					fourthCol = 0;
+				}
+				else
+				{
+					Write("{0}{1}{2}",firstcol?" (":", ", strPrm, column.Name );
+					firstcol=false;
+					fourthCol++;
+				}
+			}
+		}
+		WriteLine(" ) ");
+	}
+
+	public void CreateUpdates(Table prmTable)
+	{
+		PushIndent("\t");
+		WriteLine("Update {0}[{1}]" ,dbSchemaOwner ,prmTable.Name );
+		PushIndent("\t");
+		SetUpdateFieldColumns(prmTable,"[","]");
+		SetWhereColumns(prmTable);
+		PopIndent();
+		PopIndent();
+	}
+	
+	public void SetUpdateFieldColumns(Table prmTable, string strLeftParam, string strRightParam)
+	{
+		int fourthCol =0;
+		bool firstcol =true;
+		
+		foreach( Column column in prmTable.Columns )
+		{
+			if( !column.InPrimaryKey )
+			{
+				if( fourthCol == NoOfColumns )
+				{
+					WriteLine("{0}{1}{2}{3}= @{2}",(firstcol) ? " Set ":", ", strLeftParam, column.Name,strRightParam );
+					firstcol=false;
+					fourthCol = 0;
+				}
+				else
+				{
+					Write("{0}{1}{2}{3} = @{2}",(firstcol) ? " Set ":", ", strLeftParam, column.Name,strRightParam );
+					firstcol=false;
+					fourthCol++;
+				}
+			}
+		}
+		if( fourthCol == NoOfColumns )
+		{
+			WriteLine(" ");
+		}
+	}
+	
+	public void SetInsertFieldColumns(Table prmTable, string strLeftParam, string strRightParam)
+	{
+		int fourthCol=0;
+		bool firstcol =true;
+		
+		foreach( Column column in prmTable.Columns )
+		{
+			if( !column.InPrimaryKey )
+			{
+				if( fourthCol == NoOfColumns )
+				{
+					WriteLine("{0}{1}{2}{3}",(firstcol)?"( ":", ", strLeftParam, column.Name,strRightParam );
+					firstcol=false;
+					fourthCol = 0;
+				}
+				else
+				{
+					Write("{0}{1}{2}{3}",(firstcol)?"( ":", ", strLeftParam, column.Name,strRightParam );
+					firstcol=false;
+					fourthCol++;
+				}
+			}
+		}
+		WriteLine(" ) "	);
+	}
+
+	public void SelectFromTable(Table prmTable, string strLeftParam, string strRightParam)
+	{
+		int fourthCol = 0;
+		bool firstcol=true;
+		
+		foreach( Column column in prmTable.Columns )
+		{
+			if( fourthCol == NoOfColumns )
+			{
+				WriteLine("{0}{1}{2}{3}",(firstcol)?"( ":", ", strLeftParam, column.Name,strRightParam );
+				firstcol=false;
+				fourthCol = 0;
+			}
+			else
+			{
+				Write("{0}{1}{2}{3}",(firstcol)?"( ":", ", strLeftParam, column.Name,strRightParam );
+				firstcol=false;
+				fourthCol++;
+			}
+		}
+		
+		if( fourthCol == NoOfColumns )
+		{
+			WriteLine(" ");
+		}
+	}
+	
+	public void SetWhereColumns( Table prmTable )
+	{
+		PopIndent();
+		bool firstcol = true;
+		
+		foreach( Column column in prmTable.Columns )
+		{
+			if( column.InPrimaryKey )
+			{
+				WriteLine("{0}[{1}]= @{2}",(firstcol)?" Where ":", ", column.Name, column.Name);
+				firstcol=false;
+			}
+		}
+	}
+	
+	public void SetPrimaryKeyValue( Table prmTable )
+	{
+		WriteLine(" ");
+		bool firstcol=true;
+		
+		foreach( Column column in prmTable.Columns )
+		{
+			if( column.InPrimaryKey )
+			{
+				WriteLine("{0}{1}= Scope_Identity()",(firstcol)?"Set @":", @", column.Name);
+				firstcol=false;
+			}
+		}
+	}
+
+	public void ReturnPrimaryKeyValue(Table prmTable)
+	{
+		WriteLine(" ");
+		bool firstcol=true;
+		
+		foreach( Column column in prmTable.Columns )
+		{
+			if( column.InPrimaryKey )
+			{
+				WriteLine(" Select @{0} as {0} ",column.Name);
+				break;
+			}
+		}
+	}
+ #>

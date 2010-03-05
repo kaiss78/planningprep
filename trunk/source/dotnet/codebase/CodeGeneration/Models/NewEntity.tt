@@ -1,0 +1,131 @@
+<#@ include file="../Globals/GlobalSettings.tt" #>
+<#	
+
+
+string BaseTypeName = "TableLevelAuditEntity"; 
+
+InitDB();
+ClassComments(FormattedBaseTableName);
+WriteLine("");
+WriteLine("using System;");
+WriteLine("using System.Collections;");
+WriteLine("using App.Core;");
+WriteLine("using App.Core.Base.Model;");
+WriteLine("using App.Models.Base;");
+WriteLine("");
+WriteLine("namespace {0}", ModelNamespace);
+WriteLine("{");
+PushIndent("\t");
+WriteLine("[Serializable]");
+WriteLine("public class {0} : {1}", FormattedBaseTableName, (!string.IsNullOrEmpty(BaseTypeName))? BaseTypeName: "BaseEntity");
+WriteLine("{");
+PushIndent("\t");
+WriteLine("#region Fields");
+
+//foreach( Column column in BaseTableCollection )
+//{
+//	if( !AuditCreateCollection.Contains(column.Name) )
+//	{
+		//if( GetDataType(column.DataType.Name).ToUpper().equals("DATE") )
+		//{
+		//		WriteLine("private {1}? _{0};",column.Name,GetDataType(column.DataType.Name));
+		//}
+		//else
+		//{
+//				WriteLine("private {1} _{0};",column.Name,GetDataType(column.DataType.Name));
+		//}
+//	}
+//}
+WriteLine("#endregion");
+WriteLine("");
+WriteLine("#region Properties");
+CreatePropertiesFromCollections(BaseTableCollection);
+WriteLine("#endregion");
+WriteLine("");
+WriteLine("#region Reference Properties");
+WriteLine("// TODO: Add reference properties here.");
+WriteLine("#endregion");
+WriteLine("");
+WriteLine("#region Methods");
+WriteLine("// TODO: Add methods here.");
+WriteLine("#endregion");
+WriteLine("");
+WriteLine("#region Override Methods");
+WriteLine("// TODO: Add override methods here.");
+WriteLine("#endregion");
+PopIndent();
+WriteLine("}");
+PopIndent();
+WriteLine("}");
+#>
+<#+	
+public void CreatePropertiesFromCollections(List<Column> tabCollections )
+{
+	foreach( Column col in tabCollections )
+	{
+		if( !AuditCreateCollection.Contains(col.Name) )
+		{
+			PopIndent();
+			PopIndent();
+			PushIndent("\t");
+			PushIndent("\t");
+			CreateProperty(col);
+		}
+	}  
+}			 
+public void CreateBaseProperties(Table prmTable)
+{
+	foreach( Column col in prmTable.Columns )
+	{
+		PopIndent();
+		PopIndent();
+		PushIndent("\t");
+		PushIndent("\t");
+		if( !AuditCreateCollection.Contains(col.DataType.Name) )
+		{
+			CreateProperty(col);
+		}
+	}  
+}
+
+public void CreateAuditProperties(Table prmTable)
+{
+	foreach( Column col in prmTable.Columns )
+	{
+		PopIndent();
+		PopIndent();
+		PushIndent("\t\t");
+		if( !AuditCreateCollection.Contains(col.DataType.Name) )
+		{
+			CreateProperty(col);
+		}
+	}  
+}
+public void CreateProperty( Column col )
+{
+		//switch(  GetDataType(col.DataType.Name).toUpper() )
+		//{
+			//case "DATE":
+			//	NullableProperty(col);
+			//	break;
+			//default:
+				simpleProperty(col);
+			//break;
+		//}
+}
+public void simpleProperty(Column col)
+{
+	WriteLine("");
+	WriteLine("/// <summary>");
+	WriteLine("/// Gets or sets the {0}",col.Name);
+	WriteLine("/// </summary>");
+	WriteLine("/// <value>The {0}.</value>",col.Name);
+	WriteLine("public {1} {0}",col.Name,GetDataType(col.DataType.Name.ToUpper()));
+	WriteLine("{");
+	PushIndent("\t");
+	SimpleGet(col);
+	SimpleSet(col);
+	PopIndent();
+	WriteLine("}");
+}
+ #>

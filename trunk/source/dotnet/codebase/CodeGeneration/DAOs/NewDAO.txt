@@ -1,0 +1,79 @@
+
+
+
+#region File Info/History
+/*
+ * --------------------------------------------------------------------------------
+ * Project Name: PlanningPrep
+ * Module: App.Data
+ * Name: ProductDAO.cs
+ * Purpose: DAO Class to get/set the data from Product table.
+ * 
+ * Author: AFS
+ * Language: C# SDK version 3.5
+ * --------------------------------------------------------------------------------
+ * Change History:
+ * Product					Date					Comments
+ * [Developer Name]		03/04/2010 23:47:21		Initial Development
+ * -------------------------------------------------------------------------------- 
+ */
+#endregion
+
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Data;
+using App.Models.Enums;
+using App.Core;
+using App.Core.DB;
+using App.Core.Exceptions;
+using App.Core.Factories;
+using System.Security.Principal;
+
+namespace App.Data.Products 
+{
+	public interface IProductDAO : IDataAccess<App.Models.Products.Product>
+    {
+    }
+    
+    public class ProductDAO : BaseDataAccess<App.Models.Products.Product>, IProductDAO
+    {
+        #region Constructor
+        public ProductDAO()
+        {
+        }
+
+        public ProductDAO(string connectionString)
+            : base(connectionString)
+        {
+        }
+        #endregion
+
+        #region Helper Methods
+        protected override App.Models.Products.Product Map(IDataReader reader)
+        {
+            App.Models.Products.Product entity = EntityFactory.Create<App.Models.Products.Product>();
+
+    		entity.Id = NullHandler.GetLong(reader["Id"]);
+    		entity.ProductName = NullHandler.GetString(reader["ProductName"]);
+    		entity.Price = NullHandler.GetDecimal(reader["Price"]);
+    		entity.CategoryId = NullHandler.GetInt(reader["CategoryId"]);
+    		entity.Active = NullHandler.GetBoolean(reader["Active"]);
+    		entity.Deleted = NullHandler.GetBoolean(reader["Deleted"]);
+    		entity.Locked = NullHandler.GetBoolean(reader["Locked"]);
+    		entity.CreatedBy = NullHandler.GetString(reader["CreatedBy"]);
+    		entity.CreatedByDateTime = NullHandler.GetDateTime(reader["CreatedByDateTime"]);
+    		entity.LastModifiedBy = NullHandler.GetString(reader["LastModifiedBy"]);
+    		entity.LastModifiedByDateTime = NullHandler.GetDateTime(reader["LastModifiedByDateTime"]);
+    		entity.DateTimestamp = NullHandler.GetDateTime(reader["DateTimestamp"]);
+         
+            return entity;
+        }
+
+        protected override void EagerLoad(App.Models.Products.Product entity)
+        {
+            // Add eager loading functionality here
+        }
+        #endregion
+    }
+}

@@ -1,0 +1,308 @@
+<#@ include file="../Globals/GlobalSettings.tt" #>
+<#	
+
+string BaseTypeName = ""; 
+
+InitDB();
+ClassComments(FormattedBaseTableName);
+WriteLine("");
+WriteLine("using System;");
+WriteLine("using System.Collections;");
+WriteLine("using App.Core;");
+WriteLine("using App.Core.Base.Model;");
+WriteLine("using App.Core.Base.Managers;");
+WriteLine("using App.Core.Base.Managers.Responses;");
+WriteLine("using App.Models.Base;");
+
+WriteLine("using " + DefaultNamespace + ";");
+WriteLine("using "+ ModelNamespace +";");
+WriteLine("using System.Collections.Generic;");
+WriteLine("using System.Transactions;");
+WriteLine("using App.Data;");
+WriteLine("using App.Core.Exceptions;");
+
+WriteLine("");
+WriteLine("namespace {0}", ManagerNamespace);
+WriteLine("{");
+PushIndent("\t");
+WriteLine("public interface I{1}Manager : IManagerBase<{0}.{1}>", ModelNamespace, FormattedBaseTableName);
+WriteLine("{}");
+WriteLine("");
+WriteLine("public class {1}Manager : ManagerBase<{0}.{1}>, I{1}Manager", ModelNamespace, FormattedBaseTableName);
+WriteLine("{");
+PushIndent("\t");
+// Constructors
+WriteLine("public {0}Manager()", FormattedBaseTableName);
+WriteLine("{}");
+WriteLine("");
+// CRUD Methods
+WriteLine("#region CRUD Methods");
+
+WriteLine("/// <summary>");
+WriteLine("/// Saves or Updates the entity in the database");
+WriteLine("/// </summary>");
+WriteLine("/// <param name=\"entity\"></param>");
+WriteLine("public override void SaveOrUpdate({0}.{1} entity)", ModelNamespace, FormattedBaseTableName);
+WriteLine("{");  
+PushIndent("\t");  
+
+
+WriteLine("using (new TimedTraceLog(GetType().Name + \"SaveOrUpdate("+FormattedBaseTableName+")\", \"\"))");
+WriteLine("{");
+PushIndent("\t");
+WriteLine("try");           
+WriteLine("{");
+PushIndent("\t");               
+WriteLine("using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromSeconds(60)))");
+WriteLine("{");
+PushIndent("\t");  
+WriteLine("using (I"+FormattedBaseTableName+"DAO dao = (I"+FormattedBaseTableName+"DAO)DAOFactory.Get<"+FormattedBaseTableName+">())");
+WriteLine("{");
+PushIndent("\t"); 
+WriteLine("dao.Save(entity);");
+PopIndent(); 
+WriteLine("}");
+WriteLine("scope.Complete();");
+PopIndent(); 
+WriteLine("}");
+PopIndent(); 
+WriteLine("}");
+WriteLine("catch (Exception ex)");
+WriteLine("{");
+PushIndent("\t");
+WriteLine("ExceptionHelper.HandleException<ManagerException>(ex, \""+FormattedBaseTableName+"DAO.SaveOrUpdate("+FormattedBaseTableName+")\");");
+PopIndent();
+WriteLine("}");
+PopIndent();
+WriteLine("}");
+
+
+
+
+PopIndent(); 
+WriteLine("}");  
+WriteLine("");  
+
+WriteLine("/// <summary>");
+WriteLine("/// Gets the object with specified id.");
+WriteLine("/// </summary>");
+WriteLine("/// <param name=\"id\">The id.</param>");
+WriteLine("/// <returns></returns>");
+WriteLine("public override "+FormattedBaseTableName+" Get(long id)");
+WriteLine("{");  
+PushIndent("\t"); 
+
+
+ 
+WriteLine(""+FormattedBaseTableName+" "+FormattedBaseTableName+" = null;");
+WriteLine("try");
+WriteLine("{");
+PushIndent("\t"); 
+WriteLine("using (I"+FormattedBaseTableName+"DAO dao = (I"+FormattedBaseTableName+"DAO)DAOFactory.Get<"+FormattedBaseTableName+">())");
+WriteLine("{");
+PushIndent("\t"); 
+WriteLine(""+FormattedBaseTableName+" = dao.Get(id, true);");
+PopIndent(); 
+WriteLine("}"); 
+PopIndent(); 
+WriteLine("}"); 
+WriteLine("catch (Exception ex)");
+WriteLine("{");
+PushIndent("\t");
+WriteLine("ExceptionHelper.HandleException<ManagerException>(ex);");
+PopIndent(); 
+WriteLine("}");
+WriteLine("return "+FormattedBaseTableName+";");
+
+
+
+PopIndent(); 
+WriteLine("}");  
+WriteLine("");  
+
+WriteLine("/// <summary>");
+WriteLine("/// Gets the object with the specified id.");
+WriteLine("/// </summary>");
+WriteLine("/// <param name=\"id\">The id.</param>");
+WriteLine("/// <param name=\"eagerLoad\">if set to <c>true</c> [eager load].</param>");
+WriteLine("/// <returns></returns>");
+WriteLine("public override "+FormattedBaseTableName+" Get(long id, bool eagerLoad)");
+WriteLine("{");  
+PushIndent("\t"); 
+
+
+ 
+WriteLine(""+FormattedBaseTableName+" "+FormattedBaseTableName+" = null;");
+WriteLine("try");
+WriteLine("{");
+PushIndent("\t"); 
+WriteLine("using (I"+FormattedBaseTableName+"DAO dao = (I"+FormattedBaseTableName+"DAO)DAOFactory.Get<"+FormattedBaseTableName+">())");
+WriteLine("{");
+PushIndent("\t"); 
+WriteLine(""+FormattedBaseTableName+" = dao.Get(id, eagerLoad);");
+PopIndent(); 
+WriteLine("}"); 
+PopIndent(); 
+WriteLine("}"); 
+WriteLine("catch (Exception ex)");
+WriteLine("{");
+PushIndent("\t");
+WriteLine("ExceptionHelper.HandleException<ManagerException>(ex);");
+PopIndent(); 
+WriteLine("}");
+WriteLine("return "+FormattedBaseTableName+";");
+
+
+
+PopIndent(); 
+WriteLine("}");  
+WriteLine("");  
+
+WriteLine("/// <summary>");
+WriteLine("/// Gets the list.");
+WriteLine("/// </summary>");
+WriteLine("/// <returns></returns>");
+WriteLine("public override IEnumerable<"+FormattedBaseTableName+"> GetList()");
+WriteLine("{");  
+PushIndent("\t");  
+
+
+
+WriteLine("IEnumerable<"+FormattedBaseTableName+"> "+FormattedBaseTableName+"List = new List<"+FormattedBaseTableName+">();");
+WriteLine("try");
+WriteLine("{");  
+PushIndent("\t"); 
+WriteLine("using (I"+FormattedBaseTableName+"DAO dao = (I"+FormattedBaseTableName+"DAO)DAOFactory.Get<"+FormattedBaseTableName+">())");
+WriteLine("{");  
+PushIndent("\t"); 
+WriteLine(""+FormattedBaseTableName+"List = dao.GetAll(u => u.Active && !u.Deleted);");
+PopIndent(); 
+WriteLine("}"); 
+PopIndent(); 
+WriteLine("}"); 
+WriteLine("catch (Exception ex)");
+WriteLine("{");  
+PushIndent("\t"); 
+WriteLine("ExceptionHelper.HandleException<ManagerException>(ex);");
+PopIndent(); 
+WriteLine("}"); 
+WriteLine("return "+FormattedBaseTableName+"List;");
+
+
+
+PopIndent(); 
+WriteLine("}");  
+WriteLine(""); 
+
+WriteLine("/// <summary>");
+WriteLine("/// Deletes the specified entity.");
+WriteLine("/// </summary>");
+WriteLine("/// <param name=\"entity\">The entity.</param>");
+WriteLine("/// <returns></returns>");
+WriteLine("public override bool Delete({0}.{1} entity)", ModelNamespace, FormattedBaseTableName);
+WriteLine("{");  
+PushIndent("\t");  
+
+
+
+WriteLine("bool result = false;");
+WriteLine("try");
+WriteLine("{");  
+PushIndent("\t"); 
+WriteLine("using (IProductDAO dao = (IProductDAO)DAOFactory.Get<Product>())");
+WriteLine("{");  
+PushIndent("\t"); 
+WriteLine("result = dao.Delete(entity);");
+PopIndent(); 
+WriteLine("}"); 
+PopIndent(); 
+WriteLine("}"); 
+WriteLine("catch (Exception ex)");
+WriteLine("{");  
+PushIndent("\t"); 
+WriteLine("ExceptionHelper.HandleException<ManagerException>(ex);");
+PopIndent(); 
+WriteLine("}"); 
+WriteLine("return result;");
+
+
+
+PopIndent(); 
+WriteLine("}");  
+WriteLine("#endregion");  
+PopIndent(); 
+WriteLine("}");  
+PopIndent();
+WriteLine("}");
+#>
+<#+	
+public void CreatePropertiesFromCollections(List<Column> tabCollections )
+{
+	foreach( Column col in tabCollections )
+	{
+		if( !AuditCreateCollection.Contains(col.Name) )
+		{
+			PopIndent();
+			PopIndent();
+			PushIndent("\t");
+			PushIndent("\t");
+			CreateProperty(col);
+		}
+	}  
+}			 
+public void CreateBaseProperties(Table prmTable)
+{
+	foreach( Column col in prmTable.Columns )
+	{
+		PopIndent();
+		PopIndent();
+		PushIndent("\t");
+		PushIndent("\t");
+		if( !AuditCreateCollection.Contains(col.DataType.Name) )
+		{
+			CreateProperty(col);
+		}
+	}  
+}
+
+public void CreateAuditProperties(Table prmTable)
+{
+	foreach( Column col in prmTable.Columns )
+	{
+		PopIndent();
+		PopIndent();
+		PushIndent("\t\t");
+		if( !AuditCreateCollection.Contains(col.DataType.Name) )
+		{
+			CreateProperty(col);
+		}
+	}  
+}
+public void CreateProperty( Column col )
+{
+		//switch(  GetDataType(col.DataType.Name).toUpper() )
+		//{
+			//case "DATE":
+			//	NullableProperty(col);
+			//	break;
+			//default:
+				simpleProperty(col);
+			//break;
+		//}
+}
+public void simpleProperty(Column col)
+{
+	WriteLine("");
+	WriteLine("/// <summary>");
+	WriteLine("/// Gets or sets the {0}",col.Name);
+	WriteLine("/// </summary>");
+	WriteLine("/// <value>The {0}.</value>",col.Name);
+	WriteLine("public {1} {0}",col.Name,GetDataType(col.DataType.Name.ToUpper()));
+	WriteLine("{");
+	PushIndent("\t");
+	SimpleGet(col);
+	SimpleSet(col);
+	PopIndent();
+	WriteLine("}");
+}
+ #>
