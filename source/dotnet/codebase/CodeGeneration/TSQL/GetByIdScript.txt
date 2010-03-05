@@ -1,0 +1,28 @@
+
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spProductCategoryGetById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spProductCategoryGetById]
+GO
+CREATE PROCEDURE [dbo].[spProductCategoryGetById] 
+	@Id int
+AS
+-- =============================================
+-- Author:		AFS (Pantheon Inc.)
+-- Create date: 3/5/2010 1:00:27 AM
+-- Description: GetById Into Table ProductCategory
+-- =============================================
+-- spProductCategoryGetById ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[ProductCategory] tab WITH(NOLOCK)
+		WHERE tab.[Id]=@ID 
+		  AND tab.[Deleted] = 0
+		ORDER BY tab.[Id] DESC, isnull(tab.[LastModifiedByDateTime],tab.[CreatedByDateTime]) DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+

@@ -1,0 +1,71 @@
+
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spProductCategorySet]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spProductCategorySet]
+GO
+CREATE PROCEDURE [dbo].[spProductCategorySet] 
+	 @Id int
+	, @CategoryName varchar(50) 
+	, @Active bit
+	, @Deleted bit
+	, @Locked bit
+	, @CreatedBy varchar(50) 
+	, @CreatedByDateTime datetime
+	, @LastModifiedBy varchar(50) 
+	, @LastModifiedByDateTime datetime
+	, @DateTimestamp datetime
+
+As
+Begin
+-- =============================================
+-- Author:		AFS (Pantheon Inc.)
+-- Create date: 3/5/2010 1:00:56 AM
+-- Description: Set Into Table ProductCategory
+-- =============================================
+-- spProductCategorySet ...........
+		IF (@Id >0)
+		Begin
+			Update [dbo].[ProductCategory]
+				 Set [CategoryName]= @CategoryName
+				, [Active]= @Active
+				, [Deleted]= @Deleted
+				, [Locked]= @Locked
+				, [CreatedBy]= @CreatedBy
+				, [CreatedByDateTime]= @CreatedByDateTime
+				, [LastModifiedBy]= @LastModifiedBy
+				, [LastModifiedByDateTime]= @LastModifiedByDateTime
+				, [DateTimestamp]= @DateTimestamp
+				 
+			 Where [Id]= @Id
+	End
+	Else
+	Begin
+		Insert Into [dbo].[ProductCategory]
+			( [CategoryName]
+			, [Active]
+			, [Deleted]
+			, [Locked]
+			, [CreatedBy]
+			, [CreatedByDateTime]
+			, [LastModifiedBy]
+			, [LastModifiedByDateTime]
+			, [DateTimestamp]
+			 ) 
+		 VALUES 
+			( @CategoryName
+			, @Active
+			, @Deleted
+			, @Locked
+			, @CreatedBy
+			, @CreatedByDateTime
+			, @LastModifiedBy
+			, @LastModifiedByDateTime
+			, @DateTimestamp
+			 ) 
+		 
+		Set @Id= Scope_Identity()
+	End
+ 
+ Select @Id as Id 
+End

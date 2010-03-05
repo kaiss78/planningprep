@@ -1,0 +1,48 @@
+
+
+
+#region File Info/History
+/*
+ * =============================================
+ * Project Name: [Project Name]
+ * Assembly:	   [Assembly Name]
+ * Name:		Product
+ * Purpose: Product entity class 
+ * Language: C# SDK version 3.5
+ * Change History
+ * =============================================
+ * AFS	3/4/2010 11:44:59 PM		Initial Code
+ * =============================================
+ */
+#endregion
+
+using System;
+using System.Collections;
+using App.Core;
+using App.Core.Base.Model;
+using App.Models.Base;
+
+namespace App.Models.Products
+{
+	[Serializable]
+	public class Product : TableLevelAuditEntity
+	{
+		#region Fields
+		#endregion
+
+		#region Properties
+		#endregion
+
+		#region Reference Properties
+		// TODO: Add reference properties here.
+		#endregion
+
+		#region Methods
+		// TODO: Add methods here.
+		#endregion
+
+		#region Override Methods
+		// TODO: Add override methods here.
+		#endregion
+	}
+}

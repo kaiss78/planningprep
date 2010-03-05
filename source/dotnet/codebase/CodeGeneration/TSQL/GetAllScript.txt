@@ -1,0 +1,26 @@
+
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spProductCategoryGetAll]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spProductCategoryGetAll]
+GO
+CREATE PROCEDURE [dbo].[spProductCategoryGetAll] 
+AS
+-- =============================================
+-- Author:		AFS (Pantheon Inc.)
+-- Create date: 3/5/2010 1:00:14 AM
+-- Description: GetAll Into Table ProductCategory
+-- =============================================
+-- spProductCategoryGetAll ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[ProductCategory] tab  WITH(NOLOCK)
+		WHERE tab.[Deleted] = 0 AND tab.[Active] = 1
+		ORDER BY tab.[Id] DESC, isnull(tab.[LastModifiedByDateTime],tab.[CreatedByDateTime]) DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+
