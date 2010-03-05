@@ -1,8 +1,20 @@
-  Alter table dbo.ProductCategory add [Active] [bit] NULL default true,
-	[Deleted] [bit] NULL default false,
-	[Locked] [bit] NULL default false,
+  
+Alter table dbo.[ADD_TABLE_NAME_HERE] add [Active] [bit] NULL ,
+	[Deleted] [bit] NULL ,
+	[Locked] [bit] NULL,
 	[CreatedBy] [varchar](50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[CreatedByDateTime] [datetime] NULL,
 	[LastModifiedBy] [varchar](50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[LastModifiedByDateTime] [datetime] NULL,
 	[DateTimestamp] [datetime] NULL
+
+update dbo.[ADD_TABLE_NAME_HERE]
+set 
+[Deleted] = 0,
+[Locked] = 0,
+[Active] = 1,
+[CreatedBy] = 'Unknown User',
+[CreatedByDateTime] = getdate(),
+[LastModifiedBy] = 'Unknown User',
+[LastModifiedByDateTime] = getdate(),
+[DateTimestamp] = getdate()
