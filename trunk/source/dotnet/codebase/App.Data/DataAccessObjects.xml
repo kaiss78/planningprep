@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<entity-daos>
+  <!-- infrastructure related daos -->
+  <entity name="HistoryData" daoType="App.Data.History.HistoryDataDAO, App.Data" />
+  <entity name="User" daoType="App.Data.Users.UserDAO, App.Data" />
+  <entity name="UserActivity" daoType="App.Data.Users.UserActivityDAO, App.Data" />
+  <entity name="Product" daoType="App.Data.Products.ProductDAO, App.Data" />
+  <entity name="ProductCategory" daoType="App.Data.Products.ProductCategoryDAO, App.Data" />
+  <entity name="Role" daoType="App.Data.Roles.RoleDAO, App.Data" />
+</entity-daos>
