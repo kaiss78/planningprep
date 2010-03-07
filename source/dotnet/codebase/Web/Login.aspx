@@ -19,7 +19,7 @@
                             
                             <div id="divMessage" class="ErrorMessageBox" runat="server" visible="false" enableviewstate="false"></div>
                             
-                            <div style="width:300px; margin:0 auto; margin-top:10px; border:#F7941D 1px solid; padding:0px 10px 10px 10px;">
+                            <div style="width:300px; margin:0 auto; margin-top:10px; border:#F7941D 1px solid; padding:0px 10px 10px 10px; background-color:#FFFFFF;">
                                 <table align="center" border="0" cellpadding="2" cellspacing="0" style="width:300px;">
                                 <tr>
                                     <td align="center" colspan="2" style="height:20px;"><b>User Log In</b></td>
