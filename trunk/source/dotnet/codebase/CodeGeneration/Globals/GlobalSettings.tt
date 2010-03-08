@@ -39,7 +39,7 @@
     
 
     Database database = new Database(new Server("(local)"), "PlanningPrep");
-    string TableName = "tblAnswers";
+    string TableName = "tblExam";
     
     string AuthorName="Shubho";
 	string DefaultNamespace; 
@@ -61,8 +61,6 @@
 	
 	public void InitDB() 
 	{
-		
-		
 		string formattedTableName = TableName;
 		
 		formattedTableName = formattedTableName.Replace("tbl","");

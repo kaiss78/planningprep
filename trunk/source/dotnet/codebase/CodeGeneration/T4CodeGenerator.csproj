@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{22482AAC-9C92-4DDF-97CF-43E81FBC4502}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -49,6 +49,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TSQL\GetAllScript.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetAllScript.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TSQL\GetByIdScript.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetByIdScript.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TSQL\GetByMultipleValuesScript.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetByMultipleValuesScript.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TSQL\SetScript.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetScript.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="DAOs\NewDAO.tt">
@@ -73,19 +93,19 @@
     </None>
     <None Include="TSQL\GetAllScript.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GetAllScript.txt</LastGenOutput>
+      <LastGenOutput>GetAllScript.cs</LastGenOutput>
     </None>
     <None Include="TSQL\GetByIdScript.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GetByIdScript.txt</LastGenOutput>
+      <LastGenOutput>GetByIdScript.cs</LastGenOutput>
     </None>
     <None Include="TSQL\GetByMultipleValuesScript.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GetByMultipleValuesScript.txt</LastGenOutput>
+      <LastGenOutput>GetByMultipleValuesScript.cs</LastGenOutput>
     </None>
     <None Include="TSQL\SetScript.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SetScript.txt</LastGenOutput>
+      <LastGenOutput>SetScript.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -112,31 +132,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NewManager.tt</DependentUpon>
     </Content>
+    <Content Include="TSQL\AllScriptsInSingleFile.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AllScriptsInSingleFile.tt</DependentUpon>
+    </Content>
     <Content Include="TSQL\DeleteScript.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DeleteScript.tt</DependentUpon>
     </Content>
-    <Content Include="TSQL\GetAllScript.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GetAllScript.tt</DependentUpon>
-    </Content>
-    <Content Include="TSQL\GetByIdScript.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GetByIdScript.tt</DependentUpon>
-    </Content>
-    <Content Include="TSQL\GetByMultipleValuesScript.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GetByMultipleValuesScript.tt</DependentUpon>
-    </Content>
-    <Content Include="TSQL\SetScript.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SetScript.tt</DependentUpon>
-    </Content>
+    <None Include="TSQL\AllScriptsInSingleFile.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AllScriptsInSingleFile.txt</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
