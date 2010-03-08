@@ -1,4 +1,6 @@
-﻿<#	InitDB();#>
+﻿
+<#@ include file="../Globals/GlobalSettings.tt" #>
+
 <#@ include file="DeleteScript.tt" #>
 <#@ include file="GetByIdScript.tt" #>
 <#@ include file="GetAllScript.tt" #>
