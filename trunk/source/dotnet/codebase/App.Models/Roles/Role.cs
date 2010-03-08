@@ -14,12 +14,12 @@
 #endregion
 
 using System;
-using App.Models.Base;
+using App.Core.Base.Model;
 
 namespace App.Models.Roles
 {
     [Serializable]
-    public class Role : TableLevelAuditEntity
+    public class Role : BaseEntity
     {
         #region Fields
         #endregion
