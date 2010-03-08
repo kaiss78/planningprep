@@ -28,7 +28,7 @@
         <div class="bodycontaniner">
             <!-- Top Banner Section Starts -->
             <div id="divTopContainer" class="topcontainer">            
-                <img src="/Images/HomepageBanner.jpg" />
+                <img src="/Images/banner.jpg" style="width:100%;height:250px" />
                 <div id="divLogoContainer" class="bannerlogo">PlanningPrep.com</div>
             </div>
             <!-- Top Banner Section Ends -->
