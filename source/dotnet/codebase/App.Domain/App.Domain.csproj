@@ -50,6 +50,9 @@
     <Compile Include="DomainInitializer.cs" />
     <Compile Include="Exams\UserExamManager.cs" />
     <Compile Include="IBusinessObject.cs" />
+    <Compile Include="Questions\QuestionsManager.cs" />
+    <Compile Include="Users\IUsersManager.cs" />
+    <Compile Include="Users\UsersManager.cs" />
     <Compile Include="Users\UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
