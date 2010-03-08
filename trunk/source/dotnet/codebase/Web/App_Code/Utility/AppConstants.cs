@@ -20,6 +20,10 @@ public class AppConstants
     public const string EMPLOYEE_IMAGE_DIRECTORY = "~/EmployeeImages";
     public const string PRODUCT_IMAGE_DIRECTORY = "~/ProductImages";
 
+    public class Pages
+    {
+        public const string EDIT_QUESTION = "/Admin/EditQuestion.aspx";
+    }
     public class ValueOf
     {
         public const string CALENDAR_DATE_FORMAT = "dd/MM/yyyy";
@@ -35,6 +39,13 @@ public class AppConstants
         public const string BOLD_MESSAGE_CLASS = "MessageCommon";
         public const string MESSAGE_BOX_CLASS = "MessageBox";
         public const string ERROR_MESSAGE_BOX_CLASS = "ErrorMessageBox";
+    }
+    #endregion
+
+    #region Query String Params
+    public class QueryString
+    {
+        public const string QUESTION_ID = "QuestionID";
     }
     #endregion
 
