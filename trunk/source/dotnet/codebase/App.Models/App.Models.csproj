@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{CF7856BE-AAC2-46EB-AEB3-3146445CD826}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -59,10 +59,7 @@
     <Compile Include="Strategy\StrategyObject.cs" />
     <Compile Include="Strategy\StrategyObjectFieldAttribute.cs" />
     <Compile Include="Exams\UserExam.cs" />
-    <Compile Include="Users\IMISUserInfo.cs" />
     <Compile Include="Users\PlanningPrepUser.cs" />
-    <Compile Include="Users\User.cs" />
-    <Compile Include="Users\UserActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

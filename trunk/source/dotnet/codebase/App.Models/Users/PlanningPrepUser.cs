@@ -1,202 +1,377 @@
-﻿#region History
+﻿
 
-/* --------------------------------------------------------------------------------
- * Client Name: NQF
- * Project Name: OPLM
- * Module: OPLM.Common
- * Name: User.cs
- * Purpose: User class for "User"
- *                   
- * Author: AFS
- * Language: C# SDK version 2.0
- * --------------------------------------------------------------------------------
- * Change History:
- * version: 1.0    AFS  09/26/09
- * Description: Initial Development
- * -------------------------------------------------------------------------------- */
 
+#region File Info/History
+/*
+ * =============================================
+ * Project Name: [Project Name]
+ * Assembly:	   [Assembly Name]
+ * Name:		Author
+ * Purpose: Author entity class 
+ * Language: C# SDK version 3.5
+ * Change History
+ * =============================================
+ * Shubho	3/8/2010 9:09:57 PM		Initial Code
+ * =============================================
+ */
 #endregion
-
-#region References
 
 using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
-using App.Models.Roles;
+using System.Collections;
+using App.Core;
 using App.Core.Base.Model;
-using App.Core.DB;
-using System.Data;
-using App.Core.Factories;
-
-#endregion
 
 namespace App.Models.Users
 {
-    /// <summary>
-    /// User class for "User"
-    /// </summary>
-    public class AppUser : BaseEntity
+    [Serializable]
+    public class PlanningPrepUser : BaseEntity
     {
-        #region Instance creation
-
-        /// <summary>
-        /// Creates an user from DataReader
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns></returns>
-        public static AppUser CreateBaseUserFromDataReader(IDataReader reader)
-        {
-            AppUser user = EntityFactory.Create<AppUser>();
-
-            user.Id = NullHandler.GetInt32(reader["UserID"]);
-            user.UserName = NullHandler.GetString(reader["UserName"]);
-            user.FirstName = NullHandler.GetString(reader["FirstName"]);
-            user.LastName = NullHandler.GetString(reader["LastName"]);
-            user.Email = NullHandler.GetString(reader["Email"]);
-            user.Title = NullHandler.GetString(reader["Title"]);
-            user.IMISUserId = NullHandler.GetLong(reader["OPLMIMISUserID"]);
-            
-            return user;
-        }
-
-        /// <summary>
-        /// Creates an user from DataReader
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns></returns>
-        public static AppUser CreateFromDataReader(IDataReader reader)
-        {
-            AppUser user = EntityFactory.Create<AppUser>();
-
-            user.Id = NullHandler.GetInt(reader["UserID"]);
-            user.IMISUserId = NullHandler.GetLong(reader["OPLMIMISUserID"]);
-           // user.IMISUserID = NullHandler.GetString(reader["IMISUserID"]);
-            //user.Active = NullHandler.GetBoolean(reader["Active"]);
-            user.Email = NullHandler.GetString(reader["Email"]);
-            user.FirstName = NullHandler.GetString(reader["FirstName"]);
-            user.LastName = NullHandler.GetString(reader["LastName"]);
-            user.IMISMemberType = NullHandler.GetString(reader["MemberType"]);
-            user.Title = NullHandler.GetString(reader["Title"]);
-            user.UserName = NullHandler.GetString(reader["UserName"]);
-          //  user.RoleName = NullHandler.GetString(reader["RoleName"]);
-            user.Id = NullHandler.GetInt(reader["RoleID"]);
-
-            Role role = new Role();
-            IList<Role> roles = new List<Role>();
-           // role.ID = user.RoleID;
-           // role.Name = user.RoleName;
-            roles.Add(role);
-
-            user.UserRoles = roles;
-
-            return user;
-        }
-
+        #region Fields
         #endregion
 
         #region Properties
 
-        public string UserName { get; set; }
-
-
-        //[XmlIgnore]
-        //public CContactUser IMISUser { get; set; }
-
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public long IMISUserId { get; set; }
-
-        public string Email { get; set; }
-
-        public string Title { get; set; }
-
-        public string IMISMemberType { get; set; }
-
         /// <summary>
-        /// Gets or sets the user groups.
+        /// Gets or sets the Author_ID
         /// </summary>
-        /// <value>The user groups.</value>
-        [XmlIgnore]
-        public IList<Role> UserRoles { get; set; }
-
-        #region ********* DEV: MHR ************** IT#4
-
-        public string Organization { get; set; }
-
-        public string PhoneNo { get; set; }
-
-        public string City { get; set; }
-
-        public string State { get; set; }
-
-        public string PrimaryCouncil { get; set; }
-
-        #region ********* DEV: MRZ ************** IT#5
-
-        public string ContactID { get; set; }
-
-        #endregion
-
-        #endregion
-
-        #endregion
-
-        #region ****************DEV: MH ************** Refactor
-        /// <summary>
-        /// Gets if the logged in user is admin
-        /// </summary>
-        public bool IsAdmin
+        /// <value>The Author_ID.</value>
+        public int Author_ID
         {
-            get
-            {                
-                if (UserRoles != null && UserRoles.Count > 0)
-                {
-                    //if (this.UserRoles[0].ID == OPLMConstants.ConfigurationParams.OPLM_ADMIN_ROLE_ID)
-                    //{
-                        return true;
-                    //}
-                }
-                return false;
-            }
+            get;
+            set;
         }
 
         /// <summary>
-        /// Gets if the logged in user is editor
+        /// Gets or sets the Username
         /// </summary>
-        public bool IsEditor
+        /// <value>The Username.</value>
+        public string Username
         {
-            get
-            {
-                if (UserRoles != null && UserRoles.Count > 0)
-                {
-                    //if (this.UserRoles[0].ID == OPLMConstants.ConfigurationParams.OPLM_EDITOR_ROLE_ID)
-                    //{
-                        return true;
-                    //}
-                }
-                return false;                
-            }
+            get;
+            set;
         }
 
         /// <summary>
-        /// Gets if the logged in user is readonly
+        /// Gets or sets the User_code
         /// </summary>
-        public bool IsReadOnly
+        /// <value>The User_code.</value>
+        public string User_code
         {
-            get
-            {
-                if (UserRoles != null && UserRoles.Count > 0)
-                {
-                    //if (this.UserRoles[0].ID == OPLMConstants.ConfigurationParams.OPLM_READONLY_ROLE_ID)
-                    //{
-                        return true;
-                    //}
-                }              
-                return false;
-            }
+            get;
+            set;
         }
+
+        /// <summary>
+        /// Gets or sets the Password
+        /// </summary>
+        /// <value>The Password.</value>
+        public string Password
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Author_email
+        /// </summary>
+        /// <value>The Author_email.</value>
+        public string Author_email
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Show_email
+        /// </summary>
+        /// <value>The Show_email.</value>
+        public bool Show_email
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Homepage
+        /// </summary>
+        /// <value>The Homepage.</value>
+        public string Homepage
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Location
+        /// </summary>
+        /// <value>The Location.</value>
+        public string Location
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Signature
+        /// </summary>
+        /// <value>The Signature.</value>
+        public string Signature
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the No_of_posts
+        /// </summary>
+        /// <value>The No_of_posts.</value>
+        public int No_of_posts
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Join_date
+        /// </summary>
+        /// <value>The Join_date.</value>
+        public DateTime Join_date
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Status
+        /// </summary>
+        /// <value>The Status.</value>
+        public int Status
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Avatar
+        /// </summary>
+        /// <value>The Avatar.</value>
+        public string Avatar
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Surname
+        /// </summary>
+        /// <value>The Surname.</value>
+        public string Surname
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the FirstName
+        /// </summary>
+        /// <value>The FirstName.</value>
+        public string FirstName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Active info
+        /// </summary>
+        /// <value>The Actove.</value>
+        public bool Active
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the LastName
+        /// </summary>
+        /// <value>The LastName.</value>
+        public string LastName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Address
+        /// </summary>
+        /// <value>The Address.</value>
+        public string Address
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the City
+        /// </summary>
+        /// <value>The City.</value>
+        public string City
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the State
+        /// </summary>
+        /// <value>The State.</value>
+        public string State
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the ZIP
+        /// </summary>
+        /// <value>The ZIP.</value>
+        public string ZIP
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the HomePhone
+        /// </summary>
+        /// <value>The HomePhone.</value>
+        public string HomePhone
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the WorkPhone
+        /// </summary>
+        /// <value>The WorkPhone.</value>
+        public string WorkPhone
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Employer
+        /// </summary>
+        /// <value>The Employer.</value>
+        public string Employer
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Title
+        /// </summary>
+        /// <value>The Title.</value>
+        public string Title
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the HowHear
+        /// </summary>
+        /// <value>The HowHear.</value>
+        public string HowHear
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the LastLogin
+        /// </summary>
+        /// <value>The LastLogin.</value>
+        public DateTime LastLogin
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the LoginNumber
+        /// </summary>
+        /// <value>The LoginNumber.</value>
+        public int LoginNumber
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Rights
+        /// </summary>
+        /// <value>The Rights.</value>
+        public string Rights
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Mode
+        /// </summary>
+        /// <value>The Mode.</value>
+        public string Mode
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the YesTermsofAgreement
+        /// </summary>
+        /// <value>The YesTermsofAgreement.</value>
+        public bool YesTermsofAgreement
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the WhenTOA
+        /// </summary>
+        /// <value>The WhenTOA.</value>
+        public DateTime WhenTOA
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Passed
+        /// </summary>
+        /// <value>The Passed.</value>
+        public string Passed
+        {
+            get;
+            set;
+        }
+        #endregion
+
+        #region Reference Properties
+        // TODO: Add reference properties here.
+        #endregion
+
+        #region Methods
+        // TODO: Add methods here.
+        #endregion
+
+        #region Override Methods
+        // TODO: Add override methods here.
         #endregion
     }
 }
