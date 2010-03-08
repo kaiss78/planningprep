@@ -1,0 +1,6 @@
+﻿<#	InitDB();#>
+<#@ include file="DeleteScript.tt" #>
+<#@ include file="GetByIdScript.tt" #>
+<#@ include file="GetAllScript.tt" #>
+<#@ include file="SetScript.tt" #>
+<#@ include file="GetByMultipleValuesScript.tt" #>
