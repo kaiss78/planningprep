@@ -36,6 +36,7 @@ namespace App.Core.Base.Model
         /// Gets or sets the id.
         /// </summary>
         /// <value>The id.</value>
+        [ParameterExclusion]
         public long Id { get; set; }
         /// <summary>
         /// Gets a value indicating whether this instance is new.
@@ -47,23 +48,23 @@ namespace App.Core.Base.Model
         /// Gets or sets a value indicating whether this <see cref="BaseEntity"/> is active.
         /// </summary>
         /// <value><c>true</c> if active; otherwise, <c>false</c>.</value>
-        public bool Active { get; set; }
+        //public bool Active { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="BaseEntity"/> is deleted.
         /// </summary>
         /// <value><c>true</c> if deleted; otherwise, <c>false</c>.</value>
-        public bool Deleted { get; set; }
+        //public bool Deleted { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="BaseEntity"/> is locked.
         /// </summary>
         /// <value><c>true</c> if locked; otherwise, <c>false</c>.</value>
-        public bool Locked { get; set; }
+        //public bool Locked { get; set; }
 
         /// <summary>
         /// Gets or sets the datetime stamp.
         /// </summary>
         /// <value>The datetime stamp.</value>
-        public DateTime DatetimeStamp { get; set; }
+        //public DateTime DatetimeStamp { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is loading.
@@ -71,20 +72,20 @@ namespace App.Core.Base.Model
         /// <value>
         /// 	<c>true</c> if this instance is loading; otherwise, <c>false</c>.
         /// </value>
-        [ParameterExclusion]
-        public bool IsLoading { get; set; }
+        //[ParameterExclusion]
+        //public bool IsLoading { get; set; }
 
         /// <summary>
         /// Cleans the before save.
         /// </summary>
         public virtual void CleanBeforeSave()
         {
-            if(IsNew)
-            {
-                Active = true;
-                Deleted = false;
-                Locked = false;
-            }
+            //if (IsNew)
+            //{
+            //    Active = true;
+            //    Deleted = false;
+            //    Locked = false;
+            //}
         }
     }
 }

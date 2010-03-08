@@ -71,6 +71,15 @@ namespace App.Core.DB
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        public static int GetInt(object data)
+        {
+            return GetInt32(data);
+        }
+        /// <summary>
+        /// Get int representation of an object. If null is found then zero returned else int representation of input parameter is returned
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static long GetLong(object data)
         {
             return ((data == null) || (data == DBNull.Value) || (data.ToString() == string.Empty)) ? 0 : Convert.ToInt64(data);

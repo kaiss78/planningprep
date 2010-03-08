@@ -10,7 +10,7 @@ namespace App.Core.Base.Managers
         T Get(long id);
         T Get(long id, bool eagarLoad);
 
-        IEnumerable<T> GetList();
+        IList<T> GetList();
         bool Delete(T entity);
     }
 }
