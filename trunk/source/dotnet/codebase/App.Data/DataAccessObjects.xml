@@ -7,4 +7,5 @@
   <entity name="Product" daoType="App.Data.Products.ProductDAO, App.Data" />
   <entity name="ProductCategory" daoType="App.Data.Products.ProductCategoryDAO, App.Data" />
   <entity name="Role" daoType="App.Data.Roles.RoleDAO, App.Data" />
+	<entity name="UserExam" daoType="App.Data.UserExams.UserExamDAO, App.Data" />
 </entity-daos>
