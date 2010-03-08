@@ -1,4 +1,4 @@
-namespace Pantheon.Entity.Strategy
+namespace App.Entity.Strategy
 {
     /// <summary>
     /// 

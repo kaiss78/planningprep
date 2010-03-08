@@ -15,7 +15,7 @@ CREATE PROCEDURE [dbo].[spUserExamSet]
 As
 Begin
 -- =============================================
--- Author:		AFS (Pantheon Inc.)
+-- Author:		AFS (SmartAspects Inc.)
 -- Create date: 3/8/2010 11:29:21 AM
 -- Description: Set Into Table tblUserExam
 -- =============================================

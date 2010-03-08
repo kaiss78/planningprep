@@ -7,7 +7,7 @@ GO
 CREATE PROCEDURE [dbo].[spUserExamGetAll] 
 AS
 -- =============================================
--- Author:		AFS (Pantheon Inc.)
+-- Author:		AFS (SmartAspects Inc.)
 -- Create date: 3/8/2010 11:51:35 AM
 -- Description: GetAll Into Table tblUserExam
 -- =============================================
