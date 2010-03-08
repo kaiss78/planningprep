@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\HistoryFieldName.cs" />
-    <Compile Include="Enums\PlaningPrepDbType.cs" />
+    <Compile Include="Enums\AppDbType.cs" />
     <Compile Include="Enums\HistoryDataType.cs" />
     <Compile Include="Enums\ActivityType.cs" />
     <Compile Include="Enums\NomineeFileTypes.cs" />
