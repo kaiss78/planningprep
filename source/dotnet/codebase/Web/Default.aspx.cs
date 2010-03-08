@@ -18,11 +18,6 @@ public partial class _Default : System.Web.UI.Page
     protected UserExamManager examManager = new UserExamManager();
     protected void Page_Load(object sender, EventArgs e)
     {
-        //IList<UserExam> exams = examManager.GetList();
-        //Response.Write(exams.Count);
-        UserExam exam = examManager.Get(6631);
-        examManager.Delete(exam);
-        
         
     }
 }
