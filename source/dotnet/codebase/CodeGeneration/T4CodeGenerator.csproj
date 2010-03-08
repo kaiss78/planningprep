@@ -49,6 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TSQL\DeleteScript.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeleteScript.tt</DependentUpon>
+    </Compile>
     <Compile Include="TSQL\GetAllScript.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -89,7 +94,7 @@
     </None>
     <None Include="TSQL\DeleteScript.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DeleteScript.txt</LastGenOutput>
+      <LastGenOutput>DeleteScript.cs</LastGenOutput>
     </None>
     <None Include="TSQL\GetAllScript.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -136,11 +141,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AllScriptsInSingleFile.tt</DependentUpon>
-    </Content>
-    <Content Include="TSQL\DeleteScript.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DeleteScript.tt</DependentUpon>
     </Content>
     <None Include="TSQL\AllScriptsInSingleFile.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
