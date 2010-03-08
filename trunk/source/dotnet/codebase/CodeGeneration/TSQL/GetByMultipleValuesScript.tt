@@ -3,7 +3,7 @@
 	
 	// Do not change for this script
 	TableSuffix = "GetForUser";	
-	string[] Parameters = new string[] { "StartDate", "EndDate" };
+	string[] Parameters = new string[] { "Username", "Password" };
 	bool FilterByActiveAndDeleted = false;
 
 	WriteLine(string.Format("IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp{0}{1}]') AND type in (N'P', N'PC'))", FormattedBaseTableName,TableSuffix));
