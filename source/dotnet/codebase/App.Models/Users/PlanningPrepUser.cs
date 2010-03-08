@@ -48,13 +48,12 @@ namespace App.Models.Users
         {
             AppUser user = EntityFactory.Create<AppUser>();
 
-            user.Id = NullHandler.GetLong(reader["UserID"]);
+            user.Id = NullHandler.GetInt32(reader["UserID"]);
             user.UserName = NullHandler.GetString(reader["UserName"]);
             user.FirstName = NullHandler.GetString(reader["FirstName"]);
             user.LastName = NullHandler.GetString(reader["LastName"]);
             user.Email = NullHandler.GetString(reader["Email"]);
             user.Title = NullHandler.GetString(reader["Title"]);
-            user.Active = NullHandler.GetBoolean(reader["Active"]);
             user.IMISUserId = NullHandler.GetLong(reader["OPLMIMISUserID"]);
             
             return user;
@@ -69,10 +68,10 @@ namespace App.Models.Users
         {
             AppUser user = EntityFactory.Create<AppUser>();
 
-            user.Id = NullHandler.GetLong(reader["UserID"]);
+            user.Id = NullHandler.GetInt(reader["UserID"]);
             user.IMISUserId = NullHandler.GetLong(reader["OPLMIMISUserID"]);
            // user.IMISUserID = NullHandler.GetString(reader["IMISUserID"]);
-            user.Active = NullHandler.GetBoolean(reader["Active"]);
+            //user.Active = NullHandler.GetBoolean(reader["Active"]);
             user.Email = NullHandler.GetString(reader["Email"]);
             user.FirstName = NullHandler.GetString(reader["FirstName"]);
             user.LastName = NullHandler.GetString(reader["LastName"]);
@@ -80,7 +79,7 @@ namespace App.Models.Users
             user.Title = NullHandler.GetString(reader["Title"]);
             user.UserName = NullHandler.GetString(reader["UserName"]);
           //  user.RoleName = NullHandler.GetString(reader["RoleName"]);
-            user.Id = NullHandler.GetLong(reader["RoleID"]);
+            user.Id = NullHandler.GetInt(reader["RoleID"]);
 
             Role role = new Role();
             IList<Role> roles = new List<Role>();
