@@ -159,6 +159,24 @@ PopIndent();
 WriteLine("}");  
 WriteLine("");  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 WriteLine("/// <summary>");
 WriteLine("/// Gets the list.");
 WriteLine("/// </summary>");
@@ -194,6 +212,41 @@ WriteLine("return "+FormattedBaseTableName+"List;");
 PopIndent(); 
 WriteLine("}");  
 WriteLine(""); 
+
+
+WriteLine("/// <summary>");
+WriteLine("/// Get paginated data");
+WriteLine("/// </summary>");
+WriteLine("/// <param name=\"pageNo\"></param>");
+WriteLine("/// <param name=\"pageLength\"></param>");
+WriteLine("/// <returns></returns>");
+
+WriteLine("public IList<"+FormattedBaseTableName+"> GetPagedList(int pageNo, int pageLength)");
+WriteLine("{");
+PushIndent("\t");
+WriteLine("IList<"+FormattedBaseTableName+"> "+FormattedBaseTableName+"List = new List<"+FormattedBaseTableName+">();");
+WriteLine("try");
+WriteLine("{");
+PushIndent("\t");
+WriteLine("using (I"+FormattedBaseTableName+"DAO dao = (I"+FormattedBaseTableName+"DAO)DAOFactory.Get<"+FormattedBaseTableName+">())");
+WriteLine("{");
+PushIndent("\t");
+WriteLine(""+FormattedBaseTableName+"List = dao.GetPagedList(u => u.Id > 0, pageNo, pageLength);");
+PopIndent(); 
+WriteLine("}"); 
+PopIndent(); 
+WriteLine("}"); 
+WriteLine("catch (Exception ex)");
+WriteLine("{");
+PushIndent("\t");
+WriteLine("ExceptionHelper.HandleException<ManagerException>(ex);");
+PopIndent(); 
+WriteLine("}"); 
+WriteLine("return "+FormattedBaseTableName+"List;");
+PopIndent(); 
+WriteLine("}"); 
+WriteLine(""); 
+
 
 WriteLine("/// <summary>");
 WriteLine("/// Deletes the specified entity.");
