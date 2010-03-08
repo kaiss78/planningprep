@@ -1,19 +1,44 @@
-﻿#region usings
+﻿
+
+
+#region File Info/History
+/*
+ * --------------------------------------------------------------------------------
+ * Project Name: PlanningPrep
+ * Module: App.Data
+ * Name: PlanningPrepUserDAO.cs
+ * Purpose: DAO Class to get/set the data from tblPlanningPrepUser table.
+ * 
+ * PlanningPrepUser: Shubho
+ * Language: C# SDK version 3.5
+ * --------------------------------------------------------------------------------
+ * Change History:
+ * Product					Date					Comments
+ * [Developer Name]		03/08/2010 21:06:19		Initial Development
+ * -------------------------------------------------------------------------------- 
+ */
+#endregion
 
 using System;
+using System.Collections.Generic;
+using System.Data.Common;
 using System.Data;
-using App.Data.Roles;
-using App.Models.Roles;
-using App.Models.Users;
+using App.Models.Enums;
+using App.Core;
 using App.Core.DB;
-using App.Core.Extensions;
+using App.Core.Exceptions;
 using App.Core.Factories;
-
-#endregion
+using System.Security.Principal;
+using App.Models.Users;
 
 namespace App.Data.Users
 {
-    public class UserDAO : BaseDataAccess<User>, IUserDAO
+    public interface IUserDAO : IDataAccess<App.Models.Users.PlanningPrepUser>
+    {
+        PlanningPrepUser GetUserByUserNamePassword(string userName, string password);
+    }
+
+    public class UserDAO : BaseDataAccess<App.Models.Users.PlanningPrepUser>, IUserDAO
     {
         #region Constructor
         public UserDAO()
@@ -27,85 +52,76 @@ namespace App.Data.Users
         #endregion
 
         #region Helper Methods
-        protected override User Map(IDataReader reader)
+        protected override App.Models.Users.PlanningPrepUser Map(IDataReader reader)
         {
-            User entity = EntityFactory.Create<User>();
+            App.Models.Users.PlanningPrepUser entity = EntityFactory.Create<App.Models.Users.PlanningPrepUser>();
 
-            entity.Id = NullHandler.GetLong(reader["Id"]);
-            entity.IMISUserId = NullHandler.GetString(reader["IMISUserId"]);
-            entity.IMISMemberType = NullHandler.GetString(reader["IMISMemberType"]);
-            entity.UserName = NullHandler.GetString(reader["UserName"]);
-            entity.Email = NullHandler.GetString(reader["Email"]);
+            entity.Id = NullHandler.GetInt32(reader["Author_ID"]);
+            entity.Author_ID = NullHandler.GetInt(reader["Author_ID"]);
+            entity.Username = NullHandler.GetString(reader["Username"]);
+            entity.User_code = NullHandler.GetString(reader["User_code"]);
+            entity.Password = NullHandler.GetString(reader["Password"]);
+            entity.Author_email = NullHandler.GetString(reader["Author_email"]);
+            entity.Show_email = NullHandler.GetBoolean(reader["Show_email"]);
+            entity.Homepage = NullHandler.GetString(reader["Homepage"]);
+            entity.Location = NullHandler.GetString(reader["Location"]);
+            entity.Signature = NullHandler.GetString(reader["Signature"]);
+            entity.No_of_posts = NullHandler.GetInt(reader["No_of_posts"]);
+            entity.Join_date = NullHandler.GetDateTime(reader["Join_date"]);
+            entity.Active = NullHandler.GetBoolean(reader["Active"]);
+            entity.Status = NullHandler.GetInt(reader["Status"]);
+            entity.Avatar = NullHandler.GetString(reader["Avatar"]);
+            entity.Surname = NullHandler.GetString(reader["Surname"]);
             entity.FirstName = NullHandler.GetString(reader["FirstName"]);
             entity.LastName = NullHandler.GetString(reader["LastName"]);
-            entity.Title = NullHandler.GetString(reader["Title"]);
-            entity.Organization = NullHandler.GetString(reader["Organization"]);
-            entity.WorkPhone = NullHandler.GetString(reader["WorkPhone"]);
-            entity.HomePhone = NullHandler.GetString(reader["HomePhone"]);
+            entity.Address = NullHandler.GetString(reader["Address"]);
             entity.City = NullHandler.GetString(reader["City"]);
             entity.State = NullHandler.GetString(reader["State"]);
-            entity.PrimaryCouncil = NullHandler.GetString(reader["PrimaryCouncil"]);
-            entity.ContactId = NullHandler.GetString(reader["ContactId"]);
-            entity.RoleId = NullHandler.GetLong(reader["RoleId"]);
+            entity.ZIP = NullHandler.GetString(reader["ZIP"]);
+            entity.HomePhone = NullHandler.GetString(reader["HomePhone"]);
+            entity.WorkPhone = NullHandler.GetString(reader["WorkPhone"]);
+            entity.Employer = NullHandler.GetString(reader["Employer"]);
+            entity.Title = NullHandler.GetString(reader["Title"]);
+            entity.HowHear = NullHandler.GetString(reader["HowHear"]);
+            entity.LastLogin = NullHandler.GetDateTime(reader["LastLogin"]);
+            entity.LoginNumber = NullHandler.GetInt(reader["LoginNumber"]);
+            entity.Rights = NullHandler.GetString(reader["Rights"]);
+            entity.Mode = NullHandler.GetString(reader["Mode"]);
+            entity.YesTermsofAgreement = NullHandler.GetBoolean(reader["YesTermsofAgreement"]);
+            entity.WhenTOA = NullHandler.GetDateTime(reader["WhenTOA"]);
+            entity.Passed = NullHandler.GetString(reader["Passed"]);
 
             return entity;
         }
 
-        protected override void EagerLoad(User entity)
-        {
-            // Add eager loading functionality here
-            using(IRoleDAO dao = (IRoleDAO) DAOFactory.Get<Role>())
-            {
-                entity.Roles = dao.GetAllForUser(entity.Id, true);
-            }
-        }
-
         /// <summary>
-        /// Saves the reference properties before.
+        /// Get User by UserName and password
         /// </summary>
-        /// <param name="entity">The entity.</param>
-        protected override void SaveReferencePropertiesBefore(User entity)
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public PlanningPrepUser GetUserByUserNamePassword(string userName, string password)
         {
-        }
-
-        /// <summary>
-        /// Saves the reference properties after.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        protected override void SaveReferencePropertiesAfter(User entity)
-        {
-            if(entity.Activities.IsNotNull())
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "UserDAO.GetUserByUserNamePassword(string,string)"))
             {
-                using(IUserActivityDAO dao = (IUserActivityDAO) DAOFactory.Get<UserActivity>())
+                try
                 {
-                    dao.SaveAll(entity.Activities);
+                    DbParameter[] parameters = new[] { new DbParameter("userName", DbType.String, userName), new DbParameter("password", DbType.String, password) };
+
+                    return GetInternal("spAuthorGetForUserNamePassword", parameters);
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "UserDAO.GetUserByUserNamePassword(string,string)");
                 }
             }
         }
 
+        protected override void EagerLoad(App.Models.Users.PlanningPrepUser entity)
+        {
+            // Add eager loading functionality here
+        }
         #endregion
-
-        /// <summary>
-        /// Determines whether [is user assigned to project] [the specified user id].
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="projectId">The project id.</param>
-        /// <returns>
-        /// 	<c>true</c> if [is user assigned to project] [the specified user id]; otherwise, <c>false</c>.
-        /// </returns>
-        public bool IsUserAssignedToProject(long userId, long projectId)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Gets the name of the by user.
-        /// </summary>
-        /// <param name="userName">Name of the user.</param>
-        /// <returns></returns>
-        public User GetByUserName(string userName)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
