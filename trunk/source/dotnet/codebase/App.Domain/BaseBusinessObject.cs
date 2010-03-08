@@ -22,7 +22,7 @@ namespace App.BLL
 
         public T Entity { get; private set; }
 
-        public AppUser LoggedInUser { get; set; }
+        public PlanningPrepUser LoggedInUser { get; set; }
 
         public abstract void Save();
 
