@@ -17,32 +17,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Models", "App.Models\Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Domain", "App.Domain\App.Domain.csproj", "{CC96F1B7-3437-46BB-9F33-FA2F8AE95EBC}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Products", "Products\", "{26D8F3CD-D683-42AD-837E-F87DAE86DF65}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFramework = "3.5"
-		ProjectReferences = "{CC96F1B7-3437-46BB-9F33-FA2F8AE95EBC}|App.Domain.dll;{464D54C9-F47E-4333-A31D-B3007506EB9A}|App.Data.dll;{CF7856BE-AAC2-46EB-AEB3-3146445CD826}|App.Models.dll;{1A324B39-2762-4C7F-975E-A3202AAAE3DF}|Pantheon.Core.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/Products"
-		Debug.AspNetCompiler.PhysicalPath = "Products\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Products\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/Products"
-		Release.AspNetCompiler.PhysicalPath = "Products\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Products\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "7817"
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Core", "App.Core\App.Core.csproj", "{1A324B39-2762-4C7F-975E-A3202AAAE3DF}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "planningprep.local.com", "http://planningprep.local.com", "{FD426DB5-3947-49D2-A187-9E26E0056D3D}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFramework = "3.5"
+		ProjectReferences = "{1A324B39-2762-4C7F-975E-A3202AAAE3DF}|App.Core.dll;{464D54C9-F47E-4333-A31D-B3007506EB9A}|App.Data.dll;{CC96F1B7-3437-46BB-9F33-FA2F8AE95EBC}|App.Domain.dll;{CF7856BE-AAC2-46EB-AEB3-3146445CD826}|App.Models.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/planningprep.local.com"
 		Debug.AspNetCompiler.PhysicalPath = "Web\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\planningprep.local.com\"
@@ -106,17 +86,6 @@ Global
 		{CC96F1B7-3437-46BB-9F33-FA2F8AE95EBC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC96F1B7-3437-46BB-9F33-FA2F8AE95EBC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CC96F1B7-3437-46BB-9F33-FA2F8AE95EBC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{26D8F3CD-D683-42AD-837E-F87DAE86DF65}.Debug|.NET.ActiveCfg = Debug|.NET
-		{26D8F3CD-D683-42AD-837E-F87DAE86DF65}.Debug|.NET.Build.0 = Debug|.NET
-		{26D8F3CD-D683-42AD-837E-F87DAE86DF65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26D8F3CD-D683-42AD-837E-F87DAE86DF65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26D8F3CD-D683-42AD-837E-F87DAE86DF65}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{26D8F3CD-D683-42AD-837E-F87DAE86DF65}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{26D8F3CD-D683-42AD-837E-F87DAE86DF65}.Release|.NET.ActiveCfg = Debug|Any CPU
-		{26D8F3CD-D683-42AD-837E-F87DAE86DF65}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{26D8F3CD-D683-42AD-837E-F87DAE86DF65}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{26D8F3CD-D683-42AD-837E-F87DAE86DF65}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{26D8F3CD-D683-42AD-837E-F87DAE86DF65}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{1A324B39-2762-4C7F-975E-A3202AAAE3DF}.Debug|.NET.ActiveCfg = Debug|Any CPU
 		{1A324B39-2762-4C7F-975E-A3202AAAE3DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A324B39-2762-4C7F-975E-A3202AAAE3DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
