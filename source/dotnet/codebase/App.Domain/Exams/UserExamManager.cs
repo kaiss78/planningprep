@@ -11,7 +11,7 @@
  * Language: C# SDK version 3.5
  * Change History
  * =============================================
- * AFS	3/8/2010 11:21:07 AM		Initial Code
+ * Shubho	3/8/2010 4:17:45 PM		Initial Code
  * =============================================
  */
 #endregion
@@ -123,6 +123,29 @@ namespace App.Domain.UserExams
                 using (IUserExamDAO dao = (IUserExamDAO)DAOFactory.Get<UserExam>())
                 {
                     UserExamList = dao.GetAll(u => u.Id > 0);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return UserExamList;
+        }
+
+        /// <summary>
+        /// Get paginated data
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageLength"></param>
+        /// <returns></returns>
+        public IList<UserExam> GetPagedList(int pageNo, int pageLength)
+        {
+            IList<UserExam> UserExamList = new List<UserExam>();
+            try
+            {
+                using (IUserExamDAO dao = (IUserExamDAO)DAOFactory.Get<UserExam>())
+                {
+                    UserExamList = dao.GetPagedList(u => u.Id > 0, pageNo, pageLength);
                 }
             }
             catch (Exception ex)
