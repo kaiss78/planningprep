@@ -24,9 +24,6 @@ using System.Data.Common;
 using System.Linq;
 using System.Security.Principal;
 using Microsoft.Practices.EnterpriseLibrary.Data;
-using App.Data.History;
-using App.Models.Base;
-using App.Models.History;
 using App.Core;
 using App.Core.Base;
 using App.Core.Base.Model;
@@ -568,11 +565,6 @@ namespace App.Data
                 {
                     Check.Require(entity.IsNotNull(), string.Format("Can't save a null {0} entity.", typeof(TEntity).Name));
 
-                    TableLevelAuditEntity auditEntity = entity as TableLevelAuditEntity;
-                    if (auditEntity.IsNotNull())
-                    {
-                        auditEntity.SetTableLevelAuditInfo(CurrentUser.IsNotNull() ? CurrentUser.Identity.Name : null);
-                    }
                     // clean entity object before save
                     entity.CleanBeforeSave();
                     // save any reference properties before save
@@ -591,11 +583,11 @@ namespace App.Data
                     SaveReferencePropertiesAfter(entity);
 
                     // Save history Data
-                    HistoryEntity historyEntity = entity as HistoryEntity;
-                    if (historyEntity.IsNotNull() && historyEntity.IsNotNull())
-                    {
-                        SaveHistoryData(historyEntity.HistoryDataList);
-                    }
+                    //HistoryEntity historyEntity = entity as HistoryEntity;
+                    //if (historyEntity.IsNotNull() && historyEntity.IsNotNull())
+                    //{
+                    //    SaveHistoryData(historyEntity.HistoryDataList);
+                    //}
                 }
                 catch (Exception ex)
                 {
@@ -721,19 +713,19 @@ namespace App.Data
         }
         #endregion
 
-        #region HistoryData Methods
-        /// <summary>
-        /// Saves the history data.
-        /// </summary>
-        /// <param name="historyDataList">The history data list.</param>
-        private static void SaveHistoryData(List<HistoryData> historyDataList)
-        {
-            using(IHistoryDataDAO dao = (IHistoryDataDAO) DAOFactory.Get<HistoryData>())
-            {
-                dao.SaveAll(historyDataList);
-            }
-        }
-        #endregion
+        //#region HistoryData Methods
+        ///// <summary>
+        ///// Saves the history data.
+        ///// </summary>
+        ///// <param name="historyDataList">The history data list.</param>
+        //private static void SaveHistoryData(List<HistoryData> historyDataList)
+        //{
+        //    using(IHistoryDataDAO dao = (IHistoryDataDAO) DAOFactory.Get<HistoryData>())
+        //    {
+        //        dao.SaveAll(historyDataList);
+        //    }
+        //}
+        //#endregion
     }
 }
 
