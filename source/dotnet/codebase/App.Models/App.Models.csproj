@@ -50,6 +50,7 @@
     <Compile Include="Enums\HistoryDataType.cs" />
     <Compile Include="Enums\ActivityType.cs" />
     <Compile Include="Enums\NomineeFileTypes.cs" />
+    <Compile Include="Exams\QuestionForExamType.cs" />
     <Compile Include="IPagedList.cs" />
     <Compile Include="PagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
