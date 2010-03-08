@@ -1,23 +1,23 @@
 
 
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spProductCategoryGetForUser]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[spProductCategoryGetForUser]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spUserExamGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spUserExamGetForUser]
 GO
-CREATE PROCEDURE [dbo].[spProductCategoryGetForUser] 
+CREATE PROCEDURE [dbo].[spUserExamGetForUser] 
 AS
 -- =============================================
 -- Author:		AFS (Pantheon Inc.)
--- Create date: 3/5/2010 1:00:42 AM
--- Description: GetForUser Into Table ProductCategory
+-- Create date: 3/8/2010 11:49:15 AM
+-- Description: GetForUser Into Table tblUserExam
 -- =============================================
--- spProductCategoryGetForUser ...........
+-- sptblUserExamGetForUser ...........
 BEGIN
 		SET NOCOUNT ON;
 
 		SELECT tab.*  
-		FROM [dbo].[ProductCategory] tab  WITH(NOLOCK)
-		ORDER BY tab.[Id] DESC, isnull(tab.[LastModifiedByDateTime],tab.[CreatedByDateTime]) DESC
+		FROM [dbo].[tblUserExam] tab  WITH(NOLOCK)
+		ORDER BY tab.[ExamSessionID] DESC
 
 		SET NOCOUNT OFF;
 END

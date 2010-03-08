@@ -2,7 +2,7 @@
 <#	
 
 
-string BaseTypeName = "TableLevelAuditEntity"; 
+string BaseTypeName = "BaseEntity"; 
 
 InitDB();
 ClassComments(FormattedBaseTableName);
@@ -11,7 +11,6 @@ WriteLine("using System;");
 WriteLine("using System.Collections;");
 WriteLine("using App.Core;");
 WriteLine("using App.Core.Base.Model;");
-WriteLine("using App.Models.Base;");
 WriteLine("");
 WriteLine("namespace {0}", ModelNamespace);
 WriteLine("{");

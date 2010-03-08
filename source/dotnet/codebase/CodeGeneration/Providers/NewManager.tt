@@ -4,6 +4,8 @@
 string BaseTypeName = ""; 
 
 InitDB();
+
+
 ClassComments(FormattedBaseTableName);
 WriteLine("");
 WriteLine("using System;");
@@ -12,7 +14,6 @@ WriteLine("using App.Core;");
 WriteLine("using App.Core.Base.Model;");
 WriteLine("using App.Core.Base.Managers;");
 WriteLine("using App.Core.Base.Managers.Responses;");
-WriteLine("using App.Models.Base;");
 
 WriteLine("using " + DefaultNamespace + ";");
 WriteLine("using "+ ModelNamespace +";");
@@ -162,20 +163,20 @@ WriteLine("/// <summary>");
 WriteLine("/// Gets the list.");
 WriteLine("/// </summary>");
 WriteLine("/// <returns></returns>");
-WriteLine("public override IEnumerable<"+FormattedBaseTableName+"> GetList()");
+WriteLine("public override IList<"+FormattedBaseTableName+"> GetList()");
 WriteLine("{");  
 PushIndent("\t");  
 
 
 
-WriteLine("IEnumerable<"+FormattedBaseTableName+"> "+FormattedBaseTableName+"List = new List<"+FormattedBaseTableName+">();");
+WriteLine("IList<"+FormattedBaseTableName+"> "+FormattedBaseTableName+"List = new List<"+FormattedBaseTableName+">();");
 WriteLine("try");
 WriteLine("{");  
 PushIndent("\t"); 
 WriteLine("using (I"+FormattedBaseTableName+"DAO dao = (I"+FormattedBaseTableName+"DAO)DAOFactory.Get<"+FormattedBaseTableName+">())");
 WriteLine("{");  
 PushIndent("\t"); 
-WriteLine(""+FormattedBaseTableName+"List = dao.GetAll(u => u.Active && !u.Deleted);");
+WriteLine(""+FormattedBaseTableName+"List = dao.GetAll(u => u.Id > 0);");
 PopIndent(); 
 WriteLine("}"); 
 PopIndent(); 
@@ -209,7 +210,7 @@ WriteLine("bool result = false;");
 WriteLine("try");
 WriteLine("{");  
 PushIndent("\t"); 
-WriteLine("using (IProductDAO dao = (IProductDAO)DAOFactory.Get<Product>())");
+WriteLine("using (I"+FormattedBaseTableName+"DAO dao = (I"+FormattedBaseTableName+"DAO)DAOFactory.Get<"+FormattedBaseTableName+">())");
 WriteLine("{");  
 PushIndent("\t"); 
 WriteLine("result = dao.Delete(entity);");

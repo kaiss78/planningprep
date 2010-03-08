@@ -39,7 +39,7 @@
     
 
     Database database = new Database(new Server("(local)"), "PlanningPrep");
-    string TableName = "ProductCategory";
+    string TableName = "tblUserExam";
     
     string AuthorName="AFS";
 	string DefaultNamespace; 
@@ -61,9 +61,17 @@
 	
 	public void InitDB() 
 	{
-		DefaultNamespace = "App.Data." + TableName + "s";
-		ModelNamespace = "App.Models." + TableName + "s";
-		ManagerNamespace = "App.Domain." + TableName + "s";
+		
+		
+		string formattedTableName = TableName;
+		
+		formattedTableName = formattedTableName.Replace("tbl","");
+		formattedTableName = formattedTableName.Replace("_","");
+		formattedTableName = formattedTableName.Replace(" ","");
+		
+		DefaultNamespace = "App.Data." + formattedTableName + "s";
+		ModelNamespace = "App.Models." + formattedTableName + "s";
+		ManagerNamespace = "App.Domain." + formattedTableName + "s";
 		Base_Table = new Table(database, TableName);
 		Base_Table.Refresh();
 		
@@ -79,6 +87,10 @@
 		{
 			FormattedBaseTableName = TableName;
 		}
+		
+		FormattedBaseTableName = FormattedBaseTableName.Replace("tbl","");
+		FormattedBaseTableName = FormattedBaseTableName.Replace("_","");
+		FormattedBaseTableName = FormattedBaseTableName.Replace(" ","");
 		
 		AuditCreateCollection.AddRange(AuditFields);
 		AuditCreateCollection.AddRange(EntityFields);

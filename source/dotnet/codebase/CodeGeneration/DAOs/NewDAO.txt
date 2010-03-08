@@ -6,15 +6,15 @@
  * --------------------------------------------------------------------------------
  * Project Name: PlanningPrep
  * Module: App.Data
- * Name: ProductDAO.cs
- * Purpose: DAO Class to get/set the data from Product table.
+ * Name: UserExamDAO.cs
+ * Purpose: DAO Class to get/set the data from tblUserExam table.
  * 
  * Author: AFS
  * Language: C# SDK version 3.5
  * --------------------------------------------------------------------------------
  * Change History:
  * Product					Date					Comments
- * [Developer Name]		03/04/2010 23:47:21		Initial Development
+ * [Developer Name]		03/08/2010 11:28:26		Initial Development
  * -------------------------------------------------------------------------------- 
  */
 #endregion
@@ -30,47 +30,42 @@ using App.Core.Exceptions;
 using App.Core.Factories;
 using System.Security.Principal;
 
-namespace App.Data.Products 
+namespace App.Data.UserExams 
 {
-	public interface IProductDAO : IDataAccess<App.Models.Products.Product>
+	public interface IUserExamDAO : IDataAccess<App.Models.UserExams.UserExam>
     {
     }
     
-    public class ProductDAO : BaseDataAccess<App.Models.Products.Product>, IProductDAO
+    public class UserExamDAO : BaseDataAccess<App.Models.UserExams.UserExam>, IUserExamDAO
     {
         #region Constructor
-        public ProductDAO()
+        public UserExamDAO()
         {
         }
 
-        public ProductDAO(string connectionString)
+        public UserExamDAO(string connectionString)
             : base(connectionString)
         {
         }
         #endregion
 
         #region Helper Methods
-        protected override App.Models.Products.Product Map(IDataReader reader)
+        protected override App.Models.UserExams.UserExam Map(IDataReader reader)
         {
-            App.Models.Products.Product entity = EntityFactory.Create<App.Models.Products.Product>();
-
-    		entity.Id = NullHandler.GetLong(reader["Id"]);
-    		entity.ProductName = NullHandler.GetString(reader["ProductName"]);
-    		entity.Price = NullHandler.GetDecimal(reader["Price"]);
-    		entity.CategoryId = NullHandler.GetInt(reader["CategoryId"]);
-    		entity.Active = NullHandler.GetBoolean(reader["Active"]);
-    		entity.Deleted = NullHandler.GetBoolean(reader["Deleted"]);
-    		entity.Locked = NullHandler.GetBoolean(reader["Locked"]);
-    		entity.CreatedBy = NullHandler.GetString(reader["CreatedBy"]);
-    		entity.CreatedByDateTime = NullHandler.GetDateTime(reader["CreatedByDateTime"]);
-    		entity.LastModifiedBy = NullHandler.GetString(reader["LastModifiedBy"]);
-    		entity.LastModifiedByDateTime = NullHandler.GetDateTime(reader["LastModifiedByDateTime"]);
-    		entity.DateTimestamp = NullHandler.GetDateTime(reader["DateTimestamp"]);
+            App.Models.UserExams.UserExam entity = EntityFactory.Create<App.Models.UserExams.UserExam>();
+            
+			entity.Id = NullHandler.GetInt32(reader["ExamSessionID"]);
+    		entity.ExamSessionID = NullHandler.GetInt(reader["ExamSessionID"]);
+    		entity.UserID = NullHandler.GetInt(reader["UserID"]);
+    		entity.ExamID = NullHandler.GetInt(reader["ExamID"]);
+    		entity.StartDate = NullHandler.GetDateTime(reader["StartDate"]);
+    		entity.EndDate = NullHandler.GetDateTime(reader["EndDate"]);
+    		entity.TotalTime = NullHandler.GetInt(reader["TotalTime"]);
          
             return entity;
         }
 
-        protected override void EagerLoad(App.Models.Products.Product entity)
+        protected override void EagerLoad(App.Models.UserExams.UserExam entity)
         {
             // Add eager loading functionality here
         }
