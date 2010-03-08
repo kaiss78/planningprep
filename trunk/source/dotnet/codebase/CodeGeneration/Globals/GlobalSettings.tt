@@ -195,7 +195,7 @@
 	public void StoredProcedureComments(string procedureName, string method )
 	{
 		WriteLine("-- =============================================");
-		WriteLine("-- Author:		{0} (Pantheon Inc.)", AuthorName );
+		WriteLine("-- Author:		{0} (SmartAspects Inc.)", AuthorName );
 		WriteLine("-- Create date: {0}", DateTime.Now);
 		WriteLine("-- Description: {0} Into Table {1}", method, procedureName);
 		WriteLine("-- =============================================");

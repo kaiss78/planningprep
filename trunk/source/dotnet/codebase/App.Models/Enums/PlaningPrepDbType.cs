@@ -3,7 +3,7 @@
 namespace App.Models.Enums
 {
     [Flags]
-    public enum PantheonDbType : byte
+    public enum AppDbType : byte
     {
         DbTypeInteger = 1,
         DbTypeLong = 2,

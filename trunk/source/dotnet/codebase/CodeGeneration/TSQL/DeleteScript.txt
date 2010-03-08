@@ -8,7 +8,7 @@ CREATE PROCEDURE [dbo].[spUserExamDelete]
 @Id int
 AS
 -- =============================================
--- Author:		AFS (Pantheon Inc.)
+-- Author:		AFS (SmartAspects Inc.)
 -- Create date: 3/8/2010 12:13:58 PM
 -- Description: Delete Into Table tblUserExam
 -- =============================================
