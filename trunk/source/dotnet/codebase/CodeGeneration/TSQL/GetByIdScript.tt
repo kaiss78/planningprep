@@ -1,10 +1,10 @@
-<#@ include file="../Globals/GlobalSettings.tt" #>
+
 <#	
 	
 	// Do not change for this script
-	string TableSuffix = "GetById";	
+	TableSuffix = "GetById";	
 	
-	InitDB();
+	//InitDB();
 
 	WriteLine(string.Format("IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp{0}{1}]') AND type in (N'P', N'PC'))", FormattedBaseTableName,TableSuffix));
 	WriteLine(string.Format("DROP PROCEDURE [dbo].[sp{0}{1}]", FormattedBaseTableName,TableSuffix));
@@ -24,30 +24,6 @@
 #>
 
 <#+ 
-
-	public void WriteOutProcParameters(Table table)
-	{
-		foreach( Column col in table.Columns )
-		{
-			if(col.InPrimaryKey)
-			{
-				WriteLine("@{0} {1}", "Id", GetDataTypeDeclaration(col.DataType));
-				break;
-			}
-		}
-	}
-	
-	public string GetPrimaryKeyName(Table table)
-	{
-		foreach( Column col in table.Columns )
-		{
-			if(col.InPrimaryKey)
-			{
-				return col.Name;
-			}
-		}
-		return string.Empty;
-	}
 	
 	public void BaseTableGets(Table table)
 	{
@@ -57,24 +33,9 @@
 		WriteLine("SELECT tab.*  ");		
 		WriteLine("FROM {0}[{1}] tab WITH(NOLOCK)" ,dbSchemaOwner ,table.Name );
 		WriteLine("WHERE tab.[" + GetPrimaryKeyName(table) + "]=@Id");
-		WriteLine("ORDER BY tab.[" + GetPrimaryKeyName(table) + "] DESC");
 		WriteLine("");
 		WriteLine("SET NOCOUNT OFF;");
 		PopIndent();
 	}
 	
-	public void SetWhereColumns(Table prmTable)
-	{
-		PopIndent();
-		bool firstcol = true;
-		
-		foreach( Column column in prmTable.Columns )
-		{
-			if (column.Name =="Id")
-			{
-				WriteLine("{0}[{2}]= @{1}",firstcol?" Where ":", ", column.Name,column.Name );
-				firstcol=false;
-			}
-		}
-	}
  #>

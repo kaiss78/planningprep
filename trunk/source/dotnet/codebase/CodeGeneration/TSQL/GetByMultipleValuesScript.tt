@@ -1,12 +1,10 @@
-<#@ include file="../Globals/GlobalSettings.tt" #>
+
 <#	
 	
 	// Do not change for this script
-	string TableSuffix = "GetForUser";	
-	string[] Parameters = new string[] { "UserId", "RoleId" };
+	TableSuffix = "GetForUser";	
+	string[] Parameters = new string[] { "StartDate", "EndDate" };
 	bool FilterByActiveAndDeleted = false;
-	
-	InitDB();
 
 	WriteLine(string.Format("IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp{0}{1}]') AND type in (N'P', N'PC'))", FormattedBaseTableName,TableSuffix));
 	WriteLine(string.Format("DROP PROCEDURE [dbo].[sp{0}{1}]", FormattedBaseTableName,TableSuffix));
@@ -20,6 +18,7 @@
 	WriteLine("BEGIN");
 	PushIndent("\t");
 	BaseTableGets(Base_Table, Parameters, FilterByActiveAndDeleted);
+	
 	PopIndent();
 	WriteLine("END");
 	WriteLine("GO");
@@ -27,18 +26,6 @@
 
 <#+ 
 
-	public string GetPrimaryKeyName(Table table)
-	{
-		foreach( Column col in table.Columns )
-		{
-			if(col.InPrimaryKey)
-			{
-				return col.Name;
-			}
-		}
-		return string.Empty;
-	}
-	
 	public void WriteOutProcParameters(Table table, string[] Parameters)
 	{
 		bool firstcol = true;
@@ -85,6 +72,6 @@
 				}
 			}
 		}
-		//PopIndent();
+		PopIndent();
 	}
  #>
