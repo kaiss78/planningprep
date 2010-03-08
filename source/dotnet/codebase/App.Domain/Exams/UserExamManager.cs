@@ -28,6 +28,8 @@ using System.Collections.Generic;
 using System.Transactions;
 using App.Data;
 using App.Core.Exceptions;
+using App.Models.Exams;
+using App.Data.Exams;
 
 namespace App.Domain.UserExams
 {
@@ -176,6 +178,32 @@ namespace App.Domain.UserExams
             }
             return result;
         }
+        #endregion
+
+        #region Other Methods
+
+        /// <summary>
+        /// Get question list for exam type
+        /// </summary>
+        /// <param name="examType"></param>
+        /// <returns></returns>
+        public IList<QuestionForExamType> GetQuestionsForExamType(int examType)
+        {
+            IList<QuestionForExamType> UserExamList = new List<QuestionForExamType>();
+            try
+            {
+                using (IQuestionForExamTypeDAO dao = (IQuestionForExamTypeDAO)DAOFactory.Get<QuestionForExamType>())
+                {
+                    UserExamList = dao.GetQuestionsForExamType(examType);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return UserExamList;
+        }
+
         #endregion
     }
 }
