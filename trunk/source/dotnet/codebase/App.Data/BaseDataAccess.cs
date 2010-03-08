@@ -474,7 +474,7 @@ namespace App.Data
 
                     DbParameter[] parameters = new[] { new DbParameter("Id", DbType.Int64, id) };
 
-                    entity = GetInternal("sp" + typeof(TEntity).Name + "GetById", parameters, eagerLoad);
+                    entity = GetInternal("sp" + GetEntityMappedNameForSP(typeof(TEntity).Name) + "GetById", parameters, eagerLoad);
                 }
                 catch (Exception ex)
                 {
@@ -533,7 +533,7 @@ namespace App.Data
                 List<TEntity> entities = new List<TEntity>();
                 try
                 {
-                    entities = GetAllInternal("sp" + typeof(TEntity).Name + "GetAll", eagerLoad);
+                    entities = GetAllInternal("sp" + GetEntityMappedNameForSP(typeof(TEntity).Name) + "GetAll", eagerLoad);
                 }
                 catch (Exception ex)
                 {
@@ -553,6 +553,21 @@ namespace App.Data
         {
             return GetAll(query, false).Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
+
+        /// <summary>
+        /// Maps Entity name to build SP name
+        /// </summary>
+        /// <param name="entityName"></param>
+        /// <returns></returns>
+        private string GetEntityMappedNameForSP(string entityName)
+        {
+            if (entityName == "PlanningPrepUser")
+            {
+                return "Author";
+            }
+            return entityName;
+        }
+
         /// <summary>
         /// Saves the specified entity.
         /// </summary>
@@ -572,7 +587,7 @@ namespace App.Data
                     // Create parmaters automatically
                     IEnumerable<DbParameter> parameters = AutoCreateParametersFromEntityMetadata(entity);
                     // Save
-                    object returnValue = SaveInternal("sp" + typeof(TEntity).Name + "Set", parameters);
+                    object returnValue = SaveInternal("sp" + GetEntityMappedNameForSP(typeof(TEntity).Name) + "Set", parameters);
                     // If new, set enity object Id
                     if (entity.IsNew && returnValue.IsNumeric())
                     {
