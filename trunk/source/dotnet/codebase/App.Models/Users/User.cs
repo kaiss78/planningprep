@@ -16,14 +16,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using App.Models.Base;
 using App.Models.Roles;
 using App.Core.DB;
+using App.Core.Base.Model;
 
 namespace App.Models.Users
 {
     [Serializable]
-    public class User : TableLevelAuditEntity
+    public class User :BaseEntity
     {
         #region Properties
 
