@@ -47,14 +47,6 @@ namespace App.Data.Users
             entity.PrimaryCouncil = NullHandler.GetString(reader["PrimaryCouncil"]);
             entity.ContactId = NullHandler.GetString(reader["ContactId"]);
             entity.RoleId = NullHandler.GetLong(reader["RoleId"]);
-            entity.Active = NullHandler.GetBoolean(reader["Active"]);
-            entity.Deleted = NullHandler.GetBoolean(reader["Deleted"]);
-            entity.Locked = NullHandler.GetBoolean(reader["Locked"]);
-            entity.CreatedBy = NullHandler.GetString(reader["CreatedBy"]);
-            entity.CreatedByDateTime = NullHandler.GetDateTime(reader["CreatedByDateTime"]);
-            entity.LastModifiedBy = NullHandler.GetString(reader["LastModifiedBy"]);
-            entity.LastModifiedByDateTime = NullHandler.GetDateTime(reader["LastModifiedByDateTime"]);
-            entity.DatetimeStamp = NullHandler.GetDateTime(reader["DatetimeStamp"]);
 
             return entity;
         }

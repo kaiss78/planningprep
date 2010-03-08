@@ -165,14 +165,6 @@ namespace App.Data.Roles
             entity.IsAdmin = NullHandler.GetBoolean(reader["IsAdmin"]);
             entity.IsEditor = NullHandler.GetBoolean(reader["IsEditor"]);
             entity.IsReadOnly = NullHandler.GetBoolean(reader["IsReadOnly"]);
-            entity.Active = NullHandler.GetBoolean(reader["Active"]);
-            entity.Deleted = NullHandler.GetBoolean(reader["Deleted"]);
-            entity.Locked = NullHandler.GetBoolean(reader["Locked"]);
-            entity.CreatedBy = NullHandler.GetString(reader["CreatedBy"]);
-            entity.CreatedByDateTime = NullHandler.GetDateTime(reader["CreatedByDateTime"]);
-            entity.LastModifiedBy = NullHandler.GetString(reader["LastModifiedBy"]);
-            entity.LastModifiedByDateTime = NullHandler.GetDateTime(reader["LastModifiedByDateTime"]);
-            entity.DatetimeStamp = NullHandler.GetDateTime(reader["DatetimeStamp"]);
 
             return entity;
         }
