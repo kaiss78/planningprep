@@ -104,10 +104,6 @@ namespace App.Data.Users
             entity.Browser = NullHandler.GetString(reader["Browser"]);
             entity.ShortMessage = NullHandler.GetString(reader["ShortMessage"]);
             entity.LongMessage = NullHandler.GetString(reader["LongMessage"]);
-            entity.Active = NullHandler.GetBoolean(reader["Active"]);
-            entity.Deleted = NullHandler.GetBoolean(reader["Deleted"]);
-            entity.Locked = NullHandler.GetBoolean(reader["Locked"]);
-            entity.DatetimeStamp = NullHandler.GetDateTime(reader["DatetimeStamp"]);
 
             return entity;
         }
