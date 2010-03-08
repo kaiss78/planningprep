@@ -10,9 +10,12 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using App.Domain.Users;
+using App.Models.Users;
 
 public partial class Login : System.Web.UI.Page
 {
+    protected UserManager userManager = new UserManager();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -22,5 +25,16 @@ public partial class Login : System.Web.UI.Page
     {
         HtmlGenericControl divMessage = Login1.FindControl("divMessage") as HtmlGenericControl;
         AppUtil.ShowMessageBox(divMessage, "Your login attempt was not successful. Please try again.", true);
+    }
+    protected void LoginButton_Click(object sender, EventArgs e)
+    {
+        string userName = Login1.UserName;
+        string password = Login1.Password;
+
+        PlanningPrepUser user = userManager.GetUserByUserNamePassword(userName, password);
+        if (user != null)
+        {
+            FormsAuthenticationUtil.RedirectFromLoginPage(userName, "", Login1.RememberMeSet);
+        }
     }
 }
