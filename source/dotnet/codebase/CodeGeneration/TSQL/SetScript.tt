@@ -1,7 +1,6 @@
-<#@ include file="../Globals/GlobalSettings.tt" #>
+
 <#
 
-	InitDB();
 	NoOfColumns=0;
 	WriteLine(string.Format("IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp{0}Set]') AND type in (N'P', N'PC'))", FormattedBaseTableName));
 	WriteLine(string.Format("DROP PROCEDURE [dbo].[sp{0}Set]", FormattedBaseTableName));
@@ -58,6 +57,7 @@
 	ReturnPrimaryKeyValue(Base_Table);
 	PopIndent();
 WriteLine("End");
+WriteLine("GO");
 #>
 <#+ 
 	public void CreateInserts(Table prmTable)
@@ -103,7 +103,7 @@ WriteLine("End");
 		WriteLine("Update {0}[{1}]" ,dbSchemaOwner ,prmTable.Name );
 		PushIndent("\t");
 		SetUpdateFieldColumns(prmTable,"[","]");
-		SetWhereColumns(prmTable);
+		SetWhereColumnsForInsert(prmTable);
 		PopIndent();
 		PopIndent();
 	}
@@ -190,7 +190,7 @@ WriteLine("End");
 		}
 	}
 	
-	public void SetWhereColumns( Table prmTable )
+	public void SetWhereColumnsForInsert( Table prmTable )
 	{
 		PopIndent();
 		bool firstcol = true;
