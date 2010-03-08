@@ -39,9 +39,9 @@
     
 
     Database database = new Database(new Server("(local)"), "PlanningPrep");
-    string TableName = "tblUserExam";
+    string TableName = "tblAnswers";
     
-    string AuthorName="AFS";
+    string AuthorName="Shubho";
 	string DefaultNamespace; 
 	string ModelNamespace; 
 	string ManagerNamespace;
