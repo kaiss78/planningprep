@@ -39,7 +39,7 @@
     
 
     Database database = new Database(new Server("(local)"), "PlanningPrep");
-    string TableName = "tblExam";
+    string TableName = "tblUserExam";
     
     string AuthorName="Shubho";
 	string DefaultNamespace; 
