@@ -11,7 +11,7 @@ namespace App.Core.Base.Managers
         public abstract void SaveOrUpdate(T entity);
         public abstract T Get(long id);
         public abstract T Get(long id, bool eagarLoad);
-        public abstract IEnumerable<T> GetList();
+        public abstract IList<T> GetList();
         public abstract bool Delete(T entity);
 
         public IPrincipal CurrentUser { get; set; }
