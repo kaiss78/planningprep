@@ -27,6 +27,18 @@
 
 <#+ 
 
+	public string GetPrimaryKeyName(Table table)
+	{
+		foreach( Column col in table.Columns )
+		{
+			if(col.InPrimaryKey)
+			{
+				return col.Name;
+			}
+		}
+		return string.Empty;
+	}
+	
 	public void WriteOutProcParameters(Table table, string[] Parameters)
 	{
 		bool firstcol = true;
@@ -51,11 +63,8 @@
 		WriteLine("SELECT tab.*  ");		
 		WriteLine("FROM {0}[{1}] tab  WITH(NOLOCK)" ,dbSchemaOwner ,table.Name );
 		SetWhereColumns(table, Parameters);
-		if (FilterByActiveAndDeleted)
-		{
-			WriteLine("  AND tab.[Deleted] = 0 AND tab.[Active] = 1");
-		}
-		WriteLine("ORDER BY tab.[Id] DESC, isnull(tab.[LastModifiedByDateTime],tab.[CreatedByDateTime]) DESC");
+		
+		WriteLine("ORDER BY tab.[" + GetPrimaryKeyName(table) + "] DESC");
 		WriteLine("");
 		WriteLine("SET NOCOUNT OFF;");
 		PopIndent();

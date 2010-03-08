@@ -25,6 +25,18 @@
 
 <#+ 
 
+	public string GetPrimaryKeyName(Table table)
+	{
+		foreach( Column col in table.Columns )
+		{
+			if(col.InPrimaryKey)
+			{
+				return col.Name;
+			}
+		}
+		return string.Empty;
+	}
+	
 	public void WriteOutProcParameters(Table table)
 	{
 		//foreach( Column col in table.Columns )
@@ -44,8 +56,7 @@
 		WriteLine("");
 		WriteLine("SELECT tab.*  ");		
 		WriteLine("FROM {0}[{1}] tab  WITH(NOLOCK)" ,dbSchemaOwner ,table.Name );
-		WriteLine("WHERE tab.[Deleted] = 0 AND tab.[Active] = 1");
-		WriteLine("ORDER BY tab.[Id] DESC, isnull(tab.[LastModifiedByDateTime],tab.[CreatedByDateTime]) DESC");
+		WriteLine("ORDER BY tab.[" + GetPrimaryKeyName(table) + "] DESC");
 		WriteLine("");
 		WriteLine("SET NOCOUNT OFF;");
 		PopIndent();
@@ -58,7 +69,7 @@
 		
 		foreach( Column column in prmTable.Columns )
 		{
-			if (column.Name =="Id")
+			if (column.Name =="" + GetPrimaryKeyName(prmTable) + "")
 			{
 				WriteLine("{0}[{2}]= @{1}",firstcol?" Where ":", ", column.Name,column.Name );
 				firstcol=false;

@@ -6,12 +6,12 @@
  * =============================================
  * Project Name: [Project Name]
  * Assembly:	   [Assembly Name]
- * Name:		Product
- * Purpose: Product entity class 
+ * Name:		UserExam
+ * Purpose: UserExam entity class 
  * Language: C# SDK version 3.5
  * Change History
  * =============================================
- * AFS	3/5/2010 12:49:01 AM		Initial Code
+ * AFS	3/8/2010 11:21:07 AM		Initial Code
  * =============================================
  */
 #endregion
@@ -22,22 +22,21 @@ using App.Core;
 using App.Core.Base.Model;
 using App.Core.Base.Managers;
 using App.Core.Base.Managers.Responses;
-using App.Models.Base;
-using App.Data.Products;
-using App.Models.Products;
+using App.Data.UserExams;
+using App.Models.UserExams;
 using System.Collections.Generic;
 using System.Transactions;
 using App.Data;
 using App.Core.Exceptions;
 
-namespace App.Domain.Products
+namespace App.Domain.UserExams
 {
-	public interface IProductManager : IManagerBase<App.Models.Products.Product>
+	public interface IUserExamManager : IManagerBase<App.Models.UserExams.UserExam>
 	{}
 
-	public class ProductManager : ManagerBase<App.Models.Products.Product>, IProductManager
+	public class UserExamManager : ManagerBase<App.Models.UserExams.UserExam>, IUserExamManager
 	{
-		public ProductManager()
+		public UserExamManager()
 		{}
 
 		#region CRUD Methods
@@ -45,15 +44,15 @@ namespace App.Domain.Products
 		/// Saves or Updates the entity in the database
 		/// </summary>
 		/// <param name="entity"></param>
-		public override void SaveOrUpdate(App.Models.Products.Product entity)
+		public override void SaveOrUpdate(App.Models.UserExams.UserExam entity)
 		{
-			using (new TimedTraceLog(GetType().Name + "SaveOrUpdate(Product)", ""))
+			using (new TimedTraceLog(GetType().Name + "SaveOrUpdate(UserExam)", ""))
 			{
 				try
 				{
 					using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromSeconds(60)))
 					{
-						using (IProductDAO dao = (IProductDAO)DAOFactory.Get<Product>())
+						using (IUserExamDAO dao = (IUserExamDAO)DAOFactory.Get<UserExam>())
 						{
 							dao.Save(entity);
 						}
@@ -62,7 +61,7 @@ namespace App.Domain.Products
 				}
 				catch (Exception ex)
 				{
-					ExceptionHelper.HandleException<ManagerException>(ex, "ProductDAO.SaveOrUpdate(Product)");
+					ExceptionHelper.HandleException<ManagerException>(ex, "UserExamDAO.SaveOrUpdate(UserExam)");
 				}
 			}
 		}
@@ -72,21 +71,21 @@ namespace App.Domain.Products
 		/// </summary>
 		/// <param name="id">The id.</param>
 		/// <returns></returns>
-		public override Product Get(long id)
+		public override UserExam Get(long id)
 		{
-			Product Product = null;
+			UserExam UserExam = null;
 			try
 			{
-				using (IProductDAO dao = (IProductDAO)DAOFactory.Get<Product>())
+				using (IUserExamDAO dao = (IUserExamDAO)DAOFactory.Get<UserExam>())
 				{
-					Product = dao.Get(id, true);
+					UserExam = dao.Get(id, true);
 				}
 			}
 			catch (Exception ex)
 			{
 				ExceptionHelper.HandleException<ManagerException>(ex);
 			}
-			return Product;
+			return UserExam;
 		}
 
 		/// <summary>
@@ -95,42 +94,42 @@ namespace App.Domain.Products
 		/// <param name="id">The id.</param>
 		/// <param name="eagerLoad">if set to <c>true</c> [eager load].</param>
 		/// <returns></returns>
-		public override Product Get(long id, bool eagerLoad)
+		public override UserExam Get(long id, bool eagerLoad)
 		{
-			Product Product = null;
+			UserExam UserExam = null;
 			try
 			{
-				using (IProductDAO dao = (IProductDAO)DAOFactory.Get<Product>())
+				using (IUserExamDAO dao = (IUserExamDAO)DAOFactory.Get<UserExam>())
 				{
-					Product = dao.Get(id, eagerLoad);
+					UserExam = dao.Get(id, eagerLoad);
 				}
 			}
 			catch (Exception ex)
 			{
 				ExceptionHelper.HandleException<ManagerException>(ex);
 			}
-			return Product;
+			return UserExam;
 		}
 
 		/// <summary>
 		/// Gets the list.
 		/// </summary>
 		/// <returns></returns>
-		public override IEnumerable<Product> GetList()
+		public override IList<UserExam> GetList()
 		{
-			IEnumerable<Product> ProductList = new List<Product>();
+			IList<UserExam> UserExamList = new List<UserExam>();
 			try
 			{
-				using (IProductDAO dao = (IProductDAO)DAOFactory.Get<Product>())
+				using (IUserExamDAO dao = (IUserExamDAO)DAOFactory.Get<UserExam>())
 				{
-					ProductList = dao.GetAll(u => u.Active && !u.Deleted);
+					UserExamList = dao.GetAll(u => u.Id > 0);
 				}
 			}
 			catch (Exception ex)
 			{
 				ExceptionHelper.HandleException<ManagerException>(ex);
 			}
-			return ProductList;
+			return UserExamList;
 		}
 
 		/// <summary>
@@ -138,12 +137,12 @@ namespace App.Domain.Products
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <returns></returns>
-		public override bool Delete(App.Models.Products.Product entity)
+		public override bool Delete(App.Models.UserExams.UserExam entity)
 		{
 			bool result = false;
 			try
 			{
-				using (IProductDAO dao = (IProductDAO)DAOFactory.Get<Product>())
+				using (IUserExamDAO dao = (IUserExamDAO)DAOFactory.Get<UserExam>())
 				{
 					result = dao.Delete(entity);
 				}

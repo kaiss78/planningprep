@@ -1,23 +1,22 @@
 
 
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spProductCategoryDelete]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[spProductCategoryDelete]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spUserExamDelete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spUserExamDelete]
 GO
-CREATE PROCEDURE [dbo].[spProductCategoryDelete] 
+CREATE PROCEDURE [dbo].[spUserExamDelete] 
 @Id int
 AS
 -- =============================================
 -- Author:		AFS (Pantheon Inc.)
--- Create date: 3/5/2010 12:59:56 AM
--- Description: Delete Into Table ProductCategory
+-- Create date: 3/8/2010 12:13:58 PM
+-- Description: Delete Into Table tblUserExam
 -- =============================================
--- spProductCategoryDelete ...........
+-- sptblUserExamDelete ...........
 BEGIN
 
-		DELETE FROM ProductCategory
-		WHERE [Id]=@ID 
-		  AND [Locked] = 0
+		DELETE FROM tblUserExam
+		WHERE [ExamSessionID]=@Id
 
 END
 GO

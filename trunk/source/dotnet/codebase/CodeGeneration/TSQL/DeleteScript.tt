@@ -24,13 +24,25 @@
 
 <#+ 
 
+	public string GetPrimaryKeyName(Table table)
+	{
+		foreach( Column col in table.Columns )
+		{
+			if(col.InPrimaryKey)
+			{
+				return col.Name;
+			}
+		}
+		return string.Empty;
+	}
+	
 	public void WriteOutProcParameters(Table table)
 	{
 		foreach( Column col in table.Columns )
 		{
 			if(col.InPrimaryKey)
 			{
-				WriteLine("@{0} {1}", col.Name, GetDataTypeDeclaration(col.DataType));
+				WriteLine("@{0} {1}", "Id", GetDataTypeDeclaration(col.DataType));
 				break;
 			}
 		}
@@ -41,8 +53,7 @@
 		PushIndent("\t");
 		WriteLine("");
 		WriteLine("DELETE FROM " + table.Name);		
-		WriteLine("WHERE [Id]=@ID ");
-		WriteLine("  AND [Locked] = 0");
+		WriteLine("WHERE [" + GetPrimaryKeyName(table) + "]=@Id");
 		WriteLine("");
 		PopIndent();
 	}

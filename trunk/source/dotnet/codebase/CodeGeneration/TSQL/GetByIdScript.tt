@@ -31,10 +31,22 @@
 		{
 			if(col.InPrimaryKey)
 			{
-				WriteLine("@{0} {1}", col.Name, GetDataTypeDeclaration(col.DataType));
+				WriteLine("@{0} {1}", "Id", GetDataTypeDeclaration(col.DataType));
 				break;
 			}
 		}
+	}
+	
+	public string GetPrimaryKeyName(Table table)
+	{
+		foreach( Column col in table.Columns )
+		{
+			if(col.InPrimaryKey)
+			{
+				return col.Name;
+			}
+		}
+		return string.Empty;
 	}
 	
 	public void BaseTableGets(Table table)
@@ -44,9 +56,8 @@
 		WriteLine("");
 		WriteLine("SELECT tab.*  ");		
 		WriteLine("FROM {0}[{1}] tab WITH(NOLOCK)" ,dbSchemaOwner ,table.Name );
-		WriteLine("WHERE tab.[Id]=@ID ");
-		WriteLine("  AND tab.[Deleted] = 0");
-		WriteLine("ORDER BY tab.[Id] DESC, isnull(tab.[LastModifiedByDateTime],tab.[CreatedByDateTime]) DESC");
+		WriteLine("WHERE tab.[" + GetPrimaryKeyName(table) + "]=@Id");
+		WriteLine("ORDER BY tab.[" + GetPrimaryKeyName(table) + "] DESC");
 		WriteLine("");
 		WriteLine("SET NOCOUNT OFF;");
 		PopIndent();

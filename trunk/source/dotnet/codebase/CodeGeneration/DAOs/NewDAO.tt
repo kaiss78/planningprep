@@ -57,7 +57,8 @@ namespace <#= string.Format("{0}", DefaultNamespace) #>
         protected override <#= ModelNamespace #>.<#= FormattedBaseTableName #> Map(IDataReader reader)
         {
             <#= ModelNamespace #>.<#= FormattedBaseTableName #> entity = EntityFactory.Create<<#= ModelNamespace #>.<#= FormattedBaseTableName #>>();
-
+            
+			entity.Id = NullHandler.GetInt32(reader["<#= Base_Table.Columns[0].Name #>"]);
     <# 
 	foreach( Column column in Base_Table.Columns )
 	{

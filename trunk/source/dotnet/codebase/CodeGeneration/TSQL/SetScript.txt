@@ -1,71 +1,55 @@
 
 
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spProductCategorySet]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[spProductCategorySet]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spUserExamSet]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spUserExamSet]
 GO
-CREATE PROCEDURE [dbo].[spProductCategorySet] 
-	 @Id int
-	, @CategoryName varchar(50) 
-	, @Active bit
-	, @Deleted bit
-	, @Locked bit
-	, @CreatedBy varchar(50) 
-	, @CreatedByDateTime datetime
-	, @LastModifiedBy varchar(50) 
-	, @LastModifiedByDateTime datetime
-	, @DateTimestamp datetime
+CREATE PROCEDURE [dbo].[spUserExamSet] 
+	 @ExamSessionID int
+	, @UserID int
+	, @ExamID int
+	, @StartDate datetime
+	, @EndDate datetime
+	, @TotalTime int
 
 As
 Begin
 -- =============================================
 -- Author:		AFS (Pantheon Inc.)
--- Create date: 3/5/2010 1:00:56 AM
--- Description: Set Into Table ProductCategory
+-- Create date: 3/8/2010 11:29:21 AM
+-- Description: Set Into Table tblUserExam
 -- =============================================
--- spProductCategorySet ...........
-		IF (@Id >0)
+-- sptblUserExamSet ...........
+		IF (@ExamSessionID >0)
 		Begin
-			Update [dbo].[ProductCategory]
-				 Set [CategoryName]= @CategoryName
-				, [Active]= @Active
-				, [Deleted]= @Deleted
-				, [Locked]= @Locked
-				, [CreatedBy]= @CreatedBy
-				, [CreatedByDateTime]= @CreatedByDateTime
-				, [LastModifiedBy]= @LastModifiedBy
-				, [LastModifiedByDateTime]= @LastModifiedByDateTime
-				, [DateTimestamp]= @DateTimestamp
+			Update [dbo].[tblUserExam]
+				 Set [UserID]= @UserID
+				, [ExamID]= @ExamID
+				, [StartDate]= @StartDate
+				, [EndDate]= @EndDate
+				, [TotalTime]= @TotalTime
 				 
-			 Where [Id]= @Id
+			 Where [ExamSessionID]= @ExamSessionID
 	End
 	Else
 	Begin
-		Insert Into [dbo].[ProductCategory]
-			( [CategoryName]
-			, [Active]
-			, [Deleted]
-			, [Locked]
-			, [CreatedBy]
-			, [CreatedByDateTime]
-			, [LastModifiedBy]
-			, [LastModifiedByDateTime]
-			, [DateTimestamp]
+		Insert Into [dbo].[tblUserExam]
+			( [UserID]
+			, [ExamID]
+			, [StartDate]
+			, [EndDate]
+			, [TotalTime]
 			 ) 
 		 VALUES 
-			( @CategoryName
-			, @Active
-			, @Deleted
-			, @Locked
-			, @CreatedBy
-			, @CreatedByDateTime
-			, @LastModifiedBy
-			, @LastModifiedByDateTime
-			, @DateTimestamp
+			( @UserID
+			, @ExamID
+			, @StartDate
+			, @EndDate
+			, @TotalTime
 			 ) 
 		 
-		Set @Id= Scope_Identity()
+		Set @ExamSessionID= Scope_Identity()
 	End
  
- Select @Id as Id 
+ Select @ExamSessionID as ExamSessionID 
 End
