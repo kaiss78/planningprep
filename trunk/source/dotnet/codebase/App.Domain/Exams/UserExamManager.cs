@@ -233,18 +233,18 @@ namespace App.Domain.UserExams
 
 
         /// <summary>
-        /// Get Exam sessions for an exam type
+        /// Get Exam sessions for an exam type and UserID
         /// </summary>
         /// <param name="examType"></param>
         /// <returns></returns>
-        public IList<UserExam> GetUserExamByExam(int ExamID)
+        public IList<UserExam> GetUserExamByExamAndUser(int ExamID, int UserID)
         {
             IList<UserExam> UserExamList = new List<UserExam>();
             try
             {
                 using (IUserExamDAO dao = (IUserExamDAO)DAOFactory.Get<UserExam>())
                 {
-                    UserExamList = dao.GetUserExamByExam(ExamID);
+                    UserExamList = dao.GetUserExamByExamAndUser(ExamID, UserID);
                 }
             }
             catch (Exception ex)
