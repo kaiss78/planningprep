@@ -22,7 +22,8 @@ public class AppConstants
 
     public class Pages
     {
-        public const string EDIT_QUESTION = "/Admin/EditQuestion.aspx";
+        public const string EDIT_QUESTION = "/Pages/Private/Admin/EditQuestion.aspx";
+        public const string MANAGE_QUESTIONS = "/Pages/Private/Admin/ManageQuestions.aspx";
     }
     public class ValueOf
     {

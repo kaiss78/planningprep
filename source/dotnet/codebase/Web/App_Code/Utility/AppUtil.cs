@@ -40,7 +40,11 @@ public class AppUtil
     }
     public static string GetPageTitle(string title)
     {
-        return string.Format(".:{0}:.", title);
+        return string.Format("PP: {0}", title);
+    }
+    public static string Encode(String text)
+    {
+        return HttpContext.Current.Server.HtmlEncode(text);
     }
     /// <summary>
     /// Sets Cookie to the Current Http Response
