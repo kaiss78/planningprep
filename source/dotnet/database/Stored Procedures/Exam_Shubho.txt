@@ -1,0 +1,147 @@
+
+
+
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamDelete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spExamDelete]
+GO
+CREATE PROCEDURE [dbo].[spExamDelete] 
+@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/9/2010 9:20:17 PM
+-- Description: Delete Into Table tblExam
+-- =============================================
+-- sptblExamDelete ...........
+BEGIN
+
+		DELETE FROM tblExam
+		WHERE [ExamID]=@Id
+
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamGetById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spExamGetById]
+GO
+CREATE PROCEDURE [dbo].[spExamGetById] 
+	@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/9/2010 9:20:17 PM
+-- Description: GetById Into Table tblExam
+-- =============================================
+-- sptblExamGetById ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblExam] tab WITH(NOLOCK)
+		WHERE tab.[ExamID]=@Id
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamGetAll]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spExamGetAll]
+GO
+CREATE PROCEDURE [dbo].[spExamGetAll] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/9/2010 9:20:17 PM
+-- Description: GetAll Into Table tblExam
+-- =============================================
+-- sptblExamGetAll ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblExam] tab  WITH(NOLOCK)
+		ORDER BY tab.[ExamID] DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamSet]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spExamSet]
+GO
+CREATE PROCEDURE [dbo].[spExamSet] 
+	 @ExamID int
+	, @Title nvarchar(50) 
+	, @TimeStamp datetime
+	, @CreatedBy nvarchar(50) 
+	, @ActivationDate datetime
+
+As
+Begin
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/9/2010 9:20:17 PM
+-- Description: Set Into Table tblExam
+-- =============================================
+-- sptblExamSet ...........
+		IF (@ExamID >0)
+		Begin
+			Update [dbo].[tblExam]
+				 Set [Title]= @Title
+				, [TimeStamp]= @TimeStamp
+				, [CreatedBy]= @CreatedBy
+				, [ActivationDate]= @ActivationDate
+				 
+			 Where [ExamID]= @ExamID
+	End
+	Else
+	Begin
+		Insert Into [dbo].[tblExam]
+			( [Title]
+			, [TimeStamp]
+			, [CreatedBy]
+			, [ActivationDate]
+			 ) 
+		 VALUES 
+			( @Title
+			, @TimeStamp
+			, @CreatedBy
+			, @ActivationDate
+			 ) 
+		 
+		Set @ExamID= Scope_Identity()
+	End
+ 
+ Select @ExamID as ExamID 
+End
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spExamGetForUser]
+GO
+CREATE PROCEDURE [dbo].[spExamGetForUser] 
+	   @ExamID int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/9/2010 9:20:17 PM
+-- Description: GetForUser Into Table tblExam
+-- =============================================
+-- sptblExamGetForUser ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblExam] tab  WITH(NOLOCK)
+		WHERE  tab.[ExamID]= @ExamID
+	ORDER BY tab.[ExamID] DESC
+
+	SET NOCOUNT OFF;
+END
+GO
+
