@@ -125,24 +125,26 @@ Begin
 End
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spUserExamGetForUser]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[spUserExamGetForUser]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spUserExamGetForExamUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spUserExamGetForExamUser]
 GO
-CREATE PROCEDURE [dbo].[spUserExamGetForUser] 
-	   @ExamID int
+CREATE PROCEDURE [dbo].[spUserExamGetForExamUser] 
+	   @ExamID int,
+	   @UserID int
 AS
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
 -- Create date: 3/9/2010 9:03:15 PM
 -- Description: GetForUser Into Table tblUserExam
 -- =============================================
--- sptblUserExamGetForUser ...........
+-- spUserExamGetForExamUser ...........
 BEGIN
 		SET NOCOUNT ON;
 
 		SELECT tab.*  
 		FROM [dbo].[tblUserExam] tab  WITH(NOLOCK)
 		WHERE  tab.[ExamID]= @ExamID
+		AND tab.[UserID]= @UserID
 	ORDER BY tab.[ExamSessionID] DESC
 
 	SET NOCOUNT OFF;
