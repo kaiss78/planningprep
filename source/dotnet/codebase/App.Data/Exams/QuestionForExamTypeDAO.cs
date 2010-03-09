@@ -14,7 +14,7 @@
  * --------------------------------------------------------------------------------
  * Change History:
  * Product					Date					Comments
- * [Developer Name]		03/09/2010 10:22:23		Initial Development
+ * [Developer Name]		03/08/2010 23:01:00		Initial Development
  * -------------------------------------------------------------------------------- 
  */
 #endregion
@@ -70,24 +70,24 @@ namespace App.Data.Exams
         }
 
         /// <summary>
-        /// Get exams for a particular question types
+        /// Get Exam questions for an exam type
         /// </summary>
         /// <param name="examType"></param>
         /// <returns></returns>
         public IList<QuestionForExamType> GetQuestionsForExamType(int examType)
         {
-            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "QuestionForExamTypeDAO.GetQuestionsForExamType(int)"))
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "QuestionForExamTypeDAO.GetQuestionForExamType(string,string)"))
             {
                 try
                 {
-                    DbParameter[] parameters = new[] { new DbParameter("ExamID", DbType.Int32, examType)};
+                    DbParameter[] parameters = new[] { new DbParameter("ExamID", DbType.String, examType)};
 
-                    return GetAllInternal("spQuestionForExamTypeGetForExam", parameters, false);
+                    return GetAllInternal("spQuestionForExamTypeGetForExam", parameters,false);
                 }
                 catch (Exception ex)
                 {
                     Exception exToUse = ex.InnerException ?? ex;
-                    throw new DataAccessException(exToUse.Message, exToUse, "QuestionForExamTypeDAO.GetQuestionsForExamType(int)");
+                    throw new DataAccessException(exToUse.Message, exToUse, "QuestionForExamTypeDAO.GetQuestionForExamType(string,string)");
                 }
             }
         }
