@@ -171,6 +171,17 @@ public partial class Pages_Exam : BasePage
             {
                 int currentExamSessionInfo = LoadCurrentExamSessionInfo();
 
+                ExamSaved questionToSave = userExamManager.GetSavedExamByExamSessionIDAndQuestionID(currentExamSessionInfo, currentQuestion.QuestionID);
+                
+                questionToSave.Answer = selectedAnswer;
+                questionToSave.ExamSessionID = currentExamSessionInfo;
+                questionToSave.QuestionID = currentQuestion.QuestionID;
+                questionToSave.Time = 100;
+                questionToSave.TimeStamp = DateTime.Now;
+                questionToSave.UserID = SessionCache.CurrentUser.Author_ID;
+
+                userExamManager.SaveOrUpdateSavedQuestion(questionToSave);
+
             }
 
             QuestionNo++;
