@@ -34,8 +34,7 @@ img.PreviewImage
 	background-color:#FFFFFF;
 }
 .bottomcontainer
-{
-	/*height:350px;*/
+{	
 	background-color:#FFFFFF;
 }
 .bottomcontentcontainer
@@ -120,11 +119,37 @@ A.headermenu:hover
 	font-size:22px;
 	padding:2px 0px 0px 15px;
 }
+
 .clearfloating
 {
 	clear:both;
 }
+.OddRowListing {
+	color: #4e4e4e;
+	font-size: 11px;
+	background-color: #FBF3E6;
+	height: 21px;
+	padding: 5px 0 0 0;
+}
+.OddRowListing:hover {
+	background-color: #FCEACF;
+}
+.EvenRowListing {
+	color: #4e4e4e;
+	font-size: 11px;
+	background-color: #FCF7F0;
+	height: 21px;
+	padding: 5px 0 0 0;
+}
+.EvenRowListing:hover {
+	background-color: #FCEACF;
+}
+.listtitle
+{
+	font-weight:bold;
+}
 /* Newly Added Styles for Planning Prep End*/
+
 textArea{
     font-family: Verdana,Arial,Helvetica,Sans-Serif;
 	width:200px;
