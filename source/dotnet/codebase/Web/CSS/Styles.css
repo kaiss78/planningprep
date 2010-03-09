@@ -467,3 +467,24 @@ img.EmployeeImage
 {
     margin-top:10px;
 }*/
+
+
+/*--------------------------------------------PlanningPrep CSS-------------------------------*/
+
+.floatleft
+{
+	float:left;
+}
+.floatright
+{
+	float:right;
+}
+.clearboth
+{
+	clear:both;
+}
+
+#ExamDiv
+{
+	width:500px;
+}

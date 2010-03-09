@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using App.Models.Users;
+using App.Models.Exams;
+using App.Domain.UserExams;
 
 #endregion
 
@@ -32,7 +34,7 @@ public class SessionCache
     /// <summary>
     /// SessionCache instance property
     /// </summary>
-    
+
     //private static SessionCache _instance = new SessionCache(); 
     public static SessionCache Instance
     {
@@ -67,6 +69,29 @@ public class SessionCache
                 HttpContext.Current.Session["CURRENT_USER"] = value;
             }
         }
+    }
+
+    /// <summary>
+    /// Get exam questions for Exam type from Session
+    /// </summary>
+    public IList<QuestionForExamType> GetExamQuestionsForExamType(int ExamID)
+    {
+        UserExamManager manager = new UserExamManager();
+
+        if (HttpContext.Current.Session == null)
+        {
+            return null;
+        }
+
+        string sessionKeyForExam = WebUtil.GetExamKeyForExamType(ExamID);
+
+        if (HttpContext.Current.Session[sessionKeyForExam] == null)
+        {
+            IList<QuestionForExamType> questions = manager.GetQuestionsForExamType(ExamID);
+            HttpContext.Current.Session[sessionKeyForExam] = questions;
+        }
+        return HttpContext.Current.Session[sessionKeyForExam] as IList<QuestionForExamType>;
+
     }
 
     #endregion
