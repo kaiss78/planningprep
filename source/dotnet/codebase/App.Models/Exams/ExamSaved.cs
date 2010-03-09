@@ -24,7 +24,7 @@ using App.Core.Base.Model;
 namespace App.Models.Exams
 {
     [Serializable]
-    public class ExamsSaved : BaseEntity
+    public class ExamSaved : BaseEntity
     {
         #region Fields
         #endregion
