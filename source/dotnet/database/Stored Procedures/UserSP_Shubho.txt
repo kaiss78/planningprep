@@ -233,7 +233,7 @@ Begin
 End
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAuthorGetForUser]') AND type in (N'P', N'PC'))
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAuthorGetForUserNamePassword]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[spAuthorGetForUserNamePassword]
 GO
 CREATE PROCEDURE [dbo].[spAuthorGetForUserNamePassword] 
@@ -253,9 +253,34 @@ BEGIN
 		FROM [dbo].[tblAuthor] tab  WITH(NOLOCK)
 		WHERE  tab.[Username]= @Username
 		  AND  tab.[Password]= @Password
-	ORDER BY tab.[Author_ID] DESC
 
 	SET NOCOUNT OFF;
 END
 GO
 
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAuthorGetForUserName]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAuthorGetForUserName]
+GO
+CREATE PROCEDURE [dbo].[spAuthorGetForUserName] 
+	   @Username nvarchar(20) 
+	,  @Password nvarchar(20) 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/8/2010 9:31:29 PM
+-- Description: GetForUser Into Table tblAuthor
+-- =============================================
+-- spAuthorGetForUserName ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblAuthor] tab  WITH(NOLOCK)
+		WHERE  tab.[Username]= @Username
+
+
+	SET NOCOUNT OFF;
+END
+GO
