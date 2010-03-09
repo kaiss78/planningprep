@@ -78,6 +78,17 @@ public class WebUtil
     }
 
     /// <summary>
+    /// Gets the request param value in string.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <returns></returns>
+    public static string GetRequestParamValueInString(string key)
+    {
+        string paramValue = HttpContext.Current.Request[key];
+        return paramValue;
+    }
+
+    /// <summary>
     /// Logins the user.
     /// </summary>
     public static void LoginUser()

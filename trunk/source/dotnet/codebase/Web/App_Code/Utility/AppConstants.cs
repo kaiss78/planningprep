@@ -48,6 +48,8 @@ public class AppConstants
         public const string QUESTION_ID = "QuestionID";
         public const string EXAM_ID = "ExamID";
         public const string QUESTION_NO = "QuestionNo";
+        public const string IS_NEXT = "IsNext";
+        public const string EXAM_KEY = "ExamKey";
     }
     
     #endregion

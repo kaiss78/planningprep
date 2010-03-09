@@ -89,9 +89,33 @@ public class SessionCache
         {
             IList<QuestionForExamType> questions = manager.GetQuestionsForExamType(ExamID);
             HttpContext.Current.Session[sessionKeyForExam] = questions;
+            CurrentExamKey = Guid.NewGuid().ToString();
         }
         return HttpContext.Current.Session[sessionKeyForExam] as IList<QuestionForExamType>;
 
+    }
+
+    /// <summary>
+    /// CurrentExamKey
+    /// </summary>
+    public static string CurrentExamKey
+    {
+        get
+        {
+            if (HttpContext.Current.Session == null)
+            {
+                return null;
+            }
+            if (HttpContext.Current.Session["CURRENT_EXAM_KEY"] == null) return null;
+            return HttpContext.Current.Session["CURRENT_EXAM_KEY"] as string;
+        }
+        set
+        {
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["CURRENT_EXAM_KEY"] = value;
+            }
+        }
     }
 
     #endregion
