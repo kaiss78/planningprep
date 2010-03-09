@@ -46,6 +46,10 @@ public partial class Pages_Exam : BasePage
                 UserExam userExam = CreateNewExamSessionForUser();
                 SetCurrentExamSessionInfo((int)userExam.Id);
             }
+            else
+            {
+                SetCurrentExamSessionInfo(ExamSessionID);
+            }
             PopulateQuestion();
         }
         else
@@ -77,6 +81,7 @@ public partial class Pages_Exam : BasePage
 
     private void PopulateQuestion()
     {
+
         IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(ExamID);
 
         if (questions != null && questions.Count > 0)
@@ -151,6 +156,11 @@ public partial class Pages_Exam : BasePage
         if (Action == ACTION_CONTINUE_EXAM)
         {
             if (ExamSessionID == 0) return false;
+            if (ExamID == 0)
+            {
+                UserExam userExam = userExamManager.Get(ExamSessionID);
+                ExamID = userExam.ExamID;
+            }
         }
         else if (Action == ACTION_NEW_EXAM)
         {
