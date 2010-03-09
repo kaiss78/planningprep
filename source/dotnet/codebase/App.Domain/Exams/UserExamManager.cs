@@ -204,6 +204,51 @@ namespace App.Domain.UserExams
             return UserExamList;
         }
 
+
+        /// <summary>
+        /// Get Exam sessions for an exam type
+        /// </summary>
+        /// <param name="examType"></param>
+        /// <returns></returns>
+        public IList<UserExam> GetUserExamByExam(int ExamID)
+        {
+            IList<UserExam> UserExamList = new List<UserExam>();
+            try
+            {
+                using (IUserExamDAO dao = (IUserExamDAO)DAOFactory.Get<UserExam>())
+                {
+                    UserExamList = dao.GetUserExamByExam(ExamID);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return UserExamList;
+        }
+
+        /// <summary>
+        /// Get Exam sessions for an exam SessionID
+        /// </summary>
+        /// <param name="examType"></param>
+        /// <returns></returns>
+        public IList<App.Models.Exams.ExamsSaved> GetSavedExamsByExamSessionID(int ExamSessionID)
+        {
+            IList<App.Models.Exams.ExamsSaved> SavedExamList = new List<App.Models.Exams.ExamsSaved>();
+            try
+            {
+                using (App.Data.Exams.IExamsSavedDAO dao = (App.Data.Exams.IExamsSavedDAO)DAOFactory.Get<App.Models.Exams.ExamsSaved>())
+                {
+                    SavedExamList = dao.GetSavedExamByExamSessionID(ExamSessionID);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return SavedExamList;
+        }
+
         #endregion
     }
 }
