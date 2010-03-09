@@ -235,8 +235,8 @@ namespace App.Data
                 }
 
                 object returnValue;
-                returnValue = Database.ExecuteNonQuery(command); 
-                //returnValue = Database.ExecuteScalar(command);
+                //returnValue = Database.ExecuteNonQuery(command); 
+                returnValue = Database.ExecuteScalar(command);
 
                 if (parameters.IsNotNull() && parameters.Any(p => p.IsOutParameter))
                 {

@@ -7,5 +7,6 @@
   <entity name="Questions" daoType="App.Data.Questions.QuestionsDAO, App.Data" />
   <entity name="PlanningPrepUser" daoType="App.Data.Users.UserDAO, App.Data" />
   <entity name="QuestionForExamType" daoType="App.Data.Exams.QuestionForExamTypeDAO, App.Data" />
+  <entity name="Exam" daoType="App.Data.Exams.ExamDAO, App.Data" />
   
 </entity-daos>
