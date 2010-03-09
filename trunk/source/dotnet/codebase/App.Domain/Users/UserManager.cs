@@ -201,6 +201,28 @@ namespace App.Domain.Users
             }
             return PlanningPrepUser;
         }
+
+        /// <summary>
+        /// Gets user object by userName
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public PlanningPrepUser GetUserByUserName(string userName)
+        {
+            PlanningPrepUser PlanningPrepUser = null;
+            try
+            {
+                using (IUserDAO dao = (IUserDAO)DAOFactory.Get<PlanningPrepUser>())
+                {
+                    PlanningPrepUser = dao.GetUserByUserName(userName);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return PlanningPrepUser;
+        }
         #endregion
     }
 }
