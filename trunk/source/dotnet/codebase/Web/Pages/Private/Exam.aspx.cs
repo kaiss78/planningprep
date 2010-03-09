@@ -26,26 +26,41 @@ public partial class Pages_Exam : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!LoadParams())
+        {
+            Response.Clear();
+            Response.End();
+            return;
+        }
+
+        
+
         if (!IsPostBack)
         {
-            
-            if (!LoadParams())
-            {
-                Response.Clear();
-                Response.End();
-                return;
-            }
+            ClearCheckBoxes();
 
-            
             QuestionNo = 1;
             SetCurrentQuestionInfo();
-            
-            LoadExam();
+            if (Action == ACTION_NEW_EXAM)
+            {
+                UserExam userExam = CreateNewExamSessionForUser();
+                SetCurrentExamSessionInfo((int)userExam.Id);
+            }
+            PopulateQuestion();
         }
         else
         {
             LoadCurrentQuestionInfo();
+            LoadCurrentExamSessionInfo();
         }
+    }
+
+    private void ClearCheckBoxes()
+    {
+        rdoA.Checked = false;
+        rdoB.Checked = false;
+        rdoC.Checked = false;
+        rdoD.Checked = false;
     }
 
     private UserExam CreateNewExamSessionForUser()
@@ -60,57 +75,61 @@ public partial class Pages_Exam : BasePage
         return userExam;
     }
 
-    private void LoadExam()
+    private void PopulateQuestion()
     {
-        if (Action == ACTION_NEW_EXAM)
+        IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(ExamID);
+
+        if (questions != null && questions.Count > 0)
         {
-            IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(ExamID);
+            QuestionForExamType question = GetQuestion(QuestionNo, questions);
+            lblQuestionTitle.Text = question.Question;
 
-            UserExam userExam = CreateNewExamSessionForUser();
-            SetCurrentExamSessionInfo((int)userExam.Id);
+            rdoA.Text = question.AnswerA;
+            rdoB.Text = question.AnswerB;
+            rdoC.Text = question.AnswerC;
+            rdoD.Text = question.AnswerD;
 
-            if (questions != null && questions.Count > 0)
+            lnkNext.Visible = true;
+            lnkPrevious.Visible = true;
+
+            if (QuestionNo == questions.Count)
             {
-                QuestionForExamType question = GetQuestion(QuestionNo, questions);
-                PopulateQuestion(question);
+                lnkNext.Visible = false;
+            }
+            if (QuestionNo == 1)
+            {
+                lnkPrevious.Visible = false;
+            }
+
+            ExamSaved questionToSave = userExamManager.GetSavedExamByExamSessionIDAndQuestionID(ExamSessionID, question.QuestionID);
+            rdoA.Checked = false;
+            rdoB.Checked = false;
+            rdoC.Checked = false;
+            rdoD.Checked = false;
+            if (questionToSave != null)
+            {
+                if (questionToSave.Answer == "A")
+                {
+                    rdoA.Checked = true;
+                }
+                else if (questionToSave.Answer == "B")
+                {
+                    rdoB.Checked = true;
+                }
+                else if (questionToSave.Answer == "C")
+                {
+                    rdoC.Checked = true;
+                }
+                else
+                {
+                    rdoD.Checked = true;
+                }
+            }
+            else
+            {
+                ClearCheckBoxes();
             }
         }
-        else
-        {
-            UserExam userExam = userExamManager.Get(ExamSessionID);
-            userExamManager.GetSavedExamsByExamSessionID(ExamSessionID);
-        }
-    }
-
-    private void PopulateQuestion(QuestionForExamType question)
-    {
-        lblQuestionTitle.Text = question.Question;
-
-        rdoA.Text = question.AnswerA;
-        rdoB.Text = question.AnswerB;
-        rdoC.Text = question.AnswerC;
-        rdoD.Text = question.AnswerD;
-
-        //string PrevUrl = string.Format("Exam.aspx?ExamID={0}&QuestionNo={1}&ExamKey={2}", ExamID, QuestionNo - 1,SessionCache.CurrentExamKey);
-        //string NextUrl = string.Format("Exam.aspx?ExamID={0}&QuestionNo={1}&ExamKey={2}&IsNext={3}", ExamID, QuestionNo + 1, SessionCache.CurrentExamKey,1);
-
-        IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(3);
-        
-        //hlinkNext.NavigateUrl = NextUrl;
-        //hlinkPrevious.NavigateUrl = PrevUrl;
-
-        lnkNext.Visible = true;
-        lnkPrevious.Visible = true;
-
-        if (QuestionNo == questions.Count)
-        {
-            lnkNext.Visible = false;
-        }
-        if (QuestionNo == 1)
-        {
-            lnkPrevious.Visible = false;
-        }
-
     }
 
     private QuestionForExamType GetQuestion(int QuestionNo, IList<QuestionForExamType> questions)
@@ -149,57 +168,63 @@ public partial class Pages_Exam : BasePage
 
     protected void lnkPrevious_Click(object sender, EventArgs e)
     {
-        IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(3);
+        IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(ExamID);
         if (questions != null && questions.Count > 0)
         {
+            //SaveCurrentQuestionInfo(questions);
             QuestionNo--;
             SetCurrentQuestionInfo();
-            QuestionForExamType question = GetQuestion(QuestionNo, questions);
-            PopulateQuestion(question);
+            PopulateQuestion();
+        }
+    }
+
+    private void SaveCurrentQuestionInfo(IList<QuestionForExamType> questions)
+    {
+        QuestionForExamType currentQuestion = GetQuestion(QuestionNo, questions);
+
+        string selectedAnswer = GetSelectedAnswerChoice();
+        if (selectedAnswer.Length > 0)
+        {
+
+            ExamSaved questionToSave = userExamManager.GetSavedExamByExamSessionIDAndQuestionID(ExamSessionID, currentQuestion.QuestionID);
+
+            if (questionToSave == null || questionToSave.Id == 0)
+            {
+                questionToSave = new ExamSaved();
+            }
+            questionToSave.Answer = selectedAnswer;
+            questionToSave.ExamSessionID = ExamSessionID;
+            questionToSave.QuestionID = currentQuestion.QuestionID;
+            questionToSave.Time = 100;
+            questionToSave.TimeStamp = DateTime.Now;
+            questionToSave.UserID = SessionCache.CurrentUser.Author_ID;
+
+            userExamManager.SaveOrUpdateSavedQuestion(questionToSave);
+
         }
     }
 
     protected void lnkNext_Click(object sender, EventArgs e)
     {
-        IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(3);
+        IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(ExamID);
         if (questions != null && questions.Count > 0)
         {
-            QuestionForExamType currentQuestion = GetQuestion(QuestionNo, questions);
-
-            string selectedAnswer = GetSelectedAnswerChoice();
-            if (selectedAnswer.Length > 0)
-            {
-                int currentExamSessionInfo = LoadCurrentExamSessionInfo();
-
-                ExamSaved questionToSave = userExamManager.GetSavedExamByExamSessionIDAndQuestionID(currentExamSessionInfo, currentQuestion.QuestionID);
-                
-                questionToSave.Answer = selectedAnswer;
-                questionToSave.ExamSessionID = currentExamSessionInfo;
-                questionToSave.QuestionID = currentQuestion.QuestionID;
-                questionToSave.Time = 100;
-                questionToSave.TimeStamp = DateTime.Now;
-                questionToSave.UserID = SessionCache.CurrentUser.Author_ID;
-
-                userExamManager.SaveOrUpdateSavedQuestion(questionToSave);
-
-            }
-
+            SaveCurrentQuestionInfo(questions);
             QuestionNo++;
             SetCurrentQuestionInfo();
-            QuestionForExamType nextQuestion = GetQuestion(QuestionNo, questions);
-            PopulateQuestion(nextQuestion);
+            PopulateQuestion();
         }
     }
 
     private void SetCurrentExamSessionInfo(int examSessionID)
     {
-        ViewState["CURRENT_EXAM_SESSION"] = examSessionID;
+        ExamSessionID = examSessionID;
+        ViewState["CURRENT_EXAM_SESSION_ID"] = ExamSessionID;
     }
 
-    private int LoadCurrentExamSessionInfo()
+    private void LoadCurrentExamSessionInfo()
     {
-        int examSessionID = Convert.ToInt32(ViewState["CURRENT_EXAM_SESSION"]);
-        return examSessionID;
+        ExamSessionID = Convert.ToInt32(ViewState["CURRENT_EXAM_SESSION_ID"]);
     }
 
     private void SetCurrentQuestionInfo()

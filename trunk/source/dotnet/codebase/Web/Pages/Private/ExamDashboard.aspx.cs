@@ -42,7 +42,7 @@ public partial class Pages_Private_ExamDashboard : BasePage
             Exam exam = item.DataItem as Exam;
             lblExamName.Text = exam.Title;
 
-            IList<UserExam> userExams = userExamManager.GetUserExamByExam(exam.ExamID);
+            IList<UserExam> userExams = userExamManager.GetUserExamByExamAndUser(exam.ExamID,SessionCache.CurrentUser.Author_ID);
             if (userExams != null && userExams.Count > 0)
             {
                 Repeater rptExamSessions = (Repeater)item.FindControl("rptExamSessions");
