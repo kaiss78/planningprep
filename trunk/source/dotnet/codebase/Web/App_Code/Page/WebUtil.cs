@@ -39,6 +39,45 @@ public class WebUtil
     }
 
     /// <summary>
+    /// Gets the request param value in long.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <returns></returns>
+    public static long GetRequestParamValueInLong(string key)
+    {
+        long paramValue = 0;
+        long.TryParse(HttpContext.Current.Request[key], out paramValue);
+
+        return paramValue;
+    }
+
+    /// <summary>
+    /// Gets the request param value in byte.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <returns></returns>
+    public static byte GetRequestParamValueInByte(string key)
+    {
+        byte paramValue = 0;
+        byte.TryParse(HttpContext.Current.Request[key], out paramValue);
+
+        return paramValue;
+    }
+
+    /// <summary>
+    /// Gets the request param value in int.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <returns></returns>
+    public static int GetRequestParamValueInInt(string key)
+    {
+        int paramValue = 0;
+        int.TryParse(HttpContext.Current.Request[key], out paramValue);
+
+        return paramValue;
+    }
+
+    /// <summary>
     /// Logins the user.
     /// </summary>
     public static void LoginUser()
@@ -56,5 +95,11 @@ public class WebUtil
         }
     }
     
+
+    
+    public static string GetExamKeyForExamType(int ExamID)
+    {
+        return string.Format("EXAM_{0}",ExamID);
+    }
     #endregion
 }
