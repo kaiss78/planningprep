@@ -35,7 +35,7 @@ namespace App.Data.UserExams
 {
     public interface IUserExamDAO : IDataAccess<App.Models.UserExams.UserExam>
     {
-        IList<UserExam> GetUserExamByExam(int ExamID);
+        IList<UserExam> GetUserExamByExamAndUser(int ExamID, int UserID);
     }
 
     public class UserExamDAO : BaseDataAccess<App.Models.UserExams.UserExam>, IUserExamDAO
@@ -73,24 +73,24 @@ namespace App.Data.UserExams
         }
 
         /// <summary>
-        /// Get Exam sessions for an exam type
+        /// Get Exam sessions for an exam type and UserID
         /// </summary>
         /// <param name="examType"></param>
         /// <returns></returns>
-        public IList<UserExam> GetUserExamByExam(int ExamID)
+        public IList<UserExam> GetUserExamByExamAndUser(int ExamID,int UserID)
         {
-            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "UserExamDAO.GetUserExamByExam(int)"))
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "UserExamDAO.GetUserExamByExamAndUser(int,int)"))
             {
                 try
                 {
-                    DbParameter[] parameters = new[] { new DbParameter("ExamID", DbType.String, ExamID) };
+                    DbParameter[] parameters = new[] { new DbParameter("ExamID", DbType.String, ExamID), new DbParameter("UserID", DbType.String, UserID) };
 
-                    return GetAllInternal("spUserExamGetForUser", parameters, false);
+                    return GetAllInternal("spUserExamGetForExamUser", parameters, false);
                 }
                 catch (Exception ex)
                 {
                     Exception exToUse = ex.InnerException ?? ex;
-                    throw new DataAccessException(exToUse.Message, exToUse, "UserExamDAO.GetUserExamByExam(int)");
+                    throw new DataAccessException(exToUse.Message, exToUse, "UserExamDAO.GetUserExamByExamAndUser(int,int)");
                 }
             }
         }

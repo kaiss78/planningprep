@@ -565,6 +565,10 @@ namespace App.Data
             {
                 return "Author";
             }
+            if (entityName == "ExamSaved")
+            {
+                return "ExamsSaved";
+            }
             return entityName;
         }
 
