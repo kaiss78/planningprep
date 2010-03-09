@@ -10,9 +10,10 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    <asp:Login ID="Login1" runat="server" CreateUserUrl="~/AddNewUser.aspx" 
+    <%--<asp:Login ID="Login1" runat="server" CreateUserUrl="~/AddNewUser.aspx" 
             Width="100%" onloginerror="Login1_LoginError">
             <LayoutTemplate>
+    --%>            
                 <table border="0" cellpadding="1" cellspacing="0" style="border-collapse:collapse; width:100%;">
                     <tr>
                         <td style="padding-top:100px;">
@@ -26,12 +27,12 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">User Name</asp:Label>
+                                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="txtUserName">User Name</asp:Label>
                                     </td>
                                     <td>
-                                        <asp:TextBox ID="UserName" runat="server" MaxLength="256" style="width:200px;"></asp:TextBox>
+                                        <asp:TextBox ID="txtUserName" runat="server" MaxLength="256" style="width:200px;"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" 
-                                            ControlToValidate="UserName"
+                                            ControlToValidate="txtUserName"
                                             ErrorMessage="Please enter a User Name." 
                                             ToolTip="User Name is required." ValidationGroup="Login1">*
                                         </asp:RequiredFieldValidator>                                        
@@ -39,18 +40,18 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password</asp:Label>
+                                        <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="txtPassword">Password</asp:Label>
                                     </td>
                                     <td>
-                                        <asp:TextBox ID="Password" runat="server" TextMode="Password" MaxLength="256" style="width:200px;"></asp:TextBox>
+                                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" MaxLength="256" style="width:200px;"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" 
-                                            ControlToValidate="Password" ErrorMessage="Password is required." 
+                                            ControlToValidate="txtPassword" ErrorMessage="Password is required." 
                                             ToolTip="Password is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <asp:CheckBox ID="RememberMe" runat="server" Text="Remember me next time." />
+                                        <asp:CheckBox ID="chkRememberMe" runat="server" Text="Remember me next time." />
                                     </td>
                                 </tr>
                                 <%--<tr>
@@ -70,8 +71,8 @@
                         </td>
                     </tr>
                 </table>
-            </LayoutTemplate>
-        </asp:Login>
+            <%--</LayoutTemplate>
+        </asp:Login>--%>
 
     </div>
     </form>
