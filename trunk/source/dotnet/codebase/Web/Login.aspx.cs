@@ -13,7 +13,7 @@ using System.Xml.Linq;
 using App.Domain.Users;
 using App.Models.Users;
 
-public partial class Login : System.Web.UI.Page
+public partial class Login : BasePage
 {
     protected UserManager userManager = new UserManager();
     protected void Page_Load(object sender, EventArgs e)
@@ -34,6 +34,7 @@ public partial class Login : System.Web.UI.Page
         PlanningPrepUser user = userManager.GetUserByUserNamePassword(userName, password);
         if (user != null)
         {
+            SessionCache.CurrentUser = user;
             FormsAuthenticationUtil.RedirectFromLoginPage(userName, "", Login1.RememberMeSet);
         }
     }

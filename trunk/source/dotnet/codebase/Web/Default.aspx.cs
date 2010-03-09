@@ -13,7 +13,7 @@ using App.Domain.UserExams;
 using App.Models.UserExams;
 using System.Collections.Generic;
 
-public partial class _Default : System.Web.UI.Page 
+public partial class _Default : BasePage
 {
     protected UserExamManager examManager = new UserExamManager();
     protected void Page_Load(object sender, EventArgs e)
