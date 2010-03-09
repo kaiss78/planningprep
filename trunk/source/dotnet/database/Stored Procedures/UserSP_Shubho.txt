@@ -265,7 +265,7 @@ DROP PROCEDURE [dbo].[spAuthorGetForUserName]
 GO
 CREATE PROCEDURE [dbo].[spAuthorGetForUserName] 
 	   @Username nvarchar(20) 
-	,  @Password nvarchar(20) 
+
 AS
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
