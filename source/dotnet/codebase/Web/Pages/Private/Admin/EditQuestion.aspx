@@ -92,7 +92,8 @@
             </tr>
             <tr>
                 <td colspan="4">
-                    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="ButtonCommon" />
+                    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="ButtonCommon" 
+                        onclick="btnSave_Click" />
                 </td>
             </tr> 
         </table>        
