@@ -153,3 +153,28 @@ BEGIN
 END
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamsSavedGetForExamSessionIDAndQuestionID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spExamsSavedGetForExamSessionIDAndQuestionID]
+GO
+CREATE PROCEDURE [dbo].[spExamsSavedGetForExamSessionIDAndQuestionID] 
+	   @ExamSessionID int,
+	   @QuestionID int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/9/2010 11:53:00 PM
+-- Description: GetForUser Into Table tblExamsSaved
+-- =============================================
+-- spExamsSavedGetForExamSessionIDAndQuestionID ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblExamsSaved] tab  WITH(NOLOCK)
+		WHERE  tab.[ExamSessionID]= @ExamSessionID
+		AND tab.[QuestionID]= @QuestionID 
+
+	SET NOCOUNT OFF;
+END
+GO
+
