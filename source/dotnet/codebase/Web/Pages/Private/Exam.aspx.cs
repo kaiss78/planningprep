@@ -7,27 +7,68 @@ using System.Web.UI.WebControls;
 using App.Domain.UserExams;
 using App.Models.Exams;
 using App.Core.Storage;
+using App.Models.UserExams;
+using App.Domain.Exams;
 
 public partial class Pages_Exam : BasePage
 {
     private int QuestionNo;
     private int ExamID;
+    private int ExamSessionID;
     private int IsNext;
     private string ExamKey;
+    private string Action;
+    private string ACTION_NEW_EXAM = "New";
+    private string ACTION_CONTINUE_EXAM = "Continue";
+
+    UserExamManager userExamManager = new UserExamManager();
+    
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            QuestionNo = 1;
-            SetCurrentQuestionInfo();
+            
             if (!LoadParams())
             {
                 Response.Clear();
                 Response.End();
+                return;
             }
 
-            IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(3);
+            
+            QuestionNo = 1;
+            SetCurrentQuestionInfo();
+            
+            LoadExam();
+        }
+        else
+        {
+            LoadCurrentQuestionInfo();
+        }
+    }
+
+    private UserExam CreateNewExamSessionForUser()
+    {
+        UserExam userExam = new UserExam();
+        userExam.StartDate = DateTime.Now;
+        userExam.UserID = SessionCache.CurrentUser.Author_ID;
+        userExam.ExamID = ExamID;
+
+        userExamManager.SaveOrUpdate(userExam);
+
+        return userExam;
+    }
+
+    private void LoadExam()
+    {
+        if (Action == ACTION_NEW_EXAM)
+        {
+            IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(ExamID);
+
+            UserExam userExam = CreateNewExamSessionForUser();
+            SetCurrentExamSessionInfo((int)userExam.Id);
+
             if (questions != null && questions.Count > 0)
             {
                 QuestionForExamType question = GetQuestion(QuestionNo, questions);
@@ -36,7 +77,8 @@ public partial class Pages_Exam : BasePage
         }
         else
         {
-            LoadCurrentQuestionInfo();
+            UserExam userExam = userExamManager.Get(ExamSessionID);
+            userExamManager.GetSavedExamsByExamSessionID(ExamSessionID);
         }
     }
 
@@ -83,10 +125,22 @@ public partial class Pages_Exam : BasePage
     private bool LoadParams()
     {
         ExamID = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.EXAM_ID);
+        ExamSessionID = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.EXAM_SESSION_ID);
         ExamKey = WebUtil.GetRequestParamValueInString(AppConstants.QueryString.EXAM_KEY);
+        Action = WebUtil.GetRequestParamValueInString(AppConstants.QueryString.EXAM_ACTION);
         
-        //if (ExamID == 0 || QuestionNo == 0 || string.IsNullOrEmpty(ExamKey))
-        if (ExamID == 0 || QuestionNo == 0)
+        if (Action == ACTION_CONTINUE_EXAM)
+        {
+            if (ExamSessionID == 0) return false;
+        }
+        else if (Action == ACTION_NEW_EXAM)
+        {
+            if (ExamID == 0)
+            {
+                return false;
+            }
+        }
+        else
         {
             return false;
         }
@@ -115,6 +169,7 @@ public partial class Pages_Exam : BasePage
             string selectedAnswer = GetSelectedAnswerChoice();
             if (selectedAnswer.Length > 0)
             {
+                int currentExamSessionInfo = LoadCurrentExamSessionInfo();
 
             }
 
@@ -123,6 +178,17 @@ public partial class Pages_Exam : BasePage
             QuestionForExamType nextQuestion = GetQuestion(QuestionNo, questions);
             PopulateQuestion(nextQuestion);
         }
+    }
+
+    private void SetCurrentExamSessionInfo(int examSessionID)
+    {
+        ViewState["CURRENT_EXAM_SESSION"] = examSessionID;
+    }
+
+    private int LoadCurrentExamSessionInfo()
+    {
+        int examSessionID = Convert.ToInt32(ViewState["CURRENT_EXAM_SESSION"]);
+        return examSessionID;
     }
 
     private void SetCurrentQuestionInfo()
