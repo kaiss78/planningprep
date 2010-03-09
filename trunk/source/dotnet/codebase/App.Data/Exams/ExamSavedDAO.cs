@@ -39,14 +39,14 @@ namespace App.Data.Exams
         ExamSaved GetSavedExamByExamSessionIDAndQuestionID(int ExamSessionID, int QuestionID);
     }
 
-    public class ExamsSavedDAO : BaseDataAccess<App.Models.Exams.ExamSaved>, IExamSavedDAO
+    public class ExamSavedDAO : BaseDataAccess<App.Models.Exams.ExamSaved>, IExamSavedDAO
     {
         #region Constructor
-        public ExamsSavedDAO()
+        public ExamSavedDAO()
         {
         }
 
-        public ExamsSavedDAO(string connectionString)
+        public ExamSavedDAO(string connectionString)
             : base(connectionString)
         {
         }
