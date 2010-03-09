@@ -29,15 +29,17 @@ using App.Core.DB;
 using App.Core.Exceptions;
 using App.Core.Factories;
 using System.Security.Principal;
+using App.Models.Exams;
 
 namespace App.Data.Exams
 {
-    public interface IExamsSavedDAO : IDataAccess<App.Models.Exams.ExamsSaved>
+    public interface IExamSavedDAO : IDataAccess<App.Models.Exams.ExamSaved>
     {
-        IList<App.Models.Exams.ExamsSaved> GetSavedExamByExamSessionID(int ExamSessionID);
+        IList<App.Models.Exams.ExamSaved> GetSavedExamByExamSessionID(int ExamSessionID);
+        ExamSaved GetSavedExamByExamSessionIDAndQuestionID(int ExamSessionID, int QuestionID);
     }
 
-    public class ExamsSavedDAO : BaseDataAccess<App.Models.Exams.ExamsSaved>, IExamsSavedDAO
+    public class ExamsSavedDAO : BaseDataAccess<App.Models.Exams.ExamSaved>, IExamSavedDAO
     {
         #region Constructor
         public ExamsSavedDAO()
@@ -51,9 +53,9 @@ namespace App.Data.Exams
         #endregion
 
         #region Helper Methods
-        protected override App.Models.Exams.ExamsSaved Map(IDataReader reader)
+        protected override App.Models.Exams.ExamSaved Map(IDataReader reader)
         {
-            App.Models.Exams.ExamsSaved entity = EntityFactory.Create<App.Models.Exams.ExamsSaved>();
+            App.Models.Exams.ExamSaved entity = EntityFactory.Create<App.Models.Exams.ExamSaved>();
 
             entity.Id = NullHandler.GetInt32(reader["ID"]);
             entity.ID = NullHandler.GetInt(reader["ID"]);
@@ -72,7 +74,7 @@ namespace App.Data.Exams
         /// </summary>
         /// <param name="ExamSessionID"></param>
         /// <returns></returns>
-        public IList<App.Models.Exams.ExamsSaved> GetSavedExamByExamSessionID(int ExamSessionID)
+        public IList<App.Models.Exams.ExamSaved> GetSavedExamByExamSessionID(int ExamSessionID)
         {
             using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "ExamSavedDAO.GetSavedExamByExamSessionID(int)"))
             {
@@ -90,8 +92,32 @@ namespace App.Data.Exams
             }
         }
 
+        /// <summary>
+        /// Get Saved Exam for an exam SessionID and QuestionID
+        /// </summary>
+        /// <param name="ExamSessionID"></param>
+        /// <param name="QuestionID"></param>
+        /// <returns></returns>
+        public ExamSaved GetSavedExamByExamSessionIDAndQuestionID(int ExamSessionID, int QuestionID)
+        {
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "ExamSavedDAO.GetSavedExamByExamSessionIDAndQuestionID(int,int)"))
+            {
+                try
+                {
+                    DbParameter[] parameters = new[] { new DbParameter("ExamSessionID", DbType.Int32, ExamSessionID), new DbParameter("QuestionID", DbType.Int32, QuestionID) };
 
-        protected override void EagerLoad(App.Models.Exams.ExamsSaved entity)
+                    return GetInternal("spExamsSavedGetForExamSessionIDAndQuestionID", parameters, false);
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "ExamSavedDAO.GetSavedExamByExamSessionIDAndQuestionID(int,int)");
+                }
+            }
+        }
+
+
+        protected override void EagerLoad(App.Models.Exams.ExamSaved entity)
         {
             // Add eager loading functionality here
         }
