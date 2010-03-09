@@ -69,6 +69,33 @@ namespace App.Domain.UserExams
         }
 
         /// <summary>
+        /// Saves or Updates the Question's answer in the database
+        /// </summary>
+        /// <param name="entity"></param>
+        public void SaveOrUpdateSavedQuestion(App.Models.Exams.ExamSaved entity)
+        {
+            using (new TimedTraceLog(GetType().Name + "SaveOrUpdate(ExamSaved)", ""))
+            {
+                try
+                {
+                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromSeconds(60)))
+                    {
+                        using (IExamSavedDAO dao = (IExamSavedDAO)DAOFactory.Get<ExamSaved>())
+                        {
+                            dao.Save(entity);
+                        }
+                        scope.Complete();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHelper.HandleException<ManagerException>(ex, "ExamSavedDAO.SaveOrUpdate(ExamSaved)");
+                }
+            }
+        }
+
+
+        /// <summary>
         /// Gets the object with specified id.
         /// </summary>
         /// <param name="id">The id.</param>
@@ -232,12 +259,12 @@ namespace App.Domain.UserExams
         /// </summary>
         /// <param name="examType"></param>
         /// <returns></returns>
-        public IList<App.Models.Exams.ExamsSaved> GetSavedExamsByExamSessionID(int ExamSessionID)
+        public IList<App.Models.Exams.ExamSaved> GetSavedExamsByExamSessionID(int ExamSessionID)
         {
-            IList<App.Models.Exams.ExamsSaved> SavedExamList = new List<App.Models.Exams.ExamsSaved>();
+            IList<App.Models.Exams.ExamSaved> SavedExamList = new List<App.Models.Exams.ExamSaved>();
             try
             {
-                using (App.Data.Exams.IExamsSavedDAO dao = (App.Data.Exams.IExamsSavedDAO)DAOFactory.Get<App.Models.Exams.ExamsSaved>())
+                using (App.Data.Exams.IExamSavedDAO dao = (App.Data.Exams.IExamSavedDAO)DAOFactory.Get<App.Models.Exams.ExamSaved>())
                 {
                     SavedExamList = dao.GetSavedExamByExamSessionID(ExamSessionID);
                 }
@@ -249,6 +276,28 @@ namespace App.Domain.UserExams
             return SavedExamList;
         }
 
+        /// <summary>
+        /// Get Saved Exam for an exam SessionID and QuestionID
+        /// </summary>
+        /// <param name="ExamSessionID"></param>
+        /// <param name="QuestionID"></param>
+        /// <returns></returns>
+        public ExamSaved GetSavedExamByExamSessionIDAndQuestionID(int ExamSessionID, int QuestionID)
+        {
+            ExamSaved UserExam = null;
+            try
+            {
+                using (IExamSavedDAO dao = (IExamSavedDAO)DAOFactory.Get<ExamSaved>())
+                {
+                    UserExam = dao.GetSavedExamByExamSessionIDAndQuestionID(ExamSessionID, QuestionID);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return UserExam;
+        }
         #endregion
     }
 }
