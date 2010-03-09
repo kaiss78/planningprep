@@ -29,11 +29,13 @@ using App.Core.DB;
 using App.Core.Exceptions;
 using App.Core.Factories;
 using System.Security.Principal;
+using App.Models.UserExams;
 
 namespace App.Data.UserExams
 {
     public interface IUserExamDAO : IDataAccess<App.Models.UserExams.UserExam>
     {
+        IList<UserExam> GetUserExamByExam(int ExamID);
     }
 
     public class UserExamDAO : BaseDataAccess<App.Models.UserExams.UserExam>, IUserExamDAO
@@ -69,6 +71,30 @@ namespace App.Data.UserExams
         {
             // Add eager loading functionality here
         }
+
+        /// <summary>
+        /// Get Exam sessions for an exam type
+        /// </summary>
+        /// <param name="examType"></param>
+        /// <returns></returns>
+        public IList<UserExam> GetUserExamByExam(int ExamID)
+        {
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "UserExamDAO.GetUserExamByExam(int)"))
+            {
+                try
+                {
+                    DbParameter[] parameters = new[] { new DbParameter("ExamID", DbType.String, ExamID) };
+
+                    return GetAllInternal("spUserExamGetForUser", parameters, false);
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "UserExamDAO.GetUserExamByExam(int)");
+                }
+            }
+        }
+
         #endregion
     }
 }
