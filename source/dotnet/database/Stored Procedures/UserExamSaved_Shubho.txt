@@ -11,7 +11,7 @@ CREATE PROCEDURE [dbo].[spExamsSavedDelete]
 AS
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
--- Create date: 3/9/2010 11:48:05 PM
+-- Create date: 3/9/2010 11:53:00 PM
 -- Description: Delete Into Table tblExamsSaved
 -- =============================================
 -- sptblExamsSavedDelete ...........
@@ -32,7 +32,7 @@ CREATE PROCEDURE [dbo].[spExamsSavedGetById]
 AS
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
--- Create date: 3/9/2010 11:48:05 PM
+-- Create date: 3/9/2010 11:53:00 PM
 -- Description: GetById Into Table tblExamsSaved
 -- =============================================
 -- sptblExamsSavedGetById ...........
@@ -55,7 +55,7 @@ CREATE PROCEDURE [dbo].[spExamsSavedGetAll]
 AS
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
--- Create date: 3/9/2010 11:48:05 PM
+-- Create date: 3/9/2010 11:53:00 PM
 -- Description: GetAll Into Table tblExamsSaved
 -- =============================================
 -- sptblExamsSavedGetAll ...........
@@ -87,7 +87,7 @@ As
 Begin
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
--- Create date: 3/9/2010 11:48:05 PM
+-- Create date: 3/9/2010 11:53:00 PM
 -- Description: Set Into Table tblExamsSaved
 -- =============================================
 -- sptblExamsSavedSet ...........
@@ -129,22 +129,24 @@ Begin
 End
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamsSavedGetForUser]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[spExamsSavedGetForUser]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamsSavedGetForExamSessionID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spExamsSavedGetForExamSessionID]
 GO
-CREATE PROCEDURE [dbo].[spExamsSavedGetForUser] 
+CREATE PROCEDURE [dbo].[spExamsSavedGetForExamSessionID] 
+	   @ExamSessionID int
 AS
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
--- Create date: 3/9/2010 11:48:05 PM
+-- Create date: 3/9/2010 11:53:00 PM
 -- Description: GetForUser Into Table tblExamsSaved
 -- =============================================
--- sptblExamsSavedGetForUser ...........
+-- spExamsSavedGetForExamSessionID ...........
 BEGIN
 		SET NOCOUNT ON;
 
 		SELECT tab.*  
 		FROM [dbo].[tblExamsSaved] tab  WITH(NOLOCK)
+		WHERE  tab.[ExamSessionID]= @ExamSessionID
 	ORDER BY tab.[ID] DESC
 
 	SET NOCOUNT OFF;
