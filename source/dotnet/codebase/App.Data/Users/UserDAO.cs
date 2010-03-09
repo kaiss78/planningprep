@@ -36,6 +36,7 @@ namespace App.Data.Users
     public interface IUserDAO : IDataAccess<App.Models.Users.PlanningPrepUser>
     {
         PlanningPrepUser GetUserByUserNamePassword(string userName, string password);
+        PlanningPrepUser GetUserByUserName(string userName);
     }
 
     public class UserDAO : BaseDataAccess<App.Models.Users.PlanningPrepUser>, IUserDAO
@@ -114,6 +115,29 @@ namespace App.Data.Users
                 {
                     Exception exToUse = ex.InnerException ?? ex;
                     throw new DataAccessException(exToUse.Message, exToUse, "UserDAO.GetUserByUserNamePassword(string,string)");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get User by UserName
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public PlanningPrepUser GetUserByUserName(string userName)
+        {
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "UserDAO.GetUserByUserName(string)"))
+            {
+                try
+                {
+                    DbParameter[] parameters = new[] { new DbParameter("userName", DbType.String, userName)};
+
+                    return GetInternal("spAuthorGetForUserName", parameters);
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "UserDAO.GetUserByUserName(string)");
                 }
             }
         }
