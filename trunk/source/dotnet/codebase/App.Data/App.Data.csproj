@@ -63,6 +63,7 @@
     <Compile Include="DataHelper.cs" />
     <Compile Include="DynamicSQLGenerator.cs" />
     <Compile Include="Exams\ExamDAO.cs" />
+    <Compile Include="Exams\ExamSavedDAO.cs" />
     <Compile Include="Exams\QuestionForExamTypeDAO.cs" />
     <Compile Include="Exams\UserExamDAO.cs" />
     <Compile Include="IDataAccess.cs" />

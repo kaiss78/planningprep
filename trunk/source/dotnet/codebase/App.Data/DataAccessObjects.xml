@@ -8,5 +8,6 @@
   <entity name="PlanningPrepUser" daoType="App.Data.Users.UserDAO, App.Data" />
   <entity name="QuestionForExamType" daoType="App.Data.Exams.QuestionForExamTypeDAO, App.Data" />
   <entity name="Exam" daoType="App.Data.Exams.ExamDAO, App.Data" />
+  <entity name="ExamSaved" daoType="App.Data.Exams.ExamSavedDAO, App.Data" />
   
 </entity-daos>
