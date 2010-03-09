@@ -21,21 +21,26 @@ public partial class Login : BasePage
 
     }
 
-    protected void Login1_LoginError(object sender, EventArgs e)
-    {
-        HtmlGenericControl divMessage = Login1.FindControl("divMessage") as HtmlGenericControl;
-        AppUtil.ShowMessageBox(divMessage, "Your login attempt was not successful. Please try again.", true);
-    }
+    //protected void Login1_LoginError(object sender, EventArgs e)
+    //{
+    //    HtmlGenericControl divMessage = Login1.FindControl("divMessage") as HtmlGenericControl;
+    //    AppUtil.ShowMessageBox(divMessage, "Your login attempt was not successful. Please try again.", true);
+    //}
     protected void LoginButton_Click(object sender, EventArgs e)
     {
-        string userName = Login1.UserName;
-        string password = Login1.Password;
+        string userName = txtUserName.Text;
+        string password = txtPassword.Text;
 
         PlanningPrepUser user = userManager.GetUserByUserNamePassword(userName, password);
         if (user != null)
         {
             SessionCache.CurrentUser = user;
-            FormsAuthenticationUtil.RedirectFromLoginPage(userName, "", Login1.RememberMeSet);
+            FormsAuthenticationUtil.RedirectFromLoginPage(userName, "", chkRememberMe.Checked);
+        }
+        else
+        {
+            //HtmlGenericControl divMessage = Login1.FindControl("divMessage") as HtmlGenericControl;
+            AppUtil.ShowMessageBox(divMessage, "Your login attempt was not successful. Please try again.", true);
         }
     }
 }
