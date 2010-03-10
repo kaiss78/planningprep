@@ -24,7 +24,6 @@ public partial class Pages_Exam : BasePage
     private string ACTION_EXAM_FINISHED = "Finished";
     UserExam currentUserExam = null;
     bool DeleteExistingExamInfoOnContinue = true;
-    int ExamFinished;
 
     UserExamManager userExamManager = new UserExamManager();
     
@@ -72,12 +71,14 @@ public partial class Pages_Exam : BasePage
         {
             LoadCurrentQuestionInfo();
             LoadCurrentExamSessionInfo();
+            SetDateTimeInfoForCurrentQuestion();
         }
 
         SetTimerInfo();
         
     }
 
+   
     private void SaveAnswer(ExamSaved questionToSave,bool finalQuestion)
     {
         DateTime examStartTime = SessionCache.GetExamStartTimeInfo();
@@ -149,6 +150,9 @@ public partial class Pages_Exam : BasePage
         {
             QuestionForExamType question = GetQuestion(QuestionNo, questions);
             if (question == null) return;
+
+            SetDateTimeInfoForCurrentQuestion();
+
             lblQuestionTitle.Text = question.Question;
 
             rdoA.Text = question.AnswerA;
@@ -271,7 +275,8 @@ public partial class Pages_Exam : BasePage
             questionToSave.Answer = selectedAnswer;
             questionToSave.ExamSessionID = ExamSessionID;
             questionToSave.QuestionID = currentQuestion.QuestionID;
-            questionToSave.Time = 100;
+            DateTime startTime = GetDateTimeInfoForCurrentQuestion();
+            questionToSave.Time = DateTime.Now.Subtract(startTime).Seconds;
             questionToSave.TimeStamp = DateTime.Now;
             questionToSave.UserID = SessionCache.CurrentUser.Author_ID;
 
@@ -315,6 +320,16 @@ public partial class Pages_Exam : BasePage
     private void SetCurrentQuestionInfo()
     {
         ViewState["CURRENT_QUESTION"] = QuestionNo;
+    }
+
+    private void SetDateTimeInfoForCurrentQuestion()
+    {
+        Session["CURRENT_QUESTION_START_TIME"] = DateTime.Now;
+    }
+
+    private DateTime GetDateTimeInfoForCurrentQuestion()
+    {
+        return Convert.ToDateTime(Session["CURRENT_QUESTION_START_TIME"]);
     }
       
     private void LoadCurrentQuestionInfo()

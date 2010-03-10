@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using App.Domain.UserExams;
 using App.Models.UserExams;
+using App.Models.Exams;
 
 public partial class Pages_Private_ExamResult : System.Web.UI.Page
 {
@@ -31,6 +32,21 @@ public partial class Pages_Private_ExamResult : System.Web.UI.Page
         currentUserExam.EndDate = DateTime.Now;
         
         userExamManager.SaveOrUpdateSavedQuestion(null, currentUserExam);
+        ExamTotal examTotal = userExamManager.ProcessResult(ExamSessionID);
+
+        if (examTotal != null)
+        {
+            int totalQuestions = examTotal.CountOfQuestionID;
+            int totalCorrect = examTotal.SumOfCorrect;
+            float percentCorrect = (float)totalCorrect/(float)totalQuestions*100;
+            int avgTime = currentUserExam.TotalTime / totalQuestions;
+
+            lblTotalQuestions.Text = totalQuestions.ToString();
+            lblTotalCorrectAnswers.Text = totalCorrect.ToString();
+            lblPercentCorrectAnswers.Text = percentCorrect.ToString();
+            lblAvgTimePerQuestion.Text = avgTime.ToString();
+        }
+
     }
 
     
