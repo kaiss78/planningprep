@@ -118,6 +118,16 @@ public class SessionCache
         }
     }
 
+    public static void SetExamStartTimeInfo()
+    {
+        HttpContext.Current.Session["EXAM_START_TIME"] = DateTime.Now;
+    }
+
+    public static DateTime GetExamStartTimeInfo()
+    {
+        return Convert.ToDateTime(HttpContext.Current.Session["EXAM_START_TIME"]);
+    }
+
     #endregion
 
     #region Methods
