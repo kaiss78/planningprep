@@ -27,6 +27,7 @@ using App.Models.Enums;
 using App.Core;
 using App.Core.DB;
 using App.Core.Exceptions;
+using App.Core.Extensions;
 using App.Core.Factories;
 using System.Security.Principal;
 
@@ -34,6 +35,7 @@ namespace App.Data.Questions
 {
     public interface IQuestionsDAO : IDataAccess<App.Models.Questions.Questions>
     {
+        DateTime LastQuestionDate();
     }
 
     public class QuestionsDAO : BaseDataAccess<App.Models.Questions.Questions>, IQuestionsDAO
@@ -82,6 +84,37 @@ namespace App.Data.Questions
             return entity;
         }
 
+        
+        /// <summary>
+        /// Gets Last Question Update Date
+        /// </summary>
+        /// <returns></returns>
+        public DateTime LastQuestionDate()
+        {
+            DateTime lastQuestionDate = DateTime.Now;
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "QuestionsDAO.LastQuestionDate()"))
+            {
+                try
+                {                    
+                    DbCommand cmd = Database.GetSqlStringCommand("SELECT * FROM qry_menu_lastquestion");
+                    IDataReader reader = ExecuteReader(cmd);
+                    if (reader.IsNotNull())
+                    {
+                        if (reader.Read())
+                        {
+                            lastQuestionDate = NullHandler.GetDateTime(reader["When"]);
+                        }
+                        reader.Close();
+                    }                    
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "UserDAO.GetUserByEmail(string)");
+                }
+            }
+            return lastQuestionDate;
+        }
         protected override void EagerLoad(App.Models.Questions.Questions entity)
         {
             // Add eager loading functionality here
