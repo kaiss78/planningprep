@@ -32,6 +32,7 @@ public class AppConstants
         public const string DECIMAL_FORMAT = "{0:0,0.00}";
         public const string DECIMAL_FORMAT_CALCULATION = "{0:00.####}";
         public const string DATE_FROMAT_DISPLAY = "MMMM dd, yyyy";
+        public const string DATE_FROMAT_DISPLAY_WITH_TIME = "dddd, MMMM dd, yyyy hh:mm tt";
     }
 
     #region UI CSS Classes
