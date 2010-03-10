@@ -32,8 +32,21 @@ namespace App.Core.Mail
     /// </summary>
     public sealed class MailManager
     {
+        #region SMTP Information
+        public static String SmtpHost
+        {
+            get;
+            set;
+        }
+        public static int SmtpPort
+        {
+            get;
+            set;
+        }
+        #endregion SMTP Information
+
         #region Methods
-        public static void SendMail(string smtpHost, int smtpPort, string mailTo, string mailCc, string mailBcc, string mailFrom, string mailSubject, string mailBody)
+        public static void SendMail(string mailTo, string mailCc, string mailBcc, string mailFrom, string mailSubject, string mailBody)
         {
             try
             {
@@ -68,8 +81,8 @@ namespace App.Core.Mail
 
                     //sending the mail.
                     SmtpClient smtpClient = new SmtpClient();
-                    smtpClient.Host = smtpHost;
-                    smtpClient.Port = smtpPort;
+                    smtpClient.Host = SmtpHost; //smtpHost;
+                    smtpClient.Port = SmtpPort; //smtpPort;
                     smtpClient.Send(mailMessage);
                 }
             }
