@@ -84,6 +84,8 @@ namespace App.Domain.UserExams
                         {
                             dao.Save(entity);
                         }
+                        
+
                         scope.Complete();
                     }
                 }
@@ -94,6 +96,36 @@ namespace App.Domain.UserExams
             }
         }
 
+        public void SaveOrUpdateSavedQuestion(App.Models.Exams.ExamSaved examSaved,App.Models.UserExams.UserExam userExam,bool finalQuestion)
+        {
+            using (new TimedTraceLog(GetType().Name + "SaveOrUpdate(ExamSaved)", ""))
+            {
+                try
+                {
+                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromSeconds(60)))
+                    {
+                        using (IExamSavedDAO dao = (IExamSavedDAO)DAOFactory.Get<ExamSaved>())
+                        {
+                            dao.Save(examSaved);
+                        }
+                        
+                        using (IUserExamDAO userExamDao = (IUserExamDAO)DAOFactory.Get<UserExam>())
+                        {
+                            userExamDao.Save(userExam);
+                        }
+
+                        scope.Complete();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHelper.HandleException<ManagerException>(ex, "ExamSavedDAO.SaveOrUpdate(ExamSaved)");
+                }
+            }
+        }
+
+
+       
 
         /// <summary>
         /// Gets the object with specified id.
@@ -205,6 +237,29 @@ namespace App.Domain.UserExams
             }
             return result;
         }
+
+        /// <summary>
+        /// Deletes the existing Exam info by ExamSessionID specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns></returns>
+        public bool Delete(int ExamSessionID)
+        {
+            bool result = false;
+            try
+            {
+                using (IExamSavedDAO dao = (IExamSavedDAO)DAOFactory.Get<ExamSaved>())
+                {
+                    result = dao.Delete(ExamSessionID);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return result;
+        }
+
         #endregion
 
         #region Other Methods
