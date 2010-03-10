@@ -22,16 +22,86 @@
         Members have access to our growing database of practice questions, practice exams, 
         planning related links, and are able to participate in our discussion forums. <br /><br />
 
-        Currently, we have 1025 practice questions and 7 practice exams aimed at refreshing, 
+        Currently, we have <%=_NumberOfQuestions.ToString()%> practice questions and 7 practice exams aimed at refreshing, 
         broadening, and testing their planning knowledge. Each question contains an explanation for 
         each correct answer, so our members know why one answer is correct and another is not.  
         Links for further reading are also provided with our questions, to help our 
         members find additional information about the topic. We are constantly adding to our questions, 
         to make sure our materials are current and relevant. 
-        The last question was added to our database on <%=_LastQuestionDate%><%--Thursday, October 15, 2009 at 10:40:06 PM--%>.
+        The last question was added to our database on <%=_LastQuestionDate%>.
+        
+        
+        <div class="contentheading">Membership</div>
+        A one-year membership to Planning Prep costs $120. So if you do 
+        not pass the exam, your membership will be good for one year, allowing you to 
+        continue to use the site through the the next 
+	    exam window.
+	    
+	    <div class="contentheading">Testimonials</div>	    
+        &quot;Thanks for all your help.<br/>
+	    I could not have done it without you!&quot;
+	    
+	    <br /><br />&quot;Since I didn't know anyone else in my area taking the 
+	    exam, your site was very helpful, and I have already recommended it to a 
+	    coworker who is taking the exam next year.&quot;
+	    
+	    <br /><br />&quot;I found the immediate links and explanations very 
+	    helpful.&quot;
+	    <br /><br />&quot;I absolutely loved the preparation strategy, you did a 
+	    phenomenal job within the short time you had.&quot;
+	    
     </div>
     <div class="homepagecontentbox">
-    <div class="contentheading">Features</div>
+        <%--Question of the Week Section Starts--%>
+        <%if (_QuestionOfTheWeek != null){ %>
+            <div class="contentheading">Question of the Week</div>
+            <table cellpadding="0" cellspacing="0" style="width:100%;">
+                <colgroup>
+                    <col style="width:7%;" />
+                    <col style="width:8%;" />
+                    <col style="width:85%;" />
+                </colgroup>
+                <tr>
+                    <td colspan="3"><%=_QuestionOfTheWeek.Question%></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" value="A" name="Answer"></td>
+                    <td>A)</td>
+                    <td><%=_QuestionOfTheWeek.AnswerA%></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" value="B" name="Answer"></td>
+                    <td>B)</td>
+                    <td><%=_QuestionOfTheWeek.AnswerB%></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" value="C" name="Answer"></td>
+                    <td>C)</td>
+                    <td><%=_QuestionOfTheWeek.AnswerC%></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" value="D" name="Answer"></td>
+                    <td>D)</td>
+                    <td><%=_QuestionOfTheWeek.AnswerD%></td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="padding-top:10px;">
+                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="ButtonCommon" />                        
+                        <%--<input class=cmd type="reset" value="Clear" name="B2"></p>
+                        <input type="hidden" name="QuestionID" value="<%=objRS("QuestionID")%>">
+                        <input type="hidden" name="CorrectAnswer" value="<%=objRS("CorrectAnswer")%>">
+                        <input type="hidden" name="UserID" value="2">--%>
+                    </td>
+                </tr>
+            </table>
+        <%} %>
+        
+        <div class="contentheading">Days Until Next Exam Window </div>
+        <%=GetNextExamWindow()%>
+        
+        <%--Question of the Week Section Ends--%>
+        
+        <div class="contentheading">Features</div>
         <ul>
             <li>
                 <%=_NumberOfQuestions.ToString()%> practice questions, 
