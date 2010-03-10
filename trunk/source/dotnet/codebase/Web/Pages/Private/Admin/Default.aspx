@@ -3,6 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
-    <a href="/Admin/ManageQuestions.aspx">Manage Questions</a>
+    <a href="/Pages/Private/Admin/ManageQuestions.aspx">Manage Questions</a>
 </asp:Content>
 
