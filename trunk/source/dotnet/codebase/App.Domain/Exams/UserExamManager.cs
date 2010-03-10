@@ -356,6 +356,52 @@ namespace App.Domain.UserExams
             }
             return UserExam;
         }
+
+        /// <summary>
+        /// Get Exam result an exam
+        /// </summary>
+        /// <param name="ExamSessionID"></param>
+        /// <returns></returns>
+        public ExamTotal GetExamTotal(int ExamSessionID)
+        {
+            ExamTotal ExamTotal = null;
+            try
+            {
+                using (IExamTotalDAO dao = (IExamTotalDAO)DAOFactory.Get<ExamTotal>())
+                {
+                    ExamTotal = dao.GetExamTotal(ExamSessionID);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+
+            return ExamTotal;
+        }
+
+
+        /// <summary>
+        /// Processes result for ExamSessionID
+        /// </summary>
+        /// <param name="entity">The ExamSessionID.</param>
+        /// <returns></returns>
+        public ExamTotal ProcessResult(int ExamSessionID)
+        {
+            try
+            {
+                using (IUserExamDAO dao = (IUserExamDAO)DAOFactory.Get<UserExam>())
+                {
+                    dao.ProcessResult(ExamSessionID);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+
+            return GetExamTotal(ExamSessionID);
+        }
         #endregion
     }
 }
