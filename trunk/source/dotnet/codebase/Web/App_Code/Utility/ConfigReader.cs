@@ -21,6 +21,7 @@ public class ConfigReader
     private const String SMTP_PORT = "SmtpPort";
 
 
+    private const String _ExamLengthInMinutes = "ExamLengthInMinutes";
     private static String GetAppSettingsValue(String key)
     {
         return ConfigurationManager.AppSettings[key];
@@ -36,6 +37,19 @@ public class ConfigReader
             return pageSize;
         }
     }
+
+
+    public static int ExamLengthInMinutes
+    {
+        get
+        {
+            int configValue = 0;
+            String paramValue = GetAppSettingsValue(_ExamLengthInMinutes);
+            int.TryParse(paramValue, out configValue);
+            return configValue;
+        }
+    }
+
     public static String AdminEmail
     {
         get
@@ -63,4 +77,5 @@ public class ConfigReader
             return port == 0 ? 25 : port;
         }
     }
+
 }
