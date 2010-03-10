@@ -223,6 +223,27 @@ namespace App.Domain.Users
             }
             return PlanningPrepUser;
         }
+        /// <summary>
+        /// Gets user object by email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>    
+        public PlanningPrepUser GetUserByEmail(string email)
+        {
+            PlanningPrepUser PlanningPrepUser = null;
+            try
+            {
+                using (IUserDAO dao = (IUserDAO)DAOFactory.Get<PlanningPrepUser>())
+                {
+                    PlanningPrepUser = dao.GetUserByEmail(email);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return PlanningPrepUser;
+        }
         #endregion
     }
 }
