@@ -96,7 +96,7 @@ namespace App.Domain.UserExams
             }
         }
 
-        public void SaveOrUpdateSavedQuestion(App.Models.Exams.ExamSaved examSaved,App.Models.UserExams.UserExam userExam,bool finalQuestion)
+        public void SaveOrUpdateSavedQuestion(App.Models.Exams.ExamSaved examSaved,App.Models.UserExams.UserExam userExam)
         {
             using (new TimedTraceLog(GetType().Name + "SaveOrUpdate(ExamSaved)", ""))
             {
@@ -104,9 +104,12 @@ namespace App.Domain.UserExams
                 {
                     using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromSeconds(60)))
                     {
-                        using (IExamSavedDAO dao = (IExamSavedDAO)DAOFactory.Get<ExamSaved>())
+                        if (examSaved != null)
                         {
-                            dao.Save(examSaved);
+                            using (IExamSavedDAO dao = (IExamSavedDAO)DAOFactory.Get<ExamSaved>())
+                            {
+                                dao.Save(examSaved);
+                            }
                         }
                         
                         using (IUserExamDAO userExamDao = (IUserExamDAO)DAOFactory.Get<UserExam>())
