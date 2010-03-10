@@ -1,0 +1,108 @@
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamCalculateResult]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spExamCalculateResult]
+GO
+-- =============================================
+-- Author:		<Shubho>
+-- Create date: <11 March 2010>
+-- Description:	<Saves Exam result>
+-- =============================================
+CREATE PROCEDURE spExamCalculateResult 
+	-- Add the parameters for the stored procedure here
+	@ExamSessionID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	SET @ExamSessionID = 6270
+
+	CREATE TABLE #tempExamSaved(
+	[SERIAL] [int] IDENTITY NOT NULL,
+	[ID] [int] NOT NULL,
+	[UserID] [int] NULL,
+	[QuestionID] [int] NULL,
+	[Answer] [nvarchar](50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[TimeStamp] [datetime] NULL,
+	[Time] [int] NULL,
+	[ExamSessionID] [int] NULL
+	)
+
+	BEGIN TRY
+	
+	BEGIN TRAN
+
+	INSERT INTO #tempExamSaved SELECT * FROM tblExamsSaved WHERE ExamSessionID = @ExamSessionID
+	DECLARE @AnswerCount int, @Counter int;
+	SET @Counter = 1;
+	SELECT @AnswerCount = COUNT(*) FROM tblExamsSaved WHERE ExamSessionID = @ExamSessionID;
+	
+	WHILE @Counter <= @AnswerCount
+	BEGIN
+		DECLARE @QuestionID int;
+		DECLARE @CorrectAnswer VARCHAR(10)
+		DECLARE @UserID int;
+		DECLARE @Time int;
+		DECLARE @Correct int;
+		DECLARE @TimeStamp DateTime;
+		DECLARE @SelectedAnswer NVARCHAR(50)
+		
+		SELECT @UserID=UserID,@Time=[Time],@TimeStamp=[TimeStamp],@SelectedAnswer=Answer FROM #tempExamSaved WHERE SERIAL = @Counter;
+
+		SELECT @CorrectAnswer=[CorrectAnswer], @QuestionID=[QuestionID] 
+		FROM [tblQuestions] 
+		WHERE [QuestionID] = (SELECT QuestionID FROM #tempExamSaved WHERE SERIAL = @Counter)
+
+		SET @Correct = 0;
+		if(@SelectedAnswer = @CorrectAnswer)
+		BEGIN
+			SET @Correct = 1;
+		END
+		
+		--Insert the individual answer selection
+
+		INSERT INTO tblAnswers ([QuestionID], [UserID], [Answer], [TimeStamp], [Time], [Correct], [CorrectAnswer], [ExamSessionID])  
+		VALUES (@QuestionID,@UserID,@SelectedAnswer,@TimeStamp,@Time,@Correct,@CorrectAnswer,@ExamSessionID)
+		
+		--Update the answer statistics
+
+		UPDATE tbl_AnswerTotal SET A = A +1, [Total] = [Total] + 1 WHERE [QuestionID] = @QuestionID
+		UPDATE tbl_AnswerTotal SET B = B +1, [Total] = [Total] + 1 WHERE [QuestionID] = @QuestionID
+		UPDATE tbl_AnswerTotal SET C = C +1, [Total] = [Total] + 1 WHERE [QuestionID] = @QuestionID
+		UPDATE tbl_AnswerTotal SET D = D +1, [Total] = [Total] + 1 WHERE [QuestionID] = @QuestionID
+		SET @Counter = @Counter + 1
+	END
+	
+	drop table #tempExamSaved;
+
+	COMMIT TRAN	
+
+	END TRY
+
+	BEGIN CATCH
+
+		IF @@TRANCOUNT > 0
+			ROLLBACK TRAN
+	
+	END CATCH
+    -- Insert statements for procedure here
+	--SELECT * FROM tblAnswers where ExamSessionID = 6270
+	--DELETE FROM tblAnswers where ExamSessionID = 6270
+	--SELECT * FROM qryExamTotal WHERE ExamSessionID = 6270
+END
+GO
