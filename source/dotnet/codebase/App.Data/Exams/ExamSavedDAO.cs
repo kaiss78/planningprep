@@ -37,6 +37,7 @@ namespace App.Data.Exams
     {
         IList<App.Models.Exams.ExamSaved> GetSavedExamByExamSessionID(int ExamSessionID);
         ExamSaved GetSavedExamByExamSessionIDAndQuestionID(int ExamSessionID, int QuestionID);
+        bool Delete(int ExamSessionID);
     }
 
     public class ExamSavedDAO : BaseDataAccess<App.Models.Exams.ExamSaved>, IExamSavedDAO
@@ -116,6 +117,26 @@ namespace App.Data.Exams
             }
         }
 
+        /// <summary>
+        /// Deletes all saved exam info by ExamSessionID
+        /// </summary>
+        /// <param name="entity">The ExamSessionID.</param>
+        /// <returns></returns>
+        public bool Delete(int ExamSessionID)
+        {
+            using (new TimedTraceLog(CurrentUser == null ? CurrentUser.Identity.Name : "Unknown User", GetType().Name + ".Delete(ExamSessionID)"))
+            {
+                try
+                {
+                    return DeleteInternal("spExamSavedDeleteByExamSessionID", new DbParameter("ExamSessionID", DbType.Int32, ExamSessionID));
+                }
+                catch (Exception ex)
+                {
+                    Exception excToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(excToUse.Message, excToUse, GetType().Name + ".Delete(ExamSessionID)");
+                }
+            }
+        }
 
         protected override void EagerLoad(App.Models.Exams.ExamSaved entity)
         {
