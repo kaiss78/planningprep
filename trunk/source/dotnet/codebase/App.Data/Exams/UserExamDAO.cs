@@ -36,6 +36,7 @@ namespace App.Data.UserExams
     public interface IUserExamDAO : IDataAccess<App.Models.UserExams.UserExam>
     {
         IList<UserExam> GetUserExamByExamAndUser(int ExamID, int UserID);
+        void ProcessResult(int ExamSessionID);
     }
 
     public class UserExamDAO : BaseDataAccess<App.Models.UserExams.UserExam>, IUserExamDAO
@@ -91,6 +92,31 @@ namespace App.Data.UserExams
                 {
                     Exception exToUse = ex.InnerException ?? ex;
                     throw new DataAccessException(exToUse.Message, exToUse, "UserExamDAO.GetUserExamByExamAndUser(int,int)");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Processes result for ExamSessionID
+        /// </summary>
+        /// <param name="entity">The ExamSessionID.</param>
+        /// <returns></returns>
+        public void ProcessResult(int ExamSessionID)
+        {
+            using (new TimedTraceLog(CurrentUser == null ? CurrentUser.Identity.Name : "Unknown User", GetType().Name + ".ProcessResult(ExamSessionID)"))
+            {
+                try
+                {
+                    DbParameter[] parameters = new[] { new DbParameter("ExamSessionID", DbType.Int32, ExamSessionID) };
+                    using (DbCommand command = Database.GetStoredProcCommand("spExamCalculateResult", parameters))
+                    {
+                        ExecuteNonQuery(command);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Exception excToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(excToUse.Message, excToUse, GetType().Name + ".ProcessResult(ExamSessionID)");
                 }
             }
         }
