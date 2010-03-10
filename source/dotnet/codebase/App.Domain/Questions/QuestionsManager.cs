@@ -154,6 +154,26 @@ namespace App.Domain.Questions
             }
             return QuestionsList;
         }
+        /// <summary>
+        /// Gets Last Question Update Date
+        /// </summary>
+        /// <returns></returns>
+        public DateTime LastQuestionDate()
+        {
+            DateTime lastQuestionDate = DateTime.Now;
+            try
+            {
+                using (IQuestionsDAO dao = (IQuestionsDAO)DAOFactory.Get<App.Models.Questions.Questions>())
+                {
+                    lastQuestionDate = dao.LastQuestionDate();
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return lastQuestionDate;
+        }
 
         /// <summary>
         /// Deletes the specified entity.
