@@ -37,6 +37,7 @@ namespace App.Data.Users
     {
         PlanningPrepUser GetUserByUserNamePassword(string userName, string password);
         PlanningPrepUser GetUserByUserName(string userName);
+        PlanningPrepUser GetUserByEmail(string email);
     }
 
     public class UserDAO : BaseDataAccess<App.Models.Users.PlanningPrepUser>, IUserDAO
@@ -118,6 +119,29 @@ namespace App.Data.Users
                 }
             }
         }
+        /// <summary>
+        /// Gets User by Author Email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public PlanningPrepUser GetUserByEmail(string email)
+        {
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "UserDAO.GetUserByEmail(string)"))
+            {
+                try
+                {
+                    DbParameter[] parameters = new[] { new DbParameter("email", DbType.String, email)};
+
+                    return GetInternal("spAuthorGetByEmail", parameters);
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "UserDAO.GetUserByEmail(string)");
+                }
+            }
+        }
+        
 
         /// <summary>
         /// Get User by UserName
