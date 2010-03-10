@@ -52,6 +52,7 @@
     <Compile Include="Enums\NomineeFileTypes.cs" />
     <Compile Include="Exams\Exam.cs" />
     <Compile Include="Exams\ExamSaved.cs" />
+    <Compile Include="Exams\ExamTotal.cs" />
     <Compile Include="Exams\QuestionForExamType.cs" />
     <Compile Include="IPagedList.cs" />
     <Compile Include="PagedList.cs" />
