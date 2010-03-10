@@ -1,0 +1,23 @@
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[spAuthorGetByEmail] 
+	   @Email nvarchar(50) 
+	
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/8/2010 9:31:29 PM
+-- Description: GetForUser Into Table tblAuthor
+-- =============================================
+-- spAuthorGetForUserNamePassword ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblAuthor] tab  WITH(NOLOCK)
+		WHERE  tab.[Author_email]= @Email
+
+	SET NOCOUNT OFF;
+END
+
