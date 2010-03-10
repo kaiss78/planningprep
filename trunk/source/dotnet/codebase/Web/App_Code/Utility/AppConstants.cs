@@ -24,6 +24,7 @@ public class AppConstants
     {
         public const string EDIT_QUESTION = "/Pages/Private/Admin/EditQuestion.aspx";
         public const string MANAGE_QUESTIONS = "/Pages/Private/Admin/ManageQuestions.aspx";
+        public const string JOIN_OUTCOME = "/Pages/Public/JoinOutcome.aspx";
     }
     public class ValueOf
     {
@@ -64,4 +65,16 @@ public class AppConstants
     }
     
     #endregion    
+
+    #region Email Templates
+    public class EmailTemplate
+    {
+        public const string GENERAL_EMAIL_TEMPLATE = "GeneralTemplate.html";
+    }
+
+    public class ETConstants
+    {
+        public const string MESSAGE = "[*MESSAGE*]";
+    }
+    #endregion
 }
