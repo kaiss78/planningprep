@@ -19,6 +19,7 @@ public class ConfigReader
     private const String ADMIN_EMAIL = "AdminEmail";
     private const String SMTP_HOST = "SmtpHost";
     private const String SMTP_PORT = "SmtpPort";
+    private const String QUESTION_OF_THE_WEEK_ID = "QuestionOfTheWeekID";
 
 
     private const String _ExamLengthInMinutes = "ExamLengthInMinutes";
@@ -78,4 +79,14 @@ public class ConfigReader
         }
     }
 
+    public static int QuestionOfTheWeekID
+    {
+        get
+        {
+            int value = 0;
+            String paramValue = GetAppSettingsValue(QUESTION_OF_THE_WEEK_ID);
+            int.TryParse(paramValue, out value);
+            return value;
+        }
+    }
 }
