@@ -23,6 +23,26 @@ BEGIN
 END
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamSavedDeleteByExamSessionID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spExamSavedDeleteByExamSessionID]
+GO
+CREATE PROCEDURE [dbo].[spExamSavedDeleteByExamSessionID] 
+@ExamSessionID int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/9/2010 11:53:00 PM
+-- Description: Delete Into Table tblExamsSaved
+-- =============================================
+-- spExamSavedDeleteByExamSessionID ...........
+BEGIN
+
+		DELETE FROM tblExamsSaved
+		WHERE [ExamSessionID]=@ExamSessionID
+
+END
+GO
+
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamsSavedGetById]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[spExamsSavedGetById]
