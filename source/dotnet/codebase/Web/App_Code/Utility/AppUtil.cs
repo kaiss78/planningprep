@@ -224,4 +224,14 @@ public class AppUtil
         }
         return false;
     }
+    public static String ReadEmailTemplate(String templateFileName)
+    {
+        String filePath = HttpContext.Current.Server.MapPath("/EmailTemplates");
+        filePath = Path.Combine(filePath, templateFileName);
+        return File.ReadAllText(filePath);
+    }
+    public static String GetDomainAddress()
+    {
+        return String.Format("http://{0}/", HttpContext.Current.Request.Url.Host);
+    }
 }
