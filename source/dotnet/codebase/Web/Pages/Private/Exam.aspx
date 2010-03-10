@@ -36,7 +36,9 @@ if (min == '00' && sec == '00')
 { 
     sec = "00"; 
     window.clearTimeout(SD); 
-    location.href="ExamResult.aspx";
+    
+    location.href = "ExamResult.aspx?ExamSessionID=" + <%=ExamSessionID %>
+    
 }
 }
 window.onload = countDown;

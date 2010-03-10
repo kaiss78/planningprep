@@ -14,25 +14,23 @@ public partial class Pages_Exam : BasePage
 {
     private int QuestionNo;
     private int ExamID;
-    private int ExamSessionID;
+    protected int ExamSessionID;
     protected int Seconds;
     protected int Minutes;
     private string ExamKey;
     private string Action;
     private string ACTION_NEW_EXAM = "New";
     private string ACTION_CONTINUE_EXAM = "Continue";
+    private string ACTION_EXAM_FINISHED = "Finished";
     UserExam currentUserExam = null;
     bool DeleteExistingExamInfoOnContinue = true;
+    int ExamFinished;
 
     UserExamManager userExamManager = new UserExamManager();
     
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (IsTimerElapsed())
-        {
-            Response.Redirect("ExamResult.aspx");
-        }
 
         if (!LoadParams())
         {
@@ -41,10 +39,18 @@ public partial class Pages_Exam : BasePage
             return;
         }
 
+        if (IsTimerElapsed())
+        {
+            SaveAnswer(null,true);
+            Response.Redirect("ExamResult.aspx?ExamSessionID=" + ExamSessionID);
+            return;
+        }
+
+
         if (!IsPostBack)
         {
             ClearCheckBoxes();
-            SetExamStartTimeInfo();
+            SessionCache.SetExamStartTimeInfo();
             QuestionNo = 1;
             SetCurrentQuestionInfo();
             if (Action == ACTION_NEW_EXAM)
@@ -72,12 +78,23 @@ public partial class Pages_Exam : BasePage
         
     }
 
+    private void SaveAnswer(ExamSaved questionToSave,bool finalQuestion)
+    {
+        DateTime examStartTime = SessionCache.GetExamStartTimeInfo();
+        currentUserExam.TotalTime += DateTime.Now.Subtract(examStartTime).Seconds;
+        if (finalQuestion)
+        {
+            currentUserExam.EndDate = DateTime.Now;
+        }
+        userExamManager.SaveOrUpdateSavedQuestion(questionToSave, currentUserExam);
+    }
+
     private void SetTimerInfo()
     {
         int totalAllowedSeconds = ConfigReader.ExamLengthInMinutes * 60;
         if (IsPostBack)
         {
-            DateTime examStartTime = GetExamStartTimeInfo();
+            DateTime examStartTime = SessionCache.GetExamStartTimeInfo();
             int elapsedSeconds = DateTime.Now.Subtract(examStartTime).Minutes * 60 + DateTime.Now.Subtract(examStartTime).Seconds;
             totalAllowedSeconds -= elapsedSeconds;
         }
@@ -88,9 +105,9 @@ public partial class Pages_Exam : BasePage
     private bool IsTimerElapsed()
     {
         int totalAllowedSeconds = ConfigReader.ExamLengthInMinutes * 60;
-        if (IsPostBack)
+        if (IsPostBack || Action == ACTION_EXAM_FINISHED)
         {
-            DateTime examStartTime = GetExamStartTimeInfo();
+            DateTime examStartTime = SessionCache.GetExamStartTimeInfo();
             int elapsedSeconds = DateTime.Now.Subtract(examStartTime).Minutes * 60 + DateTime.Now.Subtract(examStartTime).Seconds;
             totalAllowedSeconds -= elapsedSeconds;
         }
@@ -197,7 +214,6 @@ public partial class Pages_Exam : BasePage
         ExamSessionID = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.EXAM_SESSION_ID);
         ExamKey = WebUtil.GetRequestParamValueInString(AppConstants.QueryString.EXAM_KEY);
         Action = WebUtil.GetRequestParamValueInString(AppConstants.QueryString.EXAM_ACTION);
-        
         if (Action == ACTION_CONTINUE_EXAM)
         {
             if (ExamSessionID == 0) return false;
@@ -213,6 +229,12 @@ public partial class Pages_Exam : BasePage
             {
                 return false;
             }
+        }
+        else if(Action == ACTION_EXAM_FINISHED)
+        {
+            currentUserExam = userExamManager.Get(ExamSessionID);
+            ExamID = currentUserExam.ExamID;
+            return true;
         }
         else
         {
@@ -254,15 +276,7 @@ public partial class Pages_Exam : BasePage
             questionToSave.UserID = SessionCache.CurrentUser.Author_ID;
 
             bool finalQuestion = QuestionNo == questions.Count?true:false;
-
-            DateTime examStartTime = GetExamStartTimeInfo();
-            currentUserExam.TotalTime += DateTime.Now.Subtract(examStartTime).Seconds;
-            if (finalQuestion)
-            {
-                currentUserExam.EndDate = DateTime.Now;
-            }
-            userExamManager.SaveOrUpdateSavedQuestion(questionToSave, currentUserExam, finalQuestion);
-
+            SaveAnswer(questionToSave,finalQuestion);
         }
     }
 
@@ -302,17 +316,7 @@ public partial class Pages_Exam : BasePage
     {
         ViewState["CURRENT_QUESTION"] = QuestionNo;
     }
-
-    private void SetExamStartTimeInfo()
-    {
-        Session["EXAM_START_TIME"] = DateTime.Now;
-    }
-
-    private DateTime GetExamStartTimeInfo()
-    {
-        return Convert.ToDateTime(Session["EXAM_START_TIME"]);
-    }
-
+      
     private void LoadCurrentQuestionInfo()
     {
         QuestionNo = Convert.ToInt32(ViewState["CURRENT_QUESTION"]);
