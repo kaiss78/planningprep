@@ -1,0 +1,22 @@
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamTotalGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spExamTotalGetForUser]
+GO
+CREATE PROCEDURE [dbo].[spExamTotalGetForUser] 
+	   @ExamSessionID int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 1:03:03 AM
+-- Description: GetForUser Into Table tblExamTotal
+-- =============================================
+-- sptblExamTotalGetForUser ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[qryExamTotal] tab  WITH(NOLOCK)
+		WHERE  tab.[ExamSessionID]= @ExamSessionID
+
+	SET NOCOUNT OFF;
+END
+GO
