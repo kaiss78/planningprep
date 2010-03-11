@@ -22,8 +22,8 @@ public class AppConstants
 
     public class Pages
     {
-        public const string EDIT_QUESTION = "/Pages/Private/Admin/EditQuestion.aspx";
-        public const string MANAGE_QUESTIONS = "/Pages/Private/Admin/ManageQuestions.aspx";
+        public const string EDIT_QUESTION = "/Pages/Admin/EditQuestion.aspx";
+        public const string MANAGE_QUESTIONS = "/Pages/Admin/ManageQuestions.aspx";
         public const string JOIN_OUTCOME = "/Pages/Public/JoinOutcome.aspx";
     }
     public class ValueOf
