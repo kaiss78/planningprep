@@ -107,10 +107,11 @@ namespace App.Data.UserExams
             {
                 try
                 {
-                    DbParameter[] parameters = new[] { new DbParameter("ExamSessionID", DbType.Int32, ExamSessionID) };
-                    using (DbCommand command = Database.GetStoredProcCommand("spExamCalculateResult", parameters))
+                    //DbParameter[] parameters = new[] { new DbParameter("ExamSessionID", DbType.Int32, ExamSessionID) };
+                    using (DbCommand command = Database.GetStoredProcCommand("spExamCalculateResult"))
                     {
-                        ExecuteNonQuery(command);
+                        Database.AddInParameter(command, "ExamSessionID", DbType.Int32, ExamSessionID);
+                        Database.ExecuteNonQuery(command);
                     }
                 }
                 catch (Exception ex)
