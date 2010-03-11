@@ -5,12 +5,7 @@
         ul{
             margin-left:10px;
             padding-left:10px;
-        }
-        /*li
-        {
-        	margin-left:0px;
-            padding-left:0px;
-        }*/
+        }        
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
@@ -65,32 +60,28 @@
                     <td colspan="3"><%=_QuestionOfTheWeek.Question%></td>
                 </tr>
                 <tr>
-                    <td><input type="radio" value="A" name="Answer"></td>
+                    <td><input type="radio" value="A" name="Answer"/></td>
                     <td>A)</td>
                     <td><%=_QuestionOfTheWeek.AnswerA%></td>
                 </tr>
                 <tr>
-                    <td><input type="radio" value="B" name="Answer"></td>
+                    <td><input type="radio" value="B" name="Answer"/></td>
                     <td>B)</td>
                     <td><%=_QuestionOfTheWeek.AnswerB%></td>
                 </tr>
                 <tr>
-                    <td><input type="radio" value="C" name="Answer"></td>
+                    <td><input type="radio" value="C" name="Answer"/></td>
                     <td>C)</td>
                     <td><%=_QuestionOfTheWeek.AnswerC%></td>
                 </tr>
                 <tr>
-                    <td><input type="radio" value="D" name="Answer"></td>
+                    <td><input type="radio" value="D" name="Answer"/></td>
                     <td>D)</td>
                     <td><%=_QuestionOfTheWeek.AnswerD%></td>
                 </tr>
                 <tr>
                     <td colspan="3" style="padding-top:10px;">
-                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="ButtonCommon" />                        
-                        <%--<input class=cmd type="reset" value="Clear" name="B2"></p>
-                        <input type="hidden" name="QuestionID" value="<%=objRS("QuestionID")%>">
-                        <input type="hidden" name="CorrectAnswer" value="<%=objRS("CorrectAnswer")%>">
-                        <input type="hidden" name="UserID" value="2">--%>
+                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="ButtonCommon" OnClick="btnSubmit_Click" />                                                
                     </td>
                 </tr>
             </table>

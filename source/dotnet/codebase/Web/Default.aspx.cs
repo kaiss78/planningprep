@@ -96,4 +96,12 @@ public partial class Default : System.Web.UI.Page
         }
         return message;
     }
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        String givenAnswer = Request.Form["Answer"];
+        App.Domain.Questions.QuestionsManager manager = new App.Domain.Questions.QuestionsManager();
+        manager.SaveQuestionOfTheWeekAnswer(ConfigReader.QuestionOfTheWeekID, 2, givenAnswer);
+        String url = String.Format("{0}?{1}={2}&{3}={4}", AppConstants.Pages.ANSWER_OF_THE_WEEK_MESSAGE, AppConstants.QueryString.QUESTION_ID, ConfigReader.QuestionOfTheWeekID, AppConstants.QueryString.ANSWER, givenAnswer);
+        Response.Redirect(url);
+    }
 }
