@@ -27,8 +27,9 @@ public class AppConstants
         public const string JOIN_OUTCOME = "/Pages/Public/JoinOutcome.aspx";
         public const string ANSWER_OF_THE_WEEK_MESSAGE = "/Pages/Public/AnswerOfTheWeekMessage.aspx";
         public const string VISIT_FRAME = "/Pages/Public/VisitFrame.aspx";
-        
+        public const string SHOW_CONTENT = "/Pages/Public/ShowContent.aspx";
     }
+
     public class ValueOf
     {
         public const string CALENDAR_DATE_FORMAT = "dd/MM/yyyy";
@@ -62,6 +63,7 @@ public class AppConstants
         public const string ERROR_CODE = "ErrorCode";
         public const string LINK = "Link";
         public const string LINK_ID = "LinkID";
+        public const string ID = "ID";
     }
     
     #endregion
