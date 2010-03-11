@@ -7,6 +7,22 @@
             padding-left:10px;
         }        
     </style>
+    <script language="javascript" type="text/javascript">
+    
+        function ValidateAnswerSelection(sender, args)
+        {
+            args.IsValid = false;
+            var elements = document.getElementsByName("Answer");
+            for(i = 0; i < elements.length; i++)
+            {
+                if(elements[i].checked)
+                {
+                    args.IsValid = true;
+                    break;
+                }
+            }           
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
     <div class="homepagecontentbox">
@@ -81,7 +97,12 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="padding-top:10px;">
-                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="ButtonCommon" OnClick="btnSubmit_Click" />                                                
+                        <asp:CustomValidator ID="cvQuestionOfTheWeek" runat="server"
+                            ValidationGroup="QuestionOfTheWeek" Display="Dynamic"
+                            ClientValidationFunction="ValidateAnswerSelection"
+                            ErrorMessage="">
+                        </asp:CustomValidator>
+                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="ButtonCommon" OnClick="btnSubmit_Click" ValidationGroup="QuestionOfTheWeek" />                                                
                     </td>
                 </tr>
             </table>
