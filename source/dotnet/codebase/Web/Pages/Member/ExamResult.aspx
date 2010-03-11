@@ -73,11 +73,13 @@
         <div class="detailsResult">
             <asp:GridView ID="gvResultDetails" runat="server" AutoGenerateColumns="False" 
                 onrowdatabound="gvResultDetails_RowDataBound">
+                <RowStyle CssClass="EvenRowListing" />
                 <Columns>
                     <asp:BoundField DataField="SerialNo" HeaderText="Question No" />
                     <asp:HyperLinkField DataNavigateUrlFields="QuestionID" 
                         DataNavigateUrlFormatString="QuestionDetails.aspx?QuestionID={0}" 
-                        DataTextField="Question" NavigateUrl="QuestionDetails.aspx" Text="Question" />
+                        DataTextField="Question" NavigateUrl="QuestionDetails.aspx" 
+                        HeaderText="Question" />
                     <asp:BoundField DataField="CorrectAnswer" HeaderText="Correct Answer" />
                     <asp:BoundField DataField="YourAnswer" HeaderText="Your Answer" />
                     <asp:TemplateField HeaderText="Result">
@@ -86,6 +88,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
+                <AlternatingRowStyle CssClass="OddRowListing" />
             </asp:GridView>
         </div>
     </div>
