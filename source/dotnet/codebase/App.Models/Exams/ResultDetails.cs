@@ -42,6 +42,26 @@ namespace App.Models.Exams
         }
 
         /// <summary>
+        /// Gets or sets the SerialNo
+        /// </summary>
+        /// <value>The SerialNo.</value>
+        public int SerialNo
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Result
+        /// </summary>
+        /// <value>The Result.</value>
+        public string Result
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets the Question
         /// </summary>
         /// <value>The Question.</value>
