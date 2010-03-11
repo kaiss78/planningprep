@@ -1,0 +1,29 @@
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spResultDetailsForExamSession]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spResultDetailsForExamSession]
+GO
+CREATE PROCEDURE [dbo].[spResultDetailsForExamSession] 
+	   @ExamSessionID int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/8/2010 11:04:17 PM
+-- Description: Obtain result details for exam session
+-- =============================================
+-- [spResultDetailsForExamSession] ...........
+BEGIN
+	SET NOCOUNT ON;
+
+	WITH QuestionSet as
+	(
+		SELECT * FROM qryExamQuestions WHERE ExamID=(SELECT ExamID FROM tblUserExam where ExamSessionID=@ExamSessionID)
+	)
+	SELECT QuestionID,
+	Question, 
+	(SELECT CorrectAnswer FROM tblQuestions WHERE tblQuestions.QuestionID = QuestionSet.QuestionID) CorrectAnswer,
+	(SELECT ISNULL(Max(Answer),'N/A') FROM tblAnswers WHERE QuestionID = QuestionSet.QuestionID AND ExamSessionID=@ExamSessionID) YourAnswer
+
+	FROM QuestionSet;
+
+	SET NOCOUNT OFF;
+END
+GO
