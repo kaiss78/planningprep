@@ -38,7 +38,7 @@ if (min == '00' && sec == '00')
     sec = "00"; 
     window.clearTimeout(SD); 
     
-    location.href = "ExamResult.aspx?ExamSessionID=" + <%=ExamSessionID %>
+    location.href = "ExamResult.aspx?Action=Finish&ExamSessionID=" + <%=ExamSessionID %>
     
 }
 }

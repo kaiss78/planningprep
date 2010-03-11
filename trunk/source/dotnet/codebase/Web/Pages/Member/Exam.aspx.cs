@@ -41,7 +41,7 @@ public partial class Pages_Exam : BasePage
         if (IsTimerElapsed())
         {
             SaveAnswer(null,true);
-            Response.Redirect("ExamResult.aspx?ExamSessionID=" + ExamSessionID);
+            Response.Redirect("ExamResult.aspx?Action=Finish&ExamSessionID=" + ExamSessionID);
             return;
         }
 
@@ -225,6 +225,10 @@ public partial class Pages_Exam : BasePage
             if (ExamID == 0)
             {
                 currentUserExam = userExamManager.Get(ExamSessionID);
+                if (currentUserExam.EndDate != DateTime.MinValue)
+                {
+                    Response.Redirect("ExamResult.aspx?ExamSessionID=" + ExamSessionID);
+                }
                 ExamID = currentUserExam.ExamID;
             }
         }
