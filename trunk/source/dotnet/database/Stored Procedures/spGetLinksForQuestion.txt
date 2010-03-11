@@ -1,0 +1,46 @@
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Shubho (Smart Aspects Inc.)
+-- Create date: 11th March, 2010
+-- Description:	Gets Links for a Question.
+--				Query Taken from inc-answerexplanation.asp page
+-- =============================================
+CREATE PROCEDURE spGetLinksForQuestion
+	@QuestionID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	SELECT [tblQuestions].[QuestionID]
+		, [tblLinks].[LinkID]
+		, [tblLinks].[Link]
+		, [tblLinks].[LinkTitle]
+		, [tblLinks].[LinkDescription]
+		, [tblLinks].[Count]
+		, [tblLinks].[Rating]
+		, [tblLinks].[RateCount]
+		, [tblLinks].[RateTotal] 
+		, [tblLinks].[SubmittedBy] 
+		, [tblLinks].[TimeStamp] 
+		 
+	FROM [tblQuestions] INNER JOIN (
+			[tblLinks] INNER JOIN [tblquestionlink] ON [tblLinks].[LinkID] = [tblquestionlink].[LinkID]
+		) ON [tblQuestions].[QuestionID] = [tblquestionlink].[QuestionID] 
+	WHERE ((([tblQuestions].[QuestionID])= @QuestionID));
+END
+GO

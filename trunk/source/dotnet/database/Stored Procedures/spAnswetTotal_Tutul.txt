@@ -1,0 +1,149 @@
+
+
+
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswerTotalDelete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAnswerTotalDelete]
+GO
+CREATE PROCEDURE [dbo].[spAnswerTotalDelete] 
+@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 1:06:02 PM
+-- Description: Delete Into Table tbl_AnswerTotal
+-- =============================================
+-- sptbl_AnswerTotalDelete ...........
+BEGIN
+
+		DELETE FROM tbl_AnswerTotal
+		WHERE [QuestionID]=@Id
+
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswerTotalGetById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAnswerTotalGetById]
+GO
+CREATE PROCEDURE [dbo].[spAnswerTotalGetById] 
+	@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 1:06:02 PM
+-- Description: GetById Into Table tbl_AnswerTotal
+-- =============================================
+-- sptbl_AnswerTotalGetById ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tbl_AnswerTotal] tab WITH(NOLOCK)
+		WHERE tab.[QuestionID]=@Id
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswerTotalGetAll]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAnswerTotalGetAll]
+GO
+CREATE PROCEDURE [dbo].[spAnswerTotalGetAll] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 1:06:02 PM
+-- Description: GetAll Into Table tbl_AnswerTotal
+-- =============================================
+-- sptbl_AnswerTotalGetAll ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tbl_AnswerTotal] tab  WITH(NOLOCK)
+		ORDER BY tab.[QuestionID] DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswerTotalSet]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAnswerTotalSet]
+GO
+CREATE PROCEDURE [dbo].[spAnswerTotalSet] 
+	 @QuestionID int
+	, @A int
+	, @B int
+	, @C int
+	, @D int
+	, @Total int
+
+As
+Begin
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 1:06:02 PM
+-- Description: Set Into Table tbl_AnswerTotal
+-- =============================================
+-- sptbl_AnswerTotalSet ...........
+		IF (@QuestionID >0)
+		Begin
+			Update [dbo].[tbl_AnswerTotal]
+				 Set [A]= @A
+				, [B]= @B
+				, [C]= @C
+				, [D]= @D
+				, [Total]= @Total
+				 
+			 Where [QuestionID]= @QuestionID
+	End
+	Else
+	Begin
+		Insert Into [dbo].[tbl_AnswerTotal]
+			( [A]
+			, [B]
+			, [C]
+			, [D]
+			, [Total]
+			 ) 
+		 VALUES 
+			( @A
+			, @B
+			, @C
+			, @D
+			, @Total
+			 ) 
+		 
+		Set @QuestionID= Scope_Identity()
+	End
+ 
+ Select @QuestionID as QuestionID 
+End
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswerTotalGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAnswerTotalGetForUser]
+GO
+CREATE PROCEDURE [dbo].[spAnswerTotalGetForUser] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 1:06:02 PM
+-- Description: GetForUser Into Table tbl_AnswerTotal
+-- =============================================
+-- sptbl_AnswerTotalGetForUser ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tbl_AnswerTotal] tab  WITH(NOLOCK)
+	ORDER BY tab.[QuestionID] DESC
+
+	SET NOCOUNT OFF;
+END
+GO
+
