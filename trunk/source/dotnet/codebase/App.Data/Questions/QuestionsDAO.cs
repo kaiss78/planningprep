@@ -30,12 +30,14 @@ using App.Core.Exceptions;
 using App.Core.Extensions;
 using App.Core.Factories;
 using System.Security.Principal;
+using System.Data.SqlClient;
 
 namespace App.Data.Questions
 {
     public interface IQuestionsDAO : IDataAccess<App.Models.Questions.Questions>
     {
         DateTime LastQuestionDate();
+        void SaveQuestionOfTheWeekAnswer(int questionID, int userId, String answer);
     }
 
     public class QuestionsDAO : BaseDataAccess<App.Models.Questions.Questions>, IQuestionsDAO
@@ -114,6 +116,31 @@ namespace App.Data.Questions
                 }
             }
             return lastQuestionDate;
+        }
+        /// <summary>
+        /// Processes Question of the Week Answer
+        /// </summary>
+        /// <param name="questionID"></param>
+        /// <param name="userId"></param>
+        /// <param name="answer"></param>
+        public void SaveQuestionOfTheWeekAnswer(int questionID, int userId, String answer)
+        {
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "QuestionsDAO.SaveQuestionOfTheWeekAnswer(int, int, string)"))
+            {
+                try
+                {
+                    DbCommand cmd = Database.GetStoredProcCommand("spSaveQuestionOfTheWeekAnswer");
+                    cmd.Parameters.Add(new SqlParameter("@QuestionID", questionID));
+                    cmd.Parameters.Add(new SqlParameter("@UserID", userId));
+                    cmd.Parameters.Add(new SqlParameter("@Answer", answer));
+                    int result = ExecuteNonQuery(cmd);                    
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "UserDAO.SaveQuestionOfTheWeekAnswer(int, int, string)");
+                }
+            }
         }
         protected override void EagerLoad(App.Models.Questions.Questions entity)
         {
