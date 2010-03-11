@@ -14,6 +14,11 @@ img.PreviewImage
 {
     max-width:300px;
 }
+.chartbottom { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px; 
+               font-variant: normal; text-transform: none; color: #000000; text-align:center; }
+.question { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; 
+               font-style: normal; font-weight: normal; 
+               font-variant: normal; text-transform: none; color: #000000; text-align:left }
 /* Newly Added Styles for Planning Prep Start*/
 .parentcontaniner
 {
