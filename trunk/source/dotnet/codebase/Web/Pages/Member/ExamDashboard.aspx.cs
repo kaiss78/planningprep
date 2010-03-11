@@ -23,6 +23,7 @@ public partial class Pages_Private_ExamDashboard : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        Page.Title = AppUtil.GetPageTitle("Exam");
         PopulateExamInfo();
     }
 
