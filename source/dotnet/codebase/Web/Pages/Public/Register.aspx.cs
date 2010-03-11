@@ -22,6 +22,10 @@ public partial class Pages_Public_Register : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         Page.Title = AppUtil.GetPageTitle("Register with PlanningPrep.com");
+        if (!IsPostBack)
+        {
+            txtFirstName.Focus();
+        }
     }
     protected void btnRegister_Click(object sender, EventArgs e)
     {
