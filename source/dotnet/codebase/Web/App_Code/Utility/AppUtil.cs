@@ -234,4 +234,8 @@ public class AppUtil
     {
         return String.Format("http://{0}/", HttpContext.Current.Request.Url.Host);
     }
+    public static String GetContentDetailsUrl(int contentId)
+    {
+        return String.Format("{0}?{1}={2}", AppConstants.Pages.SHOW_CONTENT, AppConstants.QueryString.ID, contentId);
+    }
 }

@@ -20,9 +20,11 @@ public class ConfigReader
     private const String SMTP_HOST = "SmtpHost";
     private const String SMTP_PORT = "SmtpPort";
     private const String QUESTION_OF_THE_WEEK_ID = "QuestionOfTheWeekID";
-
-
     private const String _ExamLengthInMinutes = "ExamLengthInMinutes";
+    private const String CONTENT_ID_OF_FAQ = "ContentIDOfFAQ";
+    private const String CONTENT_ID_OF_ABOUT_US = "ContentIDOfAboutUs";  
+  
+
     private static String GetAppSettingsValue(String key)
     {
         return ConfigurationManager.AppSettings[key];
@@ -85,6 +87,26 @@ public class ConfigReader
         {
             int value = 0;
             String paramValue = GetAppSettingsValue(QUESTION_OF_THE_WEEK_ID);
+            int.TryParse(paramValue, out value);
+            return value;
+        }
+    }
+    public static int ContentIDOfAboutUs
+    {
+        get
+        {
+            int value = 0;
+            String paramValue = GetAppSettingsValue(CONTENT_ID_OF_ABOUT_US);
+            int.TryParse(paramValue, out value);
+            return value;
+        }
+    }
+    public static int ContentIDOfFAQ
+    {
+        get
+        {
+            int value = 0;
+            String paramValue = GetAppSettingsValue(CONTENT_ID_OF_FAQ);
             int.TryParse(paramValue, out value);
             return value;
         }
