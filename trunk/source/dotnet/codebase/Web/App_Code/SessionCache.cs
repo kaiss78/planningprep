@@ -118,6 +118,20 @@ public class SessionCache
         }
     }
 
+    
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Clears the session.
+    /// </summary>
+    public static void ClearSession()
+    {
+        HttpContext.Current.Session.Clear();
+    }
+
     public static void SetExamStartTimeInfo()
     {
         HttpContext.Current.Session["EXAM_START_TIME"] = DateTime.Now;
@@ -132,16 +146,10 @@ public class SessionCache
         return Convert.ToDateTime(HttpContext.Current.Session["EXAM_START_TIME"]);
     }
 
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Clears the session.
-    /// </summary>
-    public static void ClearSession()
+    public static void ClearExamSessionInfo()
     {
-        HttpContext.Current.Session.Clear();
+        HttpContext.Current.Session.Remove("EXAM_START_TIME");
+        HttpContext.Current.Session.Remove("CURRENT_EXAM_KEY");
     }
 
     #endregion

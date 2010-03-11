@@ -1,6 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPageMember.master.cs" Inherits="Pages_MasterPageMember" %>
 
-<%@ Register src="/UserControls/MemberMenu.ascx" tagname="MemberMenu" tagprefix="MemberMenu" %>
+<%@ Register src="~/UserControls/MemberMenu.ascx"tagname="MemberMenu" tagprefix="MemberMenu" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
