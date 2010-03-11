@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using App.Domain.UserExams;
 using App.Models.UserExams;
 using App.Models.Exams;
+using System.Drawing;
 
 public partial class Pages_Private_ExamResult : System.Web.UI.Page
 {
@@ -17,7 +18,7 @@ public partial class Pages_Private_ExamResult : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Page.Title = AppUtil.GetPageTitle("Exam Result");
+        
         ExamSessionID = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.EXAM_SESSION_ID);
         Action = WebUtil.GetRequestParamValueInString(AppConstants.QueryString.EXAM_ACTION);
         if (ExamSessionID == 0)
@@ -25,6 +26,10 @@ public partial class Pages_Private_ExamResult : System.Web.UI.Page
             return;
         }
         UserExam currentUserExam = userExamManager.Get(ExamSessionID);
+        lblExamNo.Text = currentUserExam.ExamID.ToString();
+        lblExamNo2.Text = lblExamNo.Text;
+        Page.Title = AppUtil.GetPageTitle("Exam Result for Exam #" + currentUserExam.ExamID);
+
         ExamTotal examTotal = FinishExam(currentUserExam);
         PopulateResultSummary(examTotal,currentUserExam);
         PopulateResultDetails();
@@ -77,6 +82,21 @@ public partial class Pages_Private_ExamResult : System.Web.UI.Page
         }
     }
 
-    
 
+
+    protected void gvResultDetails_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        Label label = (Label)e.Row.FindControl("lblResult");
+        if (label != null)
+        {
+            if (label.Text == "CORRECT")
+            {
+                label.ForeColor = Color.Green;
+            }
+            else
+            {
+                label.ForeColor = Color.Red;
+            }
+        }
+    }
 }
