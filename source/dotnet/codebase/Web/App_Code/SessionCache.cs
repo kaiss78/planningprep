@@ -125,6 +125,10 @@ public class SessionCache
 
     public static DateTime GetExamStartTimeInfo()
     {
+        if (HttpContext.Current.Session["EXAM_START_TIME"] == null)
+        {
+            return DateTime.MinValue;
+        }
         return Convert.ToDateTime(HttpContext.Current.Session["EXAM_START_TIME"]);
     }
 

@@ -55,6 +55,7 @@ public class AppConstants
         public const string EXAM_KEY = "ExamKey";
         public const string EXAM_SESSION_ID = "ExamSessionID";
         public const string EXAM_ACTION = "Action";
+        public const string ERROR_CODE = "ErrorCode";
     }
     
     #endregion
