@@ -1,0 +1,47 @@
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Shubho (Smart Aspects Inc)
+-- Create date: 10th March, 2010
+-- Description:	Saves the Question of the Week Answer
+-- =============================================
+CREATE PROCEDURE spSaveQuestionOfTheWeekAnswer 
+	@QuestionID INT
+	, @UserID INT
+	, @Answer NVARCHAR(50)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	DECLARE @SQL AS NVARCHAR(MAX);
+
+	INSERT INTO tblAnswers (
+		[QuestionID]
+		, [UserID]
+		, [Answer]
+		, [TimeStamp])
+	VALUES (@QuestionID
+		, @UserID
+		, @Answer
+		, GetDate());
+
+    -- Insert statements for procedure here
+	SET @SQL =  'UPDATE tbl_AnswerTotal SET [' + @Answer + '] = ISNULL(' + @Answer + ', 0) + 1, [Total] = ISNULL([Total], 0) + 1 WHERE [QuestionID]= ' + CAST(@QuestionID AS NVARCHAR)
+	PRINT @SQL;
+	EXEC (@SQL);
+END
+GO

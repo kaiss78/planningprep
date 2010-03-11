@@ -1,0 +1,165 @@
+
+
+
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spLinkDelete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spLinkDelete]
+GO
+CREATE PROCEDURE [dbo].[spLinkDelete] 
+@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 3:53:11 PM
+-- Description: Delete Into Table tblLinks
+-- =============================================
+-- sptblLinksDelete ...........
+BEGIN
+
+		DELETE FROM tblLinks
+		WHERE [LinkID]=@Id
+
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spLinkGetById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spLinkGetById]
+GO
+CREATE PROCEDURE [dbo].[spLinkGetById] 
+	@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 3:53:11 PM
+-- Description: GetById Into Table tblLinks
+-- =============================================
+-- sptblLinksGetById ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblLinks] tab WITH(NOLOCK)
+		WHERE tab.[LinkID]=@Id
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spLinkGetAll]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spLinkGetAll]
+GO
+CREATE PROCEDURE [dbo].[spLinkGetAll] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 3:53:11 PM
+-- Description: GetAll Into Table tblLinks
+-- =============================================
+-- sptblLinksGetAll ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblLinks] tab  WITH(NOLOCK)
+		ORDER BY tab.[LinkID] DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spLinkSet]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spLinkSet]
+GO
+CREATE PROCEDURE [dbo].[spLinkSet] 
+	 @LinkID int
+	, @Link nvarchar (max)
+	, @LinkTitle nvarchar (max)
+	, @LinkDescription nvarchar (max)
+	, @Count int
+	, @Rating float
+	, @RateCount int
+	, @RateTotal int
+	, @SubmittedBy int
+	, @TimeStamp datetime
+
+As
+Begin
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 3:53:11 PM
+-- Description: Set Into Table tblLinks
+-- =============================================
+-- sptblLinksSet ...........
+		IF (@LinkID >0)
+		Begin
+			Update [dbo].[tblLinks]
+				 Set [Link]= @Link
+				, [LinkTitle]= @LinkTitle
+				, [LinkDescription]= @LinkDescription
+				, [Count]= @Count
+				, [Rating]= @Rating
+				, [RateCount]= @RateCount
+				, [RateTotal]= @RateTotal
+				, [SubmittedBy]= @SubmittedBy
+				, [TimeStamp]= @TimeStamp
+				 
+			 Where [LinkID]= @LinkID
+	End
+	Else
+	Begin
+		Insert Into [dbo].[tblLinks]
+			( [Link]
+			, [LinkTitle]
+			, [LinkDescription]
+			, [Count]
+			, [Rating]
+			, [RateCount]
+			, [RateTotal]
+			, [SubmittedBy]
+			, [TimeStamp]
+			 ) 
+		 VALUES 
+			( @Link
+			, @LinkTitle
+			, @LinkDescription
+			, @Count
+			, @Rating
+			, @RateCount
+			, @RateTotal
+			, @SubmittedBy
+			, @TimeStamp
+			 ) 
+		 
+		Set @LinkID= Scope_Identity()
+	End
+ 
+ Select @LinkID as LinkID 
+End
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spLinkGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spLinkGetForUser]
+GO
+CREATE PROCEDURE [dbo].[spLinkGetForUser] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 3:53:11 PM
+-- Description: GetForUser Into Table tblLinks
+-- =============================================
+-- sptblLinksGetForUser ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblLinks] tab  WITH(NOLOCK)
+	ORDER BY tab.[LinkID] DESC
+
+	SET NOCOUNT OFF;
+END
+GO
+
