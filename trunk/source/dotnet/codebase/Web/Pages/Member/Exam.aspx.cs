@@ -56,6 +56,8 @@ public partial class Pages_Exam : BasePage
             {
                 currentUserExam = CreateNewExamSessionForUser();
                 SetCurrentExamSessionInfo((int)currentUserExam.Id);
+                Response.Redirect(string.Format("Exam.aspx?Action=Continue&ExamSessionID={0}" , currentUserExam.Id));
+                return;
             }
             else
             {
