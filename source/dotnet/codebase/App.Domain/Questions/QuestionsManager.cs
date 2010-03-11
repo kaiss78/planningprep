@@ -174,6 +174,26 @@ namespace App.Domain.Questions
             }
             return lastQuestionDate;
         }
+        /// <summary>
+        /// Processes Question of the Week Answer
+        /// </summary>
+        /// <param name="questionID"></param>
+        /// <param name="userId"></param>
+        /// <param name="answer"></param>
+        public void SaveQuestionOfTheWeekAnswer(int questionID, int userID, String answer)
+        {
+            try
+            {
+                using (IQuestionsDAO dao = (IQuestionsDAO)DAOFactory.Get<App.Models.Questions.Questions>())
+                {
+                    dao.SaveQuestionOfTheWeekAnswer(questionID, userID, answer);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+        }
 
         /// <summary>
         /// Deletes the specified entity.
