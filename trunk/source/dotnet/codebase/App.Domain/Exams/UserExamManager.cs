@@ -402,6 +402,30 @@ namespace App.Domain.UserExams
 
             return GetExamTotal(ExamSessionID);
         }
+
+        /// <summary>
+        /// Get ResultDetails for ExamSessionID
+        /// </summary>
+        /// <param name="ExamSessionID"></param>
+        /// <returns></returns>
+        public IList<ResultDetails> GetResultDetailsByExamSessionID(int ExamSessionID)
+        {
+            IList<ResultDetails> ResultDetails = null;
+            try
+            {
+                using (IResultDetailsDAO dao = (IResultDetailsDAO)DAOFactory.Get<ResultDetails>())
+                {
+                    ResultDetails = dao.GetResultDetailsByExamSessionID(ExamSessionID);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+
+            return ResultDetails;
+        }
+
         #endregion
     }
 }
