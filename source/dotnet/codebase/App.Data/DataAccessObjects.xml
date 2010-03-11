@@ -9,5 +9,6 @@
   <entity name="QuestionForExamType" daoType="App.Data.Exams.QuestionForExamTypeDAO, App.Data" />
   <entity name="Exam" daoType="App.Data.Exams.ExamDAO, App.Data" />
   <entity name="ExamSaved" daoType="App.Data.Exams.ExamSavedDAO, App.Data" />
+  <entity name="ExamTotal" daoType="App.Data.Exams.ExamTotalDAO, App.Data" />
   
 </entity-daos>
