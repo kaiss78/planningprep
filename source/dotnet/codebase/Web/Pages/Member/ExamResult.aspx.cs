@@ -13,6 +13,7 @@ public partial class Pages_Private_ExamResult : System.Web.UI.Page
     int ExamSessionID;
     protected void Page_Load(object sender, EventArgs e)
     {
+        Page.Title = AppUtil.GetPageTitle("Exam Result");
         ExamSessionID = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.EXAM_SESSION_ID);
         if (ExamSessionID == 0)
         {
