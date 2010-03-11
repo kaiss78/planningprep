@@ -19,7 +19,11 @@ public partial class Login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Page.Title = AppUtil.GetPageTitle("Login");
+        Page.Title = AppUtil.GetPageTitle("Log In");
+        if (!IsPostBack)
+        {
+            txtUserName.Focus();
+        }
     }
     protected void LoginButton_Click(object sender, EventArgs e)
     {
