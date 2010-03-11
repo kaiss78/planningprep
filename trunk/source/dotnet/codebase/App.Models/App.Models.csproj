@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnswerTotals\AnswerTotals.cs" />
     <Compile Include="Enums\HistoryFieldName.cs" />
     <Compile Include="Enums\AppDbType.cs" />
     <Compile Include="Enums\HistoryDataType.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Exams\ExamTotal.cs" />
     <Compile Include="Exams\QuestionForExamType.cs" />
     <Compile Include="IPagedList.cs" />
+    <Compile Include="Links\Links.cs" />
     <Compile Include="PagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Questions\Questions.cs" />
