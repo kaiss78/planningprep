@@ -12,18 +12,33 @@
         	font-size:medium;
         	margin-bottom:20px;
         }
+        
+        .cogratsMessage
+        {
+        	font-weight:bold;
+        	font-size:10pt;
+        	margin-bottom:20px;
+        }
+        
+        .detailsResult
+        {
+        	margin-top:20px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
     <div class="largeText">
-    Exam result
+    Exam result for Exam #<asp:Label ID="lblExamNo" runat="server" Text=""></asp:Label>
+    </div>
+    <div class="cogratsMessage">
+    Congratulations! You have completed Exam #<asp:Label ID="lblExamNo2" runat="server" Text=""></asp:Label>. Your exam results are below: 
     </div>
     <div>
         <div>
-            <table style="width: 60%;">
+            <table style="width: 300px;">
             <tr>
                 <td>
-                    Total Questions
+                    <strong>Total Questions</strong>
                 </td>
                 <td>
                     <asp:Label ID="lblTotalQuestions" runat="server" Text=""></asp:Label>
@@ -31,7 +46,7 @@
             </tr>
             <tr>
                 <td>
-                    Total Correct answers
+                    <strong>Total Correct answers</strong>
                 </td>
                 <td>
                     <asp:Label ID="lblTotalCorrectAnswers" runat="server" Text=""></asp:Label>
@@ -39,7 +54,7 @@
             </tr>
             <tr>
                 <td>
-                    Percentage of correct answers
+                    <strong>Percentage of correct answers</strong>
                 </td>
                 <td>
                     <asp:Label ID="lblPercentCorrectAnswers" runat="server" Text=""></asp:Label>
@@ -47,7 +62,7 @@
             </tr>
             <tr>
                 <td>
-                    Avg time per question
+                    <strong>Avg time per question</strong>
                 </td>
                 <td>
                     <asp:Label ID="lblAvgTimePerQuestion" runat="server" Text=""></asp:Label> Seconds
@@ -55,8 +70,22 @@
             </tr>
         </table>
         </div>
-        <div>
-            <asp:GridView ID="gvResultDetails" runat="server">
+        <div class="detailsResult">
+            <asp:GridView ID="gvResultDetails" runat="server" AutoGenerateColumns="False" 
+                onrowdatabound="gvResultDetails_RowDataBound">
+                <Columns>
+                    <asp:BoundField DataField="SerialNo" HeaderText="Question No" />
+                    <asp:HyperLinkField DataNavigateUrlFields="QuestionID" 
+                        DataNavigateUrlFormatString="QuestionDetails.aspx?QuestionID={0}" 
+                        DataTextField="Question" NavigateUrl="QuestionDetails.aspx" Text="Question" />
+                    <asp:BoundField DataField="CorrectAnswer" HeaderText="Correct Answer" />
+                    <asp:BoundField DataField="YourAnswer" HeaderText="Your Answer" />
+                    <asp:TemplateField HeaderText="Result">
+                        <ItemTemplate>
+                            <asp:Label ID="lblResult" runat="server" Text='<%# Bind("Result") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
             </asp:GridView>
         </div>
     </div>
