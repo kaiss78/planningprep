@@ -21,6 +21,15 @@
     </div>
     <div class="homepagecontentbox">
         <Chart:Chart ID="ucChart" runat="server" />
+        <div style="margin-top:15px;">
+            <a href="/Default.aspx">planningprep.com</a> provides members with hundreds of questions and internet links aimed at 
+            refreshing and broadening their planning knowledge to better prepare them for the 
+            certification exam.
+            <br /><br />
+            Please explore our site and <a href="<%=AppUtil.GetContentDetailsUrl(ConfigReader.ContentIDOfFAQ) %>">learn more about what we have to offer</a>, or feel free to 
+            join and <a href="/Pages/Public/Register.aspx">become a member</a>.
+
+        </div>
     </div>
     <div class="clearfloating"></div>
     
