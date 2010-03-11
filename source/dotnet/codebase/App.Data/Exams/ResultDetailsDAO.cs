@@ -61,7 +61,7 @@ namespace App.Data.Exams
             entity.Question = NullHandler.GetString(reader["Question"]);
             entity.CorrectAnswer = NullHandler.GetString(reader["CorrectAnswer"]);
             entity.YourAnswer = NullHandler.GetString(reader["YourAnswer"]);
-
+            
             return entity;
         }
 
