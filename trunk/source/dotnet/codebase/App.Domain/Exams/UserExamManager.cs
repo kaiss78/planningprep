@@ -416,6 +416,11 @@ namespace App.Domain.UserExams
                 using (IResultDetailsDAO dao = (IResultDetailsDAO)DAOFactory.Get<ResultDetails>())
                 {
                     ResultDetails = dao.GetResultDetailsByExamSessionID(ExamSessionID);
+                    for (int i = 0; i < ResultDetails.Count; i++)
+                    {
+                        ResultDetails[i].SerialNo = i + 1;
+                        ResultDetails[i].Result = ResultDetails[i].CorrectAnswer == ResultDetails[i].YourAnswer ? "CORRECT" : "WRONG";
+                    }
                 }
             }
             catch (Exception ex)
