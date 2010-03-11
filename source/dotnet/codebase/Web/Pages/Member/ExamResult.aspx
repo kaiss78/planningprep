@@ -19,7 +19,8 @@
     Exam result
     </div>
     <div>
-        <table style="width: 60%;">
+        <div>
+            <table style="width: 60%;">
             <tr>
                 <td>
                     Total Questions
@@ -53,5 +54,10 @@
                 </td>
             </tr>
         </table>
+        </div>
+        <div>
+            <asp:GridView ID="gvResultDetails" runat="server">
+            </asp:GridView>
+        </div>
     </div>
 </asp:Content>
