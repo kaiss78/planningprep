@@ -154,6 +154,7 @@ public partial class Pages_Exam : BasePage
             SetDateTimeInfoForCurrentQuestion();
 
             lblQuestionTitle.Text = question.Question;
+            Page.Title = AppUtil.GetPageTitle(question.Question);
 
             rdoA.Text = question.AnswerA;
             rdoB.Text = question.AnswerB;

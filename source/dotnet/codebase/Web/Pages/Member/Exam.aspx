@@ -1,12 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Exam.aspx.cs" Inherits="Pages_Exam" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Pages/Member/MasterPageMember.master" CodeFile="Exam.aspx.cs" Inherits="Pages_Exam" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-
-    <script type="text/javascript" language="javascript" src="../../JavaScripts/jquery-1.3.2.min.js"></script>
-
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        table td{
+            vertical-align:top;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
     <!-- COUNTDOWN TIMER -->
     <!-- This goes in the HEAD of the html file -->
 
@@ -57,7 +58,7 @@ window.onload = countDown;
         {
             margin: 0px auto;
             width: 600px;
-            margin-top:100px;
+            margin-top:20px;
         }
         
         .timerDiv
@@ -71,14 +72,27 @@ window.onload = countDown;
         	margin-top:20px;
         }
         
+        #Options
+        {
+        	margin-top:20px;
+        }
+        
+        #QuestionTitle
+        {
+            font-weight:bold;
+            color:Green;	
+        }
+        
+        .timeClass
+        {
+        	font-weight:bold;
+        }
         -- ></style>
-</head>
-<body>
-    <form id="form1" runat="server">
+
     <div class="divCenter">
         <div class="timerDiv">
             <!-- This goes into the BODY of the file -->
-            <span id="theTime" class="timeClass"></span>
+            Time Remaining : <span id="theTime" class="timeClass"></span>
         </div>
         <div>
             <div id="QuestionTitle">
@@ -86,20 +100,18 @@ window.onload = countDown;
             </div>
             <div id="Options">
                 <div>
-                    <asp:RadioButton GroupName="question" ID="rdoA" runat="server" /></div>
+                    <strong>A.</strong><asp:RadioButton GroupName="question" ID="rdoA" runat="server" /></div>
                 <div>
-                    <asp:RadioButton GroupName="question" ID="rdoB" runat="server" /></div>
+                    <strong>B.</strong><asp:RadioButton GroupName="question" ID="rdoB" runat="server" /></div>
                 <div>
-                    <asp:RadioButton GroupName="question" ID="rdoC" runat="server" /></div>
+                    <strong>C.</strong><asp:RadioButton GroupName="question" ID="rdoC" runat="server" /></div>
                 <div>
-                    <asp:RadioButton GroupName="question" ID="rdoD" runat="server" /></div>
+                    <strong>D.</strong><asp:RadioButton GroupName="question" ID="rdoD" runat="server" /></div>
             </div>
         </div>
         <div class="navigationDiv">
-                <asp:LinkButton ID="lnkPrevious" runat="server" OnClick="lnkPrevious_Click">Previous</asp:LinkButton>
-                <asp:LinkButton ID="lnkNext" runat="server" OnClick="lnkNext_Click">Next</asp:LinkButton>
+                <span style="margin-right:200px"><asp:LinkButton ID="lnkPrevious" runat="server" OnClick="lnkPrevious_Click">Previous</asp:LinkButton></span>
+                <span><asp:LinkButton ID="lnkNext" runat="server" OnClick="lnkNext_Click">Next</asp:LinkButton></span>
         </div>
     </div>
-    </form>
-</body>
-</html>
+</asp:Content>
