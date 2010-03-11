@@ -67,6 +67,7 @@
     <Compile Include="Exams\ExamSavedDAO.cs" />
     <Compile Include="Exams\ExamTotalDAO.cs" />
     <Compile Include="Exams\QuestionForExamTypeDAO.cs" />
+    <Compile Include="Exams\ResultDetailsDAO.cs" />
     <Compile Include="Exams\UserExamDAO.cs" />
     <Compile Include="IDataAccess.cs" />
     <Compile Include="DbParameter.cs" />
