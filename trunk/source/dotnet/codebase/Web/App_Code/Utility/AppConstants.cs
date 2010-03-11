@@ -25,6 +25,9 @@ public class AppConstants
         public const string EDIT_QUESTION = "/Pages/Admin/EditQuestion.aspx";
         public const string MANAGE_QUESTIONS = "/Pages/Admin/ManageQuestions.aspx";
         public const string JOIN_OUTCOME = "/Pages/Public/JoinOutcome.aspx";
+        public const string ANSWER_OF_THE_WEEK_MESSAGE = "/Pages/Public/AnswerOfTheWeekMessage.aspx";
+        public const string VISIT_FRAME = "/Pages/Public/VisitFrame.aspx";
+        
     }
     public class ValueOf
     {
@@ -55,7 +58,10 @@ public class AppConstants
         public const string EXAM_KEY = "ExamKey";
         public const string EXAM_SESSION_ID = "ExamSessionID";
         public const string EXAM_ACTION = "Action";
+        public const string ANSWER = "Answer";
         public const string ERROR_CODE = "ErrorCode";
+        public const string LINK = "Link";
+        public const string LINK_ID = "LinkID";
     }
     
     #endregion
