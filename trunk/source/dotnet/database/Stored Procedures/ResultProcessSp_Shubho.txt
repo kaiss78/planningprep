@@ -1,27 +1,13 @@
--- ================================================
--- Template generated from Template Explorer using:
--- Create Procedure (New Menu).SQL
---
--- Use the Specify Values for Template Parameters 
--- command (Ctrl-Shift-M) to fill in the parameter 
--- values below.
---
--- This block of comments will not be included in
--- the definition of the procedure.
--- ================================================
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spExamCalculateResult]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[spExamCalculateResult]
-GO
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+go
+
 -- =============================================
 -- Author:		<Shubho>
 -- Create date: <11 March 2010>
 -- Description:	<Saves Exam result>
 -- =============================================
-CREATE PROCEDURE spExamCalculateResult 
+ALTER PROCEDURE [dbo].[spExamCalculateResult] 
 	-- Add the parameters for the stored procedure here
 	@ExamSessionID int
 AS
@@ -30,8 +16,6 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 	
-	SET @ExamSessionID = 6270
-
 	CREATE TABLE #tempExamSaved(
 	[SERIAL] [int] IDENTITY NOT NULL,
 	[ID] [int] NOT NULL,
@@ -105,4 +89,4 @@ BEGIN
 	--DELETE FROM tblAnswers where ExamSessionID = 6270
 	--SELECT * FROM qryExamTotal WHERE ExamSessionID = 6270
 END
-GO
+
