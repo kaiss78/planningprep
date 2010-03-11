@@ -11,7 +11,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Xml.Linq;
 
-public partial class Pages_MasterPage : System.Web.UI.MasterPage
+public partial class Pages_MasterPagePublic : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

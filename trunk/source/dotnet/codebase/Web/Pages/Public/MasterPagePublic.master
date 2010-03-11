@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="Pages_MasterPage" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPagePublic.master.cs" Inherits="Pages_MasterPagePublic" %>
 
 <%@ Register src="/UserControls/AdminMenu.ascx" tagname="AdminMenu" tagprefix="AdminMenu" %>
 
