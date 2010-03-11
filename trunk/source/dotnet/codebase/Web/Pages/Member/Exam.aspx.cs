@@ -48,6 +48,12 @@ public partial class Pages_Exam : BasePage
 
         if (!IsPostBack)
         {
+            DateTime dateTime = SessionCache.GetExamStartTimeInfo();
+            if (dateTime != DateTime.MinValue)
+            {
+                 Response.Redirect("Unauthorized.aspx?ErrorCode=2");
+                 return;
+            }
             ClearCheckBoxes();
             SessionCache.SetExamStartTimeInfo();
             QuestionNo = 1;
@@ -56,7 +62,7 @@ public partial class Pages_Exam : BasePage
             {
                 currentUserExam = CreateNewExamSessionForUser();
                 SetCurrentExamSessionInfo((int)currentUserExam.Id);
-                Response.Redirect(string.Format("Exam.aspx?Action=Continue&ExamSessionID={0}" , currentUserExam.Id));
+                Response.Redirect(string.Format("Exam.aspx?Action=Continue&ExamSessionID={0}", currentUserExam.Id));
                 return;
             }
             else
@@ -227,6 +233,12 @@ public partial class Pages_Exam : BasePage
             if (ExamID == 0)
             {
                 currentUserExam = userExamManager.Get(ExamSessionID);
+                if (currentUserExam.UserID != SessionCache.CurrentUser.Author_ID)
+                {
+                    Response.Redirect("Unauthorized.aspx?ErrorCode=1");
+                    
+                    return false;
+                }
                 if (currentUserExam.EndDate != DateTime.MinValue)
                 {
                     Response.Redirect("ExamResult.aspx?ExamSessionID=" + ExamSessionID);
