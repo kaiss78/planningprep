@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Pages/Private/Admin/MasterPageAdmin.master" AutoEventWireup="true" CodeFile="ManageQuestions.aspx.cs" Inherits="Admin_ManageQuestions" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Pages/Admin/MasterPageAdmin.master" AutoEventWireup="true" CodeFile="ManageQuestions.aspx.cs" Inherits="Admin_ManageQuestions" Title="Untitled Page" %>
 
 <%@ Register src="/UserControls/Pager.ascx" tagname="Pager" tagprefix="Pager" %>
 
