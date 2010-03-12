@@ -94,7 +94,7 @@ window.onload = countDown;
             Time Remaining : <span id="theTime" class="timeClass"></span>
         </div>
         <div style="margin-bottom:10px">
-            <div style="height:10px;width:100%;background-color:Gray">
+            <div style="height:10px;width:100%;background-color:LightGrey">
             <div style="height:10px;width:<%=Progress%>%;background-color:Green">
             </div>
             </div>
