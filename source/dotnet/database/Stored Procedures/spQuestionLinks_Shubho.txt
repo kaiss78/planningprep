@@ -27,7 +27,7 @@ BEGIN
 		INNER JOIN 
 		([tblLinks] INNER JOIN [tblquestionlink] ON [tblLinks].[LinkID] = 		[tblquestionlink].[LinkID]) 
 		ON [tblQuestions].[QuestionID] = [tblquestionlink].[QuestionID]
-		WHERE ((([tblQuestions].[QuestionID])=3))
+		WHERE ((([tblQuestions].[QuestionID])=@QuestionID))
 
 	SET NOCOUNT OFF;
 END
