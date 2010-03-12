@@ -12,11 +12,12 @@ using App.Domain.Exams;
 
 public partial class Pages_Exam : BasePage
 {
-    private int QuestionNo;
+    protected int QuestionNo;
     private int ExamID;
     protected int ExamSessionID;
     protected int Seconds;
     protected int Minutes;
+    protected int TotalNoOfQuestion;
     protected double Progress;
     private string ExamKey;
     private string Action;
@@ -109,6 +110,7 @@ public partial class Pages_Exam : BasePage
                         //Obtain the saved answer record
                         IList<ExamSaved> savedQuestions = userExamManager.GetSavedExamsByExamSessionID(currentUserExam.ExamSessionID);
                         SessionCache.SetCurrentQuestionNo(savedQuestions.Count + 1);
+                        QuestionNo = savedQuestions.Count + 1;
                         SessionCache.SetExamStartTime(DateTime.Now.AddSeconds(-1 * currentUserExam.TotalTime));
                     }
                     //Set current exam session id into the viewstate
@@ -123,6 +125,7 @@ public partial class Pages_Exam : BasePage
                     {
                         IList<ExamSaved> savedQuestions = userExamManager.GetSavedExamsByExamSessionID(currentUserExam.ExamSessionID);
                         SessionCache.SetCurrentQuestionNo(savedQuestions.Count + 1);
+                        QuestionNo = savedQuestions.Count + 1;
                         SessionCache.SetExamStartTime(DateTime.Now.AddSeconds(-1 * currentUserExam.TotalTime));
                     }
                  
@@ -265,6 +268,7 @@ public partial class Pages_Exam : BasePage
             {
                 ClearCheckBoxes();
             }
+            TotalNoOfQuestion = questions.Count;
             Progress = Math.Round((float)SessionCache.AnsweredQuestionCount / (float)questions.Count * 10, 3);
         }
     }

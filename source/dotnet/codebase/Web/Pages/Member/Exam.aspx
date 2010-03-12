@@ -91,7 +91,7 @@ window.onload = countDown;
     <div class="divCenter">
         <div class="timerDiv">
             <!-- This goes into the BODY of the file -->
-            Time Remaining : <span id="theTime" class="timeClass"></span>
+            Time Remaining : <span id="theTime" class="timeClass"></span> (Question <strong><%=QuestionNo%></strong> of <strong><%=TotalNoOfQuestion%></strong>)
         </div>
         <div style="margin-bottom:10px">
             <div style="height:10px;width:100%;background-color:LightGrey">
