@@ -49,7 +49,7 @@
                     <strong>Total Correct answers</strong>
                 </td>
                 <td>
-                    <asp:Label ID="lblTotalCorrectAnswers" runat="server" Text=""></asp:Label>
+                    <asp:Label ID="lblTotalCorrectAnswers" runat="server" Text="0"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -57,7 +57,7 @@
                     <strong>Percentage of correct answers</strong>
                 </td>
                 <td>
-                    <asp:Label ID="lblPercentCorrectAnswers" runat="server" Text=""></asp:Label>
+                    <asp:Label ID="lblPercentCorrectAnswers" runat="server" Text="0%"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -65,7 +65,7 @@
                     <strong>Avg time per question</strong>
                 </td>
                 <td>
-                    <asp:Label ID="lblAvgTimePerQuestion" runat="server" Text=""></asp:Label> Seconds
+                    <asp:Label ID="lblAvgTimePerQuestion" runat="server" Text="0"></asp:Label> Seconds
                 </td>
             </tr>
             <tr>
@@ -73,7 +73,7 @@
                     <strong>Total Time</strong>
                 </td>
                 <td>
-                    <asp:Label ID="lblTotalTime" runat="server" Text=""></asp:Label> Seconds
+                    <asp:Label ID="lblTotalTime" runat="server" Text="0"></asp:Label> Seconds
                 </td>
             </tr>
         </table>

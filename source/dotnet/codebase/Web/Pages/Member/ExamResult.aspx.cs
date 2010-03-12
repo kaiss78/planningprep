@@ -44,7 +44,7 @@ public partial class Pages_Private_ExamResult : System.Web.UI.Page
 
     private ExamTotal FinishExam(UserExam currentUserExam)
     {
-        DateTime examStartTime = SessionCache.GetExamStartTimeInfo();
+        DateTime examStartTime = SessionCache.GetExamStartTime();
         
         ExamTotal examTotal = null;
         if (currentUserExam.EndDate != DateTime.MinValue || ACTION_FINISH_RESULT == Action)
@@ -72,7 +72,7 @@ public partial class Pages_Private_ExamResult : System.Web.UI.Page
         {
             int totalQuestions = examTotal.CountOfQuestionID;
             int totalCorrect = examTotal.SumOfCorrect;
-            double percentCorrect = Math.Round((float)totalCorrect / (float)totalQuestions * 100,2);
+            double percentCorrect = Math.Round((float)totalCorrect / (float)totalQuestions * 100, 2);
             int avgTime = currentUserExam.TotalTime / totalQuestions;
 
             lblTotalQuestions.Text = totalQuestions.ToString();
@@ -80,6 +80,11 @@ public partial class Pages_Private_ExamResult : System.Web.UI.Page
             lblPercentCorrectAnswers.Text = string.Format("{0}%", percentCorrect.ToString());
             lblAvgTimePerQuestion.Text = avgTime.ToString();
             lblTotalTime.Text = currentUserExam.TotalTime.ToString();
+        }
+        else
+        {
+            IList < QuestionForExamType > questions = SessionCache.Instance.GetExamQuestionsForExamType(currentUserExam.ExamID);
+            lblTotalQuestions.Text = questions.Count.ToString();
         }
     }
 
