@@ -216,6 +216,29 @@ namespace App.Domain.Questions
             }
             return result;
         }
+
+         /// <summary>
+        /// Get Question links
+        /// </summary>
+        /// <param name="QuestionID"></param>
+        /// <returns></returns>
+        public IList<QuestionLink> GetQuestionLinks(int QuestionID)
+        {
+            IList<QuestionLink> QuestionsLinkList = new List<QuestionLink>();
+            try
+            {
+                using (IQuestionLinkDAO dao = (IQuestionLinkDAO)DAOFactory.Get<App.Models.Questions.QuestionLink>())
+                {
+                    QuestionsLinkList = dao.GetQuestionLinks(QuestionID);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return QuestionsLinkList;
+        }
+
         #endregion
     }
 }
