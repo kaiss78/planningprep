@@ -13,4 +13,6 @@
   <entity name="AnswerTotal" daoType="App.Data.AnswerTotals.AnswerTotalDAO, App.Data" />
   <entity name="Link" daoType="App.Data.Links.LinkDAO, App.Data" />
   <entity name="ResultDetails" daoType="App.Data.Exams.ResultDetailsDAO, App.Data" />
+  <entity name="QuestionLink" daoType="App.Data.Questions.QuestionLinkDAO, App.Data" />
+  
 </entity-daos>
