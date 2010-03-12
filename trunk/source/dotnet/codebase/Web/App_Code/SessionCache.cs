@@ -176,9 +176,9 @@ public class SessionCache
         HttpContext.Current.Session.Clear();
     }
 
-    public static void SetExamStartTime()
+    public static void SetExamStartTime(DateTime dateTime)
     {
-        HttpContext.Current.Session["EXAM_START_TIME"] = DateTime.Now;
+        HttpContext.Current.Session["EXAM_START_TIME"] = dateTime;
     }
 
     public static DateTime GetExamStartTime()
@@ -190,12 +190,12 @@ public class SessionCache
         return Convert.ToDateTime(HttpContext.Current.Session["EXAM_START_TIME"]);
     }
 
-    public static void SetCurrentQuestionID(int QuestionNo)
+    public static void SetCurrentQuestionNo(int QuestionNo)
     {
         HttpContext.Current.Session["CURRENT_QUESTION"] = QuestionNo;
     }
 
-    public static int GetCurrentQuestionID()
+    public static int GetCurrentQuestionNo()
     {
         int QuestionNo = Convert.ToInt32(HttpContext.Current.Session["CURRENT_QUESTION"]);
         return QuestionNo;

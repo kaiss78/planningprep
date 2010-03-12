@@ -20,10 +20,10 @@ public class ConfigReader
     private const String SMTP_HOST = "SmtpHost";
     private const String SMTP_PORT = "SmtpPort";
     private const String QUESTION_OF_THE_WEEK_ID = "QuestionOfTheWeekID";
-    private const String _ExamLengthInMinutes = "ExamLengthInMinutes";
+    private const String EXAM_LENGTH_IN_MINUTES = "ExamLengthInMinutes";
     private const String CONTENT_ID_OF_FAQ = "ContentIDOfFAQ";
-    private const String CONTENT_ID_OF_ABOUT_US = "ContentIDOfAboutUs";  
-  
+    private const String CONTENT_ID_OF_ABOUT_US = "ContentIDOfAboutUs";
+    private const String REMEMBER_PROGRESS = "RememberProgress";  
 
     private static String GetAppSettingsValue(String key)
     {
@@ -47,7 +47,7 @@ public class ConfigReader
         get
         {
             int configValue = 0;
-            String paramValue = GetAppSettingsValue(_ExamLengthInMinutes);
+            String paramValue = GetAppSettingsValue(EXAM_LENGTH_IN_MINUTES);
             int.TryParse(paramValue, out configValue);
             return configValue;
         }
@@ -91,6 +91,18 @@ public class ConfigReader
             return value;
         }
     }
+
+    public static int RememberProgress
+    {
+        get
+        {
+            int value = 0;
+            String paramValue = GetAppSettingsValue(REMEMBER_PROGRESS);
+            int.TryParse(paramValue, out value);
+            return value;
+        }
+    }
+
     public static int ContentIDOfAboutUs
     {
         get
