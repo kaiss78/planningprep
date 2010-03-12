@@ -18,7 +18,11 @@ public partial class Pages_Member_Error : System.Web.UI.Page
         }
         else if(errorCode == 2)
         {
-            lblMessage.Text = "You cannot start two concurrent exams";
+            lblMessage.Text = "You cannot start two concurrent exams.";
+        }
+        else if (errorCode == 3)
+        {
+            lblMessage.Text = "Requested item not found.";
         }
     }
 }
