@@ -47,8 +47,8 @@ window.onload = countDown;
     </script>
 
     <style type="text/css">
-        <!
-        -- .timeClass
+        <!-- 
+        .timeClass
         {
             font-family: arial,verdana,helvetica,sans-serif;
             font-weight: normal;
