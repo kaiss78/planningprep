@@ -91,27 +91,41 @@ public partial class Pages_Exam : BasePage
                     QuestionNo = 1;
                     SessionCache.AnsweredQuestionCount = 0;
                     //Set current question no in the ViewState
-                    SessionCache.SetCurrentQuestionID(QuestionNo);
+                    SessionCache.SetCurrentQuestionNo(QuestionNo);
 
                     //Set exam start time in the Session
-                    SessionCache.SetExamStartTime();
-                    
 
-                    if (DeleteExistingExamInfoOnContinue)
+                    if (ConfigReader.RememberProgress != 1)
                     {
-                        //If Deletion of existing exam result for the Session is enabled,
+                        //If Remember progress is not enabled for the the Exam Sessions,
                         //Delete existing info and clear the Exam session information
                         currentUserExam.TotalTime = 0;
                         userExamManager.SaveOrUpdate(currentUserExam);
                         DeleteExistingExamInfo();
+                        SessionCache.SetExamStartTime(DateTime.Now);
+                    }
+                    else
+                    {
+                        //Obtain the saved answer record
+                        IList<ExamSaved> savedQuestions = userExamManager.GetSavedExamsByExamSessionID(currentUserExam.ExamSessionID);
+                        SessionCache.SetCurrentQuestionNo(savedQuestions.Count + 1);
+                        SessionCache.SetExamStartTime(DateTime.Now.AddSeconds(-1 * currentUserExam.TotalTime));
                     }
                     //Set current exam session id into the viewstate
                     SessionCache.SetCurrentExamSessionID(ExamSessionID);
                 }
                 else 
                 {
-                    QuestionNo = SessionCache.GetCurrentQuestionID();
+                    QuestionNo = SessionCache.GetCurrentQuestionNo();
                     ExamSessionID = SessionCache.GetCurrentExamSessionID();
+
+                    if (ConfigReader.RememberProgress == 1)
+                    {
+                        IList<ExamSaved> savedQuestions = userExamManager.GetSavedExamsByExamSessionID(currentUserExam.ExamSessionID);
+                        SessionCache.SetCurrentQuestionNo(savedQuestions.Count + 1);
+                        SessionCache.SetExamStartTime(DateTime.Now.AddSeconds(-1 * currentUserExam.TotalTime));
+                    }
+                 
                 }
             }
             PopulateQuestion();
@@ -119,7 +133,7 @@ public partial class Pages_Exam : BasePage
         }
         else
         {
-            QuestionNo = SessionCache.GetCurrentQuestionID();
+            QuestionNo = SessionCache.GetCurrentQuestionNo();
             ExamSessionID = SessionCache.GetCurrentExamSessionID();
             SessionCache.SetDateTimeInfoForCurrentQuestion();
         }
@@ -251,6 +265,7 @@ public partial class Pages_Exam : BasePage
             {
                 ClearCheckBoxes();
             }
+            Progress = Math.Round((float)SessionCache.AnsweredQuestionCount / (float)questions.Count * 10, 3);
         }
     }
 
@@ -321,10 +336,9 @@ public partial class Pages_Exam : BasePage
         if (questions != null && questions.Count > 0)
         {
             QuestionNo--;
-            SessionCache.SetCurrentQuestionID(QuestionNo);
+            SessionCache.SetCurrentQuestionNo(QuestionNo);
             PopulateQuestion();
         }
-        Progress = Math.Round((float)SessionCache.AnsweredQuestionCount / (float)20 * 10, 3);
     }
 
     private void SaveCurrentQuestionInfo(IList<QuestionForExamType> questions)
@@ -372,12 +386,10 @@ public partial class Pages_Exam : BasePage
             else
             {
                 QuestionNo++;
-                SessionCache.SetCurrentQuestionID(QuestionNo);
+                SessionCache.SetCurrentQuestionNo(QuestionNo);
                 PopulateQuestion();
             }
         }
-
-        Progress = Math.Round((float)SessionCache.AnsweredQuestionCount / (float)20 * 10, 3);
     }
 
    
