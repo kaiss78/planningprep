@@ -72,13 +72,14 @@ public partial class Pages_Private_ExamResult : System.Web.UI.Page
         {
             int totalQuestions = examTotal.CountOfQuestionID;
             int totalCorrect = examTotal.SumOfCorrect;
-            float percentCorrect = (float)totalCorrect / (float)totalQuestions * 100;
+            double percentCorrect = Math.Round((float)totalCorrect / (float)totalQuestions * 100,2);
             int avgTime = currentUserExam.TotalTime / totalQuestions;
 
             lblTotalQuestions.Text = totalQuestions.ToString();
             lblTotalCorrectAnswers.Text = totalCorrect.ToString();
             lblPercentCorrectAnswers.Text = string.Format("{0}%", percentCorrect.ToString());
             lblAvgTimePerQuestion.Text = avgTime.ToString();
+            lblTotalTime.Text = currentUserExam.TotalTime.ToString();
         }
     }
 
