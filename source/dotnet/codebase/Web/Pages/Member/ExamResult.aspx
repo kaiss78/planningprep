@@ -68,11 +68,20 @@
                     <asp:Label ID="lblAvgTimePerQuestion" runat="server" Text=""></asp:Label> Seconds
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <strong>Total Time</strong>
+                </td>
+                <td>
+                    <asp:Label ID="lblTotalTime" runat="server" Text=""></asp:Label> Seconds
+                </td>
+            </tr>
         </table>
         </div>
         <div class="detailsResult">
             <asp:GridView ID="gvResultDetails" runat="server" AutoGenerateColumns="False" 
-                onrowdatabound="gvResultDetails_RowDataBound">
+                onrowdatabound="gvResultDetails_RowDataBound" BorderStyle="None" 
+                BorderWidth="0px" CellPadding="5">
                 <RowStyle CssClass="EvenRowListing" />
                 <Columns>
                     <asp:BoundField DataField="SerialNo" HeaderText="Question No" />
@@ -88,6 +97,8 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
+                <HeaderStyle BackColor="#FF9900" BorderColor="White" BorderStyle="None" 
+                    BorderWidth="0px" ForeColor="White" />
                 <AlternatingRowStyle CssClass="OddRowListing" />
             </asp:GridView>
         </div>
