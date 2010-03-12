@@ -134,7 +134,7 @@ A.headermenu:hover
 	font-size: 11px;
 	background-color: #FBF3E6;
 	height: 21px;
-	padding: 5px 0 0 0;
+	padding: 10px;
 }
 .OddRowListing:hover {
 	background-color: #FCEACF;
@@ -144,7 +144,7 @@ A.headermenu:hover
 	font-size: 11px;
 	background-color: #FCF7F0;
 	height: 21px;
-	padding: 5px 0 0 0;
+	padding: 10px;
 }
 .EvenRowListing:hover {
 	background-color: #FCEACF;
