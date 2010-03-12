@@ -1,0 +1,33 @@
+Vision/Summary:
+
+The planningprep.com helps the participators of "American Institute of Certified Planner's* certification exam" by providing study materials/aids (practice questions, practice exams, planning related links etc). Members can also participate in the discussion forums.
+
+The current Asp/MS Access based application has to be ported to an Asp.net/SQL Server based platform, with a re-architecture of the system by implementing a layered approach. Along with, some key functionality has to be upgraded (e.g. Standard online exam implementation), some new functionality has to be added (e.g. commenting feature etc), and, some existing functionality has to be removed.
+
+Scopes:
+Functional Scopes:
+
+    * Implement a .Asp.net Forms authentication in the system, possibly based or FaceBook/Google/LinkedIn authentication API.
+    * Allow the user to comment on a particular question in the question list
+    * Allow the user to comment after he/she participates and completes an exam
+    * Implement a "Thumbs up/down" feature for the comments under each question.
+    * Implement a standard "Question-by-question" feature for the exams, along with reviewing and flagging feature.
+    * Provide a way for users to track or remember progress for a particular exam.
+    * Modify the Admin features (Manage questions/ Messaging feature)
+    * Replace the bar charts on the answer page with charts from the google charts API . (Need specific instruction on this requirement)
+    * Replace the Links page and implement a page that would contain the answers along with their linked comments below the answers.
+    * Remove the "OTHER" page along with corresponding Database entries
+    * Remove the existing "Forum" feature.
+    * Upgrade the date range filter in the Stats page to enable user to see stats between two date ranges. (Need specific instruction on this requirement)
+
+Non-functional scopes
+
+    * Implement a layered approach (N-Tier architecture) in the application architecture for better code reuse and increase system's manageability and extensibility.
+    * Migrate the database platform from MS Access to MS SQL Server, Rewrite and refactor the SQLs. Implement a stored procedure based data access routine in the system.
+    * Optimize system performance
+    * Implement a div/css based layout
+    * Deploy the site to a dedicated server
+
+Suggested improvement scope
+  
+Improve the Site's look & feel with more professional user interfaces and interactivity. 
