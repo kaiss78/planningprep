@@ -64,7 +64,7 @@ BEGIN
 
 		SELECT tab.*  
 		FROM [dbo].[tblExam] tab  WITH(NOLOCK)
-		ORDER BY tab.[ExamID] DESC
+		ORDER BY tab.[ExamID] ASC
 
 		SET NOCOUNT OFF;
 END
