@@ -1,0 +1,34 @@
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spGetQuestionLinks]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spGetQuestionLinks]
+GO
+CREATE PROCEDURE [dbo].[spGetQuestionLinks] 
+	   @QuestionID int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/11/2010 1:03:03 AM
+-- Description: GetForUser Into Table tblExamTotal
+-- =============================================
+-- spGetQuestionLinks ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT 
+		[tblQuestions].[QuestionID], 
+		[tblLinks].[LinkID], 
+		[tblLinks].[Link], 
+		[tblLinks].[LinkTitle], 
+		[tblLinks].[LinkDescription], 
+		[tblLinks].[Count], 
+		[tblLinks].[Rating], 
+		[tblLinks].[RateCount], 
+		[tblLinks].[RateTotal]
+		FROM [tblQuestions] 
+		INNER JOIN 
+		([tblLinks] INNER JOIN [tblquestionlink] ON [tblLinks].[LinkID] = 		[tblquestionlink].[LinkID]) 
+		ON [tblQuestions].[QuestionID] = [tblquestionlink].[QuestionID]
+		WHERE ((([tblQuestions].[QuestionID])=3))
+
+	SET NOCOUNT OFF;
+END
+GO
