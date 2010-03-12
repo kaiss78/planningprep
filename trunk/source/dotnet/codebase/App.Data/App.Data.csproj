@@ -73,6 +73,7 @@
     <Compile Include="DbParameter.cs" />
     <Compile Include="Links\LinkDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Questions\QuestionLinkDAO.cs" />
     <Compile Include="Questions\QuestionsDAO.cs" />
     <Compile Include="Roles\IRoleDAO.cs" />
     <Compile Include="Roles\RoleDAO.cs" />
