@@ -17,6 +17,7 @@ public partial class Pages_Exam : BasePage
     protected int ExamSessionID;
     protected int Seconds;
     protected int Minutes;
+    protected double Progress;
     private string ExamKey;
     private string Action;
     private string ACTION_NEW_EXAM = "New";
@@ -30,16 +31,17 @@ public partial class Pages_Exam : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        //SessionCache.ClearExamSessionInfo();
         if (!LoadParams())
         {
-            Response.Clear();
-            Response.End();
+            //If required parameters are not supplied, redirect to Error page
+            Response.Redirect("~/Error.aspx?ErrorCode=3");
             return;
         }
 
         if (IsTimerElapsed())
         {
+            //If time is over, save current answer and redirect to the result page
             SaveAnswer(null,true);
             Response.Redirect("ExamResult.aspx?Action=Finish&ExamSessionID=" + ExamSessionID);
             return;
@@ -48,51 +50,88 @@ public partial class Pages_Exam : BasePage
 
         if (!IsPostBack)
         {
-            DateTime dateTime = SessionCache.GetExamStartTimeInfo();
-            if (dateTime != DateTime.MinValue)
+            //This is the first hit in the exam page
+
+            string examKey = WebUtil.GetExamKeyForExamType(ExamID);
+            if (SessionCache.ExamOngoing)
             {
-                 Response.Redirect("~/Error.aspx?ErrorCode=2");
-                 return;
+                //If an active exam is already ongoing
+                if (examKey != SessionCache.CurrentExamKey)
+                {
+                    //If the ongoing exam's key does not match with the current exam key,
+                    //Redirect user to the error page
+                    Response.Redirect("~/Error.aspx?ErrorCode=2");
+                    return;
+                }
             }
+
             ClearCheckBoxes();
             
-            QuestionNo = 1;
-            SetCurrentQuestionInfo();
             if (Action == ACTION_NEW_EXAM)
             {
+                //If this is a new exam request, create a new Exam session
                 currentUserExam = CreateNewExamSessionForUser();
-                SetCurrentExamSessionInfo((int)currentUserExam.Id);
+                //Set the current examSessionID into the view state
+                SessionCache.SetCurrentExamSessionID((int)currentUserExam.Id);
+                //And redirect to continue mode
                 Response.Redirect(string.Format("Exam.aspx?Action=Continue&ExamSessionID={0}", currentUserExam.Id));
                 return;
             }
             else
             {
-                SessionCache.SetExamStartTimeInfo();
-                if (DeleteExistingExamInfoOnContinue)
+                //Start the exam if no exam is ongoing at this moment
+                if (!SessionCache.ExamOngoing)
                 {
-                    currentUserExam.TotalTime = 0;
-                    userExamManager.SaveOrUpdate(currentUserExam);
-                    DeleteExistingExamInfo();
+                    //The exam has just started. So, set the exam key in the session
+                    SessionCache.CurrentExamKey = examKey;
+                    //Also, put the exam started flag in the session
+                    SessionCache.ExamOngoing = true;
+
+                    //An exam will always start with question no 1
+                    QuestionNo = 1;
+                    SessionCache.AnsweredQuestionCount = 0;
+                    //Set current question no in the ViewState
+                    SessionCache.SetCurrentQuestionID(QuestionNo);
+
+                    //Set exam start time in the Session
+                    SessionCache.SetExamStartTime();
+                    
+
+                    if (DeleteExistingExamInfoOnContinue)
+                    {
+                        //If Deletion of existing exam result for the Session is enabled,
+                        //Delete existing info and clear the Exam session information
+                        currentUserExam.TotalTime = 0;
+                        userExamManager.SaveOrUpdate(currentUserExam);
+                        DeleteExistingExamInfo();
+                    }
+                    //Set current exam session id into the viewstate
+                    SessionCache.SetCurrentExamSessionID(ExamSessionID);
                 }
-                SetCurrentExamSessionInfo(ExamSessionID);
+                else 
+                {
+                    QuestionNo = SessionCache.GetCurrentQuestionID();
+                    ExamSessionID = SessionCache.GetCurrentExamSessionID();
+                }
             }
             PopulateQuestion();
+            
         }
         else
         {
-            LoadCurrentQuestionInfo();
-            LoadCurrentExamSessionInfo();
-            SetDateTimeInfoForCurrentQuestion();
+            QuestionNo = SessionCache.GetCurrentQuestionID();
+            ExamSessionID = SessionCache.GetCurrentExamSessionID();
+            SessionCache.SetDateTimeInfoForCurrentQuestion();
         }
 
-        SetTimerInfo();
+        StartCountDown();
         
     }
 
    
     private void SaveAnswer(ExamSaved questionToSave,bool finalQuestion)
     {
-        DateTime examStartTime = SessionCache.GetExamStartTimeInfo();
+        DateTime examStartTime = SessionCache.GetExamStartTime();
         currentUserExam.TotalTime = DateTime.Now.Subtract(examStartTime).Seconds;
         if (finalQuestion)
         {
@@ -101,12 +140,12 @@ public partial class Pages_Exam : BasePage
         userExamManager.SaveOrUpdateSavedQuestion(questionToSave, currentUserExam);
     }
 
-    private void SetTimerInfo()
+    private void StartCountDown()
     {
         int totalAllowedSeconds = ConfigReader.ExamLengthInMinutes * 60;
-        if (IsPostBack)
+        if (IsPostBack || SessionCache.ExamOngoing)
         {
-            DateTime examStartTime = SessionCache.GetExamStartTimeInfo();
+            DateTime examStartTime = SessionCache.GetExamStartTime();
             int elapsedSeconds = DateTime.Now.Subtract(examStartTime).Minutes * 60 + DateTime.Now.Subtract(examStartTime).Seconds;
             totalAllowedSeconds -= elapsedSeconds;
         }
@@ -119,7 +158,7 @@ public partial class Pages_Exam : BasePage
         int totalAllowedSeconds = ConfigReader.ExamLengthInMinutes * 60;
         if (IsPostBack || Action == ACTION_EXAM_FINISHED)
         {
-            DateTime examStartTime = SessionCache.GetExamStartTimeInfo();
+            DateTime examStartTime = SessionCache.GetExamStartTime();
             int elapsedSeconds = DateTime.Now.Subtract(examStartTime).Minutes * 60 + DateTime.Now.Subtract(examStartTime).Seconds;
             totalAllowedSeconds -= elapsedSeconds;
         }
@@ -162,7 +201,7 @@ public partial class Pages_Exam : BasePage
             QuestionForExamType question = GetQuestion(QuestionNo, questions);
             if (question == null) return;
 
-            SetDateTimeInfoForCurrentQuestion();
+            SessionCache.SetDateTimeInfoForCurrentQuestion();
 
             lblQuestionTitle.Text = question.Question;
             Page.Title = AppUtil.GetPageTitle(question.Question);
@@ -230,6 +269,13 @@ public partial class Pages_Exam : BasePage
         ExamSessionID = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.EXAM_SESSION_ID);
         ExamKey = WebUtil.GetRequestParamValueInString(AppConstants.QueryString.EXAM_KEY);
         Action = WebUtil.GetRequestParamValueInString(AppConstants.QueryString.EXAM_ACTION);
+
+        int clear = WebUtil.GetRequestParamValueInInt("Clear");
+        if(clear == 1)
+        {
+            SessionCache.ClearExamSessionInfo();
+        }
+
         if (Action == ACTION_CONTINUE_EXAM)
         {
             if (ExamSessionID == 0) return false;
@@ -275,9 +321,10 @@ public partial class Pages_Exam : BasePage
         if (questions != null && questions.Count > 0)
         {
             QuestionNo--;
-            SetCurrentQuestionInfo();
+            SessionCache.SetCurrentQuestionID(QuestionNo);
             PopulateQuestion();
         }
+        Progress = Math.Round((float)SessionCache.AnsweredQuestionCount / (float)20 * 10, 3);
     }
 
     private void SaveCurrentQuestionInfo(IList<QuestionForExamType> questions)
@@ -293,14 +340,17 @@ public partial class Pages_Exam : BasePage
             if (questionToSave == null || questionToSave.Id == 0)
             {
                 questionToSave = new ExamSaved();
+            
+                questionToSave.Answer = selectedAnswer;
+                questionToSave.ExamSessionID = ExamSessionID;
+                questionToSave.QuestionID = currentQuestion.QuestionID;
+                DateTime startTime = SessionCache.GetDateTimeInfoForCurrentQuestion();
+                questionToSave.Time = DateTime.Now.Subtract(startTime).Seconds;
+                questionToSave.TimeStamp = DateTime.Now;
+                questionToSave.UserID = SessionCache.CurrentUser.Author_ID;
+
+                SessionCache.AnsweredQuestionCount++;
             }
-            questionToSave.Answer = selectedAnswer;
-            questionToSave.ExamSessionID = ExamSessionID;
-            questionToSave.QuestionID = currentQuestion.QuestionID;
-            DateTime startTime = GetDateTimeInfoForCurrentQuestion();
-            questionToSave.Time = DateTime.Now.Subtract(startTime).Seconds;
-            questionToSave.TimeStamp = DateTime.Now;
-            questionToSave.UserID = SessionCache.CurrentUser.Author_ID;
 
             bool finalQuestion = QuestionNo == questions.Count?true:false;
             SaveAnswer(questionToSave,finalQuestion);
@@ -322,43 +372,17 @@ public partial class Pages_Exam : BasePage
             else
             {
                 QuestionNo++;
-                SetCurrentQuestionInfo();
+                SessionCache.SetCurrentQuestionID(QuestionNo);
                 PopulateQuestion();
             }
         }
+
+        Progress = Math.Round((float)SessionCache.AnsweredQuestionCount / (float)20 * 10, 3);
     }
 
-    private void SetCurrentExamSessionInfo(int examSessionID)
-    {
-        ExamSessionID = examSessionID;
-        ViewState["CURRENT_EXAM_SESSION_ID"] = ExamSessionID;
-    }
+   
 
-    private void LoadCurrentExamSessionInfo()
-    {
-        ExamSessionID = Convert.ToInt32(ViewState["CURRENT_EXAM_SESSION_ID"]);
-    }
-
-    private void SetCurrentQuestionInfo()
-    {
-        ViewState["CURRENT_QUESTION"] = QuestionNo;
-    }
-
-    private void SetDateTimeInfoForCurrentQuestion()
-    {
-        Session["CURRENT_QUESTION_START_TIME"] = DateTime.Now;
-    }
-
-    private DateTime GetDateTimeInfoForCurrentQuestion()
-    {
-        return Convert.ToDateTime(Session["CURRENT_QUESTION_START_TIME"]);
-    }
-      
-    private void LoadCurrentQuestionInfo()
-    {
-        QuestionNo = Convert.ToInt32(ViewState["CURRENT_QUESTION"]);
-    }
-
+    
     private string GetSelectedAnswerChoice()
     {
         if (rdoA.Checked)

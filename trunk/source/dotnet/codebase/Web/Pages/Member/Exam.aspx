@@ -47,7 +47,6 @@ window.onload = countDown;
     </script>
 
     <style type="text/css">
-        <!-- 
         .timeClass
         {
             font-family: arial,verdana,helvetica,sans-serif;
@@ -63,7 +62,7 @@ window.onload = countDown;
         
         .timerDiv
         {
-            margin-bottom:30px;
+            margin-bottom:20px;
         }
         
         .navigationDiv
@@ -87,12 +86,18 @@ window.onload = countDown;
         {
         	font-weight:bold;
         }
-        -- ></style>
+    </style>
 
     <div class="divCenter">
         <div class="timerDiv">
             <!-- This goes into the BODY of the file -->
             Time Remaining : <span id="theTime" class="timeClass"></span>
+        </div>
+        <div style="margin-bottom:10px">
+            <div style="height:10px;width:100%;background-color:Gray">
+            <div style="height:10px;width:<%=Progress%>%;background-color:Green">
+            </div>
+            </div>
         </div>
         <div>
             <div id="QuestionTitle">
