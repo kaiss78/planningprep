@@ -38,7 +38,7 @@ namespace App.Data.Questions
     {
         DateTime LastQuestionDate();
         void SaveQuestionOfTheWeekAnswer(int questionID, int userId, String answer);
-        IList<App.Models.Questions.Questions> GetPagedListByKeywordOrCategory(int pageNo, int pageLength, string keyword, string category, bool filter);
+        IList<App.Models.Questions.Questions> GetPagedListByKeywordOrCategory(int pageNo, int pageLength, string keyword, string category, int userId, bool filter);
     }
 
     public class QuestionsDAO : BaseDataAccess<App.Models.Questions.Questions>, IQuestionsDAO
@@ -150,13 +150,13 @@ namespace App.Data.Questions
         /// <param name="pageNo"></param>
         /// <param name="pageLength"></param>
         /// <returns></returns>
-        public IList<App.Models.Questions.Questions> GetPagedListByKeywordOrCategory(int pageNo, int pageLength, string keyword, string category, bool filter)
+        public IList<App.Models.Questions.Questions> GetPagedListByKeywordOrCategory(int pageNo, int pageLength, string keyword, string category, int userId, bool filter)
         {
             using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "GetPagedListByKeywordOrCategory.GetUserExamByExamAndUser(int,int,string,string,;bool)"))
             {
                 try
                 {
-                    DbParameter[] parameters = new[] { new DbParameter("PageNo", DbType.Int32, pageNo), new DbParameter("PageLength", DbType.String, pageLength), new DbParameter("Keyword", DbType.String, keyword), new DbParameter("Category", DbType.String, category), new DbParameter("Filter", DbType.Boolean, filter) };
+                    DbParameter[] parameters = new[] { new DbParameter("PageNo", DbType.Int32, pageNo), new DbParameter("PageLength", DbType.String, pageLength), new DbParameter("Keyword", DbType.String, keyword), new DbParameter("Category", DbType.String, category),new DbParameter("UserID", DbType.Int32, userId), new DbParameter("Filter", DbType.Boolean, filter) };
 
                     return GetAllInternal("spGetPagedListByKeywordOrCategory", parameters, false);
                 }
