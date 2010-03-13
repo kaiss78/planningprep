@@ -18,6 +18,20 @@ public partial class Member_QuestionList : BasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         Page.Title = AppUtil.GetPageTitle("Question List");
+        int viewAll = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.VIEW_ALL);
+        if (viewAll == 1)
+        {
+            divViewAll.Visible = true;
+        }
+        else
+        {
+            divViewAll.Visible = false;
+        }
+
+        if (SessionCache.CurrentUser != null)
+        {
+            hlinkUserProfile.NavigateUrl = "UserProfile.aspx?UserID=" + SessionCache.CurrentUser.Author_ID;
+        }
     }
 
 }

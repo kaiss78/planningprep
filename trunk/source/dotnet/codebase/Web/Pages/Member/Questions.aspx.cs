@@ -17,4 +17,13 @@ public partial class Pages_Member_Questions : System.Web.UI.Page
     {
         Page.Title = AppUtil.GetPageTitle("Question Central");
     }
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("QuestionList.aspx?Keyword=" + txtKeyword.Text);
+    }
+
+    protected void btnSearchCategory_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("QuestionList.aspx?Category=" + ddlQuestionCategory.SelectedValue);
+    }
 }

@@ -9,7 +9,7 @@
 
     <div style="float:right;"><asp:HyperLink ID="hplAddNewQuestion" runat="server">Add New Question</asp:HyperLink></div>
     <div class="clearfloating"></div>
-      <uc1:PaginatedQuestions ID="PaginatedQuestions1" ShowDetailsLink="true" ShowEditLink="true" ShowLastModifiedDate="true" runat="server" />
+      <uc1:PaginatedQuestions ID="PaginatedQuestions1" ShowDetailsLink="true" ShowEditLink="true" ShowLastModifiedDate="true" AnswerQuestion="false" runat="server" />
 
 </asp:Content>
 
