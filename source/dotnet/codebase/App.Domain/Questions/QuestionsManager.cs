@@ -154,6 +154,29 @@ namespace App.Domain.Questions
             }
             return QuestionsList;
         }
+
+        /// <summary>
+        /// Get paginated data by Keyword or Category
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageLength"></param>
+        /// <returns></returns>
+        public IList<App.Models.Questions.Questions> GetPagedListByKeywordOrCategory(int pageNo, int pageLength,string keyword, string category,bool filter)
+        {
+            IList<App.Models.Questions.Questions> QuestionsList = new List<App.Models.Questions.Questions>();
+            try
+            {
+                using (IQuestionsDAO dao = (IQuestionsDAO)DAOFactory.Get<App.Models.Questions.Questions>())
+                {
+                    QuestionsList = dao.GetPagedListByKeywordOrCategory(pageNo,pageLength,keyword,category,filter);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return QuestionsList;
+        }
         /// <summary>
         /// Gets Last Question Update Date
         /// </summary>
