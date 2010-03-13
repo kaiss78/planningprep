@@ -1,0 +1,83 @@
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spGetPagedListByKeywordOrCategory]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spGetPagedListByKeywordOrCategory]
+GO
+CREATE PROCEDURE [dbo].[spGetPagedListByKeywordOrCategory] 
+(
+	   @PageNo int,
+	   @PageLength int,
+	   @Keyword varchar(100), 
+	   @Category varchar(100), 
+	   @UserID int,
+	   @Filter bit
+)
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/8/2010 11:04:17 PM
+-- Description: Search question 
+-- =============================================
+-- [spGetPagedListByKeywordOrCategory] ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		DECLARE @SELECT_LIST VARCHAR(200);
+		DECLARE @FROM VARCHAR(200);
+		DECLARE @WHERE VARCHAR(1000);
+		DECLARE @ORDER_BY VARCHAR(100);
+		DECLARE @SQL VARCHAR(4000);
+
+		SET @SELECT_LIST = ' [QuestionID], [Question], [RandomOrder] '
+
+		SET @FROM =  ' [tblQuestions] ';
+
+		SET @WHERE = ' [RandomOrder] < 10000 ';
+
+		IF @Keyword IS NOT NULL AND LEN(@Keyword) > 0
+		BEGIN
+			SET @WHERE = @WHERE + ' AND [tblQuestions].Question Like ''%' + @Keyword + '%'' '
+		END
+
+		ELSE IF @Category IS NOT NULL AND LEN(@Category) > 0
+		BEGIN
+			SET @WHERE = @WHERE + ' AND [tblQuestions].' + @Category + '= 1 ';
+		END
+		
+		SET @ORDER_BY = ' [RandomOrder] ';	
+
+		IF @Filter = 1
+		
+		BEGIN
+	        SET @WHERE =  @WHERE + ' AND (((tblQuestions.QuestionID)<>All (SELECT tblAnswers.QuestionID 
+	        FROM tblAnswers WHERE (((tblAnswers.UserID)= ' + cast(@UserID as VARCHAR(15)) + ' ))))) '; 
+		END 
+
+		--Pagination Query
+
+		DECLARE @StartRow int;
+		DECLARE @EndRow int;
+
+		SET @StartRow = ((@PageNo- 1) * @PageLength)+1;
+		SET @EndRow = @StartRow + @PageLength -1;
+
+		SET @SQL = 
+		'SELECT * 
+		FROM 
+		(
+			SELECT ROW_NUMBER() OVER (ORDER BY QuestionID) as resultNum
+			, ' + @SELECT_LIST + ' 
+			FROM ' + @FROM + '
+			WHERE ' + @WHERE + '
+		) as numberResults
+		
+		WHERE resultNum  BETWEEN ' + CAST(@StartRow AS VARCHAR(10)) + ' AND ' + CAST(@EndRow AS VARCHAR(10)) + '
+		ORDER BY ' +  @ORDER_BY
+
+		PRINT(@SQL);
+		EXEC(@SQL);
+		SET NOCOUNT OFF;
+END
+GO
+
+--exec spGetPagedListByKeywordOrCategory  2,10,null, 'Ethics',1,1
+	  
+
