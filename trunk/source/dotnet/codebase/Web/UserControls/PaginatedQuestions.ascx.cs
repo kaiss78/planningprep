@@ -33,6 +33,18 @@ public partial class UserControls_PaginatedQuestions : System.Web.UI.UserControl
         set;
     }
 
+    public string Keyword
+    {
+        get;
+        set;
+    }
+
+    public bool AnswerQuestion
+    {
+        get;
+        set;
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         Page.Title = AppUtil.GetPageTitle("Question List");
@@ -89,7 +101,14 @@ public partial class UserControls_PaginatedQuestions : System.Web.UI.UserControl
             hplEdit.NavigateUrl = String.Format("{0}?{1}={2}", AppConstants.Pages.EDIT_QUESTION, AppConstants.QueryString.QUESTION_ID, question.QuestionID);
 
             HyperLink hlinkQuestion = e.Item.FindControl("hlinkQuestion") as HyperLink;
-            hlinkQuestion.NavigateUrl = String.Format("{0}?{1}={2}", AppConstants.Pages.QUESTION_DETAILS, AppConstants.QueryString.QUESTION_ID, question.QuestionID);
+            if (AnswerQuestion)
+            {
+                hlinkQuestion.NavigateUrl = String.Format("{0}?{1}={2}", AppConstants.Pages.ANSWER_QUESTION, AppConstants.QueryString.QUESTION_ID, question.QuestionID);
+            }
+            else
+            {
+                hlinkQuestion.NavigateUrl = String.Format("{0}?{1}={2}", AppConstants.Pages.QUESTION_DETAILS, AppConstants.QueryString.QUESTION_ID, question.QuestionID);
+            }
             hlinkQuestion.Text = question.Question;
 
             if (!ShowEditLink)
