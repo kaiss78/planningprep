@@ -22,12 +22,13 @@ public class AppConstants
 
     public class Pages
     {
-        public const string EDIT_QUESTION = "/Pages/Admin/EditQuestion.aspx";
-        public const string MANAGE_QUESTIONS = "/Pages/Admin/ManageQuestions.aspx";
-        public const string JOIN_OUTCOME = "/Pages/Public/JoinOutcome.aspx";
-        public const string ANSWER_OF_THE_WEEK_MESSAGE = "/Pages/Public/AnswerOfTheWeekMessage.aspx";
-        public const string VISIT_FRAME = "/Pages/Public/VisitFrame.aspx";
-        public const string SHOW_CONTENT = "/Pages/Public/ShowContent.aspx";
+        public const string EDIT_QUESTION = "~/Pages/Admin/EditQuestion.aspx";
+        public const string MANAGE_QUESTIONS = "~/Pages/Admin/ManageQuestions.aspx";
+        public const string QUESTION_DETAILS = "~/Pages/Member/QuestionDetails.aspx";
+        public const string JOIN_OUTCOME = "~/Pages/Public/JoinOutcome.aspx";
+        public const string ANSWER_OF_THE_WEEK_MESSAGE = "~/Pages/Public/AnswerOfTheWeekMessage.aspx";
+        public const string VISIT_FRAME = "~/Pages/Public/VisitFrame.aspx";
+        public const string SHOW_CONTENT = "~/Pages/Public/ShowContent.aspx";
     }
 
     public class ValueOf
