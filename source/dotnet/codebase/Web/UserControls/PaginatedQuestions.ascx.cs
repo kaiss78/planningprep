@@ -82,7 +82,7 @@ public partial class UserControls_PaginatedQuestions : System.Web.UI.UserControl
                     filter = true;
                 }
             }
-            questions = manager.GetPagedListByKeywordOrCategory(pageNo, pageSize, Keyword, Category,filter).ToList();
+            questions = manager.GetPagedListByKeywordOrCategory(pageNo, pageSize, Keyword, Category,SessionCache.CurrentUser.Author_ID,filter).ToList();
         }
         else
         {
