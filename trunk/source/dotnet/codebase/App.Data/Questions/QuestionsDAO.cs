@@ -38,6 +38,7 @@ namespace App.Data.Questions
     {
         DateTime LastQuestionDate();
         void SaveQuestionOfTheWeekAnswer(int questionID, int userId, String answer);
+        IList<App.Models.Questions.Questions> GetPagedListByKeywordOrCategory(int pageNo, int pageLength, string keyword, string category, bool filter);
     }
 
     public class QuestionsDAO : BaseDataAccess<App.Models.Questions.Questions>, IQuestionsDAO
@@ -142,7 +143,31 @@ namespace App.Data.Questions
                 }
             }
         }
-       
+
+        /// <summary>
+        /// Get paginated data by Keyword or Category
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageLength"></param>
+        /// <returns></returns>
+        public IList<App.Models.Questions.Questions> GetPagedListByKeywordOrCategory(int pageNo, int pageLength, string keyword, string category, bool filter)
+        {
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "GetPagedListByKeywordOrCategory.GetUserExamByExamAndUser(int,int,string,string,;bool)"))
+            {
+                try
+                {
+                    DbParameter[] parameters = new[] { new DbParameter("PageNo", DbType.Int32, pageNo), new DbParameter("PageLength", DbType.String, pageLength), new DbParameter("Keyword", DbType.String, keyword), new DbParameter("Category", DbType.String, category), new DbParameter("Filter", DbType.Boolean, filter) };
+
+                    return GetAllInternal("spGetPagedListByKeywordOrCategory", parameters, false);
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "GetPagedListByKeywordOrCategory.GetUserExamByExamAndUser(int,int,string,string,bool)");
+                }
+            }
+        }
+
         protected override void EagerLoad(App.Models.Questions.Questions entity)
         {
             // Add eager loading functionality here
