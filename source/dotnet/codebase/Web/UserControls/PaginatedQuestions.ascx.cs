@@ -39,7 +39,19 @@ public partial class UserControls_PaginatedQuestions : System.Web.UI.UserControl
         set;
     }
 
+    public string Category
+    {
+        get;
+        set;
+    }
+
     public bool AnswerQuestion
+    {
+        get;
+        set;
+    }
+
+    public bool ShowQuestionsForAnswerMode
     {
         get;
         set;
@@ -59,7 +71,23 @@ public partial class UserControls_PaginatedQuestions : System.Web.UI.UserControl
     {
         int pageSize = ConfigReader.AdminQuestionListSize;
         App.Domain.Questions.QuestionsManager manager = new App.Domain.Questions.QuestionsManager();
-        List<Questions> questions = manager.GetPagedList(pageNo, pageSize).ToList();
+        List<Questions> questions = null;
+        if (ShowQuestionsForAnswerMode)
+        {
+            bool filter = false;
+            if (SessionCache.CurrentUser != null)
+            {
+                if (SessionCache.CurrentUser.Mode == "Filtered")
+                {
+                    filter = true;
+                }
+            }
+            questions = manager.GetPagedListByKeywordOrCategory(pageNo, pageSize, Keyword, Category,filter).ToList();
+        }
+        else
+        {
+            questions = manager.GetPagedList(pageNo, pageSize).ToList();
+        }
         int totalRecord = manager.GetPagedList(1, int.MaxValue).Count;
         rptQuestionList.DataSource = questions;
         rptQuestionList.DataBind();
