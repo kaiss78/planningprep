@@ -19,5 +19,5 @@
             profile"></asp:HyperLink>.</p>
     </div>
     <uc1:PaginatedQuestions ID="PaginatedQuestions1" ShowDetailsLink="true" ShowEditLink="false"
-        ShowLastModifiedDate="false" AnswerQuestion="true" runat="server" />
+        ShowLastModifiedDate="false" AnswerQuestion="true" ShowQuestionsForAnswerMode="true" runat="server" />
 </asp:Content>
