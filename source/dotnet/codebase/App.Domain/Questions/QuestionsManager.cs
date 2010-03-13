@@ -161,14 +161,14 @@ namespace App.Domain.Questions
         /// <param name="pageNo"></param>
         /// <param name="pageLength"></param>
         /// <returns></returns>
-        public IList<App.Models.Questions.Questions> GetPagedListByKeywordOrCategory(int pageNo, int pageLength,string keyword, string category,bool filter)
+        public IList<App.Models.Questions.Questions> GetPagedListByKeywordOrCategory(int pageNo, int pageLength,string keyword, string category,int userId, bool filter)
         {
             IList<App.Models.Questions.Questions> QuestionsList = new List<App.Models.Questions.Questions>();
             try
             {
                 using (IQuestionsDAO dao = (IQuestionsDAO)DAOFactory.Get<App.Models.Questions.Questions>())
                 {
-                    QuestionsList = dao.GetPagedListByKeywordOrCategory(pageNo,pageLength,keyword,category,filter);
+                    QuestionsList = dao.GetPagedListByKeywordOrCategory(pageNo,pageLength,keyword,category,userId,filter);
                 }
             }
             catch (Exception ex)
