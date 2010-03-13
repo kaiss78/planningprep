@@ -57,6 +57,7 @@ public partial class UserControls_PaginatedQuestions : System.Web.UI.UserControl
         set;
     }
 
+    private int PageSizeForGettingAllData = 100000000;
     protected void Page_Load(object sender, EventArgs e)
     {
         Page.Title = AppUtil.GetPageTitle("Question List");
@@ -69,9 +70,18 @@ public partial class UserControls_PaginatedQuestions : System.Web.UI.UserControl
 
     protected void BindQuestionList(int pageNo)
     {
+        Keyword = WebUtil.GetRequestParamValueInString(AppConstants.QueryString.QUESTION_KEYWORD);
+        Category = WebUtil.GetRequestParamValueInString(AppConstants.QueryString.QUESTION_CATEGORY);
+        if (Category == "None")
+        {
+            Category = null;
+        }
+
         int pageSize = ConfigReader.AdminQuestionListSize;
         App.Domain.Questions.QuestionsManager manager = new App.Domain.Questions.QuestionsManager();
         List<Questions> questions = null;
+        int totalRecord = 0; 
+
         if (ShowQuestionsForAnswerMode)
         {
             bool filter = false;
@@ -83,12 +93,14 @@ public partial class UserControls_PaginatedQuestions : System.Web.UI.UserControl
                 }
             }
             questions = manager.GetPagedListByKeywordOrCategory(pageNo, pageSize, Keyword, Category,SessionCache.CurrentUser.Author_ID,filter).ToList();
+            totalRecord = manager.GetPagedListByKeywordOrCategory(1, PageSizeForGettingAllData, Keyword, Category, SessionCache.CurrentUser.Author_ID, filter).Count;
         }
         else
         {
             questions = manager.GetPagedList(pageNo, pageSize).ToList();
+            totalRecord = manager.GetPagedList(1, PageSizeForGettingAllData).Count;
         }
-        int totalRecord = manager.GetPagedList(1, int.MaxValue).Count;
+        
         rptQuestionList.DataSource = questions;
         rptQuestionList.DataBind();
         BindPagerControl(pageNo, totalRecord, pageSize);
