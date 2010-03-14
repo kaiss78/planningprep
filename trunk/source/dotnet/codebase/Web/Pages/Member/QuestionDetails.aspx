@@ -6,6 +6,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" runat="Server">
    
+   <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>   
+    
     <uc1:QuestionDetails ID="questionDetails" runat="server" />
    
 </asp:Content>
