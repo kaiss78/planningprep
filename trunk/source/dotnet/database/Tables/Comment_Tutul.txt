@@ -1,0 +1,14 @@
+
+CREATE TABLE [dbo].[Comment](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[QuestionID] [int] NOT NULL,
+	[UserID] [int] NOT NULL,
+	[CommentText] [nvarchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Rank] [int] NULL,
+	[Created] [datetime] NOT NULL,
+	[Modified] [datetime] NOT NULL,
+ CONSTRAINT [PK_Comment] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
