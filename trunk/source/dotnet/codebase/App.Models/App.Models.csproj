@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Answers\Answers.cs" />
     <Compile Include="AnswerTotals\AnswerTotals.cs" />
     <Compile Include="Comments\Comment.cs" />
     <Compile Include="Enums\HistoryFieldName.cs" />
