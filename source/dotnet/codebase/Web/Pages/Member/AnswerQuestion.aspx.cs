@@ -46,10 +46,10 @@ public partial class Pages_Member_AnswerQuestion : BasePage
         lblQuestionTitle.Text = question.Question;
         Page.Title = AppUtil.GetPageTitle("Question Details : " + question.Question);
 
-        lblA.Text = question.AnswerA;
-        lblB.Text = question.AnswerB;
-        lblC.Text = question.AnswerC;
-        lblD.Text = question.AnswerD;
+        rdoA.Text = question.AnswerA;
+        rdoB.Text = question.AnswerB;
+        rdoC.Text = question.AnswerC;
+        rdoD.Text = question.AnswerD;
 
         //lblQuestionDetails.Text = question.Explanation;
 
