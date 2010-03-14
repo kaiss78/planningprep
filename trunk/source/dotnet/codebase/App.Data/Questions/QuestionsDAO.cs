@@ -80,7 +80,7 @@ namespace App.Data.Questions
             entity.ModifiedWhen = NullHandler.GetDateTime(reader["ModifiedWhen"]);
             entity.RandomOrder = NullHandler.GetInt(reader["RandomOrder"]);
             entity.Count = NullHandler.GetInt(reader["Count"]);
-            entity.Rating = NullHandler.GetObject(reader["Rating"]);
+            entity.Rating = NullHandler.GetFloat(reader["Rating"]);
             entity.RateCount = NullHandler.GetInt(reader["RateCount"]);
             entity.RateTotal = NullHandler.GetInt(reader["RateTotal"]);
 
