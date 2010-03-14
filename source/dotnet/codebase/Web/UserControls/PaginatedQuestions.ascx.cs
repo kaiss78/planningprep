@@ -77,6 +77,18 @@ public partial class UserControls_PaginatedQuestions : BaseUserControl
             Category = null;
         }
 
+        SessionCache.CurrentQuestionSearchCriteriaForKeyword = null;
+        SessionCache.CurrentQuestionSearchCriteriaForCategory = null;
+
+        if (!string.IsNullOrEmpty(Keyword))
+        {
+            SessionCache.CurrentQuestionSearchCriteriaForKeyword = Keyword;
+        }
+        else
+        {
+            SessionCache.CurrentQuestionSearchCriteriaForCategory = Category;
+        }
+
         int pageSize = ConfigReader.AdminQuestionListSize;
         App.Domain.Questions.QuestionsManager manager = new App.Domain.Questions.QuestionsManager();
         List<Questions> questions = null;
@@ -100,7 +112,10 @@ public partial class UserControls_PaginatedQuestions : BaseUserControl
             questions = manager.GetPagedList(pageNo, pageSize).ToList();
             totalRecord = manager.GetPagedList(1, PageSizeForGettingAllData).Count;
         }
-        
+
+        SessionCache.CurrentQuestionPageNo = pageNo;
+        SessionCache.CurrentQuestionList = questions;
+
         rptQuestionList.DataSource = questions;
         rptQuestionList.DataBind();
         BindPagerControl(pageNo, totalRecord, pageSize);

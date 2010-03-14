@@ -16,6 +16,7 @@ using App.Models.Questions;
 public partial class UserControls_RateQuestion : BaseUserControl
 {
     QuestionsManager questionManager = new QuestionsManager();
+    int ShowNextQuestion;
     public int QuestionID
     {
         get;
@@ -24,7 +25,15 @@ public partial class UserControls_RateQuestion : BaseUserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        ShowNextQuestion = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.SHOW_NEXT_QUESTION);
+        if (ShowNextQuestion == 1)
+        {
+            divRated.Visible = true;
+        }
+        else
+        {
+            divRated.Visible = false;
+        }
     }
 
     protected void btnSubmitRate_Click(object sender, EventArgs e)

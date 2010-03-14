@@ -51,23 +51,32 @@ public partial class UserControls_QuestionDetails : BaseUserControl
             rateQuestion.Visible = false;
         }
 
+        Questions question = null;
+        divNextQuestion.Visible = false;
+
         if (ShowNextQuestion)
         {
-            rateQuestion.Visible = false;
-            divNextQuestion.Visible = true;
-        }
-        else
-        {
-            divNextQuestion.Visible = false;
-        }
+            question = SessionCache.GetNextQuestion(QuestionID);
+            if (question != null)
+            {
+                rateQuestion.Visible = false;
+                divNextQuestion.Visible = true;
 
-        PopulateQuestion();
+                hlinkNextQuestion.NavigateUrl = String.Format("{0}?{1}={2}", AppConstants.Pages.ANSWER_QUESTION, AppConstants.QueryString.QUESTION_ID, question.QuestionID);
+            }
+        }
+        
+        question = questionManager.Get(QuestionID);
+        
+
+        if (question != null)
+        {
+            PopulateQuestion(question);
+        }
     }
 
-    private void PopulateQuestion()
+    private void PopulateQuestion(Questions question)
     {
-        Questions question = questionManager.Get(QuestionID);
-
         lblQuestionTitle.Text = question.Question;
         Page.Title = AppUtil.GetPageTitle("Question Details : " + question.Question);
 
