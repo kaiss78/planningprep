@@ -17,7 +17,7 @@ public partial class UserControls_PublicMenu : BaseUserControl
     {        
         if(SessionCache.CurrentUser != null)
         {
-            hplLogin.NavigateUrl = "/Login.aspx?Logout=True";
+            hplLogin.NavigateUrl = String.Format("/Login.aspx?{0}=True", AppConstants.QueryString.LOG_OUT);
             hplLogin.Text = "Log Out";
         }
     }
