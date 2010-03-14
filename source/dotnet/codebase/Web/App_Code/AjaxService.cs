@@ -6,6 +6,7 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
 using System.Web.Script.Services;
+using App.Models.Comments;
 
 /// <summary>
 /// Summary description for AjaxService
@@ -32,6 +33,33 @@ public class AjaxService : System.Web.Services.WebService
         manager.SaveOrUpdate(comment);
         return comment.Id;
     }
+    [WebMethod(EnableSession = true)]
+    public void CommentThumbsUp(int commentID)
+    {
+        App.Domain.Comments.CommentManager manager = new App.Domain.Comments.CommentManager();
+        Comment comment =  manager.Get(commentID);
+        if (comment != null)
+        {
+            comment.Rank = comment.Rank + 1;
+            manager.SaveOrUpdate(comment);
+        }        
+    }
+    
+    [WebMethod(EnableSession = true)]
+    public void CommentThumbsDown(int commentID)
+    {
+        App.Domain.Comments.CommentManager manager = new App.Domain.Comments.CommentManager();
+        Comment comment = manager.Get(commentID);
+        if (comment != null)
+        {
+            if (comment.Rank > 0)
+            {
+                comment.Rank = comment.Rank - 1;
+                manager.SaveOrUpdate(comment);
+            }
+        }        
+    }
+    
 
 }
 

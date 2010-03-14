@@ -46,6 +46,10 @@ public class AppUtil
     {
         return HttpContext.Current.Server.HtmlEncode(text);
     }
+    public static string FormatText(String text)
+    {
+        return Encode(text).Replace(Environment.NewLine, "<br />").Replace("\n", "<br />");
+    }
     /// <summary>
     /// Gets Cookie from the Current Http Request
     /// </summary>
