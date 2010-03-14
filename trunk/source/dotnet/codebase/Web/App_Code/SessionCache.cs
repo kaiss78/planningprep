@@ -8,6 +8,7 @@ using System.Web;
 using App.Models.Users;
 using App.Models.Exams;
 using App.Domain.UserExams;
+using App.Models.Questions;
 
 #endregion
 
@@ -98,6 +99,160 @@ public class SessionCache
             if (HttpContext.Current.Session != null)
             {
                 HttpContext.Current.Session["CURRENT_USER"] = value;
+            }
+        }
+    }
+
+    
+
+    /// <summary>
+    /// Current exam questions that user is navigating through
+    /// </summary>
+    public static IList<Questions> CurrentQuestionList
+    {
+        get
+        {
+            if (HttpContext.Current.Session == null)
+            {
+                return null;
+            }
+            if (HttpContext.Current.Session["CURRENT_QUESTION_LIST"] == null) return null;
+            return HttpContext.Current.Session["CURRENT_QUESTION_LIST"] as IList<Questions>;
+        }
+        set
+        {
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["CURRENT_QUESTION_LIST"] = value;
+            }
+        }
+    }
+
+    public static Questions GetNextQuestion(int currentQuestionID)
+    {
+        IList<Questions> questions = CurrentQuestionList;
+        string Keyword = CurrentQuestionSearchCriteriaForKeyword;
+        string Category = CurrentQuestionSearchCriteriaForCategory;
+
+        Questions nextQuestion = null;
+
+        if (questions != null)
+        {
+            for (int i = 0; i < questions.Count; i++)
+            {
+                if (questions[i].QuestionID == currentQuestionID && i + 1 < questions.Count)
+                {
+                    nextQuestion = questions[i + 1];
+                }
+            }
+        }
+
+        if (nextQuestion == null)
+        {
+            //Reload the questions based upon the current criteria
+            int pageSize = ConfigReader.AdminQuestionListSize;
+            App.Domain.Questions.QuestionsManager manager = new App.Domain.Questions.QuestionsManager();
+            int pageNo = CurrentQuestionPageNo + 1;
+
+            if (string.IsNullOrEmpty(Keyword) && string.IsNullOrEmpty(Category))
+            {
+                questions = manager.GetPagedList(pageNo, pageSize).ToList();
+            }
+            else
+            {
+                bool filter = false;
+                if (SessionCache.CurrentUser != null)
+                {
+                    if (SessionCache.CurrentUser.Mode == "Filtered")
+                    {
+                        filter = true;
+                    }
+                }
+                questions = manager.GetPagedListByKeywordOrCategory(pageNo, pageSize, Keyword, Category, SessionCache.CurrentUser.Author_ID, filter).ToList();
+            }
+
+            CurrentQuestionList = questions;
+
+            if (questions != null)
+            {
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    if (questions[i].QuestionID == currentQuestionID && i + 1 < questions.Count)
+                    {
+                        nextQuestion = questions[i + 1];
+                    }
+                }
+            }
+        }
+
+        return nextQuestion;
+    }
+
+    /// <summary>
+    /// Current  questions search criteria for keyword that user is navigating through
+    /// </summary>
+    public static string CurrentQuestionSearchCriteriaForKeyword
+    {
+        get
+        {
+            if (HttpContext.Current.Session == null)
+            {
+                return null;
+            }
+            if (HttpContext.Current.Session["CURRENT_QUESTION_SEARCH_CRITERIA_FOR_KEYWORD"] == null) return null;
+            return HttpContext.Current.Session["CURRENT_QUESTION_SEARCH_CRITERIA_FOR_KEYWORD"] as string;
+        }
+        set
+        {
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["CURRENT_QUESTION_SEARCH_CRITERIA_FOR_KEYWORD"] = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Current  questions search criteria for keyword that user is navigating through
+    /// </summary>
+    public static string CurrentQuestionSearchCriteriaForCategory
+    {
+        get
+        {
+            if (HttpContext.Current.Session == null)
+            {
+                return null;
+            }
+            if (HttpContext.Current.Session["CURRENT_QUESTION_SEARCH_CRITERIA_FOR_CATEGORY"] == null) return null;
+            return HttpContext.Current.Session["CURRENT_QUESTION_SEARCH_CRITERIA_FOR_CATEGORY"] as string;
+        }
+        set
+        {
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["CURRENT_QUESTION_SEARCH_CRITERIA_FOR_CATEGORY"] = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Current  questions page no. that the user is navigating through
+    /// </summary>
+    public static int CurrentQuestionPageNo
+    {
+        get
+        {
+            if (HttpContext.Current.Session == null)
+            {
+                return 1;
+            }
+            if (HttpContext.Current.Session["CURRENT_QUESTION_LIST_PAGE_NO"] == null) return 0;
+            return Convert.ToInt32(HttpContext.Current.Session["CURRENT_QUESTION_LIST_PAGE_NO"]);
+        }
+        set
+        {
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["CURRENT_QUESTION_LIST_PAGE_NO"] = value;
             }
         }
     }
