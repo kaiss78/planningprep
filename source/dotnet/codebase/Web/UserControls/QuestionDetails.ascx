@@ -72,3 +72,11 @@
     <div>
         <uc1:Rate ID="rateQuestion" runat="server" />
     </div>
+    <div runat="server" id="divNextQuestion">
+        <p>
+            Thanks for Rating This Question
+        </p>
+        <div>
+        <asp:HyperLink ID="hlinkNextQuestion" runat="server">Next Question</asp:HyperLink>
+        </div>
+    </div>

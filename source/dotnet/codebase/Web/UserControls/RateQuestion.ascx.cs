@@ -10,9 +10,12 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using App.Domain.Questions;
+using App.Models.Questions;
 
 public partial class UserControls_RateQuestion : BaseUserControl
 {
+    QuestionsManager questionManager = new QuestionsManager();
     public int QuestionID
     {
         get;
@@ -22,5 +25,20 @@ public partial class UserControls_RateQuestion : BaseUserControl
     protected void Page_Load(object sender, EventArgs e)
     {
         
+    }
+
+    protected void btnSubmitRate_Click(object sender, EventArgs e)
+    {
+        int selcetedRating = int.Parse(rdoRating.SelectedValue);
+        Questions question = questionManager.Get(QuestionID);
+
+        question.RateTotal += selcetedRating;
+        question.RateCount++;
+        question.Rating = (float)question.RateTotal / (float)question.RateCount;
+
+        questionManager.SaveOrUpdate(question);
+
+        string questionDetailsPage = string.Format("~/Pages/Member/QuestionDetails.aspx?QuestionID={0}&ShowNextQuestion=1", question.QuestionID);
+        Response.Redirect(questionDetailsPage);
     }
 }

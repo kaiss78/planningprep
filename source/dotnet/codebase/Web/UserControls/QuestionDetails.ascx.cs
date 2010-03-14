@@ -24,7 +24,13 @@ public partial class UserControls_QuestionDetails : BaseUserControl
         set;
     }
 
-    public bool DisplayRating
+    public bool ShowRating
+    {
+        get;
+        set;
+    }
+
+    public bool ShowNextQuestion
     {
         get;
         set;
@@ -36,13 +42,23 @@ public partial class UserControls_QuestionDetails : BaseUserControl
         {
             return;
         }
-        if (DisplayRating)
+        if (ShowRating)
         {
             rateQuestion.QuestionID = QuestionID;
         }
         else
         {
             rateQuestion.Visible = false;
+        }
+
+        if (ShowNextQuestion)
+        {
+            rateQuestion.Visible = false;
+            divNextQuestion.Visible = true;
+        }
+        else
+        {
+            divNextQuestion.Visible = false;
         }
 
         PopulateQuestion();
