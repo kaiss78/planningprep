@@ -60,6 +60,8 @@ public class AppConstants
         public const string QUESTION_ID = "QuestionID";
         public const string SHOW_RATING = "ShowRating";
         public const string SHOW_NEXT_QUESTION = "ShowNextQuestion";
+        public const string QIESTION_RATED = "Rated";
+        public const string CORRECT = "Correct";
         public const string QUESTION_NO = "QuestionNo";
         public const string QUESTION_KEYWORD = "Keyword";
         public const string QUESTION_CATEGORY = "Category";

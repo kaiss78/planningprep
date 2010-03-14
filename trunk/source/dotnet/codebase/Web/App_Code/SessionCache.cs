@@ -153,10 +153,11 @@ public class SessionCache
             int pageSize = ConfigReader.AdminQuestionListSize;
             App.Domain.Questions.QuestionsManager manager = new App.Domain.Questions.QuestionsManager();
             int pageNo = CurrentQuestionPageNo + 1;
+            CurrentQuestionPageNo = pageNo;
 
             if (string.IsNullOrEmpty(Keyword) && string.IsNullOrEmpty(Category))
             {
-                questions = manager.GetPagedList(pageNo, pageSize).ToList();
+                questions = manager.GetPagedList(pageNo, 1000000).ToList();
             }
             else
             {
@@ -168,7 +169,7 @@ public class SessionCache
                         filter = true;
                     }
                 }
-                questions = manager.GetPagedListByKeywordOrCategory(pageNo, pageSize, Keyword, Category, SessionCache.CurrentUser.Author_ID, filter).ToList();
+                questions = manager.GetPagedListByKeywordOrCategory(pageNo, 10000000, Keyword, Category, SessionCache.CurrentUser.Author_ID, filter).ToList();
             }
 
             CurrentQuestionList = questions;
