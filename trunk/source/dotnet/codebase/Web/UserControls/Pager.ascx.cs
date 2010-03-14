@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Collections.Generic;
 
-public partial class UserControl_Pager : System.Web.UI.UserControl
+public partial class UserControl_Pager : BaseUserControl
 {
     public delegate void PageChanged(object sender, PagerEventArgs e);
     public event PageChanged PageIndexChanged;

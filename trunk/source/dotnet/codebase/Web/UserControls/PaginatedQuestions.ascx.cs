@@ -13,7 +13,7 @@ using System.Xml.Linq;
 using App.Models.Questions;
 using System.Collections.Generic;
 
-public partial class UserControls_PaginatedQuestions : System.Web.UI.UserControl
+public partial class UserControls_PaginatedQuestions : BaseUserControl
 {
     public bool ShowEditLink
     {
