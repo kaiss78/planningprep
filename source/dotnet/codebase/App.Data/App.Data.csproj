@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="AnswerTotals\AnswerTotalDAO.cs" />
     <Compile Include="BaseDataAccess.cs" />
+    <Compile Include="Comments\CommentDAO.cs" />
     <Compile Include="DAOFactory.cs" />
     <Compile Include="DataHelper.cs" />
     <Compile Include="DynamicSQLGenerator.cs" />
