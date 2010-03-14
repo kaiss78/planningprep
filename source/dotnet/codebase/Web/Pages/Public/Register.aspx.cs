@@ -15,7 +15,7 @@ using System.Text;
 using App.Core.Logging;
 using App.Core.Mail;
 
-public partial class Pages_Public_Register : System.Web.UI.Page
+public partial class Pages_Public_Register : BasePage
 {
     public static Random random = new Random();
 

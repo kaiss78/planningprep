@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-public partial class Pages_Public_JoinOutcome : System.Web.UI.Page
+public partial class Pages_Public_JoinOutcome : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

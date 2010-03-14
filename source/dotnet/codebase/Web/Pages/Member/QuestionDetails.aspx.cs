@@ -14,7 +14,7 @@ using App.Domain.Questions;
 using App.Models.Questions;
 using System.Collections.Generic;
 
-public partial class Pages_Member_QuestionDetails : System.Web.UI.Page
+public partial class Pages_Member_QuestionDetails : BasePage
 {
     int QuestionID;
     QuestionsManager questionManager = new QuestionsManager();

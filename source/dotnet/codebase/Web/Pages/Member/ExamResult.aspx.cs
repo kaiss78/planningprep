@@ -9,7 +9,7 @@ using App.Models.UserExams;
 using App.Models.Exams;
 using System.Drawing;
 
-public partial class Pages_Private_ExamResult : System.Web.UI.Page
+public partial class Pages_Private_ExamResult : BasePage
 {
     int ExamSessionID;
     string Action;
