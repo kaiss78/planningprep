@@ -47,7 +47,38 @@ public class SessionCache
     #endregion
 
     #region Properties
-
+    public static int FailedLoginAttemptCount
+    {
+        get
+        {
+            if (HttpContext.Current.Session == null || HttpContext.Current.Session["FAILED_LOGIN_ATTEMP_COUNT"] == null)
+                return 0;
+            return Convert.ToInt32(HttpContext.Current.Session["FAILED_LOGIN_ATTEMP_COUNT"]);
+        }
+        set
+        {
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["FAILED_LOGIN_ATTEMP_COUNT"] = value;
+            }
+        }
+    }
+    public static String AttemptedUserName
+    {
+        get
+        {
+            if (HttpContext.Current.Session == null || HttpContext.Current.Session["ATTEMPTED_USER_NAME"] == null)
+                return String.Empty;
+            return Convert.ToString(HttpContext.Current.Session["ATTEMPTED_USER_NAME"]);
+        }
+        set
+        {
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["ATTEMPTED_USER_NAME"] = value;
+            }
+        }
+    }
     /// <summary>
     /// Currently logged in user in the system
     /// </summary>
