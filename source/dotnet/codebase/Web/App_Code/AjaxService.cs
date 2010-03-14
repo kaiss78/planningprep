@@ -25,7 +25,12 @@ public class AjaxService : System.Web.Services.WebService
         //Uncomment the following line if using designed components 
         //InitializeComponent(); 
     }
-
+    [WebMethod(EnableSession = true)]
+    public String HelloWorld()
+    {
+        return "Hello World";
+    }
+    
     [WebMethod(EnableSession = true)]
     public long SaveComment(App.Models.Comments.Comment comment)
     {
