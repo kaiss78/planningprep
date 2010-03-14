@@ -14,5 +14,6 @@
   <entity name="Link" daoType="App.Data.Links.LinkDAO, App.Data" />
   <entity name="ResultDetails" daoType="App.Data.Exams.ResultDetailsDAO, App.Data" />
   <entity name="QuestionLink" daoType="App.Data.Questions.QuestionLinkDAO, App.Data" />
+  <entity name="Comment" daoType="App.Data.Comments.CommentDAO, App.Data" />
   
 </entity-daos>
