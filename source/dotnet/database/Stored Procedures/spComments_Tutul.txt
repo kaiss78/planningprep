@@ -1,0 +1,148 @@
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentDelete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentDelete]
+GO
+CREATE PROCEDURE [dbo].[spCommentDelete] 
+@Id bigint
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/14/2010 3:26:32 AM
+-- Description: Delete Into Table Comment
+-- =============================================
+-- spCommentDelete ...........
+BEGIN
+
+		DELETE FROM Comment
+		WHERE [ID]=@Id
+
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentGetById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentGetById]
+GO
+CREATE PROCEDURE [dbo].[spCommentGetById] 
+	@Id bigint
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/14/2010 3:26:32 AM
+-- Description: GetById Into Table Comment
+-- =============================================
+-- spCommentGetById ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[Comment] tab WITH(NOLOCK)
+		WHERE tab.[ID]=@Id
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentGetAll]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentGetAll]
+GO
+CREATE PROCEDURE [dbo].[spCommentGetAll] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/14/2010 3:26:32 AM
+-- Description: GetAll Into Table Comment
+-- =============================================
+-- spCommentGetAll ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[Comment] tab  WITH(NOLOCK)
+		ORDER BY tab.[ID] DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentSet]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentSet]
+GO
+CREATE PROCEDURE [dbo].[spCommentSet] 
+	 @ID bigint
+	, @QuestionID int
+	, @UserID int
+	, @CommentText nvarchar (max)
+	, @Rank int
+	, @Created DateTime
+	, @Modified DateTime
+As
+Begin
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/14/2010 3:26:32 AM
+-- Description: Set Into Table Comment
+-- =============================================
+-- spCommentSet ...........
+		IF (@ID >0)
+		Begin
+			Update [dbo].[Comment]
+				 Set [QuestionID] = @QuestionID
+				, [UserID] = @UserID
+				, [CommentText] = @CommentText
+				, [Rank] = @Rank
+				--, [Created]= @Created
+				, [Modified] = GetDate()				 
+			 Where [ID]= @ID
+	End
+	Else
+	Begin
+		Insert Into [dbo].[Comment]
+			( [QuestionID]
+			, [UserID]
+			, [CommentText]
+			, [Rank]
+			, [Created]
+			, [Modified]
+			 ) 
+		 VALUES 
+			( @QuestionID
+			, @UserID
+			, @CommentText
+			, @Rank
+			, GetDate()
+			, GetDate()
+			 ) 
+		 
+		Set @ID= Scope_Identity()
+	End
+ 
+ Select @ID as ID 
+End
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentGetForUser]
+GO
+CREATE PROCEDURE [dbo].[spCommentGetForUser] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/14/2010 3:26:32 AM
+-- Description: GetForUser Into Table Comment
+-- =============================================
+-- spCommentGetForUser ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[Comment] tab  WITH(NOLOCK)
+	ORDER BY tab.[ID] DESC
+
+	SET NOCOUNT OFF;
+END
+GO
+
