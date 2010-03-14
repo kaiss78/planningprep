@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Answers\Answers.cs" />
     <Compile Include="AnswerTotals\AnswerTotalManager.cs" />
     <Compile Include="BaseBusinessObject.cs" />
     <Compile Include="Comments\CommentManager.cs" />
