@@ -17,10 +17,12 @@ public partial class UserControls_RateQuestion : BaseUserControl
 {
     QuestionsManager questionManager = new QuestionsManager();
     int QuestionRated;
+    protected int _QuestionID;
+
     public int QuestionID
     {
-        get;
-        set;
+        get { return _QuestionID; }
+        set { _QuestionID = value; }
     }
 
     protected void Page_Load(object sender, EventArgs e)

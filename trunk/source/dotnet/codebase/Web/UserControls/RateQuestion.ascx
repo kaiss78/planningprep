@@ -9,15 +9,26 @@
     </asp:ScriptManagerProxy>
     
     <script language="javascript" type="text/javascript">
-        function GetData()
+        var _QuestionID = <%= _QuestionID %>;
+        var _SelectedRating = 0;
+        
+        function SaveRating()
         {
-            AjaxService.HelloWorld(success, failure);
+            _SelectedRating = $('#<%= rdoRating.ClientID%> input[type=radio]:checked').val();     
+            if(_SelectedRating == undefined)
+            {
+                alert('Please select a rating.');   
+            }
+            else
+            {
+                AjaxService.SaveQuestionRating(_QuestionID, _SelectedRating, SaveRating_Success, SaveRating_Failure);
+            }
         }
-        function success(result)
+        function SaveRating_Success(result)
         {
-            alert(result);
+            alert('Your rating saved successfully.');
         }
-        function failure(error)
+        function SaveRating_Failure(error)
         {
             alert(error.get_message());
         }
@@ -32,7 +43,8 @@
         <asp:ListItem Text="4" Value="4"></asp:ListItem>
         <asp:ListItem Text="5" Value="5"></asp:ListItem>
     </asp:RadioButtonList> 
-    <asp:Button ID="btnSubmitRate" runat="server" Text="Rate" CssClass="ButtonCommon" style="width:auto;" onclick="btnSubmitRate_Click" /> <input type="button" value="Test" onclick="GetData();" />
+    <%--<asp:Button ID="btnSubmitRate" runat="server" Text="Rate" CssClass="ButtonCommon" style="width:auto;" onclick="btnSubmitRate_Click" />--%> 
+    <input type="button" value="Rate" class="ButtonCommon" style="width:auto;" onclick="SaveRating();" />
 <p>
     Why Rate? Questions with lower ratings are improved or removed, and questions with
     higher ratings receive a higher priority within the pool of questions."
