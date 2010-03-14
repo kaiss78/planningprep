@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnswerTotals\AnswerTotals.cs" />
+    <Compile Include="Comments\Comment.cs" />
     <Compile Include="Enums\HistoryFieldName.cs" />
     <Compile Include="Enums\AppDbType.cs" />
     <Compile Include="Enums\HistoryDataType.cs" />
