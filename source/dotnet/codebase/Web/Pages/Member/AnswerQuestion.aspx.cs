@@ -87,12 +87,20 @@ public partial class Pages_Member_AnswerQuestion : BasePage
         answer.TimeStamp = DateTime.Now;
 
         //===========================================
-        answer.Time = 100; //Need to change with the actual time//int.Parse(txtTime.Text);
+        answer.Time = GetTime();  //Need to change with the actual time//int.Parse(txtTime.Text);
         //=============================================
         answer.Correct = selectedAnswer == question.CorrectAnswer ? 1 : 0;
         answer.CorrectAnswer = question.CorrectAnswer;
 
         return answer;
+    }
+
+    private int GetTime()
+    {
+        string strTime = txtTime.Text;
+        int Minutes = Convert.ToInt32(strTime.Substring(0,2));
+        int Seconds = Convert.ToInt32(strTime.Substring(3,2));
+        return (Minutes * 60) + Seconds;
     }
 
     private AnswerTotal ModifyAnswerTotal(Answers answer, AnswerTotal answerTotal)

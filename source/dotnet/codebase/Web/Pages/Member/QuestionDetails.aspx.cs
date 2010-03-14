@@ -17,7 +17,8 @@ using System.Collections.Generic;
 public partial class Pages_Member_QuestionDetails : BasePage
 {
     int QuestionID;
-    int RateQuestion;
+    int ShowRating;
+    int ShowNextQuestion;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -33,9 +34,11 @@ public partial class Pages_Member_QuestionDetails : BasePage
     private bool LoadParams()
     {
         QuestionID = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.QUESTION_ID);
-        RateQuestion = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.SHOW_RATING);
+        ShowRating = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.SHOW_RATING);
+        ShowNextQuestion = WebUtil.GetRequestParamValueInInt(AppConstants.QueryString.SHOW_NEXT_QUESTION);
         
-        questionDetails.DisplayRating = RateQuestion == 1? true : false;
+        questionDetails.ShowRating = ShowRating == 1? true : false;
+        questionDetails.ShowNextQuestion = ShowNextQuestion == 1 ? true : false;
         
         if (QuestionID == 0)
         {
