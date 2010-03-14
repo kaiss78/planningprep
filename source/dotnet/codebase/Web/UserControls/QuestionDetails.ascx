@@ -27,23 +27,55 @@
         {
         	margin-left:20px;
         }
+        .option
+        {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .right
+        {
+        	color:Green;
+        	font-size:11pt;
+        	margin-bottom:20px;
+        	font-weight:bold;
+        }
+        
+        .wrong
+        {
+        	color:Red;
+        	font-size:11pt;
+        	margin-bottom:20px;
+        	font-weight:bold;
+        }
+        
+        
         -- ></style>
     <div class="floatleft QuestionDetails">
-    <div>
+    <div id="divQuestion" runat="server">
         <div id="QuestionTitle">
-            
             <asp:Label ID="lblQuestionTitle" runat="server" Text=""></asp:Label>
         </div>
         <div id="Options">
-            <div>
+            <div class="option">
                 <strong>A.</strong><asp:Label ID="lblA" runat="server" /></div>
-            <div>
+            <div class="option">
                 <strong>B.</strong><asp:Label ID="lblB" runat="server" /></div>
-            <div>
+            <div class="option">
                 <strong>C.</strong><asp:Label ID="lblC" runat="server" /></div>
-            <div>
+            <div class="option">
                 <strong>D.</strong><asp:Label ID="lblD" runat="server" /></div>
         </div>
+    </div>
+    <div id="divResult" runat="server">
+        <div style="margin-bottom:10px">
+            <asp:Label ID="lblResult" runat="server" Text=""></asp:Label>
+        </div>
+        <div>
+            <asp:Label ID="lblQuestion" Font-Bold="true" runat="server" Text=""></asp:Label>
+        </div>
+        <div>
+            <asp:Label ID="lblResultDetails" runat="server" Text=""></asp:Label></div>
     </div>
     <p id="QuestionDetails">
         <asp:Label ID="lblQuestionDetails" runat="server" Text=""></asp:Label>
@@ -73,9 +105,6 @@
         <uc1:Rate ID="rateQuestion" runat="server" />
     </div>
     <div runat="server" id="divNextQuestion">
-        <p>
-            Thanks for Rating This Question
-        </p>
         <div>
         <asp:HyperLink ID="hlinkNextQuestion" runat="server">Next Question</asp:HyperLink>
         </div>

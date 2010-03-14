@@ -30,11 +30,24 @@ public partial class UserControls_QuestionDetails : BaseUserControl
         set;
     }
 
+    public bool Rated
+    {
+        get;
+        set;
+    }
+
     public bool ShowNextQuestion
     {
         get;
         set;
     }
+
+    public bool Correct
+    {
+        get;
+        set;
+    }
+    
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -42,26 +55,30 @@ public partial class UserControls_QuestionDetails : BaseUserControl
         {
             return;
         }
-        if (ShowRating)
+
+        rateQuestion.Visible = true;
+
+        if (ShowRating || Rated)
         {
             rateQuestion.QuestionID = QuestionID;
+            divQuestion.Visible = false;
+            divResult.Visible = true;
+            ShowNextQuestion = true;
         }
         else
         {
-            rateQuestion.Visible = false;
+            divQuestion.Visible = true;
+            divResult.Visible = false;
         }
 
         Questions question = null;
-        divNextQuestion.Visible = false;
 
         if (ShowNextQuestion)
         {
             question = SessionCache.GetNextQuestion(QuestionID);
             if (question != null)
             {
-                rateQuestion.Visible = false;
                 divNextQuestion.Visible = true;
-
                 hlinkNextQuestion.NavigateUrl = String.Format("{0}?{1}={2}", AppConstants.Pages.ANSWER_QUESTION, AppConstants.QueryString.QUESTION_ID, question.QuestionID);
             }
         }
@@ -75,9 +92,45 @@ public partial class UserControls_QuestionDetails : BaseUserControl
         }
     }
 
+    private string GetCorrectAnswer(Questions question)
+    {
+        string option = question.CorrectAnswer;
+
+        if (option == "A")
+        {
+            return question.AnswerA;
+        }
+        if (option == "B")
+        {
+            return question.AnswerB;
+        }
+        if (option == "C")
+        {
+            return question.AnswerC;
+        }
+        if (option == "D")
+        {
+            return question.AnswerD;
+        }
+        return question.AnswerA;
+    }
+
     private void PopulateQuestion(Questions question)
     {
         lblQuestionTitle.Text = question.Question;
+        lblQuestion.Text = question.Question;
+        if (Correct)
+        {
+            lblResult.Text = "Right, the correct answer is " + question.CorrectAnswer;
+            lblResult.CssClass = "right";
+            lblResultDetails.Text = string.Format("You are Right, the correct answer is {0} ({1})." , question.CorrectAnswer , GetCorrectAnswer(question));
+        }
+        else
+        {
+            lblResult.Text = "Wrong, the correct answer is " + question.CorrectAnswer;
+            lblResult.CssClass = "wrong";
+            lblResultDetails.Text = string.Format("You are Wrong, the correct answer is {0} ({1})." , question.CorrectAnswer , GetCorrectAnswer(question));
+        }
         Page.Title = AppUtil.GetPageTitle("Question Details : " + question.Question);
 
         lblA.Text = question.AnswerA;
