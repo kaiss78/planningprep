@@ -235,7 +235,7 @@ namespace App.Models.Questions
         /// Gets or sets the Rating
         /// </summary>
         /// <value>The Rating.</value>
-        public object Rating
+        public float Rating
         {
             get;
             set;
