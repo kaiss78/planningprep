@@ -25,6 +25,10 @@ public partial class Default : BasePage
         Page.Title = AppUtil.GetPageTitle("Home");
         if(!IsPostBack)
             SetInitialValues();
+
+        //String value = AppUtil.GetCookie("TestingCookie");
+        //if(String.IsNullOrEmpty(value))
+        //    AppUtil.SetCookie("TestingCookie", "Tutul");
     }
 
     private void SetInitialValues()
