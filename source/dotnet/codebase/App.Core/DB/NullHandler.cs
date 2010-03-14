@@ -106,6 +106,16 @@ namespace App.Core.DB
         }
 
         /// <summary>
+        /// Get float representation of an object. If null is found then zero returned else float representation of input parameter is returned
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static float GetFloat(object data)
+        {
+            return ((data == null) || (data == DBNull.Value) || (data.ToString() == string.Empty)) ? 0 : Convert.ToSingle(data);
+        }
+
+        /// <summary>
         /// Get bool representation of an object. If null is found then false returned else bool representation of input parameter is returned
         /// </summary>
         /// <param name="data"></param>
