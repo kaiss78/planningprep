@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="QuestionDetails.ascx.cs" Inherits="UserControls_QuestionDetails" %>
 <%@ Register src="~/UserControls/Chart.ascx" tagname="Chart" tagprefix="uc1" %>
 <%@ Register src="~/UserControls/RateQuestion.ascx" tagname="Rate" tagprefix="uc1" %>
+<%@ Register src="~/UserControls/Commenting.ascx" tagname="Commenting" tagprefix="UC" %>
  <style type="text/css">
         <!
         #Options
@@ -106,6 +107,10 @@
     </div>
     <div runat="server" id="divNextQuestion">
         <div>
-        <asp:HyperLink ID="hlinkNextQuestion" runat="server">Next Question</asp:HyperLink>
+            <asp:HyperLink ID="hlinkNextQuestion" runat="server">Next Question</asp:HyperLink>
         </div>
+    </div>
+    
+    <div>
+        <UC:Commenting ID="ucCommenting" runat="server" Visible="false" />
     </div>
