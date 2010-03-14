@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Pages/Member/MasterPageMember.master" AutoEventWireup="true"
-    CodeFile="AnswerQuestion.aspx.cs" Inherits="Pages_Member_AnswerQuestion" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Pages/Member/MasterPageMember.master" AutoEventWireup="true" CodeFile="AnswerQuestion.aspx.cs" Inherits="Pages_Member_AnswerQuestion" Title="Untitled Page" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -32,7 +31,7 @@ function UpdateTimer() {
 
   tDate.setTime(tDiff);
 
-  document.getElementById("theTime").value = "" 
+  document.getElementById("<%=txtTime.ClientID %>").value = "" 
                                   + ((tDate.getMinutes() < 10) ? "0" : "") + tDate.getMinutes() + ":" 
                                   + ((tDate.getSeconds() < 10) ? "0" : "") + tDate.getSeconds();
   
@@ -41,7 +40,7 @@ function UpdateTimer() {
 
 function Start() {
   tStart   = new Date();
-  document.getElementById("theTime").value = "00:00";
+  document.getElementById("<%=txtTime.ClientID %>").value = "00:00";
   timerID  = setTimeout("UpdateTimer()", 1000);
 }
 
@@ -110,7 +109,7 @@ function Reset() {
         </div>
     </div>
     <div class="timer">
-        <input type="text" id="theTime" size="5"><br>
+        <asp:TextBox ID="txtTime" Width="50px" runat="server"></asp:TextBox>
         <br>
         <input type="button" name="start" value="Restart" onclick="Start()">
         <input type="button" name="stop" value="Stop" onclick="Stop()">
@@ -124,7 +123,8 @@ function Reset() {
     </div>
     
     <div>
-        <asp:Button ID="btnSubmit" runat="server" Text="Submit" />
+        <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
+            onclick="btnSubmit_Click" />
         <input type="reset" value="Clear" />
     </div>
 </asp:Content>
