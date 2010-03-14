@@ -244,6 +244,26 @@ namespace App.Domain.Users
             }
             return PlanningPrepUser;
         }
+        /// <summary>
+        /// Tracks Login Data
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="IP"></param>
+        /// <param name="timeStamp"></param>
+        public void TrackLoginData(int userID, String IP, DateTime timeStamp)
+        {
+            try
+            {
+                using (IUserDAO dao = (IUserDAO)DAOFactory.Get<PlanningPrepUser>())
+                {
+                    dao.TrackLoginData(userID, IP, timeStamp);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+        }
         #endregion
     }
 }
