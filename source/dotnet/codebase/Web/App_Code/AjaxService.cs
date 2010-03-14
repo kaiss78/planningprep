@@ -26,11 +26,11 @@ public class AjaxService : System.Web.Services.WebService
     }
 
     [WebMethod(EnableSession = true)]
-    public string SaveComment(App.Models.Comments.Comment comment)
+    public long SaveComment(App.Models.Comments.Comment comment)
     {
         App.Domain.Comments.CommentManager manager = new App.Domain.Comments.CommentManager();        
         manager.SaveOrUpdate(comment);
-        return "Saved Successfully";
+        return comment.Id;
     }
 
 }
