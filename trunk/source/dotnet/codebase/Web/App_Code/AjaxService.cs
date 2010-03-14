@@ -7,6 +7,8 @@ using System.Web.Services.Protocols;
 using System.Xml.Linq;
 using System.Web.Script.Services;
 using App.Models.Comments;
+using App.Models.Questions;
+using App.Domain.Questions;
 
 /// <summary>
 /// Summary description for AjaxService
@@ -49,7 +51,10 @@ public class AjaxService : System.Web.Services.WebService
             manager.SaveOrUpdate(comment);
         }        
     }
-    
+    /// <summary>
+    /// Saves Thumbs Down Data
+    /// </summary>
+    /// <param name="commentID"></param>
     [WebMethod(EnableSession = true)]
     public void CommentThumbsDown(int commentID)
     {
@@ -64,7 +69,19 @@ public class AjaxService : System.Web.Services.WebService
             }
         }        
     }
-    
-
+    [WebMethod(EnableSession = true)]
+    public void SaveQuestionRating(long questionID, int selectedRating)
+    {
+        //int selcetedRating = int.Parse(rdoRating.SelectedValue);
+        QuestionsManager questionManager = new QuestionsManager();
+        Questions question = questionManager.Get(questionID);
+        if (question != null)
+        {
+            question.RateTotal += selectedRating;
+            question.RateCount++;
+            question.Rating = (float)question.RateTotal / (float)question.RateCount;
+            questionManager.SaveOrUpdate(question);
+        }       
+    }
 }
 
