@@ -14,17 +14,20 @@ using System.Collections.Generic;
 using App.Models.Comments;
 using App.Domain.Comments;
 
-public partial class UserControls_Commenting : System.Web.UI.UserControl
+public partial class UserControls_Commenting : BaseUserControl
 {
     protected int _QuestionID;
     protected int _UserID;
-    protected int _TotalCount;
-
+    protected int _TotalCount;    
+    protected String _CommentListDisplayStyle = "block";
+    
+    #region Properties
     public int QuestionID
     {
         get { return _QuestionID; }
         set { _QuestionID = value; }
     }
+    #endregion Properties
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -38,13 +41,25 @@ public partial class UserControls_Commenting : System.Web.UI.UserControl
         _TotalCount = comments.Count;
         rptCommentList.DataSource = comments;
         rptCommentList.DataBind();
+
+        if (_TotalCount > 0)
+            ltrCommentHeading.Text = "Write your comment here.";
+        else
+        {
+            _CommentListDisplayStyle = "none";
+            ltrCommentHeading.Text = "Be the first to comment on this question.";
+        }
+        
     }
     protected void rptCommentList_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         Comment comment = e.Item.DataItem as Comment;
         Literal ltrComment = e.Item.FindControl("ltrComment") as Literal;
-        ltrComment.Text = AppUtil.Encode(comment.CommentText);
+        ltrComment.Text = AppUtil.FormatText(comment.CommentText);
         Literal ltrThumbs = e.Item.FindControl("ltrThumbs") as Literal;
-        ltrThumbs.Text = String.Format("<a href='javascript:void(0);' onclick='ThumbsUp({0});'>Thumbs Up</a> <a href='javascript:void(0);' onclick='ThumbsDown({0});'>Thumbs Down</a>", comment.ID);
+        if (comment.UserID == SessionCache.CurrentUser.Author_ID)
+            ltrThumbs.Text = "Thumbs Up<br/>Thumbs Down";
+        else
+            ltrThumbs.Text = String.Format("<a href='javascript:void(0);' onclick='ThumbsUp({0});'>Thumbs Up</a><br/><a href='javascript:void(0);' onclick='ThumbsDown({0});'>Thumbs Down</a>", comment.ID);
     }
 }

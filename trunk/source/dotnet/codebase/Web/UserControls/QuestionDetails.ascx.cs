@@ -17,7 +17,8 @@ using System.Collections.Generic;
 public partial class UserControls_QuestionDetails : BaseUserControl
 {
     QuestionsManager questionManager = new QuestionsManager();
-
+    protected bool _ShowComments = true;
+    #region Properties
     public int QuestionID
     {
         get;
@@ -47,7 +48,12 @@ public partial class UserControls_QuestionDetails : BaseUserControl
         get;
         set;
     }
-    
+    public bool ShowComments
+    {
+        get { return _ShowComments; }
+        set { _ShowComments = value; }
+    }
+    #endregion Properties
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -145,6 +151,11 @@ public partial class UserControls_QuestionDetails : BaseUserControl
         rptQuestionLinks.DataBind();
 
         chartForQuestion.QuestionID = QuestionID;
+        if (this.ShowComments)
+        {
+            ucCommenting.QuestionID = QuestionID;
+            ucCommenting.Visible = true;
+        }
 
     }
 
