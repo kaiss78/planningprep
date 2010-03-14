@@ -1,0 +1,163 @@
+
+
+
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswersDelete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAnswersDelete]
+GO
+CREATE PROCEDURE [dbo].[spAnswersDelete] 
+@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/14/2010 4:07:07 PM
+-- Description: Delete Into Table tblAnswers
+-- =============================================
+-- sptblAnswersDelete ...........
+BEGIN
+
+		DELETE FROM tblAnswers
+		WHERE [ID]=@Id
+
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswersGetById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAnswersGetById]
+GO
+CREATE PROCEDURE [dbo].[spAnswersGetById] 
+	@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/14/2010 4:07:07 PM
+-- Description: GetById Into Table tblAnswers
+-- =============================================
+-- sptblAnswersGetById ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblAnswers] tab WITH(NOLOCK)
+		WHERE tab.[ID]=@Id
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswersGetAll]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAnswersGetAll]
+GO
+CREATE PROCEDURE [dbo].[spAnswersGetAll] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/14/2010 4:07:07 PM
+-- Description: GetAll Into Table tblAnswers
+-- =============================================
+-- sptblAnswersGetAll ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblAnswers] tab  WITH(NOLOCK)
+		ORDER BY tab.[ID] DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswersSet]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAnswersSet]
+GO
+CREATE PROCEDURE [dbo].[spAnswersSet] 
+	 @ID int
+	, @UserID int
+	, @QuestionID int
+	, @Answer nvarchar(50) 
+	, @TimeStamp datetime
+	, @CorrectAnswer nvarchar(50) 
+	, @Correct int
+	, @Time int
+	, @ExamSessionID int
+
+As
+Begin
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/14/2010 4:07:08 PM
+-- Description: Set Into Table tblAnswers
+-- =============================================
+-- sptblAnswersSet ...........
+		IF (@ID >0)
+		Begin
+			Update [dbo].[tblAnswers]
+				 Set [UserID]= @UserID
+				, [QuestionID]= @QuestionID
+				, [Answer]= @Answer
+				, [TimeStamp]= @TimeStamp
+				, [CorrectAnswer]= @CorrectAnswer
+				, [Correct]= @Correct
+				, [Time]= @Time
+				, [ExamSessionID]= @ExamSessionID
+				 
+			 Where [ID]= @ID
+	End
+	Else
+	Begin
+		Insert Into [dbo].[tblAnswers]
+			( [UserID]
+			, [QuestionID]
+			, [Answer]
+			, [TimeStamp]
+			, [CorrectAnswer]
+			, [Correct]
+			, [Time]
+			, [ExamSessionID]
+			 ) 
+		 VALUES 
+			( @UserID
+			, @QuestionID
+			, @Answer
+			, @TimeStamp
+			, @CorrectAnswer
+			, @Correct
+			, @Time
+			, @ExamSessionID
+			 ) 
+		 
+		Set @ID= Scope_Identity()
+	End
+ 
+ Select @ID as ID 
+End
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswersGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAnswersGetForUser]
+GO
+CREATE PROCEDURE [dbo].[spAnswersGetForUser] 
+	   @ExamSessionID int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/14/2010 4:07:08 PM
+-- Description: GetForUser Into Table tblAnswers
+-- =============================================
+-- sptblAnswersGetForUser ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[tblAnswers] tab  WITH(NOLOCK)
+		WHERE  tab.[ExamSessionID]= @ExamSessionID
+	ORDER BY tab.[ID] DESC
+
+	SET NOCOUNT OFF;
+END
+GO
+
