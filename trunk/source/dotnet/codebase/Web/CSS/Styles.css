@@ -124,7 +124,6 @@ A.headermenu:hover
 	font-size:22px;
 	padding:2px 0px 0px 15px;
 }
-
 .clearfloating
 {
 	clear:both;
@@ -500,7 +499,16 @@ img.EmployeeImage
 
 
 /*--------------------------------------------PlanningPrep CSS-------------------------------*/
-
+.commentbox
+{
+	float:left;
+	width:85%;
+}
+.commentboxforthumbs
+{
+	float:right;
+	width:13%;
+}
 .floatleft
 {
 	float:left;
