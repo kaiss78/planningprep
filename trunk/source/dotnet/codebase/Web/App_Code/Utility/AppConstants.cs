@@ -58,6 +58,7 @@ public class AppConstants
     {
         public const string EXAM_ID = "ExamID";
         public const string QUESTION_ID = "QuestionID";
+        public const string SHOW_RATING = "ShowRating";
         public const string QUESTION_NO = "QuestionNo";
         public const string QUESTION_KEYWORD = "Keyword";
         public const string QUESTION_CATEGORY = "Category";
