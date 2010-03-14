@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-public partial class Default : System.Web.UI.Page
+public partial class Default : BasePage
 {
     protected int _NumberOfQuestions;
     protected String _LastQuestionDate;
