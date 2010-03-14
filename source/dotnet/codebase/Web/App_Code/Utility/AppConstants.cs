@@ -30,6 +30,8 @@ public class AppConstants
         public const string ANSWER_OF_THE_WEEK_MESSAGE = "~/Pages/Public/AnswerOfTheWeekMessage.aspx";
         public const string VISIT_FRAME = "~/Pages/Public/VisitFrame.aspx";
         public const string SHOW_CONTENT = "~/Pages/Public/ShowContent.aspx";
+        public const string TERMS_OF_USE = "/Pages/Public/TermsOfUse.aspx";
+        public const string ALERT = "/Pages/Public/Alert.aspx";
     }
 
     public class ValueOf
@@ -69,6 +71,7 @@ public class AppConstants
         public const string LINK = "Link";
         public const string LINK_ID = "LinkID";
         public const string ID = "ID";
+        public const string LOG_OUT = "Logout";
     }
     
     #endregion
@@ -76,7 +79,12 @@ public class AppConstants
     #region Cookie Variables
     public class Cookie
     {
-        public const string BASE = "PlanningPrep";    
+        public const string BASE = "Planningprep";
+        public const string BASE_PLANNINGPREP_ANSWER = "PlanningPrepAnswer";
+        public const string USER_CODE = "UserID";
+        public const string AUTHOR_ID = "AuthorID";
+        public const string MODE = "Mode";
+        public const string REMEMBER_ME = "RememberMe";        
     }
     
     #endregion    

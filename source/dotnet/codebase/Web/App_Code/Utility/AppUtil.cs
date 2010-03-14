@@ -47,25 +47,12 @@ public class AppUtil
         return HttpContext.Current.Server.HtmlEncode(text);
     }
     /// <summary>
-    /// Sets Cookie to the Current Http Response
-    /// </summary>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    /// <param name="response"></param>
-    public static void SetCookie(string key, string value)
-    {
-        HttpCookie cookie = new HttpCookie(AppConstants.Cookie.BASE);
-        cookie[key] = value;
-        cookie.Expires = DateTime.Now.AddDays(30);
-        HttpContext.Current.Response.Cookies.Add(cookie);
-    }
-    /// <summary>
     /// Gets Cookie from the Current Http Request
     /// </summary>
     /// <param name="key"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    public static string GetCookie(string key)
+    public static String GetCookie(string key)
     {
         HttpCookie cookie = HttpContext.Current.Request.Cookies[AppConstants.Cookie.BASE];
         if (cookie != null)
@@ -75,8 +62,37 @@ public class AppUtil
 
             return cookie[key];
         }
-        return string.Empty;
+        return String.Empty;
+
+        //String value = HttpContext.Current.Request.Cookies[AppConstants.Cookie.BASE][key];
+        //return value;
     }
+    /// <summary>
+    /// Sets Cookie to the Current Http Response
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="value"></param>
+    /// <param name="response"></param>
+    public static void SetCookie(string key, string value)
+    {
+        HttpCookie cookie = null;
+        //if (HttpContext.Current.Request.Cookies[AppConstants.Cookie.BASE] == null)
+        {
+            cookie = new HttpCookie(AppConstants.Cookie.BASE);
+            //HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+        //cookie = HttpContext.Current.Request.Cookies[AppConstants.Cookie.BASE];
+        cookie[key] = value;
+        cookie.Expires = DateTime.Now.AddYears(1);
+        HttpContext.Current.Response.Cookies.Add(cookie);
+        
+        
+            
+
+        //HttpContext.Current.Response.Cookies[AppConstants.Cookie.BASE][key] = value;        
+        //HttpContext.Current.Response.Cookies[AppConstants.Cookie.BASE].Expires = DateTime.Now.AddYears(1);
+
+    }    
     
     /// <summary>
     /// Builds a DateTime Object from a BD Format Date. (24/10/2009)
