@@ -63,6 +63,11 @@ public partial class Pages_Member_AnswerQuestion : BasePage
 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        string selectedAnswer = GetAnswer();
+        if (selectedAnswer.Length == 0)
+        {
+            return;
+        }
         Questions question = questionManager.Get(QuestionID);
         Answers answer = GetAnswer(question);
         AnswerTotal answerTotal = answerTotalManager.Get(question.QuestionID);
@@ -70,8 +75,7 @@ public partial class Pages_Member_AnswerQuestion : BasePage
 
         answerManager.SaveOrUpdate(answer);
         answerTotalManager.SaveOrUpdate(answerTotal);
-
-        string questionDetailsPage = string.Format("QuestionDetails.aspx?QuestionID={0}&ShowRating=1", question.QuestionID);
+        string questionDetailsPage = string.Format("QuestionDetails.aspx?QuestionID={0}&ShowRating=1&Correct={1}", question.QuestionID,answer.Correct);
         Response.Redirect(questionDetailsPage);
         
     }
@@ -130,7 +134,7 @@ public partial class Pages_Member_AnswerQuestion : BasePage
 
     private string GetAnswer()
     {
-        string answer = "A";
+        string answer = string.Empty;
 
         if (rdoA.Checked) return "A";
         if (rdoB.Checked) return "B";
