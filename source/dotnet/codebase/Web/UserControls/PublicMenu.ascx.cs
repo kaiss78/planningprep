@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-public partial class UserControls_PublicMenu : System.Web.UI.UserControl
+public partial class UserControls_PublicMenu : BaseUserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {        
