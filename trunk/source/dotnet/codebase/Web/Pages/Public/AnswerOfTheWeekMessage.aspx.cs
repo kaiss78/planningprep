@@ -13,7 +13,7 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Text;
 
-public partial class Pages_Public_AnswerOfTheWeekMessage : System.Web.UI.Page
+public partial class Pages_Public_AnswerOfTheWeekMessage : BasePage
 {
     protected int _QuestionID;    
     
