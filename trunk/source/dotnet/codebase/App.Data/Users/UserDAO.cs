@@ -38,6 +38,7 @@ namespace App.Data.Users
         PlanningPrepUser GetUserByUserNamePassword(string userName, string password);
         PlanningPrepUser GetUserByUserName(string userName);
         PlanningPrepUser GetUserByEmail(string email);
+        void TrackLoginData(int userID, String IP, DateTime timeStamp);
     }
 
     public class UserDAO : BaseDataAccess<App.Models.Users.PlanningPrepUser>, IUserDAO
@@ -162,6 +163,29 @@ namespace App.Data.Users
                 {
                     Exception exToUse = ex.InnerException ?? ex;
                     throw new DataAccessException(exToUse.Message, exToUse, "UserDAO.GetUserByUserName(string)");
+                }
+            }
+        }
+        /// <summary>
+        /// Tracks Login Data
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="IP"></param>
+        /// <param name="timeStamp"></param>
+        public void TrackLoginData(int userID, String IP, DateTime timeStamp)
+        {
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "UserDAO.TrackLoginData(int, string, DateTime)"))
+            {
+                try
+                {
+                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userID), new DbParameter("IP", DbType.String, IP), new DbParameter("TimeStamp", DbType.DateTime, timeStamp) };
+                    SaveInternal("spTrackLogin", parameters);
+                    //return GetInternal("spAuthorGetForUserName", parameters);
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "UserDAO.TrackLoginData(int, string, DateTime)");
                 }
             }
         }
