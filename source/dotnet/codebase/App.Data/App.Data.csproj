@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Answers\AnswersDAO.cs" />
     <Compile Include="AnswerTotals\AnswerTotalDAO.cs" />
     <Compile Include="BaseDataAccess.cs" />
     <Compile Include="Comments\CommentDAO.cs" />
