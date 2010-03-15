@@ -44,9 +44,7 @@
         {
             var commentId = result;
             var className = (_TotalCount % 2) == 0 ? 'OddRowListing' : 'EvenRowListing';
-            var domElement = '<div class="' + className + '"><div class="commentbox">' + FormatText(_Comment.CommentText) + '</div>';
-            //domElement += '<div class="commentboxforthumbs"><a href="javascript:void(0);" onclick="ThumbsUp(' + commentId + ');">Thumbs Up</a><br/><a href="javascript:void(0);" onclick="ThumbsDown(' + commentId + ');">Thumbs Down</a></div>';
-            //domElement += '<div class="commentboxforthumbs">Thumbs Up<br/>Thumbs Down</div>';            
+            var domElement = '<div class="' + className + '"><div class="commentbox">' + FormatText(_Comment.CommentText) + '</div>';            
             domElement += GetThumbsHtml(0, true);            
             if(_TotalCount == 0)               
                 $('#divCommentListHeading').show();
@@ -55,6 +53,8 @@
             $('#<%=txtComment.ClientID%>').val('');
             _TotalCount++;
             ToggleCommentingBox();
+            ///Change Scroll Position to the new comment                    
+            $(window).scrollTop($('#divCommentingList div:last-child').position().top);                   
         }
         function GetThumbsHtml(count, isSameUser)
         {
@@ -109,16 +109,24 @@
         function ToggleCommentingBox() 
         {
             if($('#divCommentingTextBox').is(':visible'))
+            {
                 $('#divCommentingTextBox').fadeOut();
+            }
             else
                 $('#divCommentingTextBox').fadeIn();
                 
-        }
+        }      
+        
     </script>
 
 
 <div id="divCommentingList">
-    <div class="contentheading" id="divCommentListHeading" style="display:<%=_CommentListDisplayStyle %>;">Comments</div>
+    <div class="contentheading"><asp:Literal ID="ltrCommentHeading" runat="server"></asp:Literal></div>
+    <div id="divCommentingTextBox" style="display:none;">    
+        <asp:TextBox ID="txtComment" TextMode="MultiLine" MaxLength="2000" runat="server" style="width:350px; height:75px;"></asp:TextBox>
+        <div style="margin-top:5px; margin-bottom:10px;"><input type="button" value="Save Comment" class="ButtonCommon" onclick="SaveCommentData();" /></div>    
+    </div>
+    <%--<div class="contentheading" id="divCommentListHeading" style="display:<%=_CommentListDisplayStyle %>;">Comments</div>--%>
     <asp:Repeater ID="rptCommentList" runat="server" onitemdatabound="rptCommentList_ItemDataBound">
         <ItemTemplate>
             <div class="OddRowListing">
@@ -136,10 +144,3 @@
         </AlternatingItemTemplate>
     </asp:Repeater>    
 </div>
-
-<div class="contentheading"><asp:Literal ID="ltrCommentHeading" runat="server"></asp:Literal></div>
-<div id="divCommentingTextBox" style="display:none;">    
-    <asp:TextBox ID="txtComment" TextMode="MultiLine" MaxLength="2000" runat="server" style="width:350px; height:75px;"></asp:TextBox>
-    <div style="margin-top:10px;"><input type="button" value="Save Comment" class="ButtonCommon" onclick="SaveCommentData();" /></div>    
-</div>
-

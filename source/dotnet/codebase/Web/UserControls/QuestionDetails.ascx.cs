@@ -173,7 +173,9 @@ public partial class UserControls_QuestionDetails : BaseUserControl
         {
             HyperLink hlinkQuestionLink = (HyperLink)e.Item.FindControl("hlinkQuestionLink");
             QuestionLink link = e.Item.DataItem as QuestionLink;
-            hlinkQuestionLink.NavigateUrl = link.Link;
+            
+            String url = String.Format("{0}?{1}={2}&{3}={4}", AppConstants.Pages.VISIT_FRAME, AppConstants.QueryString.LINK_ID, link.LinkID, AppConstants.QueryString.LINK, link.Link);
+            hlinkQuestionLink.NavigateUrl = url;
             hlinkQuestionLink.Text = link.LinkTitle;
 
             Label lblQuestionLinkDescription = (Label)e.Item.FindControl("lblQuestionLinkDescription");
