@@ -43,11 +43,13 @@ public partial class UserControls_Commenting : BaseUserControl
         rptCommentList.DataBind();
 
         if (_TotalCount > 0)
-            ltrCommentHeading.Text = "Write your comment here.";
+            //ltrCommentHeading.Text = "<a href='javascript:void(0);' onclick='ToggleCommentingBox();'>Write your comment here.</a>";
+            ltrCommentHeading.Text = "<a href='javascript:void(0);' onclick='ToggleCommentingBox();'>Comment</a>";
         else
         {
             _CommentListDisplayStyle = "none";
-            ltrCommentHeading.Text = "Be the first to comment on this question.";
+            //ltrCommentHeading.Text = "<a href='javascript:void(0);' onclick='ToggleCommentingBox();'>Be the first to comment on this question.</a>";
+            ltrCommentHeading.Text = "<a href='javascript:void(0);' onclick='ToggleCommentingBox();'>Comment</a>";
         }
         
     }

@@ -3,7 +3,7 @@
     <style type="text/css">
         .OddRowListing, .EvenRowListing
         {
-    	    min-height:100px;
+    	    min-height:40px;
     	    padding-bottom:10px;
     	    height:auto;
         }
@@ -44,6 +44,7 @@
             $('#divCommentingList').append(domElement);            
             $('#<%=txtComment.ClientID%>').val('');
             _TotalCount++;
+            ToggleCommentingBox();
         }
         function SaveComment_Failiure(error)
         {
@@ -74,7 +75,16 @@
         function CommentThumbsDown_Failiure(error)
         {
             alert(error.get_message());
-        }    
+        }   
+        
+        function ToggleCommentingBox() 
+        {
+            if($('#divCommentingTextBox').is(':visible'))
+                $('#divCommentingTextBox').fadeOut();
+            else
+                $('#divCommentingTextBox').fadeIn();
+                
+        }
     </script>
 
 
@@ -98,9 +108,9 @@
     </asp:Repeater>    
 </div>
 
-<div>
-    <div class="contentheading"><asp:Literal ID="ltrCommentHeading" runat="server"></asp:Literal></div>
-    <asp:TextBox ID="txtComment" TextMode="MultiLine" MaxLength="2000" runat="server" style="width:550px; height:100px;"></asp:TextBox>
+<div class="contentheading"><asp:Literal ID="ltrCommentHeading" runat="server"></asp:Literal></div>
+<div id="divCommentingTextBox" style="display:none;">    
+    <asp:TextBox ID="txtComment" TextMode="MultiLine" MaxLength="2000" runat="server" style="width:350px; height:75px;"></asp:TextBox>
     <div style="margin-top:10px;"><input type="button" value="Save Comment" class="ButtonCommon" onclick="SaveCommentData();" /></div>    
 </div>
 
