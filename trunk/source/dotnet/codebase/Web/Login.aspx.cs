@@ -89,25 +89,33 @@ public partial class Login : BasePage
             ///Set the Login Hit Counter
             user.LastLogin = DateTime.Now;
             user.LoginNumber = user.LoginNumber + 1;
+            
             userManager.SaveOrUpdate(user);
-
-            SessionCache.CurrentUser = user;
-
-            ///Set the cookies if remember me selected
-            if (rememberMe)
+            if (string.IsNullOrEmpty(user.Rights))
             {
-                AppUtil.SetCookie(AppConstants.Cookie.USER_CODE, user.User_code);
-                AppUtil.SetCookie(AppConstants.Cookie.AUTHOR_ID, user.Author_ID.ToString());
-                AppUtil.SetCookie(AppConstants.Cookie.MODE, user.Mode);
-                AppUtil.SetCookie(AppConstants.Cookie.REMEMBER_ME, "Yes");
+                user.Rights = AppConstants.UserRoles.MEMBER;
             }
             else
             {
-                AppUtil.SetCookie(AppConstants.Cookie.USER_CODE, String.Empty);
-                AppUtil.SetCookie(AppConstants.Cookie.AUTHOR_ID, String.Empty);
-                AppUtil.SetCookie(AppConstants.Cookie.MODE, String.Empty);
-                AppUtil.SetCookie(AppConstants.Cookie.REMEMBER_ME, String.Empty);
+                user.Rights = AppConstants.UserRoles.ADMINISTRATOR;
             }
+            SessionCache.CurrentUser = user;
+
+            ///Set the cookies if remember me selected
+            //if (rememberMe)
+            //{
+                //AppUtil.SetCookie(AppConstants.Cookie.USER_CODE, user.User_code);
+                //AppUtil.SetCookie(AppConstants.Cookie.AUTHOR_ID, user.Author_ID.ToString());
+                //AppUtil.SetCookie(AppConstants.Cookie.MODE, user.Mode);
+                //AppUtil.SetCookie(AppConstants.Cookie.REMEMBER_ME, "Yes");
+            //}
+            //else
+            //{
+                //AppUtil.SetCookie(AppConstants.Cookie.USER_CODE, String.Empty);
+                //AppUtil.SetCookie(AppConstants.Cookie.AUTHOR_ID, String.Empty);
+                //AppUtil.SetCookie(AppConstants.Cookie.MODE, String.Empty);
+                //AppUtil.SetCookie(AppConstants.Cookie.REMEMBER_ME, String.Empty);
+            //}
 
             ///Track the Login Data
             String IP = Request.ServerVariables["REMOTE_ADDR"];
@@ -127,7 +135,7 @@ public partial class Login : BasePage
                 return;
             }            
             ///After Successfull Login Redirect to the Requested Page
-            FormsAuthenticationUtil.RedirectFromLoginPage(user.Username, "", rememberMe);
+            FormsAuthenticationUtil.RedirectFromLoginPage(user.Username, user.Rights, rememberMe);
         }
         else //Failed
         {
@@ -138,7 +146,9 @@ public partial class Login : BasePage
     }
     protected void LogOutUser()
     {
+        FormsAuthentication.SignOut();
         SessionCache.ClearSession();
+
         Response.Cookies[AppConstants.Cookie.BASE].Expires = DateTime.Now.AddYears(-100);
         Response.Cookies[AppConstants.Cookie.BASE_PLANNINGPREP_ANSWER].Expires = DateTime.Now.AddYears(-100);
     }    
