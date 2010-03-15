@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Pages/MasterPageMember.master" AutoEventWireup="true" CodeFile="EditQuestion.aspx.cs" Inherits="Pages_Private_Admin_EditQuestion" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="EditQuestion.aspx.cs" Inherits="Pages_Private_Admin_EditQuestion" Title="Untitled Page" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">

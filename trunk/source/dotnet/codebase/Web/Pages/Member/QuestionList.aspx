@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Pages/MasterPageMember.master" AutoEventWireup="true"
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
     CodeFile="QuestionList.aspx.cs" Inherits="Member_QuestionList" Title="Untitled Page" %>
 
 <%@ Register Src="../../UserControls/PaginatedQuestions.ascx" TagName="PaginatedQuestions"
