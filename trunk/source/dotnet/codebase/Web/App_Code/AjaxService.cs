@@ -41,7 +41,7 @@ public class AjaxService : System.Web.Services.WebService
         return comment.Id;
     }
     [WebMethod(EnableSession = true)]
-    public void CommentThumbsUp(int commentID)
+    public int CommentThumbsUp(int commentID)
     {
         App.Domain.Comments.CommentManager manager = new App.Domain.Comments.CommentManager();
         Comment comment =  manager.Get(commentID);
@@ -49,25 +49,26 @@ public class AjaxService : System.Web.Services.WebService
         {
             comment.Rank = comment.Rank + 1;
             manager.SaveOrUpdate(comment);
-        }        
+            return comment.Rank - comment.NegativeRank;
+        }
+        return 0;
     }
     /// <summary>
     /// Saves Thumbs Down Data
     /// </summary>
     /// <param name="commentID"></param>
     [WebMethod(EnableSession = true)]
-    public void CommentThumbsDown(int commentID)
+    public int CommentThumbsDown(int commentID)
     {
         App.Domain.Comments.CommentManager manager = new App.Domain.Comments.CommentManager();
         Comment comment = manager.Get(commentID);
         if (comment != null)
         {
-            if (comment.Rank > 0)
-            {
-                comment.Rank = comment.Rank - 1;
-                manager.SaveOrUpdate(comment);
-            }
-        }        
+            comment.NegativeRank = comment.NegativeRank + 1;
+            manager.SaveOrUpdate(comment);
+            return comment.Rank - comment.NegativeRank;
+        }
+        return 0;
     }
     [WebMethod(EnableSession = true)]
     public void SaveQuestionRating(long questionID, int selectedRating)
