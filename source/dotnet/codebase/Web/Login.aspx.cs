@@ -24,6 +24,9 @@ public partial class Login : BasePage
         {
             if (String.Compare(Request[AppConstants.QueryString.LOG_OUT], "True", true) == 0)
             {
+                //TODO: Shubho, Check the following line of code. It is creating problem. If I use this then I never can go to the members pages.
+                //base.SignoutUser();
+
                 LogOutUser();
             }
             CheckForAutoLogin();
@@ -98,13 +101,13 @@ public partial class Login : BasePage
                 AppUtil.SetCookie(AppConstants.Cookie.MODE, user.Mode);
                 AppUtil.SetCookie(AppConstants.Cookie.REMEMBER_ME, "Yes");
             }
-            //else
-            //{
-            //    AppUtil.SetCookie(AppConstants.Cookie.USER_CODE, String.Empty);
-            //    AppUtil.SetCookie(AppConstants.Cookie.AUTHOR_ID, String.Empty);
-            //    AppUtil.SetCookie(AppConstants.Cookie.MODE, String.Empty);
-            //    AppUtil.SetCookie(AppConstants.Cookie.REMEMBER_ME, String.Empty);
-            //}
+            else
+            {
+                AppUtil.SetCookie(AppConstants.Cookie.USER_CODE, String.Empty);
+                AppUtil.SetCookie(AppConstants.Cookie.AUTHOR_ID, String.Empty);
+                AppUtil.SetCookie(AppConstants.Cookie.MODE, String.Empty);
+                AppUtil.SetCookie(AppConstants.Cookie.REMEMBER_ME, String.Empty);
+            }
 
             ///Track the Login Data
             String IP = Request.ServerVariables["REMOTE_ADDR"];
@@ -122,8 +125,7 @@ public partial class Login : BasePage
                 SessionCache.FailedLoginAttemptCount = SessionCache.FailedLoginAttemptCount + 1;
                 Response.Redirect(AppConstants.Pages.TERMS_OF_USE, false);
                 return;
-            }
-
+            }            
             ///After Successfull Login Redirect to the Requested Page
             FormsAuthenticationUtil.RedirectFromLoginPage(user.Username, "", rememberMe);
         }
@@ -134,30 +136,8 @@ public partial class Login : BasePage
             AppUtil.ShowMessageBox(divMessage, "Login Failed. Your login was unsuccessful. Please check your Username and Password and try again.", true);
         }
     }
-    
-    
-    protected void LoinUserTest()
-    {
-        String userName = txtUserName.Text;
-        String password = txtPassword.Text;
-        //userName = ReplaceBadWords(userName);
-
-        PlanningPrepUser user = userManager.GetUserByUserNamePassword(userName, password);
-        if (user != null)
-        {            
-            SessionCache.CurrentUser = user;            
-            ///After Successfull Login Redirect to the Requested Page
-            FormsAuthenticationUtil.RedirectFromLoginPage(userName, "", chkRememberMe.Checked);
-        }
-        else //Failed
-        {
-            SessionCache.AttemptedUserName = userName;
-            SessionCache.FailedLoginAttemptCount = SessionCache.FailedLoginAttemptCount + 1;
-            AppUtil.ShowMessageBox(divMessage, "Login Failed. Your login was unsuccessful. Please check your Username and Password and try again.", true);
-        }
-    }
     protected void LogOutUser()
-    {        
+    {
         SessionCache.ClearSession();
         Response.Cookies[AppConstants.Cookie.BASE].Expires = DateTime.Now.AddYears(-100);
         Response.Cookies[AppConstants.Cookie.BASE_PLANNINGPREP_ANSWER].Expires = DateTime.Now.AddYears(-100);
