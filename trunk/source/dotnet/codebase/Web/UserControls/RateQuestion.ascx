@@ -26,7 +26,9 @@
         }
         function SaveRating_Success(result)
         {
-            alert('Your rating saved successfully.');
+            //alert('Your rating saved successfully.');
+            //$('#<%=divRate.ClientID %>').parent().fadeOut();
+            $('#<%=divRate.ClientID %>').fadeOut();
         }
         function SaveRating_Failure(error)
         {
@@ -35,7 +37,7 @@
     </script>    
     
 <div runat="server" id="divRate">
-<b>Rate This Question</b>
+    <b>Rate This Question</b>
     <asp:RadioButtonList ID="rdoRating" runat="server" RepeatDirection="Horizontal">
         <asp:ListItem Text="1" Value="1"></asp:ListItem>
         <asp:ListItem Text="2" Value="2"></asp:ListItem>
