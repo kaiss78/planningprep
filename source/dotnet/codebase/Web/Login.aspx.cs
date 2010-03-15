@@ -20,37 +20,22 @@ public partial class Login : BasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         Page.Title = AppUtil.GetPageTitle("Log In");
+
         if (!IsPostBack)
         {
             if (String.Compare(Request[AppConstants.QueryString.LOG_OUT], "True", true) == 0)
             {
-                //TODO: Shubho, Check the following line of code. It is creating problem. If I use this then I never can go to the members pages.
-                //base.SignoutUser();
-
-                LogOutUser();
+                base.SignoutUser();
             }
-            //CheckForAutoLogin();
+            else if (SessionCache.CurrentUser != null)
+            {
+                Response.Redirect("Default.aspx");
+            }
             txtUserName.Focus();
         }
     }
 
-    //private void CheckForAutoLogin()
-    //{
-    //    bool rememberMe = String.Compare(AppUtil.GetCookie(AppConstants.Cookie.REMEMBER_ME), "Yes", true) == 0 ? true : false;
-    //    if (rememberMe)
-    //    {
-    //        String value = AppUtil.GetCookie(AppConstants.Cookie.AUTHOR_ID);
-    //        int userId = 0;
-    //        int.TryParse(value, out userId);
-    //        String userCode = AppUtil.GetCookie(AppConstants.Cookie.USER_CODE);
-            
-    //        PlanningPrepUser user = userManager.Get(userId);
-    //        if (user != null && String.Compare(user.User_code, userCode, false) == 0)
-    //        {
-    //            LoginUser(user, user.Username, rememberMe);
-    //        }
-    //    }
-    //}
+   
     protected void LoginButton_Click(object sender, EventArgs e)
     {
         if (Page.IsValid)
@@ -101,21 +86,6 @@ public partial class Login : BasePage
             }
             SessionCache.CurrentUser = user;
 
-            ///Set the cookies if remember me selected
-            //if (rememberMe)
-            //{
-                //AppUtil.SetCookie(AppConstants.Cookie.USER_CODE, user.User_code);
-                //AppUtil.SetCookie(AppConstants.Cookie.AUTHOR_ID, user.Author_ID.ToString());
-                //AppUtil.SetCookie(AppConstants.Cookie.MODE, user.Mode);
-                //AppUtil.SetCookie(AppConstants.Cookie.REMEMBER_ME, "Yes");
-            //}
-            //else
-            //{
-                //AppUtil.SetCookie(AppConstants.Cookie.USER_CODE, String.Empty);
-                //AppUtil.SetCookie(AppConstants.Cookie.AUTHOR_ID, String.Empty);
-                //AppUtil.SetCookie(AppConstants.Cookie.MODE, String.Empty);
-                //AppUtil.SetCookie(AppConstants.Cookie.REMEMBER_ME, String.Empty);
-            //}
 
             ///Track the Login Data
             String IP = Request.ServerVariables["REMOTE_ADDR"];
