@@ -117,6 +117,8 @@ Begin
 -- Description: Set Into Table tblAuthor
 -- =============================================
 -- sptblAuthorSet ...........
+		IF @Status is null
+			SET @Status = 0;
 		IF (@Author_ID >0)
 		Begin
 			Update [dbo].[tblAuthor]
