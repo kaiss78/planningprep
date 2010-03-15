@@ -64,7 +64,7 @@ namespace App.Data.Comments
             entity.Rank = NullHandler.GetInt(reader["Rank"]);
             entity.Created = NullHandler.GetDateTime(reader["Created"]);
             entity.Modified = NullHandler.GetDateTime(reader["Modified"]);
-
+            entity.NegativeRank = NullHandler.GetInt(reader["NegativeRank"]);
             return entity;
         }
         /// <summary>
