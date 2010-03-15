@@ -50,7 +50,20 @@ public class BasePage : System.Web.UI.Page
         WebUtil.SignoutUser();
     }
     #endregion
-   
+    #region Properties
+    public bool IsAdministrator
+    {
+        get
+        {
+            if (SessionCache.CurrentUser != null)
+            {
+                if (String.Compare(SessionCache.CurrentUser.Rights, AppConstants.UserRoles.ADMINISTRATOR, true) == 0)
+                    return true;
+            }
+            return false;
+        }
+    }
+    #endregion
 }
 
 #endregion
