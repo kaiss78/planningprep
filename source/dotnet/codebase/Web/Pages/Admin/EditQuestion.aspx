@@ -17,9 +17,6 @@
 
     <div style="float:right;"><asp:HyperLink ID="hplQuestionList" runat="server">Back to Question List</asp:HyperLink></div>
     <div class="clearfloating"></div>
-    
-    
-    
     <div>
         <table cellpadding="3" cellspacing="0" style="width:100%;"> 
             <colgroup>
@@ -59,7 +56,8 @@
             <tr> 
                 <td>Explanation</td> 
                 <td colspan="3"><asp:TextBox ID="txtExplanation" runat="server" TextMode="MultiLine"></asp:TextBox></td> 
-            </tr> 
+            </tr>             
+            <%--
             <tr> 
                 <td>Link 1</td> 
                 <td><asp:TextBox ID="txtLink1" runat="server" CssClass="TextBoxCommon"></asp:TextBox></td> 
@@ -72,6 +70,7 @@
                 <td>Link 2 Description</td> 
                 <td><asp:TextBox ID="txtLink2Description" runat="server" CssClass="TextBoxCommon"></asp:TextBox></td> 
             </tr>             
+            --%>
             <tr> 
                 <td>History, Theory and Law</td> 
                 <td><asp:CheckBox ID="chkIsHistoryTheoryLaw" runat="server"></asp:CheckBox></td> 
@@ -92,7 +91,7 @@
             </tr>
             <tr>
                 <td colspan="4">
-                    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="ButtonCommon" />
+                    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="ButtonCommon" onclick="btnSave_Click" />
                 </td>
             </tr> 
         </table>        
