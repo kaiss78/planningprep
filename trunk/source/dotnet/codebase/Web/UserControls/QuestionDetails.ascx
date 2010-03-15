@@ -85,11 +85,10 @@
         More information on this topic can be found at these sites:
     </p>
     <div>
-        <asp:Repeater ID="rptQuestionLinks" runat="server" 
-            onitemdatabound="rptQuestionLinks_ItemDataBound">
+        <asp:Repeater ID="rptQuestionLinks" runat="server" onitemdatabound="rptQuestionLinks_ItemDataBound">
         <ItemTemplate>
         <div>
-            <asp:HyperLink ID="hlinkQuestionLink" runat="server" Text=""></asp:HyperLink>
+            <asp:HyperLink ID="hlinkQuestionLink" runat="server" Text="" Target="_blank"></asp:HyperLink>
           <br />
             <asp:Label ID="lblQuestionLinkDescription" runat="server" Text=""></asp:Label>
         </div>
