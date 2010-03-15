@@ -7,6 +7,11 @@
         InitCore();
 
     }
+
+    protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+    {
+        FormsAuthenticationUtil.AttachRolesToUser();
+    }
     
     void Application_End(object sender, EventArgs e) 
     {
