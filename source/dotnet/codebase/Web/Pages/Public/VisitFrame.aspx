@@ -9,7 +9,7 @@
 
 
 
-<frameset rows="20,*">
+<frameset rows="47,*">
   <frame name="header" scrolling="no" noresize src="/Pages/Public/VisitFrameTop.html" target="main">
   <frame name="main" scrolling="auto" noresize src="<%=_ExternalLink%>">
   <noframes>
