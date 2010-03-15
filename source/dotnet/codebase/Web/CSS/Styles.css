@@ -502,12 +502,12 @@ img.EmployeeImage
 .commentbox
 {
 	float:left;
-	width:85%;
+	width:80%;
 }
 .commentboxforthumbs
 {
 	float:right;
-	width:13%;
+	width:18%;
 }
 .floatleft
 {
@@ -525,4 +525,8 @@ img.EmployeeImage
 #ExamDiv
 {
 	width:500px;
+}
+.clickableimage
+{
+	cursor:pointer;
 }
