@@ -42,7 +42,10 @@ public class AppConstants
         public const string DATE_FROMAT_DISPLAY = "MMMM dd, yyyy";
         public const string DATE_FROMAT_DISPLAY_WITH_TIME = "dddd, MMMM dd, yyyy hh:mm:ss tt";
     }
-
+    public class UserRoles
+    {
+        public const String ADMINISTRATOR = "Administrator";        
+    }
     #region UI CSS Classes
     public class UI
     {
