@@ -59,9 +59,30 @@ public partial class UserControls_Commenting : BaseUserControl
         Literal ltrComment = e.Item.FindControl("ltrComment") as Literal;
         ltrComment.Text = AppUtil.FormatText(comment.CommentText);
         Literal ltrThumbs = e.Item.FindControl("ltrThumbs") as Literal;
+        String thumbsText = thumbsText = String.Format("+{0} Thumbs", comment.Rank);
+            
         if (comment.UserID == SessionCache.CurrentUser.Author_ID)
-            ltrThumbs.Text = "Thumbs Up<br/>Thumbs Down";
+            ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown_Disabled.png' alt='Thumbs Down' title='Thumbs Down'/> <img src='/Images/ThumbsUp_Disabled.png' alt='Thumbs Up' title='Thumbs Up'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"));
         else
-            ltrThumbs.Text = String.Format("<a href='javascript:void(0);' onclick='ThumbsUp({0});'>Thumbs Up</a><br/><a href='javascript:void(0);' onclick='ThumbsDown({0});'>Thumbs Down</a>", comment.ID);
+            ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown.png' onclick='ThumbsDown({1}, this);' alt='Thumbs Down' title='Thumbs Down' class='clickableimage'/> <img src='/Images/ThumbsUp.png' onclick='ThumbsUp({1}, this);' alt='Thumbs Up' title='Thumbs Up' class='clickableimage'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"), comment.ID);
+    }
+
+    /// <summary>
+    /// Gets Logical Text Depending on different input count
+    /// </summary>
+    /// <param name="count"></param>
+    /// <param name="textToUse"></param>
+    /// <returns></returns>
+    protected String GetLogicalText(int count, String textToUse)
+    {
+        if (count > 1)
+            return String.Format("+{0} {1}s", count, textToUse);
+        else if (count < -1)
+            return String.Format("{0} {1}s", count, textToUse);
+        else if (count == 0)
+            return String.Format("0 {0}s", textToUse);
+        else 
+            return String.Format("+1 {0}", textToUse);
+        
     }
 }

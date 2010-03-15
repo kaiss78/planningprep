@@ -7,6 +7,18 @@
     	    padding-bottom:10px;
     	    height:auto;
         }
+        .thumbText
+        {
+        	float:left;
+        	width:63%;
+        	padding-top:2px;
+        	text-align:right;
+        }
+        .thumbImage
+        {
+        	float:left;
+        	width:35%;
+        }
     </style>    
     
     <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">        
@@ -34,10 +46,8 @@
             var className = (_TotalCount % 2) == 0 ? 'OddRowListing' : 'EvenRowListing';
             var domElement = '<div class="' + className + '"><div class="commentbox">' + FormatText(_Comment.CommentText) + '</div>';
             //domElement += '<div class="commentboxforthumbs"><a href="javascript:void(0);" onclick="ThumbsUp(' + commentId + ');">Thumbs Up</a><br/><a href="javascript:void(0);" onclick="ThumbsDown(' + commentId + ');">Thumbs Down</a></div>';
-            domElement += '<div class="commentboxforthumbs">Thumbs Up<br/>Thumbs Down</div>';
-            domElement += '<div class="clearboth"></div>';
-            domElement += '</div>';
-                        
+            //domElement += '<div class="commentboxforthumbs">Thumbs Up<br/>Thumbs Down</div>';            
+            domElement += GetThumbsHtml(0, true);            
             if(_TotalCount == 0)               
                 $('#divCommentListHeading').show();
                 
@@ -46,31 +56,50 @@
             _TotalCount++;
             ToggleCommentingBox();
         }
+        function GetThumbsHtml(count, isSameUser)
+        {
+            var domElement = '<div class="commentboxforthumbs">';
+            if(isSameUser)
+                domElement += String.format('<div class="thumbText">{0}&nbsp;</div><div class="thumbImage"><img src="/Images/ThumbsDown_Disabled.png" alt="Thumbs Down" title="Thumbs Down"/> <img src="/Images/ThumbsUp_Disabled.png" alt="Thumbs Up" title="Thumbs Up"/></div><div class="clearfloating"></div>', GetLogicalText(count, 'Thumb'));
+            else
+                domElement += String.format('<div class="thumbText">{0}&nbsp;</div><div class="thumbImage"><img src="/Images/ThumbsDown.png" onclick="ThumbsDown({1}, this);" alt="Thumbs Down" title="Thumbs Down" class="clickableimage"/> <img src="/Images/ThumbsUp.png" onclick="ThumbsUp({1}, this);" alt="Thumbs Up" title="Thumbs Up" class="clickableimage"/></div><div class="clearfloating"></div>', GetLogicalText(count, 'Thumb'));
+            domElement += '</div>';
+            domElement += '<div class="clearboth"></div>';
+            domElement += '</div>';
+            return domElement;
+        }
         function SaveComment_Failiure(error)
         {
             alert(error.get_message());
         }
         
         ///Thumbs Up and Down 
-        function ThumbsUp(commentID)
+        var _ImgElement = null;
+        function ThumbsUp(commentID, imgElement)
         {
+            _ImgElement = imgElement;
             AjaxService.CommentThumbsUp(commentID, CommentThumbsUp_Success, CommentThumbsUp_Failiure);
         }
         function CommentThumbsUp_Success(result)
         {
-            alert('Your preference saved successfully.');
+            var thumbsCount = result;
+            $(_ImgElement).parent().parent().find('.thumbText').html(GetLogicalText(thumbsCount, 'Thumb') + '&nbsp;');            
+            //alert('Your preference saved successfully.');
         }
         function CommentThumbsUp_Failiure(error)
         {
             alert(error.get_message());
         }   
-        function ThumbsDown(commentID)
+        function ThumbsDown(commentID, imgElement)
         {
+             _ImgElement = imgElement;
             AjaxService.CommentThumbsDown(commentID, CommentThumbsDown_Success, CommentThumbsDown_Failiure);
         }        
         function CommentThumbsDown_Success(result)
         {
-            alert('Your preference saved successfully.');   
+            var thumbsCount = result;
+            $(_ImgElement).parent().parent().find('.thumbText').html(GetLogicalText(thumbsCount, 'Thumb') + '&nbsp;');    
+            //alert('Your preference saved successfully.');   
         }
         function CommentThumbsDown_Failiure(error)
         {
