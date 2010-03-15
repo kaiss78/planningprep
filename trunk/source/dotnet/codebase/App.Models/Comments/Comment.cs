@@ -100,6 +100,14 @@ namespace App.Models.Comments
             get;
             set;
         }
+        /// <summary>
+        /// Gets or Sets the NegativeRank
+        /// </summary>
+        public int NegativeRank
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Reference Properties
