@@ -4,13 +4,30 @@
 <head>
     <title>Untitled Page</title>
     <link href="/CSS/Styles.css" rel="Stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+        	margin:0px;
+        	padding:0px;
+        	background-color:#FF9900;
+        }                
+    </style>
+    <script language="javascript" type="text/javascript">
+        function CloseWindow()
+        {
+            var win = window.open("","_self");
+            win.close();
+        }
+    </script>
 </head>
-<body>
-    <div style="height:50px;">
-        <p class="aicpbody" style="text-align: center">You are visiting a page outside of 
-        <font color="#8B0302"><b>planningprep.com</b></font>  Simply <b><a class="one" href="javascript:window.close();">
-        close</a></b> this page to 
-        return to our site</p>
+<body>    
+    <div style="height:45px;">
+        <div class="contentheading" style="text-align:center;">
+            You are visiting a page outside of 
+            <font color="#8B0302"><b>planningprep.com</b></font>  Simply 
+            <b><a href="javascript:void(0);" onclick="CloseWindow();">close</a></b> 
+            this page to return to our site.
+        </div>
     </div>
 </body>
 </html>
