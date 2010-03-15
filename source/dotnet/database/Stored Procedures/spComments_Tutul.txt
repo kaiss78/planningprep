@@ -79,6 +79,7 @@ CREATE PROCEDURE [dbo].[spCommentSet]
 	, @Rank int
 	, @Created DateTime
 	, @Modified DateTime
+	, @NegativeRank INT
 As
 Begin
 -- =============================================
@@ -95,7 +96,8 @@ Begin
 				, [CommentText] = @CommentText
 				, [Rank] = @Rank
 				--, [Created]= @Created
-				, [Modified] = GetDate()				 
+				, [Modified] = GetDate()
+				, [NegativeRank] = @NegativeRank
 			 Where [ID]= @ID
 	End
 	Else
@@ -107,6 +109,7 @@ Begin
 			, [Rank]
 			, [Created]
 			, [Modified]
+			, [NegativeRank]
 			 ) 
 		 VALUES 
 			( @QuestionID
@@ -115,6 +118,7 @@ Begin
 			, @Rank
 			, GetDate()
 			, GetDate()
+			, @NegativeRank
 			 ) 
 		 
 		Set @ID= Scope_Identity()
