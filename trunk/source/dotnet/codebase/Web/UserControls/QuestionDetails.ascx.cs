@@ -75,6 +75,8 @@ public partial class UserControls_QuestionDetails : BaseUserControl
         {
             divQuestion.Visible = true;
             divResult.Visible = false;
+            rateQuestion.Visible = false;
+            ShowNextQuestion = false;
         }
 
         Questions question = null;
@@ -87,6 +89,10 @@ public partial class UserControls_QuestionDetails : BaseUserControl
                 divNextQuestion.Visible = true;
                 hlinkNextQuestion.NavigateUrl = String.Format("{0}?{1}={2}", AppConstants.Pages.ANSWER_QUESTION, AppConstants.QueryString.QUESTION_ID, question.QuestionID);
             }
+        }
+        else
+        {
+            divNextQuestion.Visible = false;
         }
         
         question = questionManager.Get(QuestionID);
