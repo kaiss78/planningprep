@@ -44,7 +44,8 @@ public class AppConstants
     }
     public class UserRoles
     {
-        public const String ADMINISTRATOR = "Administrator";        
+        public const String ADMINISTRATOR = "Administrator";
+        public const String MEMBER = "Member";        
     }
     #region UI CSS Classes
     public class UI
