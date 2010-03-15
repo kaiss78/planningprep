@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Pages/Member/MasterPageMember.master"
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Pages/MasterPageMember.master"
     CodeFile="ExamDashboard.aspx.cs" Inherits="Pages_Private_ExamDashboard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
