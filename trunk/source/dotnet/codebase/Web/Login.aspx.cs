@@ -29,28 +29,28 @@ public partial class Login : BasePage
 
                 LogOutUser();
             }
-            CheckForAutoLogin();
+            //CheckForAutoLogin();
             txtUserName.Focus();
         }
     }
 
-    private void CheckForAutoLogin()
-    {
-        bool rememberMe = String.Compare(AppUtil.GetCookie(AppConstants.Cookie.REMEMBER_ME), "Yes", true) == 0 ? true : false;
-        if (rememberMe)
-        {
-            String value = AppUtil.GetCookie(AppConstants.Cookie.AUTHOR_ID);
-            int userId = 0;
-            int.TryParse(value, out userId);
-            String userCode = AppUtil.GetCookie(AppConstants.Cookie.USER_CODE);
+    //private void CheckForAutoLogin()
+    //{
+    //    bool rememberMe = String.Compare(AppUtil.GetCookie(AppConstants.Cookie.REMEMBER_ME), "Yes", true) == 0 ? true : false;
+    //    if (rememberMe)
+    //    {
+    //        String value = AppUtil.GetCookie(AppConstants.Cookie.AUTHOR_ID);
+    //        int userId = 0;
+    //        int.TryParse(value, out userId);
+    //        String userCode = AppUtil.GetCookie(AppConstants.Cookie.USER_CODE);
             
-            PlanningPrepUser user = userManager.Get(userId);
-            if (user != null && String.Compare(user.User_code, userCode, false) == 0)
-            {
-                LoginUser(user, user.Username, rememberMe);
-            }
-        }
-    }
+    //        PlanningPrepUser user = userManager.Get(userId);
+    //        if (user != null && String.Compare(user.User_code, userCode, false) == 0)
+    //        {
+    //            LoginUser(user, user.Username, rememberMe);
+    //        }
+    //    }
+    //}
     protected void LoginButton_Click(object sender, EventArgs e)
     {
         if (Page.IsValid)
