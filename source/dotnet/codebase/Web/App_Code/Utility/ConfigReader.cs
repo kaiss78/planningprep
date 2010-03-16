@@ -24,6 +24,8 @@ public class ConfigReader
     private const String CONTENT_ID_OF_FAQ = "ContentIDOfFAQ";
     private const String CONTENT_ID_OF_ABOUT_US = "ContentIDOfAboutUs";
     private const String REMEMBER_PROGRESS = "RememberProgress";  
+    private const String FACEBOOK_API_KEY = "FaceBookAPIKey";  
+    private const String FACEBOOK_SECRET_PHRASE = "FaceBookSecretPhrase";  
 
     private static String GetAppSettingsValue(String key)
     {
@@ -121,6 +123,20 @@ public class ConfigReader
             String paramValue = GetAppSettingsValue(CONTENT_ID_OF_FAQ);
             int.TryParse(paramValue, out value);
             return value;
+        }
+    }
+    public static String FaceBookAPIKey
+    {
+        get
+        {
+            return GetAppSettingsValue(FACEBOOK_API_KEY);
+        }
+    }
+    public static String FaceBookSecretPhrase
+    {
+        get
+        {
+            return GetAppSettingsValue(FACEBOOK_SECRET_PHRASE);
         }
     }
 }
