@@ -26,9 +26,26 @@ public partial class Default : BasePage
         if(!IsPostBack)
             SetInitialValues();
 
+        ValidateFaceBookUser();
         //String value = AppUtil.GetCookie("TestingCookie");
         //if(String.IsNullOrEmpty(value))
         //    AppUtil.SetCookie("TestingCookie", "Tutul");
+    }
+
+    private void ValidateFaceBookUser()
+    {
+        FBConnectAuth.FBConnectAuthentication auth = new FBConnectAuth.FBConnectAuthentication(ConfigReader.FaceBookAPIKey, ConfigReader.FaceBookSecretPhrase);
+        
+        if (auth.Validate() != FBConnectAuth.ValidationState.Valid)
+        {
+            // The request does not contain the details of a valid Facebook connect session - you'll probably want to throw an error here.
+        }
+        else
+        {
+            FBConnectAuth.FBConnectSession faceBookSession = auth.GetSession();
+            String userId = faceBookSession.UserID;
+            String sessionKey = faceBookSession.SessionKey;
+        }
     }
 
     private void SetInitialValues()
