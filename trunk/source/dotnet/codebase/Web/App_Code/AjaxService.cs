@@ -67,7 +67,7 @@ public class AjaxService : System.Web.Services.WebService
             comment.NegativeRank = comment.NegativeRank + 1;
             manager.SaveOrUpdate(comment);
             return comment.Rank - comment.NegativeRank;
-        }
+        }        
         return 0;
     }
     [WebMethod(EnableSession = true)]
