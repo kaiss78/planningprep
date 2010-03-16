@@ -30,10 +30,10 @@ public partial class UserControls_Chart : BaseUserControl
         App.Models.AnswerTotals.AnswerTotal answerTotal = manager.Get(this.QuestionID);
         if (answerTotal != null)
         {
-            PercentageOfA = answerTotal.A > 0 ? (Convert.ToDouble(answerTotal.A) / Convert.ToDouble(answerTotal.Total)) : answerTotal.A;
-            PercentageOfB = answerTotal.B > 0 ? (Convert.ToDouble(answerTotal.B) / Convert.ToDouble(answerTotal.Total)) : answerTotal.B;
-            PercentageOfC = answerTotal.C > 0 ? (Convert.ToDouble(answerTotal.C) / Convert.ToDouble(answerTotal.Total)) : answerTotal.C;
-            PercentageOfD = answerTotal.D > 0 ? (Convert.ToDouble(answerTotal.D) / Convert.ToDouble(answerTotal.Total)) : answerTotal.D;
+            PercentageOfA = Math.Round(answerTotal.A > 0 ? (Convert.ToDouble(answerTotal.A) / Convert.ToDouble(answerTotal.Total)) : answerTotal.A ,2);
+            PercentageOfB = Math.Round(answerTotal.B > 0 ? (Convert.ToDouble(answerTotal.B) / Convert.ToDouble(answerTotal.Total)) : answerTotal.B, 2);
+            PercentageOfC = Math.Round(answerTotal.C > 0 ? (Convert.ToDouble(answerTotal.C) / Convert.ToDouble(answerTotal.Total)) : answerTotal.C, 2);
+            PercentageOfD = Math.Round(answerTotal.D > 0 ? (Convert.ToDouble(answerTotal.D) / Convert.ToDouble(answerTotal.Total)) : answerTotal.D, 2);
             TotalResponse = answerTotal.Total;
         }
     }

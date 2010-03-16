@@ -21,12 +21,12 @@
         
         .QuestionDetails
         {
-        	width:70%;
+        	width:50%;
         }
         
         .chart
         {
-        	margin-left:20px;
+        	
         }
         .option
         {
