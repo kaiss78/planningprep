@@ -20,9 +20,10 @@ BEGIN
 		  , ISNULL(tab.Rank, 0) AS Rank
 		  , tab.Created
 		  , tab.Modified
+		  , tab.NegativeRank			  
 		FROM [dbo].[Comment] tab  WITH(NOLOCK)
 		WHERE tab.QuestionID = @QuestionID
-		ORDER BY tab.[Rank] DESC;
+		ORDER BY ISNULL(tab.Rank, 0) - ISNULL(tab.NegativeRank, 0) DESC;
 
 	SET NOCOUNT OFF;
 END
