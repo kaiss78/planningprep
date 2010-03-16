@@ -18,12 +18,15 @@ using App.Core.Mail;
 public partial class Pages_Public_Register : BasePage
 {
     public static Random random = new Random();
+    private const String PAGE = "Page";
 
     protected void Page_Load(object sender, EventArgs e)
     {
         Page.Title = AppUtil.GetPageTitle("Register with PlanningPrep.com");
         if (!IsPostBack)
         {
+            if (String.Compare(Request[PAGE], "Promo", true) == 0)
+                divPromo.Visible = true;
             txtFirstName.Focus();
         }
     }
