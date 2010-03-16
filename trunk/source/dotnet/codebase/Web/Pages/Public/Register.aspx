@@ -11,6 +11,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
     
     <div class="contentheading">Register Now</div>
+    <div id="divPromo" runat="server" visible="false" style="font-weight:bold; margin-bottom:15px;">
+        Sorry, your free trial has ended. Unfortunately we cannot give our site away for free. As you have seen in your visit, 
+        our staff and Board has worked extremely hard in preparing content for the site. Each day we continue to add additional 
+        questions and content to help our members prepare for the AICP exam. If you are interested in becoming a member, 
+        please use the form below to join. Once again, thank you, and good luck.
+        <br /><br />
+        If you believe you have been redirected here in error, please <a href= "/Pages/Public/ContactUs.aspx">contact us</a>. 
+    </div>
+    
     <div>
         Please complete the form below to register to 
         Planning Prep. Registration to the site costs $120. <b>Memberships 
