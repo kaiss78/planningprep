@@ -384,9 +384,7 @@ public partial class Pages_Exam : BasePage
         if (questions != null && questions.Count > 0)
         {
             SaveCurrentQuestionInfo(questions);
-            //if (QuestionNo == questions.Count)
-            if (QuestionNo == 5)
-
+            if (QuestionNo == questions.Count)
             {
                 Response.Redirect("ExamResult.aspx?ExamSessionID=" + ExamSessionID);
             }
