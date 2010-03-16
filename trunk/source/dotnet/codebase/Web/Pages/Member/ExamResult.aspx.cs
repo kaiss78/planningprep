@@ -47,6 +47,7 @@ public partial class Pages_Private_ExamResult : BasePage
         DateTime examStartTime = SessionCache.GetExamStartTime();
         
         ExamTotal examTotal = null;
+        SessionCache.ClearExamSessionInfo();
         if (currentUserExam.EndDate == DateTime.MinValue || ACTION_FINISH_RESULT == Action)
         {
             if (ACTION_FINISH_RESULT == Action)
@@ -63,8 +64,6 @@ public partial class Pages_Private_ExamResult : BasePage
             userExamManager.SaveOrUpdateSavedQuestion(null, currentUserExam);
 
             examTotal = userExamManager.ProcessResult(ExamSessionID);
-
-            SessionCache.ClearExamSessionInfo();
         }
         else
         {

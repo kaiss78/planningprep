@@ -9,10 +9,12 @@ using App.Models.Exams;
 using App.Core.Storage;
 using App.Models.UserExams;
 using App.Domain.Exams;
+using App.Models.Questions;
 
 public partial class Pages_Exam : BasePage
 {
     protected int QuestionNo;
+    protected int BookmarkedQuestionNo;
     private int ExamID;
     protected int ExamSessionID;
     protected int Seconds;
@@ -25,7 +27,6 @@ public partial class Pages_Exam : BasePage
     private string ACTION_CONTINUE_EXAM = "Continue";
     private string ACTION_EXAM_FINISHED = "Finished";
     UserExam currentUserExam = null;
-    bool DeleteExistingExamInfoOnContinue = true;
 
     UserExamManager userExamManager = new UserExamManager();
     
@@ -91,9 +92,11 @@ public partial class Pages_Exam : BasePage
 
                     //An exam will always start with question no 1
                     QuestionNo = 1;
+                    BookmarkedQuestionNo = 1;
                     SessionCache.AnsweredQuestionCount = 0;
                     //Set current question no in the ViewState
                     SessionCache.SetCurrentQuestionNo(QuestionNo);
+                    SessionCache.SetBookmarkedCurrentQuestionNo(BookmarkedQuestionNo);
 
                     //Set exam start time in the Session
 
@@ -211,13 +214,34 @@ public partial class Pages_Exam : BasePage
 
     private void PopulateQuestion()
     {
-
+        chkBookmark.Checked = false;
         IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(ExamID);
+        TotalNoOfQuestion = questions.Count;
+
+        if (SessionCache.BookmarkedExamOngoing)
+        {
+            questions = SessionCache.CurrentBookmarkedQuestions;
+        }
+
+        BookmarkedQuestionNo = SessionCache.GetBookmarkedCurrentQuestionNo();
 
         if (questions != null && questions.Count > 0)
         {
-            QuestionForExamType question = GetQuestion(QuestionNo, questions);
-            if (question == null) return;
+            QuestionForExamType question = null;
+            if (!SessionCache.BookmarkedExamOngoing)
+            {
+                question = GetQuestion(QuestionNo, questions);
+            }
+            else
+            {
+                question = GetQuestion(BookmarkedQuestionNo, questions);
+            }
+
+            if (question == null)
+            {
+               Response.Redirect("ExamResult.aspx?ExamSessionID=" + ExamSessionID);
+               return;
+            }
 
             SessionCache.SetDateTimeInfoForCurrentQuestion();
 
@@ -232,9 +256,15 @@ public partial class Pages_Exam : BasePage
             lnkNext.Visible = true;
             lnkPrevious.Visible = true;
 
-            if (QuestionNo == questions.Count)
+            if (!SessionCache.BookmarkedExamOngoing)
             {
-                lnkNext.Visible = false;
+                if (QuestionNo > questions.Count)
+                {
+                    if (SessionCache.CurrentBookmarkedQuestions == null || SessionCache.CurrentBookmarkedQuestions.Count == 0)
+                    {
+                        lnkNext.Visible = false;
+                    }
+                }
             }
             if (QuestionNo == 1)
             {
@@ -269,16 +299,41 @@ public partial class Pages_Exam : BasePage
             {
                 ClearCheckBoxes();
             }
-            TotalNoOfQuestion = questions.Count;
-            Progress = Math.Round((float)SessionCache.AnsweredQuestionCount / (float)questions.Count * 10, 3);
+
+            int totalQuestionCount = SessionCache.Instance.GetExamQuestionsForExamType(ExamID).Count;
+            Progress = Math.Round((float)SessionCache.AnsweredQuestionCount / (float)totalQuestionCount * 100, 3);
         }
     }
 
-    private QuestionForExamType GetQuestion(int QuestionNo, IList<QuestionForExamType> questions)
+    protected int GetCurrentQuestionNo()
     {
-        if (questions.Count >= QuestionNo)
+        if (!SessionCache.BookmarkedExamOngoing)
         {
-            return questions[QuestionNo - 1];
+            return QuestionNo;
+        }
+        else
+        {
+            return BookmarkedQuestionNo;
+        }
+    }
+
+    protected int GetCurrentQuestionCount()
+    {
+        if(!SessionCache.BookmarkedExamOngoing)
+        {
+            return TotalNoOfQuestion;
+        }
+        else
+        {
+            return SessionCache.CurrentBookmarkedQuestions == null ? 0 : SessionCache.CurrentBookmarkedQuestions.Count;
+        }
+    }
+
+    private QuestionForExamType GetQuestion(int questionNumber, IList<QuestionForExamType> questions)
+    {
+        if (questions.Count >= questionNumber)
+        {
+            return questions[questionNumber - 1];
         }
         return null;
     }
@@ -337,18 +392,43 @@ public partial class Pages_Exam : BasePage
 
     protected void lnkPrevious_Click(object sender, EventArgs e)
     {
-        IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(ExamID);
-        if (questions != null && questions.Count > 0)
+        if (!SessionCache.BookmarkedExamOngoing)
         {
-            QuestionNo--;
-            SessionCache.SetCurrentQuestionNo(QuestionNo);
-            PopulateQuestion();
+            IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(ExamID);
+            if (questions != null && questions.Count > 0)
+            {
+                QuestionNo--;
+                SessionCache.SetCurrentQuestionNo(QuestionNo);
+                PopulateQuestion();
+            }
         }
+        else
+        {
+            IList<QuestionForExamType> questions = SessionCache.CurrentBookmarkedQuestions;
+            if (questions != null && questions.Count > 0)
+            {
+                BookmarkedQuestionNo--;
+                SessionCache.SetBookmarkedCurrentQuestionNo(BookmarkedQuestionNo);
+                PopulateQuestion();
+            }
+        }
+
+
     }
 
     private void SaveCurrentQuestionInfo(IList<QuestionForExamType> questions)
     {
         QuestionForExamType currentQuestion = GetQuestion(QuestionNo, questions);
+
+        if (currentQuestion == null)
+        {
+            currentQuestion = GetQuestion(SessionCache.GetBookmarkedCurrentQuestionNo(), SessionCache.CurrentBookmarkedQuestions);
+        }
+
+        if (currentQuestion == null)
+        {
+            return;
+        }
 
         string selectedAnswer = GetSelectedAnswerChoice();
         if (selectedAnswer.Length > 0)
@@ -371,28 +451,91 @@ public partial class Pages_Exam : BasePage
                 SessionCache.AnsweredQuestionCount++;
             }
 
-            bool finalQuestion = QuestionNo == questions.Count?true:false;
+            bool finalQuestion = false;
+            if (SessionCache.BookmarkedExamOngoing)
+            {
+                if (SessionCache.CurrentBookmarkedQuestions == null)
+                {
+                    finalQuestion = true;
+                }
+                else if (SessionCache.CurrentBookmarkedQuestions.Count == BookmarkedQuestionNo)
+                {
+                    finalQuestion = true;
+                }
+            }
+           
             SaveAnswer(questionToSave,finalQuestion);
+        }
+        else if (chkBookmark.Checked)
+        {
+            if (SessionCache.CurrentBookmarkedQuestions == null)
+            {
+                SessionCache.CurrentBookmarkedQuestions = new List<QuestionForExamType>();
+            }
+            SessionCache.CurrentBookmarkedQuestions.Add(currentQuestion);
         }
     }
 
     protected void lnkNext_Click(object sender, EventArgs e)
     {
-        
-        IList<QuestionForExamType> questions = SessionCache.Instance.GetExamQuestionsForExamType(ExamID);
+        IList<QuestionForExamType> questions = null;
+        if (SessionCache.BookmarkedExamOngoing)
+        {
+            if (SessionCache.CurrentBookmarkedQuestions == null || SessionCache.CurrentBookmarkedQuestions.Count == 0)
+            {
+                Response.Redirect("ExamResult.aspx?ExamSessionID=" + ExamSessionID);
+                return;
+            }
+            questions = SessionCache.CurrentBookmarkedQuestions;
+        }
+        else
+        {
+            questions = SessionCache.Instance.GetExamQuestionsForExamType(ExamID);
+        }
         
         if (questions != null && questions.Count > 0)
         {
             SaveCurrentQuestionInfo(questions);
-            if (QuestionNo == questions.Count)
+
+            if (SessionCache.BookmarkedExamOngoing)
             {
-                Response.Redirect("ExamResult.aspx?ExamSessionID=" + ExamSessionID);
+                lblBookedMarkedQuestions.Visible = true;
+                chkBookmark.Visible = false;
+                chkBookmark.Checked = false;
+
+                BookmarkedQuestionNo = SessionCache.GetBookmarkedCurrentQuestionNo();
+                BookmarkedQuestionNo++;
+
+                if (BookmarkedQuestionNo > SessionCache.CurrentBookmarkedQuestions.Count)
+                {
+                    Response.Redirect("ExamResult.aspx?ExamSessionID=" + ExamSessionID);
+                }
+                SessionCache.SetBookmarkedCurrentQuestionNo(BookmarkedQuestionNo);
+                PopulateQuestion();
             }
+
             else
             {
-                QuestionNo++;
-                SessionCache.SetCurrentQuestionNo(QuestionNo);
-                PopulateQuestion();
+                if(QuestionNo == questions.Count)
+                {
+                    if (SessionCache.CurrentBookmarkedQuestions == null || SessionCache.CurrentBookmarkedQuestions.Count == 0)
+                    {
+                        Response.Redirect("ExamResult.aspx?ExamSessionID=" + ExamSessionID);
+                        return;
+                    }
+                    SessionCache.BookmarkedExamOngoing = true;
+                    lblBookedMarkedQuestions.Visible = true;
+                    chkBookmark.Visible = false;
+                    chkBookmark.Checked = false;
+                    PopulateQuestion();
+                }
+                else
+                {
+                   
+                    QuestionNo++;
+                    SessionCache.SetCurrentQuestionNo(QuestionNo);
+                    PopulateQuestion();
+                }
             }
         }
     }
