@@ -27,6 +27,13 @@ public partial class UserControls_PaginatedQuestions : BaseUserControl
         set;
     }
 
+    public bool ShowQuestionTitle
+    {
+        get;
+        set;
+    }
+
+
     public bool ShowDetailsLink
     {
         get;
@@ -116,9 +123,18 @@ public partial class UserControls_PaginatedQuestions : BaseUserControl
         SessionCache.CurrentQuestionPageNo = pageNo;
         SessionCache.CurrentQuestionList = questions;
 
-        rptQuestionList.DataSource = questions;
-        rptQuestionList.DataBind();
-        BindPagerControl(pageNo, totalRecord, pageSize);
+        if (questions == null || questions.Count == 0)
+        {
+            rptQuestionList.Visible = false;
+            ucPager.Visible = false;
+            lblNoQuestionFoundMessage.Visible = true;
+        }
+        else
+        {
+            rptQuestionList.DataSource = questions;
+            rptQuestionList.DataBind();
+            BindPagerControl(pageNo, totalRecord, pageSize);
+        }
     }
     protected void BindPagerControl(int pageNo, int totalRecord, int pageSize)
     {
@@ -144,12 +160,12 @@ public partial class UserControls_PaginatedQuestions : BaseUserControl
             lblQuestion.Text = question.Question; //AppUtil.Encode(question.Question);
 
             Label lblExplanation = e.Item.FindControl("lblExplanation") as Label;
+            
             lblExplanation.Text = AppUtil.Encode(question.ModifiedWhen.ToString(AppConstants.ValueOf.DATE_FROMAT_DISPLAY));
 
             if (!ShowLastModifiedDate)
             {
                 lblExplanation.Visible = false;
-                lblLastModified.Visible = false;
             }
 
             HyperLink hplEdit = e.Item.FindControl("hplEdit") as HyperLink;
@@ -169,7 +185,6 @@ public partial class UserControls_PaginatedQuestions : BaseUserControl
             if (!ShowEditLink)
             {
                 hplEdit.Visible = false;
-                lblEdit.Visible = false;
             }
 
             if (ShowDetailsLink)
@@ -181,6 +196,25 @@ public partial class UserControls_PaginatedQuestions : BaseUserControl
             {
                 hlinkQuestion.Visible = false;
                 lblQuestion.Visible = true;
+            }
+        }
+        else if (item.ItemType == ListItemType.Header)
+        {
+            if (!ShowQuestionTitle)
+            {
+                Label lblQuestionTitle = e.Item.FindControl("lblQuestionTitle") as Label;
+                lblQuestionTitle.Visible = false;
+            }
+
+            if (!ShowLastModifiedDate)
+            {
+                Label lblLastModified = e.Item.FindControl("lblLastModified") as Label;
+                lblLastModified.Visible = false;
+            }
+            if (!ShowEditLink)
+            {
+                Label lblEdit = e.Item.FindControl("lblEdit") as Label;
+                lblEdit.Visible = false;
             }
         }
     }
