@@ -47,9 +47,17 @@ public partial class Pages_Private_ExamResult : BasePage
         DateTime examStartTime = SessionCache.GetExamStartTime();
         
         ExamTotal examTotal = null;
-        if (currentUserExam.EndDate != DateTime.MinValue || ACTION_FINISH_RESULT == Action)
+        if (currentUserExam.EndDate == DateTime.MinValue || ACTION_FINISH_RESULT == Action)
         {
-            currentUserExam.TotalTime = DateTime.Now.Subtract(examStartTime).Seconds;
+            if (ACTION_FINISH_RESULT == Action)
+            {
+                currentUserExam.TotalTime = ConfigReader.ExamLengthInMinutes * 60;
+            }
+            else
+            {
+                currentUserExam.TotalTime = DateTime.Now.Subtract(examStartTime).Seconds;
+            }
+
             currentUserExam.EndDate = DateTime.Now;
 
             userExamManager.SaveOrUpdateSavedQuestion(null, currentUserExam);

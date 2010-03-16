@@ -32,6 +32,7 @@ public partial class Pages_Exam : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        Response.Expires = -1;
         //SessionCache.ClearExamSessionInfo();
         if (!LoadParams())
         {
@@ -383,9 +384,11 @@ public partial class Pages_Exam : BasePage
         if (questions != null && questions.Count > 0)
         {
             SaveCurrentQuestionInfo(questions);
-            if (QuestionNo == questions.Count)
+            //if (QuestionNo == questions.Count)
+            if (QuestionNo == 5)
+
             {
-                Response.Redirect("ExamResult.aspx");
+                Response.Redirect("ExamResult.aspx?ExamSessionID=" + ExamSessionID);
             }
             else
             {
