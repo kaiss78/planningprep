@@ -418,13 +418,17 @@ public partial class Pages_Exam : BasePage
 
     private void SaveCurrentQuestionInfo(IList<QuestionForExamType> questions)
     {
-        QuestionForExamType currentQuestion = GetQuestion(QuestionNo, questions);
 
-        if (currentQuestion == null)
+        QuestionForExamType currentQuestion = null;
+        if (SessionCache.BookmarkedExamOngoing)
         {
             currentQuestion = GetQuestion(SessionCache.GetBookmarkedCurrentQuestionNo(), SessionCache.CurrentBookmarkedQuestions);
         }
-
+        else
+        {
+            currentQuestion = GetQuestion(QuestionNo, questions);
+        }
+      
         if (currentQuestion == null)
         {
             return;
