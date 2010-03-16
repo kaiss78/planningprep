@@ -60,9 +60,9 @@
         {
             var domElement = '<div class="commentboxforthumbs">';
             if(isSameUser)
-                domElement += String.format('<div class="thumbText">{0}&nbsp;</div><div class="thumbImage"><img src="/Images/ThumbsDown_Disabled.png" alt="Thumbs Down" title="Thumbs Down"/> <img src="/Images/ThumbsUp_Disabled.png" alt="Thumbs Up" title="Thumbs Up"/></div><div class="clearfloating"></div>', GetLogicalText(count, 'Thumb'));
+                domElement += String.format('<div class="thumbText">{0}&nbsp;</div><div class="thumbImage"><img src="/Images/ThumbsDown_Disabled.png" alt="Thumbs Down Disabled" title="Thumbs Down Disabled"/> <img src="/Images/ThumbsUp_Disabled.png" alt="Thumbs Up Disabled" title="Thumbs Up Disabled"/></div><div class="clearfloating"></div>', GetLogicalText(count, 'Thumb'));
             else
-                domElement += String.format('<div class="thumbText">{0}&nbsp;</div><div class="thumbImage"><img src="/Images/ThumbsDown.png" onclick="ThumbsDown({1}, this);" alt="Thumbs Down" title="Thumbs Down" class="clickableimage"/> <img src="/Images/ThumbsUp.png" onclick="ThumbsUp({1}, this);" alt="Thumbs Up" title="Thumbs Up" class="clickableimage"/></div><div class="clearfloating"></div>', GetLogicalText(count, 'Thumb'));
+                domElement += String.format('<div class="thumbText">{0}&nbsp;</div><div class="thumbImage"><img src="/Images/ThumbsDown.png" onclick="ThumbsDown({1}, this);" alt="Thumbs Down" title="Thumbs Down this Comment" class="clickableimage"/> <img src="/Images/ThumbsUp.png" onclick="ThumbsUp({1}, this);" alt="Thumbs Up this Comment" title="Thumbs Up" class="clickableimage"/></div><div class="clearfloating"></div>', GetLogicalText(count, 'Thumb'));
             domElement += '</div>';
             domElement += '<div class="clearboth"></div>';
             domElement += '</div>';
@@ -70,7 +70,8 @@
         }
         function SaveComment_Failiure(error)
         {
-            alert(error.get_message());
+            CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');
+            //alert(error.get_message());
         }
         
         ///Thumbs Up and Down 
@@ -83,12 +84,14 @@
         function CommentThumbsUp_Success(result)
         {
             var thumbsCount = result;
-            $(_ImgElement).parent().parent().find('.thumbText').html(GetLogicalText(thumbsCount, 'Thumb') + '&nbsp;');            
+            $(_ImgElement).parent().parent().find('.thumbText').html(GetLogicalText(thumbsCount, 'Thumb') + '&nbsp;');
+            CreateConfirmationPopup('confirm', 'Thumbs Up', 'Thank you!<br/>Thumbs Up information for this comment has been saved successfully.');
             //alert('Your preference saved successfully.');
         }
         function CommentThumbsUp_Failiure(error)
         {
-            alert(error.get_message());
+            CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');
+            //alert(error.get_message());
         }   
         function ThumbsDown(commentID, imgElement)
         {
@@ -99,11 +102,13 @@
         {
             var thumbsCount = result;
             $(_ImgElement).parent().parent().find('.thumbText').html(GetLogicalText(thumbsCount, 'Thumb') + '&nbsp;');    
+            CreateConfirmationPopup('confirm', 'Thumbs Down', 'Thank you!<br/>Your Thumbs Down information for this comment has been saved successfully.');
             //alert('Your preference saved successfully.');   
         }
         function CommentThumbsDown_Failiure(error)
         {
-            alert(error.get_message());
+            CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');
+            //alert(error.get_message());
         }   
         
         function ToggleCommentingBox() 
@@ -118,7 +123,6 @@
         }      
         
     </script>
-
 
 <div id="divCommentingList">
     <div class="contentheading"><asp:Literal ID="ltrCommentHeading" runat="server"></asp:Literal></div>

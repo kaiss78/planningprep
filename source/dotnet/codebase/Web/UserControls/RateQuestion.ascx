@@ -6,7 +6,7 @@
         <Services>
             <asp:ServiceReference Path="~/Services/AjaxService.asmx" />
         </Services>
-    </asp:ScriptManagerProxy>
+    </asp:ScriptManagerProxy>    
     
     <script language="javascript" type="text/javascript">
         var _QuestionID = <%= _QuestionID %>;
@@ -15,24 +15,20 @@
         function SaveRating()
         {
             _SelectedRating = $('#<%= rdoRating.ClientID%> input[type=radio]:checked').val();     
-            if(_SelectedRating == undefined)
-            {
-                alert('Please select a rating.');   
-            }
-            else
-            {
-                AjaxService.SaveQuestionRating(_QuestionID, _SelectedRating, SaveRating_Success, SaveRating_Failure);
-            }
+            if(_SelectedRating == undefined)            
+                CreateConfirmationPopup('confirm', 'Error', 'Please select a rating.');                            
+            else            
+                AjaxService.SaveQuestionRating(_QuestionID, _SelectedRating, SaveRating_Success, SaveRating_Failure);            
         }
         function SaveRating_Success(result)
         {
-            //alert('Your rating saved successfully.');
-            //$('#<%=divRate.ClientID %>').parent().fadeOut();
+            CreateConfirmationPopup('confirm', 'Question Rating', 'Thank you!<br/>Your rating for this question has been saved successfully.');
             $('#<%=divRate.ClientID %>').fadeOut();
         }
         function SaveRating_Failure(error)
         {
-            alert(error.get_message());
+            CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');
+            //alert(error.get_message());
         }
     </script>    
     

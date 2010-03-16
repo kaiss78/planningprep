@@ -62,9 +62,9 @@ public partial class UserControls_Commenting : BaseUserControl
         String thumbsText = thumbsText = String.Format("+{0} Thumbs", comment.Rank);
             
         if (comment.UserID == SessionCache.CurrentUser.Author_ID)
-            ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown_Disabled.png' alt='Thumbs Down' title='Thumbs Down'/> <img src='/Images/ThumbsUp_Disabled.png' alt='Thumbs Up' title='Thumbs Up'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"));
+            ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown_Disabled.png' alt='Thumbs Down Disabled' title='Thumbs Down Disabled'/> <img src='/Images/ThumbsUp_Disabled.png' alt='Thumbs Up Disabled' title='Thumbs Up  Disabled'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"));
         else
-            ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown.png' onclick='ThumbsDown({1}, this);' alt='Thumbs Down' title='Thumbs Down' class='clickableimage'/> <img src='/Images/ThumbsUp.png' onclick='ThumbsUp({1}, this);' alt='Thumbs Up' title='Thumbs Up' class='clickableimage'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"), comment.ID);
+            ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown.png' onclick='ThumbsDown({1}, this);' alt='Thumbs Down this Comment' title='Thumbs Down this Comment' class='clickableimage'/> <img src='/Images/ThumbsUp.png' onclick='ThumbsUp({1}, this);' alt='Thumbs Up this Comment' title='Thumbs Up this Comment' class='clickableimage'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"), comment.ID);
     }
 
     /// <summary>
