@@ -125,11 +125,12 @@ public partial class Pages_Exam : BasePage
                     QuestionNo = SessionCache.GetCurrentQuestionNo();
                     ExamSessionID = SessionCache.GetCurrentExamSessionID();
 
-                    if (ConfigReader.RememberProgress == 1)
+                    if (ConfigReader.RememberProgress == 1 && !SessionCache.ExamOngoing)
                     {
                         IList<ExamSaved> savedQuestions = userExamManager.GetSavedExamsByExamSessionID(currentUserExam.ExamSessionID);
                         SessionCache.SetCurrentQuestionNo(savedQuestions.Count + 1);
                         QuestionNo = savedQuestions.Count + 1;
+
                         SessionCache.SetExamStartTime(DateTime.Now.AddSeconds(-1 * currentUserExam.TotalTime));
                     }
                  
@@ -266,7 +267,7 @@ public partial class Pages_Exam : BasePage
                     }
                 }
             }
-            if (QuestionNo == 1)
+            if (QuestionNo == 1 || SessionCache.BookmarkedExamOngoing)
             {
                 lnkPrevious.Visible = false;
             }
@@ -476,7 +477,10 @@ public partial class Pages_Exam : BasePage
             {
                 SessionCache.CurrentBookmarkedQuestions = new List<QuestionForExamType>();
             }
-            SessionCache.CurrentBookmarkedQuestions.Add(currentQuestion);
+            if (!SessionCache.CurrentBookmarkedQuestions.Contains(currentQuestion))
+            {
+                SessionCache.CurrentBookmarkedQuestions.Add(currentQuestion);
+            }
         }
     }
 

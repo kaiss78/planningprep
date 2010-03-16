@@ -1,18 +1,40 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPage.master" CodeFile="Exam.aspx.cs" Inherits="Pages_Exam" %>
-<%@ OutputCache Location="None" NoStore="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPage.master"
+    CodeFile="Exam.aspx.cs" Inherits="Pages_Exam" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<%@ OutputCache Location="None" NoStore="true" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
-        table td{
-            vertical-align:top;
+        table td
+        {
+            vertical-align: top;
         }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" runat="Server">
     <!-- COUNTDOWN TIMER -->
     <!-- This goes in the HEAD of the html file -->
 
     <script language="JavaScript" type="text/javascript">
+ 
+      $(document).ready(function() {
+ 
+          // put all your jQuery goodness in here.
+           $("#<%=chkBookmark.ClientID %>").click(function() {
+            var checkbox = document.getElementById("<%=chkBookmark.ClientID%>");
+            if(checkbox.checked)
+            {
+               $("input[type='radio']").each(function(){
+                $(this).checked = false;  
+                });
+
+            }          
+             
+            });
+           
+
+           
+      });
+
 
 <!--
 var sec = <%=Seconds %>   // set the seconds
@@ -58,55 +80,51 @@ window.onload = countDown;
         {
             margin: 0px auto;
             width: 600px;
-            margin-top:20px;
+            margin-top: 20px;
         }
-        
         .timerDiv
         {
-            margin-bottom:20px;
+            margin-bottom: 20px;
         }
-        
         .navigationDiv
         {
-        	width:600px;
-        	margin-top:20px;
+            width: 600px;
+            margin-top: 20px;
         }
-        
         #Options
         {
-        	margin-top:20px;
+            margin-top: 20px;
         }
-        
         #QuestionTitle
         {
-            font-weight:bold;
-            color:Green;	
+            font-weight: bold;
+            color: Green;
         }
-        
         .timeClass
         {
-        	font-weight:bold;
+            font-weight: bold;
         }
-        
         .bookmarkQuestion
         {
-        	margin-left:20px;
+            margin-left: 20px;
         }
     </style>
-
     <div class="divCenter">
         <div>
-            <asp:Label ID="lblBookedMarkedQuestions" runat="server" Visible="false" Font-Bold="true" ForeColor="Red" Text="Bookedmarked Questions"></asp:Label>
+            <asp:Label ID="lblBookedMarkedQuestions" runat="server" Visible="false" Font-Bold="true"
+                ForeColor="Red" Text="Bookedmarked Questions"></asp:Label>
         </div>
         <div class="timerDiv">
             <!-- This goes into the BODY of the file -->
-            Time Remaining : <span id="theTime" class="timeClass"></span> (Question <strong><%=GetCurrentQuestionNo()%></strong> of <strong><%=GetCurrentQuestionCount()%></strong>)<span class="bookmarkQuestion"><asp:CheckBox
-                    ID="chkBookmark" runat="server" Text="Bookmark this question." /></span>
+            Time Remaining : <span id="theTime" class="timeClass"></span>(Question <strong>
+                <%=GetCurrentQuestionNo()%></strong> of <strong>
+                    <%=GetCurrentQuestionCount()%></strong>)<span class="bookmarkQuestion"><asp:CheckBox
+                        ID="chkBookmark" runat="server" Text="Bookmark this question." /></span>
         </div>
-        <div style="margin-bottom:10px">
-            <div style="height:10px;width:100%;background-color:LightGrey">
-            <div style="height:10px;width:<%=Progress%>%;background-color:Green">
-            </div>
+        <div style="margin-bottom: 10px">
+            <div style="height: 10px; width: 100%; background-color: LightGrey">
+                <div style="height: 10px; width: <%=Progress%>%; background-color: Green">
+                </div>
             </div>
         </div>
         <div>
@@ -125,8 +143,10 @@ window.onload = countDown;
             </div>
         </div>
         <div class="navigationDiv">
-                <span style="margin-right:200px"><asp:LinkButton ID="lnkPrevious" runat="server" OnClick="lnkPrevious_Click">Previous</asp:LinkButton></span>
-                <span><asp:LinkButton ID="lnkNext" runat="server" OnClick="lnkNext_Click">Next</asp:LinkButton></span>
+            <span style="margin-right: 200px">
+                <asp:LinkButton ID="lnkPrevious" runat="server" OnClick="lnkPrevious_Click">Previous</asp:LinkButton></span>
+            <span>
+                <asp:LinkButton ID="lnkNext" runat="server" OnClick="lnkNext_Click">Next</asp:LinkButton></span>
         </div>
     </div>
 </asp:Content>
