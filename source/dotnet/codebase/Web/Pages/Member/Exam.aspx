@@ -87,12 +87,21 @@ window.onload = countDown;
         {
         	font-weight:bold;
         }
+        
+        .bookmarkQuestion
+        {
+        	margin-left:20px;
+        }
     </style>
 
     <div class="divCenter">
+        <div>
+            <asp:Label ID="lblBookedMarkedQuestions" runat="server" Visible="false" Font-Bold="true" ForeColor="Red" Text="Bookedmarked Questions"></asp:Label>
+        </div>
         <div class="timerDiv">
             <!-- This goes into the BODY of the file -->
-            Time Remaining : <span id="theTime" class="timeClass"></span> (Question <strong><%=QuestionNo%></strong> of <strong><%=TotalNoOfQuestion%></strong>)
+            Time Remaining : <span id="theTime" class="timeClass"></span> (Question <strong><%=GetCurrentQuestionNo()%></strong> of <strong><%=GetCurrentQuestionCount()%></strong>)<span class="bookmarkQuestion"><asp:CheckBox
+                    ID="chkBookmark" runat="server" Text="Bookmark this question." /></span>
         </div>
         <div style="margin-bottom:10px">
             <div style="height:10px;width:100%;background-color:LightGrey">
