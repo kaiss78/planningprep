@@ -150,7 +150,7 @@
     <div class="clearfloating"></div>
     <div class="OnePixelBorder"></div>
     
-    <div class="homepagenewscontentbox">
+<%--    <div class="homepagenewscontentbox">
         <img src="/Images/news1.jpg" align="left" alt="News 1" title="News 1" style="margin-right:20px;" />                        
         <div class="newsheading">First News</div>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non quam ut libero dictum pharetra.                     
@@ -164,7 +164,7 @@
         <img src="/Images/news3.jpg" align="left" alt="News 3" title="News 3" style="margin-right:20px;"  />
         <div class="newsheading">Third News</div>                        
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non quam ut libero dictum pharetra. 
-    </div>
+    </div>--%>
     <div class="clearfloating"></div>
 </asp:Content>
 
