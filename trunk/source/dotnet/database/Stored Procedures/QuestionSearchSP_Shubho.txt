@@ -1,7 +1,8 @@
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spGetPagedListByKeywordOrCategory]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[spGetPagedListByKeywordOrCategory]
-GO
-CREATE PROCEDURE [dbo].[spGetPagedListByKeywordOrCategory] 
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+go
+
+ALTER PROCEDURE [dbo].[spGetPagedListByKeywordOrCategory] 
 (
 	   @PageNo int,
 	   @PageLength int,
@@ -26,7 +27,7 @@ BEGIN
 		DECLARE @ORDER_BY VARCHAR(100);
 		DECLARE @SQL VARCHAR(4000);
 
-		SET @SELECT_LIST = ' [QuestionID], [Question], [RandomOrder] '
+		SET @SELECT_LIST = ' [tblQuestions].*'
 
 		SET @FROM =  ' [tblQuestions] ';
 
@@ -76,8 +77,4 @@ BEGIN
 		EXEC(@SQL);
 		SET NOCOUNT OFF;
 END
-GO
-
---exec spGetPagedListByKeywordOrCategory  2,10,null, 'Ethics',1,1
-	  
 
