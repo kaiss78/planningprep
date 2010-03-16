@@ -128,6 +128,29 @@ public class SessionCache
         }
     }
 
+    /// <summary>
+    /// Current exam questions that user is navigating through
+    /// </summary>
+    public static IList<QuestionForExamType> CurrentBookmarkedQuestions
+    {
+        get
+        {
+            if (HttpContext.Current.Session == null)
+            {
+                return null;
+            }
+            if (HttpContext.Current.Session["CURRENT_BOOKMARKED_QUESTION_LIST"] == null) return null;
+            return HttpContext.Current.Session["CURRENT_BOOKMARKED_QUESTION_LIST"] as IList<QuestionForExamType>;
+        }
+        set
+        {
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["CURRENT_BOOKMARKED_QUESTION_LIST"] = value;
+            }
+        }
+    }
+
     public static Questions GetNextQuestion(int currentQuestionID)
     {
         IList<Questions> questions = CurrentQuestionList;
@@ -282,6 +305,7 @@ public class SessionCache
 
     }
 
+
     /// <summary>
     /// Determines whether an Exam is ongoing for the user
     /// </summary>
@@ -301,6 +325,29 @@ public class SessionCache
             if (HttpContext.Current.Session != null)
             {
                 HttpContext.Current.Session["EXAM_ONGOING"] = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Determines whether the ongoing exam is for the Bookmarked questions
+    /// </summary>
+    public static bool BookmarkedExamOngoing
+    {
+        get
+        {
+            if (HttpContext.Current.Session == null)
+            {
+                return false;
+            }
+            if (HttpContext.Current.Session["BOOKMARKED_EXAM_ONGOING"] == null) return false;
+            return Convert.ToBoolean(HttpContext.Current.Session["BOOKMARKED_EXAM_ONGOING"]);
+        }
+        set
+        {
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["BOOKMARKED_EXAM_ONGOING"] = value;
             }
         }
     }
@@ -382,6 +429,17 @@ public class SessionCache
         HttpContext.Current.Session["CURRENT_QUESTION"] = QuestionNo;
     }
 
+    public static void SetBookmarkedCurrentQuestionNo(int QuestionNo)
+    {
+        HttpContext.Current.Session["CURRENT_BOOKMARKED_QUESTION"] = QuestionNo;
+    }
+
+    public static int GetBookmarkedCurrentQuestionNo()
+    {
+        int QuestionNo = Convert.ToInt32(HttpContext.Current.Session["CURRENT_BOOKMARKED_QUESTION"]);
+        return QuestionNo;
+    }
+
     public static int GetCurrentQuestionNo()
     {
         int QuestionNo = Convert.ToInt32(HttpContext.Current.Session["CURRENT_QUESTION"]);
@@ -421,6 +479,10 @@ public class SessionCache
         HttpContext.Current.Session.Remove("CURRENT_QUESTION_START_TIME");
         HttpContext.Current.Session.Remove("CURRENT_EXAM_SESSION_ID");
         HttpContext.Current.Session.Remove("ANSWERED_QUESTION_COUNT");
+        HttpContext.Current.Session.Remove("CURRENT_BOOKMARKED_QUESTION");
+        HttpContext.Current.Session.Remove("CURRENT_BOOKMARKED_QUESTION_LIST");
+        HttpContext.Current.Session.Remove("BOOKMARKED_EXAM_ONGOING");
+
     }
 
     #endregion
