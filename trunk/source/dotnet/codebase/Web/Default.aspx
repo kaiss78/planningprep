@@ -66,7 +66,7 @@
         <%--Question of the Week Section Starts--%>
         <%if (_QuestionOfTheWeek != null){ %>
             <div class="contentheading">Question of the Week</div>
-            <table cellpadding="0" cellspacing="0" style="width:100%;">
+            <table cellpadding="" cellspacing="0" style="width:100%;">
                 <colgroup>
                     <col style="width:7%;" />
                     <col style="width:8%;" />
