@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
     
     <div class="contentheading">Member Login</div>
-    <div>
+    <div class="floatleft" style="width:60%">
         This page allows registered users to log in to members only section of planningprep.com. 
         If you are already a member please sign in below. If you are interested in becoming a member, 
         please visit the <a href="/Pages/Public/Register.aspx">join now</a> page.  
@@ -18,10 +18,10 @@
     <%--<table border="0" cellpadding="1" cellspacing="0" style="border-collapse:collapse; width:100%;">
         <tr>
             <td style="padding-top:100px;">--%>
-                
+<div class="floatright">
                 <div id="divMessage" class="ErrorMessageBox" runat="server" visible="false" enableviewstate="false" style="margin-top:15px;"></div>
                 
-                <div style="width:300px; margin:0 auto; margin-top:10px; border:#F7941D 1px solid; padding:0px 10px 10px 10px; background-color:#FFFFFF;">
+                <div style="width:300px; margin:0 auto; border:#F7941D 1px solid; padding:0px 10px 10px 10px; background-color:#FFFFFF;">
                   <table align="center" border="0" cellpadding="2" cellspacing="0" style="width:300px;">
                     <tr>
                         <td align="center" colspan="2" style="height:15px;">&nbsp;</td>
@@ -69,6 +69,8 @@
                     </tr>
                 </table>
                 </div>
+                </div>
+ <div class="clearboth"></div>
             <%--</td>
         </tr>
     </table>--%>
