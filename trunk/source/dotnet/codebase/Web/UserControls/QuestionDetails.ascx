@@ -52,6 +52,9 @@
         
         
         -- ></style>
+        <div class="contentheading">
+    Question Details
+    </div>
     <div class="floatleft QuestionDetails">
     <div id="divQuestion" runat="server">
         <div id="QuestionTitle">
