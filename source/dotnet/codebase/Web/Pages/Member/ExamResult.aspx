@@ -27,7 +27,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
-    <div class="largeText">
+    <div class="contentheading">
     Exam result for Exam #<asp:Label ID="lblExamNo" runat="server" Text=""></asp:Label>
     </div>
     <div class="cogratsMessage">
