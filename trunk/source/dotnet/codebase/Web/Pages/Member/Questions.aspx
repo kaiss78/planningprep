@@ -20,7 +20,7 @@
             hit Go.</p>
         <div>
             <asp:TextBox ID="txtKeyword" runat="server"></asp:TextBox>
-            <asp:Button ID="btnSearch" runat="server" Text="Go" onclick="btnSearch_Click" /></div>
+            <asp:Button ID="btnSearch" CssClass="ButtonCommon" runat="server" Text="Go" onclick="btnSearch_Click" /></div>
     </div>
     <div>
         <p class="contentheading">
@@ -38,7 +38,7 @@
                 <asp:ListItem Text="Plan Implementation" Value="PlanImplementation"></asp:ListItem>
                 <asp:ListItem Text="Ethics" Value="Ethics"></asp:ListItem>
             </asp:DropDownList>
-            <asp:Button ID="btnSearchCategory" onclick="btnSearchCategory_Click" runat="server" Text="Go" />
+            <asp:Button ID="btnSearchCategory"  CssClass="ButtonCommon" onclick="btnSearchCategory_Click" runat="server" Text="Go" />
         </div>
     </div>
     <div>

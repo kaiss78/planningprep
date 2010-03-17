@@ -93,6 +93,9 @@ function Reset() {
             margin-bottom: 5px;
         }
         -- ></style>
+        <div class="contentheading">
+            Answer Question
+        </div>
     <div class="floatleft QuestionDetails">
         <div id="QuestionTitle">
             <asp:Label ID="lblQuestionTitle" runat="server" Text=""></asp:Label>
@@ -110,9 +113,9 @@ function Reset() {
     </div>
     <div class="timer">
         <asp:TextBox ID="txtTime" Width="50px" runat="server"></asp:TextBox>
-        <br>
-        <input type="button" name="start" value="Restart" onclick="Start()">
-        <input type="button" name="stop" value="Stop" onclick="Stop()">
+        <br/><br />
+        <input type="button" class="ButtonCommon" name="start" value="Restart" onclick="Start()">
+        <input type="button" class="ButtonCommon" name="stop" value="Stop" onclick="Stop()">
         <p>
             The timer is provided to see how long you are spending on each question. The AICP
             exam requires you to answer 150 questions in 3 hours, or 1 question every 72 seconds
@@ -123,8 +126,8 @@ function Reset() {
     </div>
     
     <div>
-        <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
+        <asp:Button ID="btnSubmit" CssClass="ButtonCommon" runat="server" Text="Submit" 
             onclick="btnSubmit_Click" />
-        <input type="reset" value="Clear" />
+        <input type="reset" class="ButtonCommon" value="Clear" />
     </div>
 </asp:Content>
