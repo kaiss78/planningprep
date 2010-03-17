@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="UserProfile.ascx.cs" Inherits="UserControls_UserProfile" %>
 
 <div>
+<div class="ErrorMessageBox" id="divErrorMessage" visible="false" runat="server" style="margin-top:15px;"></div>
     <div class="contentheading"><asp:Literal ID="ltrProfileHeading" runat="server"></asp:Literal></div>    
     
     <div id="divInfoText" runat="server" style="margin-bottom:15px;" visible="false">
@@ -17,7 +18,12 @@
             </colgroup>
             <tr>
                 <td>Username<sup>+</sup></td>
-                <td><asp:Label ID="lblUserNameEdit" runat="server" runat="server"></asp:Label></td>            
+                <td><asp:Label ID="lblUserNameEdit" runat="server"></asp:Label><asp:TextBox ID="txtUserName" Visible="false" runat="server" CssClass="TextBoxCommon" MaxLength="20"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvUserName" Visible="false" runat="server" 
+                        ControlToValidate="txtUserName" Display="Dynamic"
+                        ErrorMessage="<br/>Please enter a Username."
+                        ValidationGroup="SaveProfile">
+                    </asp:RequiredFieldValidator></td>            
             </tr>
             <tr>
                 <td>Password</td>
@@ -124,7 +130,7 @@
                 </td>            
             </tr>
             <tr>
-                <td>Date Joined<sup>+</sup></td>
+                <td><asp:Label Text="Date Joined" ID="lblDateJoinedLabel" runat="server" runat="server"></asp:Label></td>
                 <td><asp:Label ID="lblDateJoinedEdit" runat="server" runat="server"></asp:Label></td>            
             </tr>
             <tr>
