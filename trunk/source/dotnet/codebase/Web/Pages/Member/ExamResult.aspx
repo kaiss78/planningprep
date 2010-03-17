@@ -81,7 +81,7 @@
         <div class="detailsResult">
             <asp:GridView ID="gvResultDetails" runat="server" AutoGenerateColumns="False" 
                 onrowdatabound="gvResultDetails_RowDataBound" BorderStyle="None" 
-                BorderWidth="0px" CellPadding="5">
+                BorderWidth="0px" BorderColor="White" CellPadding="5">
                 <RowStyle CssClass="EvenRowListing" />
                 <Columns>
                     <asp:BoundField DataField="SerialNo" HeaderText="Question No" />
