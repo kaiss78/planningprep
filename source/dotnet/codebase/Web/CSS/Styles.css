@@ -44,7 +44,7 @@ img.PreviewImage
 }
 .bottomcontentcontainer
 {
-	padding:20px;
+	padding:5px 20px 20px 20px;
 	min-height:250px;
 }
 .homepagecontentbox
@@ -57,10 +57,12 @@ img.PreviewImage
 }
 .contentheading
 {
+	background-color:lightGrey;
 	font-size:12px;
 	font-weight:bold;
 	color:#666666;
 	margin:15px 0px 15px 0px;
+	padding:5px;
 }
 .newsheading
 {
