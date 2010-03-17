@@ -1,0 +1,8 @@
+CREATE VIEW [dbo].[qryUserTotalTrendsIssues]
+AS
+SELECT     dbo.tblAnswers.UserID, COUNT(dbo.tblAnswers.QuestionID) AS Taken, SUM(dbo.tblAnswers.Correct) AS Correct, SUM(dbo.tblAnswers.Time) 
+                      AS TotalTime
+FROM         dbo.tblAnswers INNER JOIN
+                      dbo.tblQuestions ON dbo.tblAnswers.QuestionID = dbo.tblQuestions.QuestionID
+WHERE     (dbo.tblQuestions.TrendsIssues = 1)
+GROUP BY dbo.tblAnswers.UserID
