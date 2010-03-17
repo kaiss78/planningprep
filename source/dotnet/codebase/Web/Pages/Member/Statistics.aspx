@@ -94,5 +94,12 @@
         <div id="divCategoryContainer" runat="server"></div>        
     </div>
     <div class="clearfloating"></div>
+    
+    <div style="margin-top:15px;">
+        <b>PLEASE NOTE:</b> The number of questions indicated under each question category 
+        does not add up to the overall question total because questions that fall under 
+        two or more categories are counted under each category.
+    </div>
+    
 </asp:Content>
 
