@@ -101,18 +101,18 @@ public partial class UserControls_UserProfile : System.Web.UI.UserControl
             divInfoText.Visible = true;
             hplProfileEdit.Visible = false;
 
-            txtFirstName.Text = user.FirstName;
-            txtLastName.Text = user.LastName;
+            txtFirstName.Text = user.FirstName.Trim();
+            txtLastName.Text = user.LastName.Trim();
             lblUserNameEdit.Text = GetFormatedText(user.Username);
-            txtUserPassword.Attributes.Add("value", user.Password);
+            txtUserPassword.Attributes["value"] = user.Password;
 
-            txtAddress.Text = user.Address;
-            txtEmail.Text = user.Author_email;
-            txtPhoneNumber.Text = user.HomePhone;
-            txtHomePage.Text = user.Homepage;
-            txtCity.Text = user.City;
-            txtState.Text = user.State;
-            txtZip.Text = user.ZIP;
+            txtAddress.Text = user.Address.Trim();
+            txtEmail.Text = user.Author_email.Trim();
+            txtPhoneNumber.Text = user.HomePhone.Trim();
+            txtHomePage.Text = user.Homepage.Trim();
+            txtCity.Text = user.City.Trim();
+            txtState.Text = user.State.Trim();
+            txtZip.Text = user.ZIP.Trim();
             lblDateJoinedEdit.Text = user.Join_date.ToString(AppConstants.ValueOf.DATE_FROMAT_DISPLAY);
             if (!String.IsNullOrEmpty(user.Mode))
                 ddlQuestionMode.SelectedValue = user.Mode;
