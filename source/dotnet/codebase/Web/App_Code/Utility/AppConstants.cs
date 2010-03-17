@@ -26,6 +26,11 @@ public class AppConstants
         public const string EDIT_QUESTION = "~/Pages/Admin/EditQuestion.aspx";
         public const string MANAGE_QUESTIONS = "~/Pages/Admin/ManageQuestions.aspx";
         public const string QUESTION_DETAILS = "~/Pages/Member/QuestionDetails.aspx";
+
+        public const string EDIT_USERS = "~/Pages/Admin/EditUser.aspx";
+        public const string MANAGE_USERS = "~/Pages/Admin/ManageUsers.aspx";
+        public const string USER_DETAILS = "~/Pages/Member/UserDetails.aspx";
+
         public const string ANSWER_QUESTION = "~/Pages/Member/AnswerQuestion.aspx";
         public const string EDIT_PROFILE = "/Pages/Member/EditProfile.aspx";
         public const string USER_PROFILE = "/Pages/Member/UserProfile.aspx";   
@@ -78,6 +83,7 @@ public class AppConstants
         public const string EXAM_ACTION = "Action";
         public const string ANSWER = "Answer";
         public const string ERROR_CODE = "ErrorCode";
+        public const string USER_ID = "UserID";
         public const string VIEW_ALL = "ViewAll";
         public const string LINK = "Link";
         public const string LINK_ID = "LinkID";
