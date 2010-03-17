@@ -37,7 +37,7 @@ public class AppConstants
         public const string JOIN_OUTCOME = "~/Pages/Public/JoinOutcome.aspx";
         public const string ANSWER_OF_THE_WEEK_MESSAGE = "~/Pages/Public/AnswerOfTheWeekMessage.aspx";
         public const string VISIT_FRAME = "~/Pages/Public/VisitFrame.aspx";
-        public const string SHOW_CONTENT = "~/Pages/Public/ShowContent.aspx";
+        public const string SHOW_CONTENT = "ShowContent.aspx";
         public const string TERMS_OF_USE = "/Pages/Public/TermsOfUse.aspx";
         public const string ALERT = "/Pages/Public/Alert.aspx";        
     }
