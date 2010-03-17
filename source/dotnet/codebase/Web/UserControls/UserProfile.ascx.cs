@@ -28,6 +28,11 @@ public partial class UserControls_UserProfile : System.Web.UI.UserControl
         get { return _IsEditMode; }
         set { _IsEditMode = value; }
     }
+    public bool ShowInfoText
+    {
+        get;
+        set;
+    }
     protected void Page_Load(object sender, EventArgs e)
     {        
         if (!IsPostBack)
@@ -56,7 +61,10 @@ public partial class UserControls_UserProfile : System.Web.UI.UserControl
             ltrProfileHeading.Text = String.Format("Profile for {0} {1} ({2})", user.FirstName, user.LastName, user.Username);
             Page.Title = AppUtil.GetPageTitle(String.Format("Member Profile - {0}", ltrProfileHeading.Text));
             hplProfileEdit.NavigateUrl = AppConstants.Pages.EDIT_PROFILE;
-            divInfoText.Visible = true;
+            if (ShowInfoText)
+            {
+                divInfoText.Visible = true;
+            }
 
             lblFirstName.Text = GetFormatedText(user.FirstName);
             lblLastName.Text = GetFormatedText(user.LastName);
@@ -88,12 +96,7 @@ public partial class UserControls_UserProfile : System.Web.UI.UserControl
     {
         UserManager manager = new UserManager();
         PlanningPrepUser user = manager.Get(this.UserID);
-        if (user == null)
-        {
-            ltrProfileHeading.Text = "Sorry! The requested user profile was not found.";
-            pnlEditProfile.Visible = false;
-        }
-        else
+        if (user != null)
         {
             ltrProfileHeading.Text = String.Format("Modify Profile for {0} {1} ({2})", user.FirstName, user.LastName, user.Username);
             Page.Title = AppUtil.GetPageTitle(ltrProfileHeading.Text);
@@ -117,15 +120,59 @@ public partial class UserControls_UserProfile : System.Web.UI.UserControl
             if (!String.IsNullOrEmpty(user.Mode))
                 ddlQuestionMode.SelectedValue = user.Mode;
         }
+        else
+        {
+            ltrProfileHeading.Text = String.Format("Add a new user");
+            Page.Title = AppUtil.GetPageTitle(ltrProfileHeading.Text);
+            divInfoText.InnerHtml = "Use this form below to add a User in the membership database.";
+            divInfoText.Visible = true;
+            hplProfileEdit.Visible = false;
+
+            txtUserName.Visible = true;
+            rfvUserName.Visible = true;
+            lblUserNameEdit.Visible = false;
+            lblDateJoinedEdit.Visible = false;
+            lblDateJoinedLabel.Visible = false;
+        }
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
         if (Page.IsValid)
         {
+            if (txtUserName.Visible)
+            {
+                if (IsUserNameExists(txtUserName.Text.Trim()))
+                {
+                    divErrorMessage.InnerHtml = String.Format("Sorry! The Username <b>{0}</b> has already been taken. Please choose another one.", txtUserName.Text);
+                    divErrorMessage.Visible = true;
+                    return;
+                }
+                if (IsEmailExists(txtEmail.Text))
+                {
+                    divErrorMessage.InnerHtml = String.Format("Sorry! The Email <b>{0}</b> has already been taken. Please choose another one.", txtEmail.Text);
+                    divErrorMessage.Visible = true;
+                    return;
+                }
+            }
+
             SaveUserInfo();
-            Response.Redirect(AppConstants.Pages.USER_PROFILE, false);
+            Response.Redirect(AppConstants.Pages.MANAGE_USERS, false);
             return;
         }
+    }
+
+    protected bool IsUserNameExists(string userName)
+    {
+        App.Domain.Users.UserManager manager = new App.Domain.Users.UserManager();
+        PlanningPrepUser user = manager.GetUserByUserName(userName);
+        return user == null ? false : true;
+    }
+
+    private bool IsEmailExists(string email)
+    {
+        App.Domain.Users.UserManager manager = new App.Domain.Users.UserManager();
+        PlanningPrepUser user = manager.GetUserByEmail(email);
+        return user == null ? false : true;
     }
 
     protected void SaveUserInfo()
