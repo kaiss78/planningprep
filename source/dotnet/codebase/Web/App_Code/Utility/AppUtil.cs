@@ -263,4 +263,9 @@ public class AppUtil
     {
         return url.ToLower().StartsWith("http://") ? url : String.Format("http://{0}", url);
     }
+
+    public static string GetRemoteIPAddress()
+    {
+        return HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+    }
 }
