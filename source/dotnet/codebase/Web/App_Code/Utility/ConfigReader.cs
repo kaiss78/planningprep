@@ -16,6 +16,7 @@ using System.Xml.Linq;
 public class ConfigReader
 {
     private const String ADMIN_QUESTION_LIST_SIZE = "AdminQuestionListSize";
+    private const String ADMIN_USER_LIST_SIZE = "AdminUserListSize";
     private const String ADMIN_EMAIL = "AdminEmail";
     private const String SMTP_HOST = "SmtpHost";
     private const String SMTP_PORT = "SmtpPort";
@@ -38,6 +39,17 @@ public class ConfigReader
         {
             int pageSize = 0;
             String paramValue = GetAppSettingsValue(ADMIN_QUESTION_LIST_SIZE);
+            int.TryParse(paramValue, out pageSize);
+            return pageSize;
+        }
+    }
+
+    public static int AdminUserListSize
+    {
+        get
+        {
+            int pageSize = 0;
+            String paramValue = GetAppSettingsValue(ADMIN_USER_LIST_SIZE);
             int.TryParse(paramValue, out pageSize);
             return pageSize;
         }
