@@ -88,9 +88,9 @@ public partial class Login : BasePage
 
 
             ///Track the Login Data
-            String IP = Request.ServerVariables["REMOTE_ADDR"];
+            //String IP = Request.ServerVariables["REMOTE_ADDR"];
             //IP = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            userManager.TrackLoginData(user.Author_ID, IP, DateTime.Now);
+            userManager.TrackLoginData(user.Author_ID, AppUtil.GetRemoteIPAddress(), DateTime.Now);
 
             ///TODO: Promo Stuff Is Not Implemented. Because it uses a static user name "dburnham".
             ///But we have taken it in the watch list.
