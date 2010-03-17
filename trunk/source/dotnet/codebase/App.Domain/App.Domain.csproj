@@ -52,6 +52,7 @@
     <Compile Include="Comments\CommentManager.cs" />
     <Compile Include="DomainInitializer.cs" />
     <Compile Include="Exams\ExamManager.cs" />
+    <Compile Include="Exams\ExamStatisticManager.cs" />
     <Compile Include="Exams\UserExamManager.cs" />
     <Compile Include="IBusinessObject.cs" />
     <Compile Include="Links\LinkManager.cs" />
