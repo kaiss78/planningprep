@@ -80,10 +80,7 @@ public partial class Login : BasePage
             {
                 user.Rights = AppConstants.UserRoles.MEMBER;
             }
-            else
-            {
-                user.Rights = AppConstants.UserRoles.ADMINISTRATOR;
-            }
+            
             SessionCache.CurrentUser = user;
 
 
