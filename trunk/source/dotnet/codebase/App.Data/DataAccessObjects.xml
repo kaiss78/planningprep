@@ -16,5 +16,5 @@
   <entity name="QuestionLink" daoType="App.Data.Questions.QuestionLinkDAO, App.Data" />
   <entity name="Comment" daoType="App.Data.Comments.CommentDAO, App.Data" />
   <entity name="Answers" daoType="App.Data.Answers.AnswersDAO, App.Data" />
-  
+  <entity name="ExamStatistic" daoType="App.Data.Exams.ExamStatisticDAO, App.Data" />
 </entity-daos>
