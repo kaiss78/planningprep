@@ -258,4 +258,9 @@ public class AppUtil
     {
         return String.Format("{0}?{1}={2}", AppConstants.Pages.SHOW_CONTENT, AppConstants.QueryString.ID, contentId);
     }
+
+    public static string GetCompleteUrl(String url)
+    {
+        return url.ToLower().StartsWith("http://") ? url : String.Format("http://{0}", url);
+    }
 }
