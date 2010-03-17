@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PaginatedUsers.ascx.cs"
     Inherits="UserControls_PaginatedUsers" %>
 <%@ Register Src="~/UserControls/Pager.ascx" TagName="Pager" TagPrefix="Pager" %>
-<div class="contentheading" style="float: left;">
+<div class="contentheading">
     User List</div>
 <div>
     <asp:Label ID="lblNoUserFoundMessage" Visible="false" runat="server" Text="No User found."></asp:Label>

@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PaginatedQuestions.ascx.cs"
     Inherits="UserControls_PaginatedQuestions" %>
 <%@ Register Src="~/UserControls/Pager.ascx" TagName="Pager" TagPrefix="Pager" %>
-<div class="contentheading" style="float: left;">
+<div class="contentheading">
     Question List</div>
 <div>
     <asp:Label ID="lblNoQuestionFoundMessage" Visible="false" runat="server" Text="No Question found."></asp:Label>
