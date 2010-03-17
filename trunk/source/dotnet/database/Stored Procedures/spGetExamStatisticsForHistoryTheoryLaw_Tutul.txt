@@ -1,0 +1,40 @@
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spGetExamStatisticsForHistoryTheoryLaw]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spGetExamStatisticsForHistoryTheoryLaw]
+GO
+-- =============================================
+-- Author:		Shubho (Smart Aspects Inc.)
+-- Create date: 18th March, 2010
+-- Description:	Gets Exam Related Statistics
+-- =============================================
+CREATE PROCEDURE dbo.spGetExamStatisticsForHistoryTheoryLaw
+	@UserID INT
+	, @IsSearchByDate BIT
+	, @FilterDate DateTime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    IF (@IsSearchByDate = 0)
+	BEGIN
+		SELECT UserID
+			, Taken
+			, Correct
+			, TotalTime 
+		FROM qryUserTotalHistoryTheoryLaw 	
+		WHERE UserID = @UserID	
+	END
+	ELSE
+	BEGIN	
+		SELECT tblAnswers.UserID
+			, Count(tblAnswers.QuestionID) AS Taken
+			, Sum(tblAnswers.Correct) AS Correct
+			, Sum(tblAnswers.Time) AS TotalTime 
+		FROM tblAnswers INNER JOIN tblQuestions ON tblAnswers.QuestionID = tblQuestions.QuestionID 
+		WHERE (((tblQuestions.HistoryTheoryLaw) = 1) AND ((tblAnswers.TimeStamp) > @FilterDate)) 
+		GROUP BY tblAnswers.UserID 
+		HAVING (((tblAnswers.UserID) = @UserID));		
+	END
+END
+GO

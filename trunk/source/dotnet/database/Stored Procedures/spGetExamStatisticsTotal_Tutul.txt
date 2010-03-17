@@ -1,0 +1,40 @@
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spGetExamStatisticsTotal]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spGetExamStatisticsTotal]
+GO
+-- =============================================
+-- Author:		Shubho (Smart Aspects Inc.)
+-- Create date: 18th March, 2010
+-- Description:	Gets Exam Related Statistics
+-- =============================================
+CREATE PROCEDURE dbo.spGetExamStatisticsTotal
+	@UserID INT
+	, @IsSearchByDate BIT
+	, @FilterDate DateTime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    IF (@IsSearchByDate = 0)
+	BEGIN
+		SELECT UserID
+			, Taken
+			, Correct
+			, TotalTime 
+		FROM qryUserTotal 	
+		WHERE UserID = @UserID	
+	END
+	ELSE
+	BEGIN	
+		SELECT tblAnswers.UserID
+			, Count(tblAnswers.QuestionID) AS Taken
+			, Sum(tblAnswers.Correct) AS Correct
+			, Sum(tblAnswers.Time) AS TotalTime
+        FROM tblAnswers
+     	WHERE (((tblAnswers.TimeStamp) > @FilterDate))
+     	GROUP BY tblAnswers.UserID
+     	HAVING (((tblAnswers.UserID)=@UserID));
+	END
+END
+GO
