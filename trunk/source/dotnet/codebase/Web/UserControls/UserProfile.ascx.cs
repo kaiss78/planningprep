@@ -97,7 +97,7 @@ public partial class UserControls_UserProfile : System.Web.UI.UserControl
         {
             ltrProfileHeading.Text = String.Format("Modify Profile for {0} {1} ({2})", user.FirstName, user.LastName, user.Username);
             Page.Title = AppUtil.GetPageTitle(ltrProfileHeading.Text);
-            divInfoText.InnerHtml = "Use this form below to update your data in our membership database. Make any changes below and press submit.";
+            divInfoText.InnerHtml = "Use this form below to update data in our membership database. Make any changes below and press submit.";
             divInfoText.Visible = true;
             hplProfileEdit.Visible = false;
 
