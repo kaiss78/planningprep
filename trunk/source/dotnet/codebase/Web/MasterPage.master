@@ -20,7 +20,8 @@
         function ResetLogoPosition()
         {
             var position = $('#divTopContainer').position();
-            $('#divLogoContainer').css({'left' : position.left, 'top' : (position.top + 40)});
+            $('#divLogoContainer').css({'left' : position.left, 'top' : (position.top + 40)}).fadeIn('slow');
+            
         }
         $(window).resize(function(){
             ResetLogoPosition();
