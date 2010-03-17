@@ -21,6 +21,9 @@
     </div>
     <div class="homepagecontentbox">
         <Chart:Chart ID="ucChart" runat="server" />
+    </div>
+    <div class="clearboth"></div>
+    <div>
         <div style="margin-top:15px;">
             <a href="/Default.aspx">planningprep.com</a> provides members with hundreds of questions and internet links aimed at 
             refreshing and broadening their planning knowledge to better prepare them for the 
@@ -31,6 +34,7 @@
 
         </div>
     </div>
+    
     <div class="clearfloating"></div>
     
     
