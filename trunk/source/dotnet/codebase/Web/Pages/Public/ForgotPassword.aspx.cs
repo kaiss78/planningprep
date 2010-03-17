@@ -20,6 +20,10 @@ public partial class Pages_Public_ForgotPassword : BasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         Page.Title = AppUtil.GetPageTitle("Lost Login Information");
+        if (!IsPostBack)
+        {
+            txtEmail.Focus();
+        }
     }
     protected void btnSend_Click(object sender, EventArgs e)
     {
@@ -65,6 +69,8 @@ public partial class Pages_Public_ForgotPassword : BasePage
             catch { }
 
             AppUtil.ShowMessageBox(divMessageBox, "Your membership information has been sent to your email address.", false);
+            pnlDetails.Visible = false;
+            pnlMessage.Visible = false;
             //SendEmailNotification(user);
         }
     }
