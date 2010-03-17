@@ -108,7 +108,7 @@ public partial class Login : BasePage
         {
             SessionCache.AttemptedUserName = userName;
             SessionCache.FailedLoginAttemptCount = SessionCache.FailedLoginAttemptCount + 1;
-            AppUtil.ShowMessageBox(divMessage, "Login Failed. Your login was unsuccessful. Please check your Username and Password and try again.", true);
+            AppUtil.ShowMessageBox(divMessage, "Login Failed. Your login was unsuccessful. Please check your Username, Password and try again.", true);
         }
     }
     protected void LogOutUser()
