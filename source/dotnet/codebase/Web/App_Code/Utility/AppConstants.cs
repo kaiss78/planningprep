@@ -28,7 +28,7 @@ public class AppConstants
         public const string QUESTION_DETAILS = "/Pages/Member/QuestionDetails.aspx";
         public const string EDIT_USERS = "/Pages/Admin/EditUser.aspx";
         public const string MANAGE_USERS = "/Pages/Admin/ManageUsers.aspx";
-        public const string USER_DETAILS = "/Pages/Member/UserDetails.aspx";
+        public const string USER_DETAILS = "/Pages/Admin/UserDetails.aspx";
         public const string ANSWER_QUESTION = "/Pages/Member/AnswerQuestion.aspx";
         public const string EDIT_PROFILE = "/Pages/Member/EditProfile.aspx";
         public const string USER_PROFILE = "/Pages/Member/UserProfile.aspx";   
