@@ -144,9 +144,10 @@ window.onload = countDown;
         </div>
         <div class="navigationDiv">
             <span style="margin-right: 200px">
-                <asp:LinkButton ID="lnkPrevious" runat="server" OnClick="lnkPrevious_Click">Previous</asp:LinkButton></span>
+                <asp:Button ID="lnkPrevious" CssClass="ButtonCommon" runat="server" OnClick="lnkPrevious_Click" Text="Previous" />
+            </span>
             <span>
-                <asp:LinkButton ID="lnkNext" runat="server" OnClick="lnkNext_Click">Next</asp:LinkButton></span>
+                <asp:Button ID="lnkNext" runat="server" CssClass="ButtonCommon" OnClick="lnkNext_Click" Text="Next" /></span>
         </div>
     </div>
 </asp:Content>
