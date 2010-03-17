@@ -113,7 +113,7 @@ public partial class UserControls_PaginatedUsers : BaseUserControl
 
             HyperLink hlinkUser = e.Item.FindControl("hlinkUser") as HyperLink;
             
-            hlinkUser.NavigateUrl = String.Format("{0}?{1}={2}", AppConstants.Pages.QUESTION_DETAILS, AppConstants.QueryString.USER_ID, User.Author_ID);
+            hlinkUser.NavigateUrl = String.Format("{0}?{1}={2}", AppConstants.Pages.USER_DETAILS, AppConstants.QueryString.USER_ID, User.Author_ID);
 
             hlinkUser.Text = lblUser.Text;
 
