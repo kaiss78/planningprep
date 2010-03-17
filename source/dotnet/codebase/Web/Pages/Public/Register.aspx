@@ -133,10 +133,10 @@
                         ValidationGroup="Register">
                     </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator id="revEmail" runat="server"
-                        ControlToValidate="txtEmail"
+                        ControlToValidate="txtEmail" Display="Dynamic"
                         ValidationExpression=".*@.*\..*"
                         ErrorMessage="<br/>Please enter a valid Email address."
-                        display="Dynamic">
+                        ValidationGroup="Register">
                     </asp:RegularExpressionValidator>
                 </td>
             </tr>
