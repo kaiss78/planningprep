@@ -27,6 +27,8 @@ public class AppConstants
         public const string MANAGE_QUESTIONS = "~/Pages/Admin/ManageQuestions.aspx";
         public const string QUESTION_DETAILS = "~/Pages/Member/QuestionDetails.aspx";
         public const string ANSWER_QUESTION = "~/Pages/Member/AnswerQuestion.aspx";
+        public const string EDIT_PROFILE = "/Pages/Member/EditProfile.aspx";
+        public const string USER_PROFILE = "/Pages/Member/UserProfile.aspx";   
         public const string JOIN_OUTCOME = "~/Pages/Public/JoinOutcome.aspx";
         public const string ANSWER_OF_THE_WEEK_MESSAGE = "~/Pages/Public/AnswerOfTheWeekMessage.aspx";
         public const string VISIT_FRAME = "~/Pages/Public/VisitFrame.aspx";
