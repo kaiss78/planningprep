@@ -109,7 +109,9 @@ public class AppConstants
     {
         public const string GENERAL_EMAIL_TEMPLATE = "GeneralTemplate.html";
     }
-
+    /// <summary>
+    /// Custom Tag Constants in the Email Templates
+    /// </summary>
     public class ETConstants
     {
         public const string MESSAGE = "[*MESSAGE*]";
