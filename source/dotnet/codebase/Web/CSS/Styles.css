@@ -83,7 +83,7 @@ img.PreviewImage
 .menuecontainer
 {
 	height:20px;
-	background-color:#FF9900;	
+	background-color:#499779;	
 	text-align:center;
 }
 .menuitem
@@ -121,7 +121,7 @@ A.headermenu:hover
 {
 	position:absolute;
 	z-index:10;
-	background-color:#FF9900;
+	background-color:#499779;
 	top:20px;	
 	width:260px;
 	height:36px;
@@ -136,24 +136,24 @@ A.headermenu:hover
 	clear:both;
 }
 .OddRowListing {
-	color: #4e4e4e;
+	color: #1A5C3B;
 	font-size: 11px;
-	background-color: #FBF3E6;
+	background-color: #E7F7F2;
 	height: 21px;
 	padding: 10px;
 }
 .OddRowListing:hover {
-	background-color: #FCEACF;
+	background-color: #94E2BA;
 }
 .EvenRowListing {
-	color: #4e4e4e;
+	color: #1A5C3B;
 	font-size: 11px;
-	background-color: #FCF7F0;
+	background-color: #F4FBF9;
 	height: 21px;
 	padding: 10px;
 }
 .EvenRowListing:hover {
-	background-color: #FCEACF;
+	background-color: #94E2BA;
 }
 .listtitle
 {
@@ -185,7 +185,7 @@ th{
     height: 22px;
 }*/
 .ButtonCommon {
-	background-color:#FF9900;/*#C68F3C;*/
+	background-color:#499779;/*#C68F3C;*/
 	border-style:outset;
 	border-width:1px;
 	color:#FFFFFF;
@@ -197,7 +197,7 @@ th{
 }
 
 input:button {
-	background-color:#FF9900;/*#C68F3C;*/
+	background-color:#499779;/*#C68F3C;*/
 	border-style:outset;
 	border-width:1px;
 	color:#FFFFFF;
@@ -326,7 +326,7 @@ input:button {
 }
 A:link
 {
-	color:#C66200;
+	color:#1A5C3B;
 }
 A:hover
 {
@@ -416,7 +416,7 @@ div.PageHeader, div.PageHeader span {
 
 .divRate
 {
-	border:#FF9900 1px solid;
+	border:#499779 1px solid;
 	padding:5px;
 	margin-bottom:10px	
 }
