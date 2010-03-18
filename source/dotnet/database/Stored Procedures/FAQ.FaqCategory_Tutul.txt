@@ -1,0 +1,141 @@
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spFaqCategoryDelete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spFaqCategoryDelete]
+GO
+CREATE PROCEDURE [dbo].[spFaqCategoryDelete] 
+@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/18/2010 8:05:53 PM
+-- Description: Delete Into Table FaqCategory
+-- =============================================
+-- spFaqCategoryDelete ...........
+BEGIN
+
+		DELETE FROM FaqCategory
+		WHERE [FaqCatID]=@Id
+
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spFaqCategoryGetById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spFaqCategoryGetById]
+GO
+CREATE PROCEDURE [dbo].[spFaqCategoryGetById] 
+	@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/18/2010 8:05:53 PM
+-- Description: GetById Into Table FaqCategory
+-- =============================================
+-- spFaqCategoryGetById ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[FaqCategory] tab WITH(NOLOCK)
+		WHERE tab.[FaqCatID]=@Id
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spFaqCategoryGetAll]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spFaqCategoryGetAll]
+GO
+CREATE PROCEDURE [dbo].[spFaqCategoryGetAll] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/18/2010 8:05:53 PM
+-- Description: GetAll Into Table FaqCategory
+-- =============================================
+-- spFaqCategoryGetAll ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[FaqCategory] tab  WITH(NOLOCK)
+		ORDER BY tab.[FaqCatID] DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spFaqCategorySet]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spFaqCategorySet]
+GO
+CREATE PROCEDURE [dbo].[spFaqCategorySet] 
+	 @FaqCatID int
+	, @Category nvarchar(200) 
+	, @CatOrder int
+	, @TimeStamp datetime
+	, @EnteredBy nvarchar(50) 
+
+As
+Begin
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/18/2010 8:05:53 PM
+-- Description: Set Into Table FaqCategory
+-- =============================================
+-- spFaqCategorySet ...........
+		IF (@FaqCatID >0)
+		Begin
+			Update [dbo].[FaqCategory]
+				 Set [Category]= @Category
+				, [CatOrder]= @CatOrder
+				, [TimeStamp]= @TimeStamp
+				, [EnteredBy]= @EnteredBy
+				 
+			 Where [FaqCatID]= @FaqCatID
+	End
+	Else
+	Begin
+		Insert Into [dbo].[FaqCategory]
+			( [Category]
+			, [CatOrder]
+			, [TimeStamp]
+			, [EnteredBy]
+			 ) 
+		 VALUES 
+			( @Category
+			, @CatOrder
+			, @TimeStamp
+			, @EnteredBy
+			 ) 
+		 
+		Set @FaqCatID= Scope_Identity()
+	End
+ 
+ Select @FaqCatID as FaqCatID 
+End
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spFaqCategoryGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spFaqCategoryGetForUser]
+GO
+CREATE PROCEDURE [dbo].[spFaqCategoryGetForUser] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/18/2010 8:05:53 PM
+-- Description: GetForUser Into Table FaqCategory
+-- =============================================
+-- spFaqCategoryGetForUser ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[FaqCategory] tab  WITH(NOLOCK)
+	ORDER BY tab.[FaqCatID] DESC
+
+	SET NOCOUNT OFF;
+END
+GO
+

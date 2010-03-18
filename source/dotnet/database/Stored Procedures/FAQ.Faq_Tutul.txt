@@ -1,0 +1,145 @@
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spFaqDelete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spFaqDelete]
+GO
+CREATE PROCEDURE [dbo].[spFaqDelete] 
+@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/18/2010 8:14:31 PM
+-- Description: Delete Into Table Faq
+-- =============================================
+-- spFaqDelete ...........
+BEGIN
+
+		DELETE FROM Faq
+		WHERE [FaqID]=@Id
+
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spFaqGetById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spFaqGetById]
+GO
+CREATE PROCEDURE [dbo].[spFaqGetById] 
+	@Id int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/18/2010 8:14:31 PM
+-- Description: GetById Into Table Faq
+-- =============================================
+-- spFaqGetById ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[Faq] tab WITH(NOLOCK)
+		WHERE tab.[FaqID]=@Id
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spFaqGetAll]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spFaqGetAll]
+GO
+CREATE PROCEDURE [dbo].[spFaqGetAll] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/18/2010 8:14:31 PM
+-- Description: GetAll Into Table Faq
+-- =============================================
+-- spFaqGetAll ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[Faq] tab  WITH(NOLOCK)
+		ORDER BY tab.[FaqID] DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spFaqSet]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spFaqSet]
+GO
+CREATE PROCEDURE [dbo].[spFaqSet] 
+	 @FaqID int
+	, @Question nvarchar (max)
+	, @Answer nvarchar (max)
+	, @FaqCatID int
+	, @TimeStamp datetime
+	, @EnteredBy nvarchar(50) 
+
+As
+Begin
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/18/2010 8:14:31 PM
+-- Description: Set Into Table Faq
+-- =============================================
+-- spFaqSet ...........
+		IF (@FaqID >0)
+		Begin
+			Update [dbo].[Faq]
+				 Set [Question]= @Question
+				, [Answer]= @Answer
+				, [FaqCatID]= @FaqCatID
+				, [TimeStamp]= @TimeStamp
+				, [EnteredBy]= @EnteredBy
+				 
+			 Where [FaqID]= @FaqID
+	End
+	Else
+	Begin
+		Insert Into [dbo].[Faq]
+			( [Question]
+			, [Answer]
+			, [FaqCatID]
+			, [TimeStamp]
+			, [EnteredBy]
+			 ) 
+		 VALUES 
+			( @Question
+			, @Answer
+			, @FaqCatID
+			, @TimeStamp
+			, @EnteredBy
+			 ) 
+		 
+		Set @FaqID= Scope_Identity()
+	End
+ 
+ Select @FaqID as FaqID 
+End
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spFaqGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spFaqGetForUser]
+GO
+CREATE PROCEDURE [dbo].[spFaqGetForUser] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/18/2010 8:14:31 PM
+-- Description: GetForUser Into Table Faq
+-- =============================================
+-- spFaqGetForUser ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[Faq] tab  WITH(NOLOCK)
+	ORDER BY tab.[FaqID] DESC
+
+	SET NOCOUNT OFF;
+END
+GO
+
