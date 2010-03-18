@@ -6,11 +6,10 @@
     
     <div class="contentheading">Member Login</div>
     <div class="floatleft" style="width:60%">
-        This page allows registered users to log in to members only section of planningprep.com. 
-        If you are already a member please sign in below. If you are interested in becoming a member, 
-        please visit the <a href="/Pages/Public/Register.aspx">join now</a> page.  
-        If you have forgotten your login information, <a href="/Pages/Public/ForgotPassword.aspx">click here</a>.
-
+    <div>
+        This page allows registered users to log in to members only section of planningprep.com. If you are already a member please sign in below. If you are interested in becoming a member, please visit the <a href="/Pages/Public/Register.aspx">join now</a> page. If you have forgotten your login information, <a href="/Pages/Public/ForgotPassword.aspx">click here</a>.
+        </div>
+        <div id="divMessage" class="ErrorMessageBox" runat="server" visible="false" enableviewstate="false" style="margin-top:15px;"></div>
     </div>
 
 
@@ -19,7 +18,7 @@
         <tr>
             <td style="padding-top:100px;">--%>
             <div class="floatright">
-                <div id="divMessage" class="ErrorMessageBox" runat="server" visible="false" enableviewstate="false" style="margin-top:15px;"></div>
+                
                 
                 <div class="loginbox">
                   <table align="center" border="0" cellpadding="2" cellspacing="0" style="width:300px;">
