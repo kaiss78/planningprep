@@ -6,15 +6,18 @@
     function ExpandCollapse(id) {
         var divName = "Exam" + id;
         var labelName = "Label" + id;
+        var imageName = "Img" + id;
         
         var ExpandCollapse = $("span[examsessionid=" + labelName + "]").text();
         if (ExpandCollapse == "+") {
             $("div[examsessionid=" + divName + "]").fadeIn();
             $("span[examsessionid=" + labelName + "]").text("-");
+            $("img[examsessionid=" + imageName + "]").attr("src", "../../images/minus.gif");
         }
         else {
             $("div[examsessionid=" + divName + "]").fadeOut();
             $("span[examsessionid=" + labelName + "]").text("+");
+            $("img[examsessionid=" + imageName + "]").attr("src", "../../images/plus.gif");
         }
         
     }
@@ -36,6 +39,7 @@
         	font-size:11pt;
         	margin-bottom:10px;
         	background-color:lightGray;
+        	padding-left:2px;
         }
         .NewExam
         {
@@ -58,7 +62,7 @@
         <asp:Repeater ID="rptExams" runat="server" OnItemDataBound="rptExams_ItemDataBound">
             <ItemTemplate>
                 <asp:Panel ID="pnlExam" runat="server" CssClass="ExamTitle">
-                    <asp:Label ID="lblExpandCollapse" runat="server" Text="+"></asp:Label><asp:Label ID="lblExamName" CssClass="ExamTitle" runat="server" Text=""></asp:Label>
+                    <asp:Image ID="imgExpandCollapse" ImageUrl="~/Images/plus.gif" runat="server" /><asp:Label ID="lblExpandCollapse" style="display:none" runat="server" Text="+"></asp:Label><asp:Label ID="lblExamName" CssClass="ExamTitle" runat="server" Text=""></asp:Label>
                 </asp:Panel>
                 <asp:Panel ID="pnlExamSession" runat="server">
                
