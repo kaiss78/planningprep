@@ -36,10 +36,11 @@
         .ExamTitle
         {
         	font-weight:bold;
-        	font-size:11pt;
+        	font-size:11px;
         	margin-bottom:10px;
         	background-color:lightGray;
-        	padding-left:2px;
+        	padding:5px 0px 5px 5px;
+        	
         }
         .NewExam
         {

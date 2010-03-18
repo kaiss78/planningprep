@@ -97,7 +97,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
-                <HeaderStyle BackColor="#FF9900" BorderColor="White" BorderStyle="None" 
+                <HeaderStyle BackColor="#499779" BorderColor="White" BorderStyle="None" 
                     BorderWidth="0px" ForeColor="White" />
                 <AlternatingRowStyle CssClass="OddRowListing" />
             </asp:GridView>
