@@ -5,6 +5,7 @@
     <style type="text/css">
         table td{
             vertical-align:top;
+            padding-left:0px;
         }
     </style>
 </asp:Content>
@@ -36,7 +37,7 @@
                 <col style="width:65%;" />
             </colgroup>
             <tr>
-                <td>First Name</td>
+                <td>First Name<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtFirstName" runat="server" CssClass="TextBoxCommon" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvFirstName" runat="server" 
@@ -47,7 +48,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Last Name</td>
+                <td>Last Name<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtLastName" runat="server" CssClass="TextBoxCommon" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
@@ -58,7 +59,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Address</td>
+                <td>Address<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtAddress" runat="server" CssClass="TextBoxCommon" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
@@ -69,7 +70,7 @@
                 </td>
             </tr>
             <tr>
-                <td>City</td>
+                <td>City<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtCity" runat="server" CssClass="TextBoxCommon" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvCity" runat="server" 
@@ -80,7 +81,7 @@
                 </td>
             </tr>
             <tr>
-                <td>State</td>
+                <td>State<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtState" runat="server" CssClass="TextBoxCommon" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvState" runat="server" 
@@ -91,7 +92,7 @@
                 </td>
             </tr>
             <tr>
-                <td>ZIP</td>
+                <td>ZIP<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtZip" runat="server" CssClass="TextBoxCommon" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvZip" runat="server" 
@@ -102,7 +103,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Employer</td>
+                <td>Employer<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtEmployer" runat="server" CssClass="TextBoxCommon" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvEmployer" runat="server" 
@@ -113,7 +114,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Title/Position</td>
+                <td>Title/Position<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtTitle" runat="server" CssClass="TextBoxCommon" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvTitle" runat="server" 
@@ -124,7 +125,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Email</td>
+                <td>Email<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtEmail" runat="server" CssClass="TextBoxCommon" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" 
@@ -141,7 +142,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Re-Type Email</td>
+                <td>Re-Type Email<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtEmailConfirm" runat="server" CssClass="TextBoxCommon" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvEmailConfirm" runat="server" 
@@ -157,7 +158,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Username</td>
+                <td>Username<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtUserName" runat="server" CssClass="TextBoxCommon" MaxLength="20"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvUserName" runat="server" 
@@ -168,7 +169,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Password</td>
+                <td>Password<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtPassword" runat="server" CssClass="TextBoxCommon" TextMode="Password" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvAddress" runat="server" 
@@ -179,7 +180,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Re-Type Password</td>
+                <td>Re-Type Password<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:TextBox ID="txtPasswordConfirm" runat="server" CssClass="TextBoxCommon" TextMode="Password" MaxLength="50"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvPasswordConfirm" runat="server" 
@@ -195,7 +196,7 @@
                 </td>
             </tr>
             <tr>
-                <td>How Did You Hear About Us</td>
+                <td>How Did You Hear About Us?<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
                     <asp:DropDownList ID="ddlHowHear" runat="server" CssClass="DropDownListCommon">
                         <asp:ListItem Value="" Text="Please Select"></asp:ListItem>

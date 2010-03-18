@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Pages/Public/MasterPagePublic.master" AutoEventWireup="true" CodeFile="ForgotPassword.aspx.cs" Inherits="Pages_Public_ForgotPassword" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Pages/Public/MasterPagePublic.master" AutoEventWireup="true" 
+    CodeFile="ForgotPassword.aspx.cs" Inherits="Pages_Public_ForgotPassword" Title="Untitled Page" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -13,7 +14,7 @@
     
     <asp:Panel ID="pnlDetails" runat="server" DefaultButton="btnSend">    
         <div style="margin-top:15px; margin-bottom:15px;">
-            Email Address <asp:TextBox ID="txtEmail" runat="server" CssClass="TextBoxCommon"></asp:TextBox>  
+            Email Address <asp:TextBox ID="txtEmail" runat="server" CssClass="TextBoxCommon" MaxLength="50"></asp:TextBox>  
             <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" 
                 ControlToValidate="txtEmail" Display="Dynamic"
                 ErrorMessage="<br/>Please enter an Email Address."
