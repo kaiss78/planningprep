@@ -88,7 +88,8 @@
                 </td>
             </tr>   
             <tr>
-                <td colspan="2">
+                <td>&nbsp;</td>
+                <td>
                     <asp:Button ID="btnSendMessage" runat="server" Text="Send Message" ValidationGroup="ContactUs" OnClick="btnSendMessage_Click" />                    
                 </td>
             </tr>     
