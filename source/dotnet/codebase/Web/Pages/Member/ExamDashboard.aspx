@@ -2,6 +2,23 @@
     CodeFile="ExamDashboard.aspx.cs" Inherits="Pages_Private_ExamDashboard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+<script language="javascript">
+    function ExpandCollapse(id) {
+        var divName = "Exam" + id;
+        var labelName = "Label" + id;
+        
+        var ExpandCollapse = $("span[examsessionid=" + labelName + "]").text();
+        if (ExpandCollapse == "+") {
+            $("div[examsessionid=" + divName + "]").fadeIn();
+            $("span[examsessionid=" + labelName + "]").text("-");
+        }
+        else {
+            $("div[examsessionid=" + divName + "]").fadeOut();
+            $("span[examsessionid=" + labelName + "]").text("+");
+        }
+        
+    }
+</script>
     <style type="text/css">
         table td
         {
@@ -18,6 +35,7 @@
         	font-weight:bold;
         	font-size:11pt;
         	margin-bottom:10px;
+        	background-color:lightGray;
         }
         .NewExam
         {
@@ -39,9 +57,11 @@
     <div>
         <asp:Repeater ID="rptExams" runat="server" OnItemDataBound="rptExams_ItemDataBound">
             <ItemTemplate>
-                <div class="ExamTitle">
-                    <asp:Label ID="lblExamName"  runat="server" Text=""></asp:Label>
-                </div>
+                <asp:Panel ID="pnlExam" runat="server" CssClass="ExamTitle">
+                    <asp:Label ID="lblExpandCollapse" runat="server" Text="+"></asp:Label><asp:Label ID="lblExamName" CssClass="ExamTitle" runat="server" Text=""></asp:Label>
+                </asp:Panel>
+                <asp:Panel ID="pnlExamSession" runat="server">
+               
                 <asp:Repeater ID="rptExamSessions" OnItemDataBound="rptExamSessions_ItemDataBound"
                     runat="server">
                     <HeaderTemplate>
@@ -75,6 +95,7 @@
                     <asp:HyperLink ID="hlinkNewExamSession" Text="Click Here to Start A New Session of This Exam"
                         runat="server"></asp:HyperLink>
                 </div>
+                 </asp:Panel>
             </ItemTemplate>
         </asp:Repeater>
     </div>

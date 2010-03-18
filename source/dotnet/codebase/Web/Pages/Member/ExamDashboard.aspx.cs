@@ -43,6 +43,19 @@ public partial class Pages_Private_ExamDashboard : BasePage
             Exam exam = item.DataItem as Exam;
             lblExamName.Text = exam.Title;
 
+            Panel pnlExamSession = (Panel)item.FindControl("pnlExamSession");
+            pnlExamSession.Attributes["ExamSessionID"] = "Exam" + exam.Id.ToString();
+            pnlExamSession.Style["display"] = "none";
+            
+
+            Label lblExpandCollapse = (Label)item.FindControl("lblExpandCollapse");
+            lblExpandCollapse.Text = "+";
+            lblExpandCollapse.Attributes["ExamSessionID"] = "Label" + exam.Id.ToString();
+
+            Panel pnlExam = (Panel)item.FindControl("pnlExam");
+            pnlExam.Attributes["onclick"] = " ExpandCollapse(" + exam.Id + ")";
+            pnlExam.Style["cursor"] = "pointer";
+
             IList<UserExam> userExams = userExamManager.GetUserExamByExamAndUser(exam.ExamID,SessionCache.CurrentUser.Author_ID);
             if (userExams != null && userExams.Count > 0)
             {
