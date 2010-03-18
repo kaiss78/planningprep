@@ -34,6 +34,7 @@ namespace App.Data.Answers
 {
     public interface IAnswersDAO : IDataAccess<App.Models.Answers.Answers>
     {
+        bool DeleteByUserID(int UserID);
     }
 
     public class AnswersDAO : BaseDataAccess<App.Models.Answers.Answers>, IAnswersDAO
@@ -67,6 +68,30 @@ namespace App.Data.Answers
 
             return entity;
         }
+
+        /// <summary>
+        /// Deletes all saved answers by UserID which were answered for a question by question answers
+        /// (Not answered for an exam)
+        /// </summary>
+        /// <param name="entity">The UserID.</param>
+        /// <returns></returns>
+        public bool DeleteByUserID(int UserID)
+        {
+            using (new TimedTraceLog(CurrentUser == null ? CurrentUser.Identity.Name : "Unknown User", GetType().Name + ".DeleteByUserID(UserID)"))
+            {
+                try
+                {
+                    return DeleteInternal("spAnswersDeleteByUserID", new DbParameter("UserID", DbType.Int32, UserID));
+                }
+                catch (Exception ex)
+                {
+                    Exception excToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(excToUse.Message, excToUse, GetType().Name + ".DeleteByUserID(UserID)");
+                }
+            }
+        }
+
+        
 
         protected override void EagerLoad(App.Models.Answers.Answers entity)
         {
