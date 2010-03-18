@@ -20,7 +20,8 @@ public class AppConstants
     public const string EMPLOYEE_IMAGE_DIRECTORY = "~/EmployeeImages";
     public const string PRODUCT_IMAGE_DIRECTORY = "~/ProductImages";
     public const String ERROR_MESSAGE = @"Sorry!<br/>System encountered some problem while saving your comment. An administrator has been notified about the details of this problem. Please try after some time.";
-
+    
+    #region Pages
     public class Pages
     {
         public const string EDIT_QUESTION = "/Pages/Admin/EditQuestion.aspx";
@@ -39,9 +40,12 @@ public class AppConstants
         public const string TERMS_OF_USE = "/Pages/Public/TermsOfUse.aspx";
         public const string ALERT = "/Pages/Public/Alert.aspx";
         public const string QUESGION_LIST = "/Pages/Member/QuestionList.aspx";
-        public const string QUESGION_SEARCH = "/Pages/Member/Questions.aspx";        
+        public const string QUESGION_SEARCH = "/Pages/Member/Questions.aspx";
+        public const string SHOW_MESSAGE = "/Pages/Public/ShowMessage.aspx";
     }
+    #endregion
 
+    #region Value Formats
     public class ValueOf
     {
         public const string CALENDAR_DATE_FORMAT = "dd/MM/yyyy";
@@ -50,11 +54,16 @@ public class AppConstants
         public const string DATE_FROMAT_DISPLAY = "MMMM dd, yyyy";
         public const string DATE_FROMAT_DISPLAY_WITH_TIME = "dddd, MMMM dd, yyyy hh:mm:ss tt";
     }
+    #endregion
+    
+    #region User Roles
     public class UserRoles
     {
         public const String ADMINISTRATOR = "Administrator";
-        public const String MEMBER = "Member";        
+        public const String MEMBER = "Member";
     }
+    #endregion
+
     #region UI CSS Classes
     public class UI
     {
@@ -89,6 +98,7 @@ public class AppConstants
         public const string LINK_ID = "LinkID";
         public const string ID = "ID";
         public const string LOG_OUT = "Logout";
+        public const string MSG_TYPE = "Type";
     }
     
     #endregion

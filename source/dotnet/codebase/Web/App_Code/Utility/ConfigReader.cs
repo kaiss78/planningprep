@@ -26,7 +26,8 @@ public class ConfigReader
     private const String CONTENT_ID_OF_ABOUT_US = "ContentIDOfAboutUs";
     private const String REMEMBER_PROGRESS = "RememberProgress";  
     private const String FACEBOOK_API_KEY = "FaceBookAPIKey";  
-    private const String FACEBOOK_SECRET_PHRASE = "FaceBookSecretPhrase";  
+    private const String FACEBOOK_SECRET_PHRASE = "FaceBookSecretPhrase";
+    private const String SUPPORT_EMAIL = "SupportEmail";
 
     private static String GetAppSettingsValue(String key)
     {
@@ -149,6 +150,13 @@ public class ConfigReader
         get
         {
             return GetAppSettingsValue(FACEBOOK_SECRET_PHRASE);
+        }
+    }
+    public static String SupportEmail
+    {
+        get
+        {
+            return GetAppSettingsValue(SUPPORT_EMAIL);
         }
     }
 }
