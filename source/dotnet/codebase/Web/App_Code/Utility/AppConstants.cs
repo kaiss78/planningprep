@@ -31,7 +31,7 @@ public class AppConstants
         public const string MANAGE_USERS = "/Pages/Admin/ManageUsers.aspx";
         public const string USER_DETAILS = "/Pages/Admin/UserDetails.aspx";
         public const string ANSWER_QUESTION = "/Pages/Member/AnswerQuestion.aspx";
-        public const string EDIT_PROFILE = "/Pages/Member/EditProfile.aspx";
+        public const string EDIT_PROFILE = "/Pages/Member/EditProfile.aspx";        
         public const string USER_PROFILE = "/Pages/Member/UserProfile.aspx";   
         public const string JOIN_OUTCOME = "/Pages/Public/JoinOutcome.aspx";
         public const string ANSWER_OF_THE_WEEK_MESSAGE = "/Pages/Public/AnswerOfTheWeekMessage.aspx";
