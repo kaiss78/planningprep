@@ -148,7 +148,6 @@
         </ul>
     </div>
     <div class="clearfloating"></div>
-    <div class="OnePixelBorder"></div>
     
 <%--    <div class="homepagenewscontentbox">
         <img src="/Images/news1.jpg" align="left" alt="News 1" title="News 1" style="margin-right:20px;" />                        
