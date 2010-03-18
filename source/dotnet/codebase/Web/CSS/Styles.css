@@ -26,6 +26,8 @@ img.PreviewImage
 	height:693px;
 	padding-top:20px;
 }
+
+
 .bodycontaniner
 {
 	max-width:870px;
@@ -411,6 +413,14 @@ div.PageHeader, div.PageHeader span {
 	padding:10px;
 	border:#CCCCCC 0px solid;	
 }
+
+.divRate
+{
+	border:#FF9900 1px solid;
+	padding:5px;
+	margin-bottom:10px	
+}
+
 .LabelWhite
 {
 	font-weight:normal;
