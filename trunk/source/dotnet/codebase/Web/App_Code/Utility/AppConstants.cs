@@ -37,7 +37,9 @@ public class AppConstants
         public const string VISIT_FRAME = "/Pages/Public/VisitFrame.aspx";
         public const string SHOW_CONTENT = "/Pages/Public/ShowContent.aspx";
         public const string TERMS_OF_USE = "/Pages/Public/TermsOfUse.aspx";
-        public const string ALERT = "/Pages/Public/Alert.aspx";        
+        public const string ALERT = "/Pages/Public/Alert.aspx";
+        public const string QUESGION_LIST = "/Pages/Member/QuestionList.aspx";
+        public const string QUESGION_SEARCH = "/Pages/Member/Questions.aspx";        
     }
 
     public class ValueOf
