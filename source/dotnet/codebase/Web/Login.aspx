@@ -7,7 +7,7 @@
     <div class="contentheading">Member Login</div>
     <div class="floatleft" style="width:60%">
     <div>
-        This page allows registered users to log in to members only section of planningprep.com. If you are already a member please sign in below. If you are interested in becoming a member, please visit the <a href="/Pages/Public/Register.aspx">join now</a> page. If you have forgotten your login information, <a href="/Pages/Public/ForgotPassword.aspx">click here</a>.
+        This page allows registered users to log in to members only section of planningprep.com. If you are already a member please sign in. If you are interested in becoming a member, please visit the <a href="/Pages/Public/Register.aspx">join now</a> page. If you have forgotten your login information, <a href="/Pages/Public/ForgotPassword.aspx">click here</a>.
         </div>
         <div id="divMessage" class="ErrorMessageBox" runat="server" visible="false" enableviewstate="false" style="margin-top:15px;"></div>
     </div>
