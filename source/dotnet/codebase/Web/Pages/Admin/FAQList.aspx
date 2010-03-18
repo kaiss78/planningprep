@@ -1,6 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="FAQList.aspx.cs" Inherits="Pages_Admin_FAQList" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="FAQList.aspx.cs" Inherits="Pages_Admin_FAQList" Title="Untitled Page" %>
 
-<%@ Register src="/UserControls/PaginatedQuestions.ascx" tagname="PaginatedQuestions" tagprefix="UC" %>
 <%@ Register Src="/UserControls/Pager.ascx" TagName="Pager" TagPrefix="UC" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
