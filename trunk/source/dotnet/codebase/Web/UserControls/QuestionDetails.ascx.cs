@@ -89,6 +89,10 @@ public partial class UserControls_QuestionDetails : BaseUserControl
                 divNextQuestion.Visible = true;
                 hlinkNextQuestion.NavigateUrl = String.Format("{0}?{1}={2}", AppConstants.Pages.ANSWER_QUESTION, AppConstants.QueryString.QUESTION_ID, question.QuestionID);
             }
+            else
+            {
+                hlinkNextQuestion.NavigateUrl = String.Format(AppConstants.Pages.QUESGION_SEARCH);
+            }
         }
         else
         {
