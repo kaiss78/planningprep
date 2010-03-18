@@ -52,6 +52,9 @@ public partial class Pages_Private_ExamDashboard : BasePage
             lblExpandCollapse.Text = "+";
             lblExpandCollapse.Attributes["ExamSessionID"] = "Label" + exam.Id.ToString();
 
+            Image imgExpandCollapse = (Image)item.FindControl("imgExpandCollapse");
+            imgExpandCollapse.Attributes["ExamSessionID"] = "Img" + exam.Id.ToString();
+
             Panel pnlExam = (Panel)item.FindControl("pnlExam");
             pnlExam.Attributes["onclick"] = " ExpandCollapse(" + exam.Id + ")";
             pnlExam.Style["cursor"] = "pointer";
