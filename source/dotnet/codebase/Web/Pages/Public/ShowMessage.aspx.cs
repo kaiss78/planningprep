@@ -18,7 +18,7 @@ public partial class Pages_Public_ShowMessage : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Page.Title = AppUtil.GetPageTitle("");
+        Page.Title = AppUtil.GetPageTitle("Message");
         if (String.Compare(Request[AppConstants.QueryString.MSG_TYPE], "Error", false) == 0)
             _IsErrorMessage = true;
 
