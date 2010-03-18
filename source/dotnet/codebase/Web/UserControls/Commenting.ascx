@@ -1,26 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Commenting.ascx.cs" Inherits="UserControls_Commenting" %>
-
-    <style type="text/css">
-        .OddRowListing, .EvenRowListing
-        {
-    	    min-height:40px;
-    	    padding-bottom:10px;
-    	    height:auto;
-        }
-        .thumbText
-        {
-        	float:left;
-        	width:63%;
-        	padding-top:2px;
-        	text-align:right;
-        }
-        .thumbImage
-        {
-        	float:left;
-        	width:35%;
-        }
-    </style>    
-    
+      
     <asp:ScriptManagerProxy ID="ScriptManagerProxy1" runat="server">        
         <Services>
             <asp:ServiceReference Path="~/Services/AjaxService.asmx" />
@@ -30,6 +9,7 @@
     <script language="javascript" type="text/javascript">
         var _QuestionID = <%= _QuestionID.ToString()%>;
         var _UserID = <%= _UserID.ToString()%>;
+        var _UserName = "<%= SessionCache.CurrentUser.Username %>";
         var _TotalCount = <%= _TotalCount.ToString()%>;
         var _Comment = new App.Models.Comments.Comment();
         
@@ -44,7 +24,9 @@
         {
             var commentId = result;
             var className = (_TotalCount % 2) == 0 ? 'OddRowListing' : 'EvenRowListing';
-            var domElement = '<div class="' + className + '"><div class="commentbox">' + FormatText(_Comment.CommentText) + '</div>';            
+            var domElement = '<div class="' + className + '">';
+            domElement += String.format('<div class="commentuserbox">{0}<br /><span class="minutesago">0 Minutes ago</span></div>', _UserName);
+            domElement += '<div class="commentbox">' + FormatText(_Comment.CommentText) + '</div>';            
             domElement += GetThumbsHtml(0, true);            
             if(_TotalCount == 0)               
                 $('#divCommentListHeading').show();
@@ -113,13 +95,13 @@
         
         function ToggleCommentingBox() 
         {
-            if($('#divCommentingTextBox').is(':visible'))
-            {
-                $('#divCommentingTextBox').fadeOut();
-            }
+            if($('#divCommentingTextBox').is(':visible'))            
+                $('#divCommentingTextBox').fadeOut();            
             else
+            {
                 $('#divCommentingTextBox').fadeIn();
-                
+                $('#<%=txtComment.ClientID%>').val('')
+            }               
         }      
         
     </script>
@@ -134,6 +116,7 @@
     <asp:Repeater ID="rptCommentList" runat="server" onitemdatabound="rptCommentList_ItemDataBound">
         <ItemTemplate>
             <div class="OddRowListing">
+                <div class="commentuserbox"><asp:Literal ID="ltrUserInfo" runat="server"></asp:Literal></div>
                 <div class="commentbox"><asp:Literal ID="ltrComment" runat="server"></asp:Literal></div>
                 <div class="commentboxforthumbs"><asp:Literal ID="ltrThumbs" runat="server"></asp:Literal></div>                
                 <div class="clearboth"></div>
@@ -141,6 +124,7 @@
         </ItemTemplate>
         <AlternatingItemTemplate>
             <div class="EvenRowListing">
+                <div class="commentuserbox"><asp:Literal ID="ltrUserInfo" runat="server"></asp:Literal></div>
                 <div class="commentbox"><asp:Literal ID="ltrComment" runat="server"></asp:Literal></div>
                 <div class="commentboxforthumbs"><asp:Literal ID="ltrThumbs" runat="server"></asp:Literal></div>
                 <div class="clearboth"></div>
