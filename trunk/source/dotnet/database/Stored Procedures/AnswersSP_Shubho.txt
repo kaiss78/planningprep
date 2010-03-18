@@ -24,6 +24,28 @@ END
 GO
 
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswersDelete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAnswersDelete]
+GO
+CREATE PROCEDURE [dbo].[spAnswersDeleteByUserID] 
+@UserID int
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/14/2010 4:07:07 PM
+-- Description: Delete Into Table tblAnswers
+-- =============================================
+-- sptblAnswersDelete ...........
+BEGIN
+
+		DELETE FROM tblAnswers
+		WHERE [UserID]=@UserID AND
+		ExamSessionID IS NULL
+
+END
+GO
+
+
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAnswersGetById]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[spAnswersGetById]
 GO
@@ -109,6 +131,8 @@ Begin
 	End
 	Else
 	Begin
+	IF @Correct IS NULL
+	    SET @Correct = 0;
 		Insert Into [dbo].[tblAnswers]
 			( [UserID]
 			, [QuestionID]
