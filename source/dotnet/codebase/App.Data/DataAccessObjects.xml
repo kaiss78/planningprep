@@ -17,4 +17,6 @@
   <entity name="Comment" daoType="App.Data.Comments.CommentDAO, App.Data" />
   <entity name="Answers" daoType="App.Data.Answers.AnswersDAO, App.Data" />
   <entity name="ExamStatistic" daoType="App.Data.Exams.ExamStatisticDAO, App.Data" />
+  <entity name="FaqCategory" daoType="App.Data.FAQ.FaqCategoryDAO, App.Data" />
+  <entity name="Faq" daoType="App.Data.FAQ.FaqDAO, App.Data" />
 </entity-daos>
