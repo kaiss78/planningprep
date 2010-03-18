@@ -59,12 +59,13 @@ img.PreviewImage
 }
 .contentheading
 {
-	background-color:lightGrey;
+	background-color:#EBEBE9;
 	font-size:12px;
 	font-weight:bold;
-	color:#666666;
+	/*color:#666666;*/
+	color:#3C3C3C;
 	margin:15px 0px 15px 0px;
-	padding:5px;
+	padding:3px 5px;
 }
 .newsheading
 {
