@@ -156,7 +156,7 @@ public partial class UserControls_UserProfile : System.Web.UI.UserControl
             }
 
             SaveUserInfo();
-            Response.Redirect(AppConstants.Pages.MANAGE_USERS, false);
+            Response.Redirect(AppConstants.Pages.USER_PROFILE, false);
             return;
         }
     }
