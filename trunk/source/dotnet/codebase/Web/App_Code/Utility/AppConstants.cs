@@ -42,6 +42,10 @@ public class AppConstants
         public const string QUESGION_LIST = "/Pages/Member/QuestionList.aspx";
         public const string QUESGION_SEARCH = "/Pages/Member/Questions.aspx";
         public const string SHOW_MESSAGE = "/Pages/Public/ShowMessage.aspx";
+        public const string EDIT_FAQ = "/Pages/Admin/EditFAQ.aspx";
+        public const string FAQ_LIST = "/Pages/Admin/FAQList.aspx";
+        public const string FAQ_CATEGORY_LIST = "/Pages/Admin/FaqCategoryList.aspx";
+        public const string EDIT_FAQ_CATEGORY = "/Pages/Admin/EditFaqCategory.aspx";
     }
     #endregion
 

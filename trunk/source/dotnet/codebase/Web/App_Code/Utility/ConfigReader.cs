@@ -28,6 +28,8 @@ public class ConfigReader
     private const String FACEBOOK_API_KEY = "FaceBookAPIKey";  
     private const String FACEBOOK_SECRET_PHRASE = "FaceBookSecretPhrase";
     private const String SUPPORT_EMAIL = "SupportEmail";
+    private const String ADMIN_FAQ_QUESTION_LIST_SIZE = "AdminFAQQuestionListSize";
+    private const String ADMIN_FAQ_CATEGORY_LIST_SIZE = "AdminFAQCategoryListSize";
 
     private static String GetAppSettingsValue(String key)
     {
@@ -159,4 +161,24 @@ public class ConfigReader
             return GetAppSettingsValue(SUPPORT_EMAIL);
         }
     }
+    public static int AdminFAQQuestionListSize
+    {
+        get
+        {
+            int configValue = 0;
+            String paramValue = GetAppSettingsValue(ADMIN_FAQ_QUESTION_LIST_SIZE);
+            int.TryParse(paramValue, out configValue);
+            return configValue;
+        }
+    }
+    public static int AdminFAQCategoryListSize
+    {
+        get
+        {
+            int configValue = 0;
+            String paramValue = GetAppSettingsValue(ADMIN_FAQ_CATEGORY_LIST_SIZE);
+            int.TryParse(paramValue, out configValue);
+            return configValue;
+        }
+    }    
 }
