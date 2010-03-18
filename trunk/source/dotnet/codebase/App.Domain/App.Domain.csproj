@@ -54,6 +54,8 @@
     <Compile Include="Exams\ExamManager.cs" />
     <Compile Include="Exams\ExamStatisticManager.cs" />
     <Compile Include="Exams\UserExamManager.cs" />
+    <Compile Include="FAQ\FaqManager.cs" />
+    <Compile Include="FAQ\FaqCategoryManager.cs" />
     <Compile Include="IBusinessObject.cs" />
     <Compile Include="Links\LinkManager.cs" />
     <Compile Include="Questions\QuestionsManager.cs" />
