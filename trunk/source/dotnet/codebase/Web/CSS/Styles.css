@@ -330,7 +330,7 @@ A:link
 }
 A:hover
 {
-	color:#ADADAD;
+	color:#A87E0E;
 }
 A.TopLink:active
 {
@@ -528,7 +528,7 @@ img.EmployeeImage
     float:left;
     min-width:35px;
     height:18px;
-    border:#F7941D 1px solid;
+    border:#1A5C3B 1px solid;
     background-color:#FFFFFF;/*#C6A61A;*/
     margin-left:4px;
     text-align:center;
