@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" Title="Untitled Page" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
     
@@ -18,10 +18,10 @@
     <%--<table border="0" cellpadding="1" cellspacing="0" style="border-collapse:collapse; width:100%;">
         <tr>
             <td style="padding-top:100px;">--%>
-<div class="floatright">
+            <div class="floatright">
                 <div id="divMessage" class="ErrorMessageBox" runat="server" visible="false" enableviewstate="false" style="margin-top:15px;"></div>
                 
-                <div style="width:300px; margin:0 auto; border:#F7941D 1px solid; padding:0px 10px 10px 10px; background-color:#FFFFFF;">
+                <div class="loginbox">
                   <table align="center" border="0" cellpadding="2" cellspacing="0" style="width:300px;">
                     <tr>
                         <td align="center" colspan="2" style="height:15px;">&nbsp;</td>
