@@ -16,7 +16,13 @@ public partial class Pages_MasterPage : System.Web.UI.MasterPage
     protected bool _IsAdministrator = false;
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        if (SessionCache.CurrentUser != null)
+        {
+            HtmlMeta metaDescription = header.FindControl("metaDescription") as HtmlMeta;
+            HtmlMeta metaKeywords = header.FindControl("metaKeywords") as HtmlMeta;
+            metaDescription.Visible = false;
+            metaKeywords.Visible = false;
+        }
     }
     protected bool IsAdministrator()
     {
