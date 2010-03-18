@@ -13,9 +13,9 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
-    <div class="contentheading" style="float:left;"><asp:Literal ID="ltrHeading" runat="server"></asp:Literal></div>
+    <div class="contentheading"><asp:Literal ID="ltrHeading" runat="server"></asp:Literal></div>
 
-    <div style="float:right;"><asp:HyperLink ID="hplQuestionList" runat="server">Back to Question List</asp:HyperLink></div>
+    <div style="float:right;margin-bottom:10px;"><asp:HyperLink ID="hplQuestionList" runat="server">Back to Question List</asp:HyperLink></div>
     <div class="clearfloating"></div>
     <div>
         <table cellpadding="3" cellspacing="0" style="width:100%;"> 
