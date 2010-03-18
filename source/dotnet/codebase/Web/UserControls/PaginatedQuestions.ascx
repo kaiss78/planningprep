@@ -3,8 +3,18 @@
 <%@ Register Src="~/UserControls/Pager.ascx" TagName="Pager" TagPrefix="Pager" %>
 <div class="contentheading">
     Question List</div>
+<div runat="server" ID="divNoQuestionFound">
 <div>
-    <asp:Label ID="lblNoQuestionFoundMessage" Visible="false" runat="server" Text="No Question found."></asp:Label>
+    <asp:Label ID="lblNoQuestionFoundMessage" Font-Bold="true" runat="server" Text="No Question found."></asp:Label>
+</div>
+<div style="margin-top:20px">
+    <div>
+        <asp:Label ID="lblDeleteAnswers" runat="server" Text="It seems that, you have answered all of the questions for the specificed criteria. If you wish, you can delete existing answers and then can start answering the questions again. Press the following button if you wish to proceed."></asp:Label>
+    </div>
+    <div style="margin-top:20px">
+        <asp:Button ID="btnDelete" OnClick="btnDelete_Click" CssClass="ButtonCommon" runat="server" Text="Delete and Proceed" />
+    </div>
+</div>
 </div>
 <asp:Repeater ID="rptQuestionList" runat="server" OnItemDataBound="rptQuestionList_ItemDataBound">
     <HeaderTemplate>

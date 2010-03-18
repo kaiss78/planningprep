@@ -12,9 +12,11 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using App.Models.Questions;
 using System.Collections.Generic;
+using App.Domain.Answer;
 
 public partial class UserControls_PaginatedQuestions : BaseUserControl
 {
+    AnswersManager answerManager = new AnswersManager();
     public bool ShowEditLink
     {
         get;
@@ -127,10 +129,11 @@ public partial class UserControls_PaginatedQuestions : BaseUserControl
         {
             rptQuestionList.Visible = false;
             ucPager.Visible = false;
-            lblNoQuestionFoundMessage.Visible = true;
+            divNoQuestionFound.Visible = true;
         }
         else
         {
+            divNoQuestionFound.Visible = false;
             rptQuestionList.DataSource = questions;
             rptQuestionList.DataBind();
             BindPagerControl(pageNo, totalRecord, pageSize);
@@ -217,5 +220,11 @@ public partial class UserControls_PaginatedQuestions : BaseUserControl
                 lblEdit.Visible = false;
             }
         }
+    }
+
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        answerManager.DeleteByUserID(SessionCache.CurrentUser.Author_ID);
+        Response.Redirect(Request.Url.PathAndQuery);
     }
 }
