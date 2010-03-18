@@ -576,3 +576,11 @@ img.EmployeeImage
 {
 	cursor:pointer;
 }
+.requiredfiled
+{
+	color:#FF0000;
+}
+.loginbox
+{
+	width:300px; border:#C0C0C0 1px solid; padding:0px 10px 10px 10px;
+}
