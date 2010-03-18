@@ -59,6 +59,8 @@
     <Compile Include="Exams\ExamTotal.cs" />
     <Compile Include="Exams\QuestionForExamType.cs" />
     <Compile Include="Exams\ResultDetails.cs" />
+    <Compile Include="FAQ\Faq.cs" />
+    <Compile Include="FAQ\FaqCategory.cs" />
     <Compile Include="IPagedList.cs" />
     <Compile Include="Links\Links.cs" />
     <Compile Include="PagedList.cs" />
