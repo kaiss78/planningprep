@@ -159,6 +159,25 @@ A.headermenu:hover
 .EvenRowListing:hover {
 	background-color: #94E2BA;
 }
+
+.OddRowListing, .EvenRowListing
+{
+    min-height:40px;
+    padding-bottom:10px;
+    height:auto;
+}
+.thumbText
+{
+	float:left;
+	width:63%;
+	padding-top:2px;
+	text-align:right;
+}
+.thumbImage
+{
+	float:left;
+	width:35%;
+}
 .listtitle
 {
 	font-weight:bold;
@@ -329,6 +348,10 @@ input:button {
 	margin:15px 0px 15px 0px;
 }
 A:link
+{
+	color:#1A5C3B;
+}
+A:visited
 {
 	color:#1A5C3B;
 }
@@ -549,10 +572,19 @@ img.EmployeeImage
 
 
 /*--------------------------------------------PlanningPrep CSS-------------------------------*/
+.commentuserbox
+{
+	float:left;
+	width:19%;
+}
+.minutesago
+{
+	color:#999999;
+}
 .commentbox
 {
 	float:left;
-	width:80%;
+	width:60%;
 }
 .commentboxforthumbs
 {
