@@ -32,7 +32,7 @@
         }
     </script>    
     
-<div runat="server" id="divRate">
+<div runat="server" id="divRate" class="divRate">
     <b>Rate This Question</b>
     <asp:RadioButtonList ID="rdoRating" runat="server" RepeatDirection="Horizontal">
         <asp:ListItem Text="1" Value="1"></asp:ListItem>
