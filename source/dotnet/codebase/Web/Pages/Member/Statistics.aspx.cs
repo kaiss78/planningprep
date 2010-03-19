@@ -20,7 +20,8 @@ public partial class Pages_Member_Statistics : BasePage
 {
     private int _UserID = 0;
     private bool _IsFilterByDate = false;
-    private DateTime _FilterDate = DateTime.Now;
+    private DateTime _StartDate = DateTime.Now;
+    private DateTime _EndDate = new DateTime(9999, 12, 31); //Sql DateTime Max Value
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -57,7 +58,7 @@ public partial class Pages_Member_Statistics : BasePage
     protected void BindOverallStatistics()
     {
         ExamStatisticManager manager = new ExamStatisticManager();
-        IList<ExamStatistic> statistics = manager.GetStatisticsForHistoryTheoryLaw(_UserID, _IsFilterByDate, _FilterDate);
+        IList<ExamStatistic> statistics = manager.GetStatisticsForHistoryTheoryLaw(_UserID, _IsFilterByDate, _StartDate, _EndDate);
         ExamStatistic stat = null;
         if(statistics != null && statistics.Count > 0)
             stat = statistics[0];
@@ -90,22 +91,22 @@ public partial class Pages_Member_Statistics : BasePage
         StringBuilder sb = new StringBuilder(100);
 
         ExamStatisticManager manager = new ExamStatisticManager();
-        IList<ExamStatistic> statistics = manager.GetStatisticsForHistoryTheoryLaw(_UserID, _IsFilterByDate, _FilterDate);
+        IList<ExamStatistic> statistics = manager.GetStatisticsForHistoryTheoryLaw(_UserID, _IsFilterByDate, _StartDate, _EndDate);
         sb.Append(GetStatisticsHtml(statistics, "History, Theory & Law"));
 
-        statistics = manager.GetStatisticsForTrendsIssues(_UserID, _IsFilterByDate, _FilterDate);
+        statistics = manager.GetStatisticsForTrendsIssues(_UserID, _IsFilterByDate, _StartDate, _EndDate);
         sb.Append(GetStatisticsHtml(statistics, "Trends & Issues"));
 
-        statistics = manager.GetStatisticsForPlanMaking(_UserID, _IsFilterByDate, _FilterDate);
+        statistics = manager.GetStatisticsForPlanMaking(_UserID, _IsFilterByDate, _StartDate, _EndDate);
         sb.Append(GetStatisticsHtml(statistics, "Plan Making"));
 
-        statistics = manager.GetStatisticsForFunctionalTopics(_UserID, _IsFilterByDate, _FilterDate);
+        statistics = manager.GetStatisticsForFunctionalTopics(_UserID, _IsFilterByDate, _StartDate, _EndDate);
         sb.Append(GetStatisticsHtml(statistics, "Functional Topics"));
 
-        statistics = manager.GetStatisticsForPlanImplementation(_UserID, _IsFilterByDate, _FilterDate);
+        statistics = manager.GetStatisticsForPlanImplementation(_UserID, _IsFilterByDate, _StartDate, _EndDate);
         sb.Append(GetStatisticsHtml(statistics, "Plan Implementation"));
 
-        statistics = manager.GetStatisticsForEthics(_UserID, _IsFilterByDate, _FilterDate);
+        statistics = manager.GetStatisticsForEthics(_UserID, _IsFilterByDate, _StartDate, _EndDate);
         sb.Append(GetStatisticsHtml(statistics, "Ethics"));
 
         divCategoryContainer.InnerHtml = sb.ToString();
@@ -133,7 +134,10 @@ public partial class Pages_Member_Statistics : BasePage
         if (Page.IsValid)
         {
             _IsFilterByDate = true;
-            _FilterDate = new DateTime(Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlDay.SelectedValue));
+            _StartDate = DateTime.Parse(txtStartDate.Text);
+            if (!String.IsNullOrEmpty(txtEndDate.Text))
+                _EndDate = DateTime.Parse(txtEndDate.Text);
+
             BindOverallStatistics();
             BindStatisticsByCategory();
         }
