@@ -19,7 +19,7 @@ public class AppConstants
     public const string CURRENT_USER = "CURRENT_USER";
     public const string EMPLOYEE_IMAGE_DIRECTORY = "~/EmployeeImages";
     public const string PRODUCT_IMAGE_DIRECTORY = "~/ProductImages";
-    public const String ERROR_MESSAGE = @"Sorry!<br/>System encountered some problem while saving your comment. An administrator has been notified about the details of this problem. Please try after some time.";
+    public const String ERROR_MESSAGE = @"Sorry!<br/>System encountered some problem while saving your preference. An administrator has been notified about the details of this problem. Please try after some time.";
     
     #region Pages
     public class Pages
