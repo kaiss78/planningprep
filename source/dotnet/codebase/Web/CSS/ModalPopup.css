@@ -3,223 +3,44 @@
     background-color:#999999;	        
     filter:alpha(opacity=30);
     opacity:0.5;      
-}    
-.jqmWindow
-{            
-    position: absolute;        
-    width: 777px;        
-    color: #333;
-    border: 0px solid black;
-    z-index:20;      
-}
-
-.popupContainer {
-	margin: 20px auto 0 auto;
-	width: 777px;
-}
-.popup_top_shade {
-	background-image: url(/Images/popup/popup_top_shade.png);
-	background-repeat: no-repeat;
-	width: 777px;
-	height: 4px;
-	behavior: url(/CSS/iepngfix.htc);
-}
-.popup_actionsHolder {
-}
-.popup_actionsLeft {
-	background-image: url(/Images/popup/popup_actionsLeft.png);
-	background-repeat: no-repeat;
-	width: 11px;
-	height: 24px;
-	_height: 26px;
-	float: left;
-	behavior: url(/CSS/iepngfix.htc);
-}
-.popup_actionsMiddle {
-	background-image: url(/Images/popup/popup_actionsMiddle.png);
-	background-repeat: repeat-y;
-	width: 750px;
-	height: 19px;
-	_height: 10px;
-	float: left;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 10px;
-	color: #e5f6e9;
-	padding: 5px 5px 0px 0px;
-	text-align: right;
-	behavior: url(/CSS/iepngfix.htc);
-}
-.popup_actionsMiddle a {
-	color: #e5f6e9;
-	text-decoration: none;
-}
-.popup_actionsMiddle a:hover {
-	color: #e5f6e9;
-	text-decoration: underline;
-}
-.popup_actionsRight {
-	background-image: url(/Images/popup/popup_actionsRight.png);
-	background-repeat: no-repeat;
-	width: 11px;
-	height: 24px;
-	_height: 26px;
-	float: left;
-	behavior: url(/CSS/iepngfix.htc);
-}
-.popup_actionsDown {
-	background-image: url(/Images/popup/popup_actionsDown.png);
-	background-repeat: no-repeat;
-	width: 777px;
-	height: 1px;
-	clear: both;
-	behavior: url(/CSS/iepngfix.htc);
-}
-.popup_headerBg {
-	background-image: url(/Images/popup/popup_headerBg.png);
-	background-repeat: repeat-y;
-	width: 757px;
-	_width: 757px;
-	min-height:45px;
-	font-size: 18px;
-	color: #FFFFFF;
-	font-weight: bold;
-	padding: 10px 0px 0px 20px;
-	behavior: url(/CSS/iepngfix.htc);
-}
-.popup_header_text 
+}   
+.modalpopupshadow
 {
-    width:640px;    
-    _width:620px;
-	float:left;
+	position:absolute;
+	z-index:19;
+	background-color:#3C3C3C;	
+    filter:alpha(opacity=50);
+    opacity:0.5;      
 }
-.btnClosePopup {
-	float: right;
-	margin: 4px 21px 0px 0px;
-	width:78px;
-}
-.popup_bodyBg {
-	background-image: url(/Images/popup/popup_bodyBg.png);
-	background-repeat: repeat-y;
-	width: 777px;
-	min-height: 385px;
-	_height: 385px;
-	behavior: url(/CSS/iepngfix.htc);
-
-}
-.bold {
-	font-weight: bold;
-}
-.popup_downLeft {
-	background-image: url(/Images/popup/popup_downLeft.png);
-	background-repeat: no-repeat;
-	width: 11px;
-	height: 17px;
-	float: left;
-	behavior: url(/CSS/iepngfix.htc);
-}
-.popup_downMiddle {
-	background-image: url(/Images/popup/popup_downMiddle.png);
-	background-repeat: repeat-x;
-	width: 755px;
-	height: 17px;
-	float: left;
-	behavior: url(/CSS/iepngfix.htc);
-}
-.popup_downRight {
-	background-image: url(/Images/popup/popup_downRight.png);
-	background-repeat: no-repeat;
-	width: 11px;
-	height: 17px;
-	float: left;
-	behavior: url(/CSS/iepngfix.htc);
-}
-.bgPng {
-	background-image:  url(/Images/popup/bg_png.png);
-	background-repeat: no-repeat;
-	height: 385px;
-	width: 727px;
-	margin-left: 5px;
-	padding: 5px 0 0 40px;
-	behavior: url(/CSS/iepngfix.htc);
-}
-
-.divDesclaimer 
-{
-	margin-left: -40px; 
-	background-color:#86a78f; 
-	padding-left:40px;
-	font-weight:bold;
-	width:727px;
-	min-width:727px;
-	overflow:auto;	
-	
-}
-.divDesclaimerComment 
-{
-	_margin-left: -10px; 
-	background-color:#86a78f; 
-	padding-left:40px;
-	font-weight:bold;
-	width:704px;
-	_width:737px;
-	min-width:727px;	
-}
-
-/*Yellow Lightbox Begins*/
-.yellowPopupContainer {
-	min-width: 379px;
-	min-height: 28px;
-	_width: 379px;	
+ 
+/*PlanningPrep Lightbox Begins*/
+.PopupContainer {
+	background-color:#FFFFFF;
+	width:355px;	
 	position: absolute;        
     color: #333;
     z-index:20; 
 }
-.yellowPopupHeaderLeft {
-	float: left;
-	background-image: url(/Images/popup/popup_left.png);
-	background-repeat: no-repeat;
-	width: 10px;
-	height: 28px;
-	behavior: url(/CSS/iepngfix.htc);
-}
-.yellowPopupHeaderRight {
-	float: left;
-	background-image: url(/Images/popup/popup_right.png);
-	background-repeat: no-repeat;
-	width: 10px;
-	height: 28px;
-	behavior: url(/CSS/iepngfix.htc);
-}
-.yellowPopupHeaderMiddle {
-	float: left;
-	background-image: url(/Images/popup/popup_middle.png);
-	background-repeat: repeat-x;
-	min-width: 355px;
-	_width: 355px;
+.PopupHeaderMiddle {	
+	background-color:#FFFFFF;	
+	min-width: 325px;	
 	height: 22px;
-	padding: 6px 0 0 4px;
-	/*color: #274e2b;*/
-	color:#A66C15;
+	padding: 6px 15px 0px 15px;	
+	color:#499779;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-weight: bold;
-	width: 355px;
-	behavior: url(/CSS/iepngfix.htc);
+	font-weight: bold;	
 }
-.yellowPopupBody {
-	background-color: #ffc000;
-	border: 1px solid #b48801;
-	max-width: 327px;
-	width: 355px;
-	_width: 327px;
-	padding: 25px 25px 5px 25px;
+.PopupBody {	
+	background-color:#FFFFFF;	
+	min-width: 305px;	
+	padding: 10px 25px 5px 25px;	
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	line-height: 22px;
+	line-height: 20px;
+	border-top:#08F69A solid 1px;
 }
-.btnYellowPopup {
+.PopupButtonContainer 
+{	
 	text-align: right;
-	padding-top: 10px;
-}
-.yellowPopupBtnCross {
-	margin-top: -10px;
+	padding:10px 15px 20px 0px;	
 }
 /*Yellow Lightbox Ends*/

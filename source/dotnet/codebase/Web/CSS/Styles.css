@@ -621,3 +621,14 @@ img.EmployeeImage
 {
 	width:300px; border:#C0C0C0 1px solid; padding:0px 10px 10px 10px;
 }
+.calendarInput
+{
+	width:90px;	
+}
+.calendarcontainer img
+{
+	margin-left:5px;
+	/*padding-top:3px;*/
+	position:relative;
+	top:3px;
+}
