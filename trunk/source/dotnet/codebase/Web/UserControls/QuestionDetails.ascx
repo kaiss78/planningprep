@@ -3,7 +3,7 @@
 <%@ Register src="~/UserControls/RateQuestion.ascx" tagname="Rate" tagprefix="uc1" %>
 <%@ Register src="~/UserControls/Commenting.ascx" tagname="Commenting" tagprefix="UC" %>
  <style type="text/css">
-        <!
+        <!--
         #Options
         {
             margin-top: 20px;
@@ -17,13 +17,11 @@
         #QuestionDetails
         {
         	margin-top:20px;
-        }
-        
+        }        
         .QuestionDetails
         {
         	width:50%;
-        }
-        
+        }        
         .chart
         {
         	
@@ -32,16 +30,14 @@
         {
             margin-top: 5px;
             margin-bottom: 5px;
-        }
-        
+        }        
         .right
         {
         	color:Green;
         	font-size:11pt;
         	margin-bottom:20px;
         	font-weight:bold;
-        }
-        
+        }        
         .wrong
         {
         	color:Red;
@@ -49,9 +45,8 @@
         	margin-bottom:20px;
         	font-weight:bold;
         }
-        
-        
-        -- ></style>
+        -->
+        </style>
         <div class="contentheading">
     Question Details
     </div>
