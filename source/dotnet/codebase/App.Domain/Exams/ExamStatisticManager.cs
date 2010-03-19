@@ -161,14 +161,14 @@ namespace App.Domain.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForEthics(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForEthics(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             IList<ExamStatistic> ExamStatisticList = new List<ExamStatistic>();
             try
             {
                 using (IExamStatisticDAO dao = (IExamStatisticDAO)DAOFactory.Get<ExamStatistic>())
                 {
-                    ExamStatisticList = dao.GetStatisticsForEthics(userId, isFilterByDate, filterDate);
+                    ExamStatisticList = dao.GetStatisticsForEthics(userId, isFilterByDate, startDate, endDate);
                 }
             }
             catch (Exception ex)
@@ -185,14 +185,14 @@ namespace App.Domain.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetTotalExamStatistics(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetTotalExamStatistics(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             IList<ExamStatistic> ExamStatisticList = new List<ExamStatistic>();
             try
             {
                 using (IExamStatisticDAO dao = (IExamStatisticDAO)DAOFactory.Get<ExamStatistic>())
                 {
-                    ExamStatisticList = dao.GetTotalExamStatistics(userId, isFilterByDate, filterDate);
+                    ExamStatisticList = dao.GetTotalExamStatistics(userId, isFilterByDate, startDate, endDate);
                 }
             }
             catch (Exception ex)
@@ -208,14 +208,14 @@ namespace App.Domain.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForHistoryTheoryLaw(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForHistoryTheoryLaw(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             IList<ExamStatistic> ExamStatisticList = new List<ExamStatistic>();
             try
             {
                 using (IExamStatisticDAO dao = (IExamStatisticDAO)DAOFactory.Get<ExamStatistic>())
                 {
-                    ExamStatisticList = dao.GetStatisticsForHistoryTheoryLaw(userId, isFilterByDate, filterDate);
+                    ExamStatisticList = dao.GetStatisticsForHistoryTheoryLaw(userId, isFilterByDate, startDate, endDate);
                 }
             }
             catch (Exception ex)
@@ -231,14 +231,14 @@ namespace App.Domain.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForTrendsIssues(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForTrendsIssues(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             IList<ExamStatistic> ExamStatisticList = new List<ExamStatistic>();
             try
             {
                 using (IExamStatisticDAO dao = (IExamStatisticDAO)DAOFactory.Get<ExamStatistic>())
                 {
-                    ExamStatisticList = dao.GetStatisticsForTrendsIssues(userId, isFilterByDate, filterDate);
+                    ExamStatisticList = dao.GetStatisticsForTrendsIssues(userId, isFilterByDate, startDate, endDate);
                 }
             }
             catch (Exception ex)
@@ -254,14 +254,14 @@ namespace App.Domain.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForPlanMaking(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForPlanMaking(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             IList<ExamStatistic> ExamStatisticList = new List<ExamStatistic>();
             try
             {
                 using (IExamStatisticDAO dao = (IExamStatisticDAO)DAOFactory.Get<ExamStatistic>())
                 {
-                    ExamStatisticList = dao.GetStatisticsForPlanMaking(userId, isFilterByDate, filterDate);
+                    ExamStatisticList = dao.GetStatisticsForPlanMaking(userId, isFilterByDate, startDate, endDate);
                 }
             }
             catch (Exception ex)
@@ -278,14 +278,14 @@ namespace App.Domain.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForFunctionalTopics(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForFunctionalTopics(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             IList<ExamStatistic> ExamStatisticList = new List<ExamStatistic>();
             try
             {
                 using (IExamStatisticDAO dao = (IExamStatisticDAO)DAOFactory.Get<ExamStatistic>())
                 {
-                    ExamStatisticList = dao.GetStatisticsForFunctionalTopics(userId, isFilterByDate, filterDate);
+                    ExamStatisticList = dao.GetStatisticsForFunctionalTopics(userId, isFilterByDate, startDate, endDate);
                 }
             }
             catch (Exception ex)
@@ -301,14 +301,14 @@ namespace App.Domain.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForPlanImplementation(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForPlanImplementation(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             IList<ExamStatistic> ExamStatisticList = new List<ExamStatistic>();
             try
             {
                 using (IExamStatisticDAO dao = (IExamStatisticDAO)DAOFactory.Get<ExamStatistic>())
                 {
-                    ExamStatisticList = dao.GetStatisticsForPlanImplementation(userId, isFilterByDate, filterDate);
+                    ExamStatisticList = dao.GetStatisticsForPlanImplementation(userId, isFilterByDate, startDate, endDate);
                 }
             }
             catch (Exception ex)
