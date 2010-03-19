@@ -217,7 +217,8 @@
                 </td>
             </tr>        
             <tr>
-                <td colspan="2">
+                <td>&nbsp;</td>
+                <td>
                     <asp:Button ID="btnRegister" runat="server" Text="Register" 
                         CssClass="ButtonCommon" ValidationGroup="Register" 
                         onclick="btnRegister_Click" />
