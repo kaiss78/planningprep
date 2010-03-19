@@ -85,35 +85,35 @@ public partial class Pages_Member_Statistics : BasePage
 
         ltrTimePerQuestion.Text = String.Format(AppConstants.ValueOf.DECIMAL_FORMAT, timePerQuestion);
     }
-
+    
     protected void BindStatisticsByCategory()
     {        
         StringBuilder sb = new StringBuilder(100);
 
         ExamStatisticManager manager = new ExamStatisticManager();
         IList<ExamStatistic> statistics = manager.GetStatisticsForHistoryTheoryLaw(_UserID, _IsFilterByDate, _StartDate, _EndDate);
-        sb.Append(GetStatisticsHtml(statistics, "History, Theory & Law"));
+        sb.Append(GetStatisticsHtml(statistics, "History, Theory & Law", true));
 
         statistics = manager.GetStatisticsForTrendsIssues(_UserID, _IsFilterByDate, _StartDate, _EndDate);
-        sb.Append(GetStatisticsHtml(statistics, "Trends & Issues"));
+        sb.Append(GetStatisticsHtml(statistics, "Trends & Issues", true));
 
         statistics = manager.GetStatisticsForPlanMaking(_UserID, _IsFilterByDate, _StartDate, _EndDate);
-        sb.Append(GetStatisticsHtml(statistics, "Plan Making"));
+        sb.Append(GetStatisticsHtml(statistics, "Plan Making", true));
 
         statistics = manager.GetStatisticsForFunctionalTopics(_UserID, _IsFilterByDate, _StartDate, _EndDate);
-        sb.Append(GetStatisticsHtml(statistics, "Functional Topics"));
+        sb.Append(GetStatisticsHtml(statistics, "Functional Topics", true));
 
         statistics = manager.GetStatisticsForPlanImplementation(_UserID, _IsFilterByDate, _StartDate, _EndDate);
-        sb.Append(GetStatisticsHtml(statistics, "Plan Implementation"));
+        sb.Append(GetStatisticsHtml(statistics, "Plan Implementation", true));
 
         statistics = manager.GetStatisticsForEthics(_UserID, _IsFilterByDate, _StartDate, _EndDate);
-        sb.Append(GetStatisticsHtml(statistics, "Ethics"));
+        sb.Append(GetStatisticsHtml(statistics, "Ethics", false));
 
         divCategoryContainer.InnerHtml = sb.ToString();
     }
-    protected String GetStatisticsHtml(IList<ExamStatistic> statistics, String title)
+    protected String GetStatisticsHtml(IList<ExamStatistic> statistics, String title, bool showBorder)
     {       
-        String Html = @"<div class='categorycontainer'>
+        String Html = @"<div class='categorycontainer'{4}>
                         <b>{0}</b><br/>
                         Questions Taken: {1}<br />
                         Correct Answers: {2}<br />
@@ -123,10 +123,10 @@ public partial class Pages_Member_Statistics : BasePage
         {
             ExamStatistic stat = statistics[0];
             double percentage = (Convert.ToDouble(stat.Correct) / Convert.ToDouble(stat.Taken)) * 100;
-            return String.Format(Html, title, stat.Taken, stat.Correct, String.Format(AppConstants.ValueOf.DECIMAL_FORMAT, percentage));
+            return String.Format(Html, title, stat.Taken, stat.Correct, String.Format(AppConstants.ValueOf.DECIMAL_FORMAT, percentage), showBorder ? String.Empty : " style='border-bottom: none;'");
         }
         else        
-            return String.Format(Html, title, 0, 0, 0);
+            return String.Format(Html, title, 0, 0, 0, showBorder ? String.Empty : " style='border-bottom: none;'");
         
     }
     protected void btnFilter_Click(object sender, EventArgs e)
@@ -136,8 +136,10 @@ public partial class Pages_Member_Statistics : BasePage
             _IsFilterByDate = true;
             _StartDate = DateTime.Parse(txtStartDate.Text);
             if (!String.IsNullOrEmpty(txtEndDate.Text))
+            {
                 _EndDate = DateTime.Parse(txtEndDate.Text);
-
+                _EndDate = new DateTime(_EndDate.Year, _EndDate.Month, _EndDate.Day, 23, 59, 59);
+            }
             BindOverallStatistics();
             BindStatisticsByCategory();
         }
