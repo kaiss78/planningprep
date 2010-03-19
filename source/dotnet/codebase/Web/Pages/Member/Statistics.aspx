@@ -41,7 +41,8 @@
         Use the tool below to view your statistics from a specific date forward. This is a great way to 
         see what kind of progress you have been making.  Select a date below and press Filter.   
     </div>
-    <div class="calendarcontainer" style="margin-top:5px;">        
+    <asp:Panel ID="pnlFilterBox" CssClass="calendarcontainer" runat="server" DefaultButton="btnFilter">
+           
         <div class="floatleft">
             Start Date <asp:TextBox ID="txtStartDate" CssClass="TextBoxCommon calendarInput" runat="server" MaxLength="30"></asp:TextBox>
         </div>
@@ -83,7 +84,7 @@
         <div style="padding-top:3px; margin-bottom:10px;">
             <asp:Button ID="btnFilter" runat="server" Text="Filter" CssClass="ButtonCommon" ValidationGroup="Filter" OnClick="btnFilter_Click" style="width:70px;" />                
         </div>        
-    </div>
+    </asp:Panel>
     
     <div class="homepagecontentbox">
         <div style="margin-bottom:15px;"><b>Overall Statistics</b></div>        
@@ -161,7 +162,7 @@
     </div>
     <div class="clearfloating"></div>
     
-    <div style="margin-top:15px;">
+    <div style="padding-top:5px; border-top: solid 1px #C0C0C0;">
         <b>PLEASE NOTE:</b> The number of questions indicated under each question category 
         does not add up to the overall question total because questions that fall under 
         two or more categories are counted under each category.
