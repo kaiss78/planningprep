@@ -69,7 +69,7 @@ public partial class UserControls_PaginatedUsers : BaseUserControl
         int totalRecord = 0;
 
         Users = manager.GetPagedList(pageNo, pageSize).ToList();
-        totalRecord = manager.GetPagedList(1, PageSizeForGettingAllData).Count;
+        totalRecord = manager.GetUserCount();
 
         if (Users == null || Users.Count == 0)
         {
