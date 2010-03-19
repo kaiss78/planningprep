@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{CC96F1B7-3437-46BB-9F33-FA2F8AE95EBC}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -50,6 +50,7 @@
     <Compile Include="AnswerTotals\AnswerTotalManager.cs" />
     <Compile Include="BaseBusinessObject.cs" />
     <Compile Include="Comments\CommentManager.cs" />
+    <Compile Include="Comments\CommentThumbInfoManager.cs" />
     <Compile Include="DomainInitializer.cs" />
     <Compile Include="Exams\ExamManager.cs" />
     <Compile Include="Exams\ExamStatisticManager.cs" />
