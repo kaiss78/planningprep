@@ -53,8 +53,7 @@
         }
         function SaveComment_Failiure(error)
         {
-            CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');
-            //alert(error.get_message());
+            CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');            
         }
         
         ///Thumbs Up and Down 
@@ -68,13 +67,12 @@
         {
             var thumbsCount = result;
             $(_ImgElement).parent().parent().find('.thumbText').html(GetLogicalText(thumbsCount, 'Thumb') + '&nbsp;');
-            CreateConfirmationPopup('confirm', 'Thumbs Up', 'Thank you!<br/>Thumbs Up information for this comment has been saved successfully.');
-            //alert('Your preference saved successfully.');
+            DisableThumbImages();            
+            CreateConfirmationPopup('confirm', 'Thumbs Up', 'Thank you!<br/>Thumbs Up information for this comment has been saved successfully.');            
         }
         function CommentThumbsUp_Failiure(error)
         {
-            CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');
-            //alert(error.get_message());
+            CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');            
         }   
         function ThumbsDown(commentID, imgElement)
         {
@@ -85,15 +83,18 @@
         {
             var thumbsCount = result;
             $(_ImgElement).parent().parent().find('.thumbText').html(GetLogicalText(thumbsCount, 'Thumb') + '&nbsp;');    
-            CreateConfirmationPopup('confirm', 'Thumbs Down', 'Thank you!<br/>Your Thumbs Down information for this comment has been saved successfully.');
-            //alert('Your preference saved successfully.');   
+            DisableThumbImages();
+            CreateConfirmationPopup('confirm', 'Thumbs Down', 'Thank you!<br/>Your Thumbs Down information for this comment has been saved successfully.');            
         }
         function CommentThumbsDown_Failiure(error)
         {
-            CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');
-            //alert(error.get_message());
+            CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');            
         }   
-        
+        function DisableThumbImages()
+        {
+            var imageHtml = '<img src="/Images/ThumbsDown_Disabled.png" alt="Thumbs Down Disabled" title="Thumbs Down Disabled"/> <img src="/Images/ThumbsUp_Disabled.png" alt="Thumbs Up Disabled" title="Thumbs Up Disabled"/>';
+            $(_ImgElement).parent().parent().find('.thumbImage').fadeOut().html(imageHtml).fadeIn('slow');
+        }
         function ToggleCommentingBox() 
         {
             if($('#divCommentingTextBox').is(':visible'))            
@@ -104,14 +105,24 @@
                 $('#<%=txtComment.ClientID%>').val('')
             }               
         }      
-        
-    </script>
+        /*$('body').click(function() {
+            if($('#divCommentingTextBox').is(':visible'))            
+                $('#divCommentingTextBox').fadeOut(); 
+        });
 
+        $('#divEventCatcher').click(function(event){
+            event.stopPropagation();
+        });*/
+
+    </script>
+    
 <div id="divCommentingList">
-    <div class="contentheading"><asp:Literal ID="ltrCommentHeading" runat="server"></asp:Literal></div>
-    <div id="divCommentingTextBox" style="display:none;">    
-        <asp:TextBox ID="txtComment" TextMode="MultiLine" MaxLength="2000" runat="server" style="width:350px; height:75px;"></asp:TextBox>
-        <div style="margin-top:5px; margin-bottom:10px;"><input type="button" value="Save Comment" class="ButtonCommon" onclick="SaveCommentData();" /></div>    
+    <div id="divEventCatcher">
+        <div class="contentheading"><asp:Literal ID="ltrCommentHeading" runat="server"></asp:Literal></div>
+        <div id="divCommentingTextBox" style="display:none;">    
+            <asp:TextBox ID="txtComment" TextMode="MultiLine" MaxLength="2000" runat="server" style="width:350px; height:75px;"></asp:TextBox>
+            <div style="margin-top:5px; margin-bottom:10px;"><input type="button" value="Save Comment" class="ButtonCommon" onclick="SaveCommentData();" /></div>    
+        </div>
     </div>
     <%--<div class="contentheading" id="divCommentListHeading" style="display:<%=_CommentListDisplayStyle %>;">Comments</div>--%>
     <asp:Repeater ID="rptCommentList" runat="server" onitemdatabound="rptCommentList_ItemDataBound">
