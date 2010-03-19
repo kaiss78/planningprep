@@ -11,8 +11,13 @@ function GetLogicalText(count, textToUse)
 {
     if (count > 1)
         return String.format("+{0} {1}s", count, textToUse);
-    else if (count < -1)
-        return String.format("{0} {1}s", count, textToUse);
+    else if(count < 0)
+    {
+        if(count == -1)
+            return String.format("{0} {1}", count, textToUse);
+        else// if (count < -1)
+            return String.format("{0} {1}s", count, textToUse);
+    }    
     else if (count == 0)
         return String.format("0 {0}s", textToUse);
     else 
