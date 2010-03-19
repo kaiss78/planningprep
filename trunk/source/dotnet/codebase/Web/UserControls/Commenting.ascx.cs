@@ -67,7 +67,7 @@ public partial class UserControls_Commenting : BaseUserControl
             ltrUserInfo.Text = String.Format("{0}<br /><span class='minutesago'>{1}</span>", AppUtil.Encode(user.Username), GetDifference(comment.Created));
         }
         Literal ltrComment = e.Item.FindControl("ltrComment") as Literal;
-        ltrComment.Text = AppUtil.FormatText(comment.CommentText);
+        ltrComment.Text = string.Format("\"{0}\"",AppUtil.FormatText(comment.CommentText));
         Literal ltrThumbs = e.Item.FindControl("ltrThumbs") as Literal;
         String thumbsText = thumbsText = String.Format("+{0} Thumbs", comment.Rank);
             
