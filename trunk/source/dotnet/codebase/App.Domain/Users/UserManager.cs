@@ -158,6 +158,27 @@ namespace App.Domain.Users
         }
 
         /// <summary>
+        /// Get user count 
+        /// </summary>
+        /// <returns></returns>
+        public int GetUserCount()
+        {
+            int count = 0;
+            try
+            {
+                using (IUserDAO dao = (IUserDAO)DAOFactory.Get<PlanningPrepUser>())
+                {
+                    count = dao.GetUserCount();
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return count;
+        }
+
+        /// <summary>
         /// Deletes the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
