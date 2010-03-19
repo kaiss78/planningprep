@@ -108,8 +108,7 @@ go
 
 CREATE PROCEDURE [dbo].[spGetTotalCountQuestionSearchByKeywordOrCategory] 
 (
-	   @PageNo int,
-	   @PageLength int,
+
 	   @Keyword varchar(100), 
 	   @Category varchar(100), 
 	   @UserID int,
