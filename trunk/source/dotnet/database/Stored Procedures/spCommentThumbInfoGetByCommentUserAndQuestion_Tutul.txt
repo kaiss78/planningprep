@@ -1,0 +1,25 @@
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentThumbInfoGetByCommentUserAndQuestion]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentThumbInfoGetByCommentUserAndQuestion]
+GO
+CREATE PROCEDURE [dbo].[spCommentThumbInfoGetByCommentUserAndQuestion] 
+	@CommentId bigint
+	, @UserID	INT
+	, @QuestionID INT
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/19/2010 5:48:04 PM
+-- Description: GetById Into Table CommentThumbInfo
+-- =============================================
+-- spCommentThumbInfoGetByCommentUserAndQuestion ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[CommentThumbInfo] tab WITH(NOLOCK)
+		WHERE tab.[CommentID]=@CommentID
+		AND tab.[UserID] = @UserID
+		AND tab.[QuestionID] = @QuestionID
+
+		SET NOCOUNT OFF;
+END
