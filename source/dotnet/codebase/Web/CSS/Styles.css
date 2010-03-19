@@ -140,7 +140,7 @@ A.headermenu:hover
 	clear:both;
 }
 .OddRowListing {
-	color: #1A5C3B;
+	/*color: #1A5C3B;*/
 	font-size: 11px;
 	background-color: #E7F7F2;
 	height: 21px;
@@ -150,7 +150,7 @@ A.headermenu:hover
 	background-color: #94E2BA;
 }
 .EvenRowListing {
-	color: #1A5C3B;
+	/*color: #1A5C3B;*/
 	font-size: 11px;
 	background-color: #F4FBF9;
 	height: 21px;
