@@ -80,13 +80,13 @@ BEGIN
 		WHERE resultNum  BETWEEN ' + CAST(@StartRow AS VARCHAR(10)) + ' AND ' + CAST(@EndRow AS VARCHAR(10)) + '
 		ORDER BY ' +  @ORDER_BY
 
-		DECLARE @COUNT_SQL VARCHAR(300);
-		SET @COUNT_SQL = 
-		'; SELECT COUNT(*)
-		FROM ' + @FROM +
-		' WHERE ' + @WHERE; 
+		--DECLARE @COUNT_SQL VARCHAR(300);
+		--SET @COUNT_SQL = 
+		--'; SELECT COUNT(*)
+		--FROM ' + @FROM +
+		--' WHERE ' + @WHERE; 
 		
-		SET @SQL  = @SQL + @COUNT_SQL;
+		--SET @SQL  = @SQL + @COUNT_SQL;
 
 		--PRINT(@SQL);
 		
