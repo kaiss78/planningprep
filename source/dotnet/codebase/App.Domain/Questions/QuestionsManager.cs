@@ -177,6 +177,30 @@ namespace App.Domain.Questions
             }
             return QuestionsList;
         }
+
+        /// <summary>
+        /// Get question search count by keyword and category
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageLength"></param>
+        /// <returns></returns>
+        public int GetQuestionCountByKeywordOrCategory(string keyword, string category, int userId, bool filter)
+        {
+            int count = 0;
+            try
+            {
+                using (IQuestionsDAO dao = (IQuestionsDAO)DAOFactory.Get<App.Models.Questions.Questions>())
+                {
+                    count = dao.GetQuestionCountByKeywordOrCategory(keyword, category, userId, filter);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return count;
+        }
+
         /// <summary>
         /// Gets Last Question Update Date
         /// </summary>
