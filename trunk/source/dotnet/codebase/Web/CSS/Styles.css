@@ -625,6 +625,10 @@ img.EmployeeImage
 {
 	width:90px;	
 }
+.calendarcontainer
+{
+	margin-top:5px;
+}
 .calendarcontainer img
 {
 	margin-left:5px;
