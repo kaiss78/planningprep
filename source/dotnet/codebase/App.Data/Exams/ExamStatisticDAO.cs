@@ -35,13 +35,13 @@ namespace App.Data.Exams
 {
     public interface IExamStatisticDAO : IDataAccess<App.Models.Exams.ExamStatistic>
     {
-        IList<ExamStatistic> GetStatisticsForEthics(int userId, bool isFilterByDate, DateTime filterDate);
-        IList<ExamStatistic> GetTotalExamStatistics(int userId, bool isFilterByDate, DateTime filterDate);
-        IList<ExamStatistic> GetStatisticsForHistoryTheoryLaw(int userId, bool isFilterByDate, DateTime filterDate);
-        IList<ExamStatistic> GetStatisticsForTrendsIssues(int userId, bool isFilterByDate, DateTime filterDate);
-        IList<ExamStatistic> GetStatisticsForPlanMaking(int userId, bool isFilterByDate, DateTime filterDate);
-        IList<ExamStatistic> GetStatisticsForFunctionalTopics(int userId, bool isFilterByDate, DateTime filterDate);
-        IList<ExamStatistic> GetStatisticsForPlanImplementation(int userId, bool isFilterByDate, DateTime filterDate);
+        IList<ExamStatistic> GetStatisticsForEthics(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate);
+        IList<ExamStatistic> GetTotalExamStatistics(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate);
+        IList<ExamStatistic> GetStatisticsForHistoryTheoryLaw(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate);
+        IList<ExamStatistic> GetStatisticsForTrendsIssues(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate);
+        IList<ExamStatistic> GetStatisticsForPlanMaking(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate);
+        IList<ExamStatistic> GetStatisticsForFunctionalTopics(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate);
+        IList<ExamStatistic> GetStatisticsForPlanImplementation(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate);
     }
 
     public class ExamStatisticDAO : BaseDataAccess<App.Models.Exams.ExamStatistic>, IExamStatisticDAO
@@ -77,13 +77,13 @@ namespace App.Data.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForEthics(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForEthics(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "ExamStatisticDAO.GetStatisticsForEthics(int, bool, DateTime)"))
             {
                 try
                 {
-                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("FilterDate", DbType.DateTime, filterDate) };
+                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("StartDate", DbType.DateTime, startDate), new DbParameter("EndDate", DbType.DateTime, endDate) };
                     return GetAllInternal("spGetExamStatisticsForEthiscs", parameters, false);
                 }
                 catch (Exception ex)
@@ -100,13 +100,13 @@ namespace App.Data.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetTotalExamStatistics(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetTotalExamStatistics(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "ExamStatisticDAO.GetTotalExamStatistics(int, bool, DateTime)"))
             {
                 try
                 {
-                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("FilterDate", DbType.DateTime, filterDate) };
+                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("StartDate", DbType.DateTime, startDate), new DbParameter("EndDate", DbType.DateTime, endDate) };
                     return GetAllInternal("spGetExamStatisticsTotal", parameters, false);
                 }
                 catch (Exception ex)
@@ -123,13 +123,13 @@ namespace App.Data.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForHistoryTheoryLaw(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForHistoryTheoryLaw(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "ExamStatisticDAO.GetExamStatisticsForHistoryTheoryLaw(int, bool, DateTime)"))
             {
                 try
                 {
-                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("FilterDate", DbType.DateTime, filterDate) };
+                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("StartDate", DbType.DateTime, startDate), new DbParameter("EndDate", DbType.DateTime, endDate) };
                     return GetAllInternal("spGetExamStatisticsForHistoryTheoryLaw", parameters, false);
                 }
                 catch (Exception ex)
@@ -146,13 +146,13 @@ namespace App.Data.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForTrendsIssues(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForTrendsIssues(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "ExamStatisticDAO.GetStatisticsForTrendsIssues(int, bool, DateTime)"))
             {
                 try
                 {
-                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("FilterDate", DbType.DateTime, filterDate) };
+                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("StartDate", DbType.DateTime, startDate), new DbParameter("EndDate", DbType.DateTime, endDate) };
                     return GetAllInternal("spGetExamStatisticsForTrendsIssues", parameters, false);
                 }
                 catch (Exception ex)
@@ -169,13 +169,13 @@ namespace App.Data.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForPlanMaking(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForPlanMaking(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "ExamStatisticDAO.GetStatisticsForPlanMaking(int, bool, DateTime)"))
             {
                 try
                 {
-                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("FilterDate", DbType.DateTime, filterDate) };
+                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("StartDate", DbType.DateTime, startDate), new DbParameter("EndDate", DbType.DateTime, endDate) };
                     return GetAllInternal("spGetExamStatisticsForPlanMaking", parameters, false);
                 }
                 catch (Exception ex)
@@ -192,13 +192,13 @@ namespace App.Data.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForFunctionalTopics(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForFunctionalTopics(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "ExamStatisticDAO.GetStatisticsForForFunctionalTopics(int, bool, DateTime)"))
             {
                 try
                 {
-                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("FilterDate", DbType.DateTime, filterDate) };
+                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("StartDate", DbType.DateTime, startDate), new DbParameter("EndDate", DbType.DateTime, endDate) };
                     return GetAllInternal("spGetExamStatisticsForFunctionalTopics", parameters, false);
                 }
                 catch (Exception ex)
@@ -215,13 +215,13 @@ namespace App.Data.Exams
         /// <param name="isFilterByDate"></param>
         /// <param name="filterDate"></param>
         /// <returns></returns>
-        public IList<ExamStatistic> GetStatisticsForPlanImplementation(int userId, bool isFilterByDate, DateTime filterDate)
+        public IList<ExamStatistic> GetStatisticsForPlanImplementation(int userId, bool isFilterByDate, DateTime startDate, DateTime endDate)
         {
             using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "ExamStatisticDAO.GetStatisticsForPlanImplementation(int, bool, DateTime)"))
             {
                 try
                 {
-                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("FilterDate", DbType.DateTime, filterDate) };
+                    DbParameter[] parameters = new[] { new DbParameter("UserID", DbType.Int32, userId), new DbParameter("IsSearchByDate", DbType.Boolean, isFilterByDate), new DbParameter("StartDate", DbType.DateTime, startDate), new DbParameter("EndDate", DbType.DateTime, endDate) };
                     return GetAllInternal("spGetExamStatisticsForPlanImplementation", parameters, false);
                 }
                 catch (Exception ex)
