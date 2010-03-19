@@ -9,6 +9,7 @@ using System.Web.Script.Services;
 using App.Models.Comments;
 using App.Models.Questions;
 using App.Domain.Questions;
+using App.Domain.Comments;
 
 /// <summary>
 /// Summary description for AjaxService
@@ -41,7 +42,7 @@ public class AjaxService : System.Web.Services.WebService
         return comment.Id;
     }
     [WebMethod(EnableSession = true)]
-    public int CommentThumbsUp(int commentID)
+    public int CommentThumbsUp(long commentID, int userID, int questionID)
     {
         App.Domain.Comments.CommentManager manager = new App.Domain.Comments.CommentManager();
         Comment comment =  manager.Get(commentID);
@@ -49,16 +50,17 @@ public class AjaxService : System.Web.Services.WebService
         {
             comment.Rank = comment.Rank + 1;
             manager.SaveOrUpdate(comment);
+            SaveThumbInfo(commentID, userID, questionID);
             return comment.Rank - comment.NegativeRank;
         }
         return 0;
-    }
+    }    
     /// <summary>
     /// Saves Thumbs Down Data
     /// </summary>
     /// <param name="commentID"></param>
     [WebMethod(EnableSession = true)]
-    public int CommentThumbsDown(int commentID)
+    public int CommentThumbsDown(long commentID, int userID, int questionID)
     {
         App.Domain.Comments.CommentManager manager = new App.Domain.Comments.CommentManager();
         Comment comment = manager.Get(commentID);
@@ -66,10 +68,24 @@ public class AjaxService : System.Web.Services.WebService
         {
             comment.NegativeRank = comment.NegativeRank + 1;
             manager.SaveOrUpdate(comment);
+            SaveThumbInfo(commentID, userID, questionID);
             return comment.Rank - comment.NegativeRank;
         }        
         return 0;
     }
+    private void SaveThumbInfo(long commentID, int userID, int questionID)
+    {
+        CommentThumbInfo thumbInfo = new CommentThumbInfo();
+        thumbInfo.Created = DateTime.Now;
+        thumbInfo.UserID = userID;
+        thumbInfo.QuestionID = questionID;
+        thumbInfo.CommentID = commentID;
+
+        CommentThumbInfoManager thumbManager = new CommentThumbInfoManager();
+        thumbManager.SaveOrUpdate(thumbInfo);
+    }
+
+
     [WebMethod(EnableSession = true)]
     public void SaveQuestionRating(long questionID, int selectedRating)
     {
