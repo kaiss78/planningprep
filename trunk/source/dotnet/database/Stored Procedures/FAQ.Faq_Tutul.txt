@@ -143,3 +143,30 @@ BEGIN
 END
 GO
 
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spFaqGetAllSorted]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spFaqGetAllSorted]
+GO
+CREATE PROCEDURE [dbo].[spFaqGetAllSorted] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/18/2010 8:14:31 PM
+-- Description: GetAll Into Table Faq
+-- =============================================
+-- spFaqGetAllSorted ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT [Faq].*  
+		FROM [dbo].[Faq]  WITH(NOLOCK)
+		INNER JOIN dbo.FaqCategory FC ON FC.FaqCatID = [Faq].FaqCatID
+		ORDER BY FC.Category
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+
