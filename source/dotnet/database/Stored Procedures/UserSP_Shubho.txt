@@ -286,3 +286,26 @@ BEGIN
 	SET NOCOUNT OFF;
 END
 GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spAuthorGetCount]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spAuthorGetCount]
+GO
+CREATE PROCEDURE [dbo].[spAuthorGetCount] 
+	  
+
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/8/2010 9:31:29 PM
+-- Description: GetForUser Into Table tblAuthor
+-- =============================================
+-- spAuthorGetCount ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT COUNT(*)  
+		FROM [dbo].[tblAuthor] tab  WITH(NOLOCK)
+
+	SET NOCOUNT OFF;
+END
+GO
