@@ -7,12 +7,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
     <div class="floatright">
-        <asp:HyperLink ID="hplAddNewFAQ" runat="server">Add New FAQ Question</asp:HyperLink> &nbsp;
+        <asp:HyperLink ID="hplAddNewFAQ" runat="server">Add New FAQ</asp:HyperLink> &nbsp;
         <asp:HyperLink ID="hplManageFAQCategory" runat="server">Manage Category</asp:HyperLink>
     </div>
     <div class="clearfloating"></div>
     
-    <div class="contentheading">List of FAQ Questions</div>
+    <div class="contentheading">List of FAQ</div>
     
     <div>
         <asp:Label ID="lblNoQuestionFoundMessage" Visible="false" runat="server" Text="No Question found."></asp:Label>
