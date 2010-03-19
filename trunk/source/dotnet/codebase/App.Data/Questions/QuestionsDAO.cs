@@ -39,6 +39,7 @@ namespace App.Data.Questions
         DateTime LastQuestionDate();
         void SaveQuestionOfTheWeekAnswer(int questionID, int userId, String answer);
         IList<App.Models.Questions.Questions> GetPagedListByKeywordOrCategory(int pageNo, int pageLength, string keyword, string category, int userId, bool filter);
+        int GetQuestionCountByKeywordOrCategory(string keyword, string category, int userId, bool filter);
     }
 
     public class QuestionsDAO : BaseDataAccess<App.Models.Questions.Questions>, IQuestionsDAO
@@ -152,7 +153,7 @@ namespace App.Data.Questions
         /// <returns></returns>
         public IList<App.Models.Questions.Questions> GetPagedListByKeywordOrCategory(int pageNo, int pageLength, string keyword, string category, int userId, bool filter)
         {
-            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "GetPagedListByKeywordOrCategory.GetUserExamByExamAndUser(int,int,string,string,;bool)"))
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "QuestionsDAO.GetUserExamByExamAndUser(int,int,string,string,;bool)"))
             {
                 try
                 {
@@ -163,7 +164,38 @@ namespace App.Data.Questions
                 catch (Exception ex)
                 {
                     Exception exToUse = ex.InnerException ?? ex;
-                    throw new DataAccessException(exToUse.Message, exToUse, "GetPagedListByKeywordOrCategory.GetUserExamByExamAndUser(int,int,string,string,bool)");
+                    throw new DataAccessException(exToUse.Message, exToUse, "QuestionsDAO.GetUserExamByExamAndUser(int,int,string,string,bool)");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get question search count by keyword and category
+        /// </summary>
+        /// <param name="pageNo"></param>
+        /// <param name="pageLength"></param>
+        /// <returns></returns>
+        public int GetQuestionCountByKeywordOrCategory(string keyword, string category, int userId, bool filter)
+        {
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "QuestionsDAO.GetQuestionCountByKeywordOrCategory(string,string,int,bool)"))
+            {
+                try
+                {
+                    keyword = keyword == null ? string.Empty : keyword;
+                    category = category == null ? string.Empty : category;
+
+                    DbCommand cmd = Database.GetStoredProcCommand("spGetTotalCountQuestionSearchByKeywordOrCategory");
+                    cmd.Parameters.Add(new SqlParameter("@Keyword", keyword));
+                    cmd.Parameters.Add(new SqlParameter("@Category", category));
+                    cmd.Parameters.Add(new SqlParameter("@UserID", userId));
+                    cmd.Parameters.Add(new SqlParameter("@Filter", filter));
+                    int count = Convert.ToInt32(Database.ExecuteScalar(cmd));   
+                    return count;
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "QuestionsDAO.GetQuestionCountByKeywordOrCategory(string,string,int,bool)");
                 }
             }
         }
