@@ -10,31 +10,82 @@
    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>   
     
     <uc1:QuestionDetails ID="questionDetails" runat="server" />
+
+    <%--<input type="button" value="Show Modal" onclick="CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');" />    
+    
+    <div class="homepagecontentbox">
+        asdfsad fsdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf 
+        sdaf sdaf sadf sadf sdaf sdaf sdaf sdaf sdafsdafsadfsadf
+        sdaf sadf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf ds
+        sdaf sadf sdafsdafsadfsdafsdaf sdaf sdafsdaf sdafsadf sdaf
+        sdaf sadf sdafsdafsdafsdafsdafsdaf sadfsdafsdafsdaf sdaf sdaf
+        sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdafsad sdfsd
+        asdfsad fsdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf 
+        sdaf sdaf sadf sadf sdaf sdaf sdaf sdaf sdafsdafsadfsadf
+        sdaf sadf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf ds
+        sdaf sadf sdafsdafsadfsdafsdaf sdaf sdafsdaf sdafsadf sdaf
+        sdaf sadf sdafsdafsdafsdafsdafsdaf sadfsdafsdafsdaf sdaf sdaf
+        sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdafsad sdfsd
+        asdfsad fsdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf 
+        sdaf sdaf sadf sadf sdaf sdaf sdaf sdaf sdafsdafsadfsadf
+        sdaf sadf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf ds
+        sdaf sadf sdafsdafsadfsdafsdaf sdaf sdafsdaf sdafsadf sdaf
+        sdaf sadf sdafsdafsdafsdafsdafsdaf sadfsdafsdafsdaf sdaf sdaf
+        sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdafsad sdfsd
+        asdfsad fsdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf 
+        sdaf sdaf sadf sadf sdaf sdaf sdaf sdaf sdafsdafsadfsadf
+        sdaf sadf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf ds
+        sdaf sadf sdafsdafsadfsdafsdaf sdaf sdafsdaf sdafsadf sdaf
+        sdaf sadf sdafsdafsdafsdafsdafsdaf sadfsdafsdafsdaf sdaf sdaf
+        sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdafsad sdfsd
+    </div>
+    <div class="homepagecontentbox">
+        asdfsad fsdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf 
+        sdaf sdaf sadf sadf sdaf sdaf sdaf sdaf sdafsdafsadfsadf
+        sdaf sadf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf ds
+        sdaf sadf sdafsdafsadfsdafsdaf sdaf sdafsdaf sdafsadf sdaf
+        sdaf sadf sdafsdafsdafsdafsdafsdaf sadfsdafsdafsdaf sdaf sdaf
+        sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdafsad sdfsd
+        asdfsad fsdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf 
+        sdaf sdaf sadf sadf sdaf sdaf sdaf sdaf sdafsdafsadfsadf
+        sdaf sadf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf ds
+        sdaf sadf sdafsdafsadfsdafsdaf sdaf sdafsdaf sdafsadf sdaf
+        sdaf sadf sdafsdafsdafsdafsdafsdaf sadfsdafsdafsdaf sdaf sdaf
+        sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdafsad sdfsd
+        asdfsad fsdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf 
+        sdaf sdaf sadf sadf sdaf sdaf sdaf sdaf sdafsdafsadfsadf
+        sdaf sadf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf ds
+        sdaf sadf sdafsdafsadfsdafsdaf sdaf sdafsdaf sdafsadf sdaf
+        sdaf sadf sdafsdafsdafsdafsdafsdaf sadfsdafsdafsdaf sdaf sdaf
+        sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdafsad sdfsd
+        asdfsad fsdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf 
+        sdaf sdaf sadf sadf sdaf sdaf sdaf sdaf sdafsdafsadfsadf
+        sdaf sadf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf ds
+        sdaf sadf sdafsdafsadfsdafsdaf sdaf sdafsdaf sdafsadf sdaf
+        sdaf sadf sdafsdafsdafsdafsdafsdaf sadfsdafsdafsdaf sdaf sdaf
+        sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdaf sdafsad sdfsd
+    </div>
+    <div class="clearfloating"></div>--%>
+    
+    
     
     <%--Modal Popup Section Starts From Here--%>
-    <div class="yellowPopupContainer" id="confirm" style="display: none;">
-        <div class="yellowPopupHeader">
-            <div class="yellowPopupHeaderLeft">
-            </div>
-            <div class="yellowPopupHeaderMiddle">
+    <div class="PopupContainer" id="confirm" style="display: none;">
+        <div class="PopupHeader_111">            
+            <div class="PopupHeaderMiddle">
                 <div style="float: left;" id="popupHeader"><%--The Popup Title Will be shown here--%></div>
                 <div style="float: right;">
-                    <img src="/Images/btn/btnClose_popup.gif" onclick="HideConfirmationPopup('confirm');"
+                    <img src="/Images/btn/btn_popup_close.gif" onclick="HideConfirmationPopup('confirm');"
                         alt="Close" border="0" align="right" title="Close" style="margin-top: 2px; cursor: pointer;" />
                 </div>                
                 <div class="clearfloating"></div>
-            </div>
-            <div class="yellowPopupHeaderRight">
-            </div>
-            <div class="clearfloating"></div>
+            </div>            
         </div>
-        <div class="yellowPopupBody" style="padding-bottom: 20px">
-            <span id="popupMessage"><%--The Message will be shown here--%></span>            
-            <div class="btnYellowPopup">
-                <a href="javascript:void(0);" onclick="HideConfirmationPopup('confirm');">
-                    <img border="0" title="Ok" src="/Images/btn/btnOk.png" alt="Ok" class="btnAllForPopup" />
-                </a>                
-            </div>
+        <div class="PopupBody">
+            <span id="popupMessage"><%--The Message will be shown here--%></span>                        
+        </div>
+        <div class="PopupButtonContainer">
+            <input type="button" value="Ok" class="ButtonCommon" style="padding-right:0px; width:55px;" onclick="HideConfirmationPopup('confirm');" />            
         </div>
     </div>
     <%--Modal Popup Section Ends Here--%>
