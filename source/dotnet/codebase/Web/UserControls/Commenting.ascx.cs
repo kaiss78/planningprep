@@ -120,8 +120,13 @@ public partial class UserControls_Commenting : BaseUserControl
     }
     protected String GetPluralText(double value, String text)
     {
-        if(value == 0 || value > 1)
-            return String.Format("{0} {1}s", value, text);
+        if (value == 0 || value > 1)
+        {
+            if (value == 0 && text != "Minute")
+                return String.Empty;
+            else
+                return String.Format("{0} {1}s", value, text);
+        }
         else //if(value == 1)
             return String.Format("{0} {1}", value, text);
     }
@@ -136,8 +141,15 @@ public partial class UserControls_Commenting : BaseUserControl
     {
         if (count > 1)
             return String.Format("+{0} {1}s", count, textToUse);
-        else if (count < -1)
-            return String.Format("{0} {1}s", count, textToUse);
+        else if (count < 0)
+        {
+            if (count == -1)
+                return String.Format("{0} {1}", count, textToUse);
+            else// if (count < -1)
+                return String.Format("{0} {1}s", count, textToUse);
+        }    
+        //else if (count < -1)
+        //    return String.Format("{0} {1}s", count, textToUse);
         else if (count == 0)
             return String.Format("0 {0}s", textToUse);
         else 
