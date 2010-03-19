@@ -8,7 +8,7 @@
 <head id="header" runat="server">
     <title>Untitled Page</title>
     <meta name="Description" runat="server" id="metaDescription" content="Planningprep.com your best way to prepare for the AICP exam.  The site offers practice questions and exams, and community forums allowing users to create virtual study groups.">
-<meta name="Keywords" runat="server" id="metaKeywords" content="AICP Exam, AICP, AICP Examination, AICP Study Guide, AICP Study Course, AICP Prep, American Institute of Certified Planners, Planning Exam, APA, APAP Exam, AICP Code of Ethics, American Planning Association,  Chapter, Planning Law, Planning History, Planning Ethics">
+    <meta name="Keywords" runat="server" id="metaKeywords" content="AICP Exam, AICP, AICP Examination, AICP Study Guide, AICP Study Course, AICP Prep, American Institute of Certified Planners, Planning Exam, APA, APAP Exam, AICP Code of Ethics, American Planning Association,  Chapter, Planning Law, Planning History, Planning Ethics">
 
     <script src="/JavaScripts/jquery-1.3.2.min.js" language="javascript" type="text/javascript"></script>
 
@@ -17,30 +17,29 @@
     <script src="/JavaScripts/Common.js" language="javascript" type="text/javascript"></script>
 
     <script language="javascript">
-$(document).ready(function(){
+        $(document).ready(function() {
 
-$(".menuitem").hover(
-  function () {
-    $(this).css("background-color","#777777");
+            $(".menuitem").hover(
+  function() {
+      $(this).css("background-color", "#777777");
   },
-  function () {
-    $(this).css("background-color","#666666");
+  function() {
+      $(this).css("background-color", "#666666");
   }
 );
-});
+        });
 
 
 
-        $(document).ready(function(){            
+        $(document).ready(function() {
             ResetLogoPosition();
         });
-        function ResetLogoPosition()
-        {
+        function ResetLogoPosition() {
             var position = $('#divTopContainer').position();
-            $('#divLogoContainer').css({'left' : position.left, 'top' : (position.top + 40)}).fadeIn('slow');
-            
+            $('#divLogoContainer').css({ 'left': position.left, 'top': (position.top + 40) }).fadeIn('slow');
+
         }
-        $(window).resize(function(){
+        $(window).resize(function() {
             ResetLogoPosition();
         });
     </script>
@@ -79,7 +78,7 @@ $(".menuitem").hover(
                 <MemberMenu:MemberMenu ID="ucMemberMenu" runat="server" />
                 <%
                     }
-                }
+                    }
                 %>
             </div>
             <div class="bottomcontainer">
@@ -91,14 +90,18 @@ $(".menuitem").hover(
             <div class="footercontainer">
                 <div>
                     <strong>Copyright&copy; PlanningPrep.com
-                    <%=DateTime.Now.Year.ToString() %>, All Rights Reserved</strong>
+                        <%=DateTime.Now.Year.ToString() %>, All Rights Reserved</strong>
                 </div>
                 <div>
-                    <div>Material on this site may not be used, transmitted, or copied without expressed written consent by Planning Prep</div>
+                    <div>
+                        Material on this site may not be used, transmitted, or copied without expressed
+                        written consent by Planning Prep</div>
                     <br />
-<div>*AICP has been used without consent from the American Institute of Certified Planners</div>
-<div><strong>*THIS SITE IS NOT AFFILIATED IN ANY WAY WITH THE AMERICAN PLANNING ASSOCIATION
-OR THE AMERICAN INSTITUTE OF CERTIFIED PLANNERS</strong></div>
+                    <div>
+                        *AICP has been used without consent from the American Institute of Certified Planners</div>
+                    <div>
+                        <strong>*THIS SITE IS NOT AFFILIATED IN ANY WAY WITH THE AMERICAN PLANNING ASSOCIATION
+                            OR THE AMERICAN INSTITUTE OF CERTIFIED PLANNERS</strong></div>
                 </div>
             </div>
         </div>
