@@ -1,0 +1,12 @@
+
+CREATE TABLE [dbo].[CommentThumbInfo](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[CommentID] [bigint] NOT NULL,
+	[UserID] [int] NOT NULL,
+	[QuestionID] [int] NOT NULL,
+	[Created] [datetime] NOT NULL,
+ CONSTRAINT [PK_CommentThumbInfo] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
