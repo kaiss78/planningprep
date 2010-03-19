@@ -39,6 +39,7 @@ namespace App.Data.Users
         PlanningPrepUser GetUserByUserName(string userName);
         PlanningPrepUser GetUserByEmail(string email);
         void TrackLoginData(int userID, String IP, DateTime timeStamp);
+        int GetUserCount();
     }
 
     public class UserDAO : BaseDataAccess<App.Models.Users.PlanningPrepUser>, IUserDAO
@@ -186,6 +187,28 @@ namespace App.Data.Users
                 {
                     Exception exToUse = ex.InnerException ?? ex;
                     throw new DataAccessException(exToUse.Message, exToUse, "UserDAO.TrackLoginData(int, string, DateTime)");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get user count 
+        /// </summary>
+        /// <returns></returns>
+        public int GetUserCount()
+        {
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "UserDAO.GetUserCount()"))
+            {
+                try
+                {
+                    DbCommand cmd = Database.GetStoredProcCommand("spAuthorGetCount");
+                    int count = Convert.ToInt32(Database.ExecuteScalar(cmd));
+                    return count;
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "UserDAO.GetUserCount()");
                 }
             }
         }
