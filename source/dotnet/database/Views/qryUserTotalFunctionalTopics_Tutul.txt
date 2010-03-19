@@ -1,3 +1,10 @@
+IF object_id('qryUserTotalFunctionalTopics', 'V') IS NOT NULL
+
+BEGIN
+	DROP VIEW qryUserTotalFunctionalTopics;
+END
+GO
+
 CREATE VIEW [dbo].[qryUserTotalFunctionalTopics]
 AS
 SELECT     dbo.tblAnswers.UserID, COUNT(dbo.tblAnswers.QuestionID) AS Taken, SUM(dbo.tblAnswers.Correct) AS Correct, SUM(dbo.tblAnswers.Time) 
