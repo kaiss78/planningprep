@@ -29,31 +29,31 @@ public partial class Pages_Member_Statistics : BasePage
         _UserID = SessionCache.CurrentUser.Author_ID;
         if (!IsPostBack)
         {
-            BindDayAndYearDropdownLists();
+            //BindDayAndYearDropdownLists();
             BindOverallStatistics();
             BindStatisticsByCategory();
         }        
     }
 
-    private void BindDayAndYearDropdownLists()
-    {       
-        int counter;
-        for (counter = 1; counter <= 31; counter++)
-        {
-            ddlDay.Items.Add(new ListItem(counter.ToString(), counter.ToString()));
-        }
+    //private void BindDayAndYearDropdownLists()
+    //{       
+    //    int counter;
+    //    for (counter = 1; counter <= 31; counter++)
+    //    {
+    //        ddlDay.Items.Add(new ListItem(counter.ToString(), counter.ToString()));
+    //    }
 
-        int starter = DateTime.Now.AddYears(-7).Year;
-        counter = DateTime.Now.AddYears(3).Year;
-        while (counter >= starter )
-        {
-            ddlYear.Items.Add(new ListItem(counter.ToString(), counter.ToString()));
-            counter--;
-        }
-        ddlMonth.SelectedValue = DateTime.Today.Month.ToString();
-        ddlDay.SelectedValue = DateTime.Today.Day.ToString();
-        ddlYear.SelectedValue = DateTime.Today.Year.ToString();
-    }
+    //    int starter = DateTime.Now.AddYears(-7).Year;
+    //    counter = DateTime.Now.AddYears(3).Year;
+    //    while (counter >= starter )
+    //    {
+    //        ddlYear.Items.Add(new ListItem(counter.ToString(), counter.ToString()));
+    //        counter--;
+    //    }
+    //    ddlMonth.SelectedValue = DateTime.Today.Month.ToString();
+    //    ddlDay.SelectedValue = DateTime.Today.Day.ToString();
+    //    ddlYear.SelectedValue = DateTime.Today.Year.ToString();
+    //}
 
     protected void BindOverallStatistics()
     {
