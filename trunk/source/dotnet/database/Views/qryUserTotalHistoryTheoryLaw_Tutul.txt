@@ -1,3 +1,10 @@
+IF object_id('qryUserTotalHistoryTheoryLaw', 'V') IS NOT NULL
+
+BEGIN
+	DROP VIEW qryUserTotalHistoryTheoryLaw;
+END
+GO
+
 CREATE VIEW [dbo].[qryUserTotalHistoryTheoryLaw]
 AS
 SELECT     dbo.tblAnswers.UserID, COUNT(dbo.tblAnswers.QuestionID) AS Taken, SUM(dbo.tblAnswers.Correct) AS Correct, SUM(dbo.tblAnswers.Time) 
