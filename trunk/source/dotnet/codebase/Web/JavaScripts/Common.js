@@ -35,10 +35,12 @@ function CreateConfirmationPopup(popupId, title, message)
     _PopupTitle = title;
     _PopupMessage = message;
     
-    SetModalPopupPosition();
+    //SetModalPopupPosition();
     SetTexts();
-    $('#' + _PopupID).fadeIn('slow', null);
-    CreteBlockingContainer();        
+    $('#' + _PopupID).Center().fadeIn('slow', ShowShadowContainer);
+    //ShowShadowContainer();
+    //CreteBlockingContainer();   
+    //ShowShadowContainer();     
 } 
 function SetTexts()
 {
@@ -48,12 +50,17 @@ function SetTexts()
 function HideConfirmationPopup() 
 {       
     if(null == document.getElementById(_PopupID)) return;
-    $('#' + _PopupID).fadeOut(500, hideBlocking);                
+    $('#' + _PopupID).fadeOut(500, hideBlocking);    
+    $('#divShadow').fadeOut(500, RemoveShadeElement);            
     return false;   
 }
 function hideBlocking()
 {			
     $("#divBlockingContainer").css({'display' : 'none'});
+}
+function RemoveShadeElement()
+{ 
+    $('#divShadow').remove(); 
 }
 function CreteBlockingContainer() 
 {
@@ -69,6 +76,7 @@ function CreteBlockingContainer()
     var documentHeight = $(document).height();
     var documentWidth = $(document).width();
     documentWidth = $.browser.msie ? (documentWidth - 22) : documentWidth;
+    //documentHeight = $.browser.msie ? (documentHeight - 6) : documentHeight;
     //alert('Width: ' + documentWidth + ' height: ' + documentHeight);            
     blockingConatiner.style.position = 'absolute';
     blockingConatiner.style.width = documentWidth + 'px'; //document.body.clientWidth + 'px';
@@ -88,12 +96,26 @@ function SetModalPopupPosition()
 {          
     if(null == document.getElementById(_PopupID)) return;
     $('#' + _PopupID).Center();
-
     if($('#' + _PopupID).is(':visible'))
-        CreteBlockingContainer();        
+    {        
+        $('#divShadow').Center();        
+        CreteBlockingContainer();                
+    }
 }
+
+function ShowShadowContainer()
+{
+    if(null == document.getElementById(_PopupID)) return;
+    var popup = $('#' + _PopupID);
+    //var position = popup.position();
+    var increaseValue = 8;
+    var domElement = String.format('<div id="divShadow" class="modalpopupshadow" style="width:{0}px; height:{1}px;">&nbsp;</div>', popup.width() + (increaseValue * 2), popup.height() + (increaseValue * 2));
+    popup.parent().append(domElement);
+    $('#divShadow').Center().fadeIn('slow', CreteBlockingContainer);    
+}
+
 jQuery.fn.Center = function() {
-    this.css("position", "absolute");    
+    //this.css("position", "absolute");    
     this.css("top", ($(window).height() - this.height()) / 2 + $(window).scrollTop() + "px");
     this.css("left", ($(window).width() - this.width()) / 2 + $(window).scrollLeft() + "px");    
     return this;
