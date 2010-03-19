@@ -27,19 +27,19 @@
             </colgroup>
             <tr> 
                 <td>Question</td> 
-                <td colspan="3"><asp:TextBox ID="txtQuestion" runat="server" TextMode="MultiLine"></asp:TextBox></td> 
+                <td colspan="3"><asp:TextBox ID="txtQuestion" style="width:100%" runat="server" TextMode="MultiLine"></asp:TextBox></td> 
             </tr> 
             <tr> 
                 <td>Answer A</td> 
-                <td><asp:TextBox ID="txtAnswerA" runat="server" TextMode="MultiLine" style="width:90%;"></asp:TextBox></td> 
+                <td><asp:TextBox ID="txtAnswerA" runat="server" TextMode="MultiLine"></asp:TextBox></td> 
                 <td>Answer C</td> 
-                <td><asp:TextBox ID="txtAnswerC" runat="server" TextMode="MultiLine" style="width:90%;"></asp:TextBox></td> 
+                <td><asp:TextBox ID="txtAnswerC" runat="server" TextMode="MultiLine"></asp:TextBox></td> 
             </tr> 
             <tr> 
                 <td>Answer B</td> 
-                <td><asp:TextBox ID="txtAnswerB" runat="server" TextMode="MultiLine" style="width:90%;"></asp:TextBox></td> 
+                <td><asp:TextBox ID="txtAnswerB" runat="server" TextMode="MultiLine" ></asp:TextBox></td> 
                 <td>Answer D</td> 
-                <td><asp:TextBox ID="txtAnswerD" runat="server" TextMode="MultiLine" style="width:90%;"></asp:TextBox></td> 
+                <td><asp:TextBox ID="txtAnswerD" runat="server" TextMode="MultiLine"></asp:TextBox></td> 
             </tr> 
             <tr> 
                 <td>Correct Answer</td> 
@@ -55,7 +55,7 @@
             </tr> 
             <tr> 
                 <td>Explanation</td> 
-                <td colspan="3"><asp:TextBox ID="txtExplanation" runat="server" TextMode="MultiLine"></asp:TextBox></td> 
+                <td colspan="3"><asp:TextBox ID="txtExplanation" style="width:100%" runat="server" TextMode="MultiLine"></asp:TextBox></td> 
             </tr>             
             <%--
             <tr> 
@@ -90,7 +90,10 @@
                 <td><asp:CheckBox ID="chkIsEthics" runat="server"></asp:CheckBox></td> 
             </tr>
             <tr>
-                <td colspan="4">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td style="text-align:right">
                     <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="ButtonCommon" onclick="btnSave_Click" />
                 </td>
             </tr> 
