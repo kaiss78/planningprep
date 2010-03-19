@@ -114,12 +114,12 @@ public partial class UserControls_PaginatedQuestions : BaseUserControl
                 }
             }
             questions = manager.GetPagedListByKeywordOrCategory(pageNo, pageSize, Keyword, Category,SessionCache.CurrentUser.Author_ID,filter).ToList();
-            totalRecord = manager.GetPagedListByKeywordOrCategory(1, PageSizeForGettingAllData, Keyword, Category, SessionCache.CurrentUser.Author_ID, filter).Count;
+            totalRecord = manager.GetQuestionCountByKeywordOrCategory(Keyword, Category, SessionCache.CurrentUser.Author_ID, filter);
         }
         else
         {
-            questions = manager.GetPagedList(pageNo, pageSize).ToList();
-            totalRecord = manager.GetPagedList(1, PageSizeForGettingAllData).Count;
+            questions = manager.GetPagedListByKeywordOrCategory(pageNo, pageSize, null, null, SessionCache.CurrentUser.Author_ID, false).ToList();
+            totalRecord = manager.GetQuestionCountByKeywordOrCategory(string.Empty, string.Empty, SessionCache.CurrentUser.Author_ID, false);
         }
 
         SessionCache.CurrentQuestionPageNo = pageNo;
