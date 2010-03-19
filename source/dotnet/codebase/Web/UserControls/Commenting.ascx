@@ -26,7 +26,7 @@
             var className = (_TotalCount % 2) == 0 ? 'OddRowListing' : 'EvenRowListing';
             var domElement = '<div class="' + className + '">';
             domElement += String.format('<div class="commentuserbox">{0}<br /><span class="minutesago">0 Minutes ago</span></div>', _UserName);
-            domElement += '<div class="commentbox">' + FormatText(_Comment.CommentText) + '</div>';            
+            domElement += '<div class="commentbox">"' + FormatText(_Comment.CommentText) + '"</div>';            
             domElement += GetThumbsHtml(0, true);            
             if(_TotalCount == 0)               
                 $('#divCommentListHeading').show();
@@ -36,7 +36,8 @@
             _TotalCount++;
             ToggleCommentingBox();
             ///Change Scroll Position to the new comment                    
-            $(window).scrollTop($('#divCommentingList div:last-child').position().top);                   
+            $(window).scrollTop($('#divCommentingList div:last-child').position().top);
+                               
         }
         function GetThumbsHtml(count, isSameUser)
         {
