@@ -1,0 +1,137 @@
+
+
+
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentThumbInfoDelete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentThumbInfoDelete]
+GO
+CREATE PROCEDURE [dbo].[spCommentThumbInfoDelete] 
+@Id bigint
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/19/2010 5:39:11 PM
+-- Description: Delete Into Table CommentThumbInfo
+-- =============================================
+-- spCommentThumbInfoDelete ...........
+BEGIN
+
+		DELETE FROM CommentThumbInfo
+		WHERE [ID]=@Id
+
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentThumbInfoGetById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentThumbInfoGetById]
+GO
+CREATE PROCEDURE [dbo].[spCommentThumbInfoGetById] 
+	@Id bigint
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/19/2010 5:39:11 PM
+-- Description: GetById Into Table CommentThumbInfo
+-- =============================================
+-- spCommentThumbInfoGetById ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[CommentThumbInfo] tab WITH(NOLOCK)
+		WHERE tab.[ID]=@Id
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentThumbInfoGetAll]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentThumbInfoGetAll]
+GO
+CREATE PROCEDURE [dbo].[spCommentThumbInfoGetAll] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/19/2010 5:39:11 PM
+-- Description: GetAll Into Table CommentThumbInfo
+-- =============================================
+-- spCommentThumbInfoGetAll ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[CommentThumbInfo] tab  WITH(NOLOCK)
+		ORDER BY tab.[ID] DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentThumbInfoSet]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentThumbInfoSet]
+GO
+CREATE PROCEDURE [dbo].[spCommentThumbInfoSet] 
+	 @ID bigint
+	, @CommentID bigint
+	, @UserID int
+
+As
+Begin
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/19/2010 5:39:11 PM
+-- Description: Set Into Table CommentThumbInfo
+-- =============================================
+-- spCommentThumbInfoSet ...........
+		IF (@ID >0)
+		Begin
+			Update [dbo].[CommentThumbInfo]
+				 Set [CommentID]= @CommentID
+				, [UserID]= @UserID
+				 
+			 Where [ID]= @ID
+	End
+	Else
+	Begin
+		Insert Into [dbo].[CommentThumbInfo]
+			( [CommentID]
+			, [UserID]
+			 ) 
+		 VALUES 
+			( @CommentID
+			, @UserID
+			 ) 
+		 
+		Set @ID= Scope_Identity()
+	End
+ 
+ Select @ID as ID 
+End
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentThumbInfoGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentThumbInfoGetForUser]
+GO
+CREATE PROCEDURE [dbo].[spCommentThumbInfoGetForUser] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/19/2010 5:39:11 PM
+-- Description: GetForUser Into Table CommentThumbInfo
+-- =============================================
+-- spCommentThumbInfoGetForUser ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[CommentThumbInfo] tab  WITH(NOLOCK)
+	ORDER BY tab.[ID] DESC
+
+	SET NOCOUNT OFF;
+END
+GO
+
