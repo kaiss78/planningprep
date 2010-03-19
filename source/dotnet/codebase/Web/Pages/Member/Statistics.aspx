@@ -18,28 +18,19 @@
     
     <script language="javascript" type="text/javascript">
         ///Calendar Controls Binding
-          $(document).ready(function() {
-              ///Setting for Calendar Controls
-              $('.calendarInput').each(function(i) {
-                  //$(this).datepicker({onSelect: function() {} }); 
-                  var textBoxID = $(this).attr('id');
-                  var altText = textBoxID.indexOf('txtStartDate') > -1 ? 'Start Date Selector' : 'End Date Selector';
-                  $("#" + textBoxID).datepicker({
-                      showOn: 'button',
-                      buttonImageOnly: true,
-                      buttonImage: '/Images/calenderIconBig.gif',
-                      buttonText: altText,
-                      onSelect: function() {}
-                  });
-
-                  /*$('#' + textBoxID).change(function() {
-                     $('#span' + textBoxID).text($(this).val());
-                     ValidateSelectedDate(textBoxID); 
-                  });*/                 
-                  
-              });
-          });
-        
+        $(document).ready(function() {              
+            $('.calendarInput').each(function(i) {                  
+                var textBoxID = $(this).attr('id');
+                var altText = textBoxID.indexOf('txtStartDate') > -1 ? 'Start Date Selector' : 'End Date Selector';
+                $("#" + textBoxID).datepicker({
+                    showOn: 'button',
+                    buttonImageOnly: true,
+                    buttonImage: '/Images/calenderIconBig.gif',
+                    buttonText: altText,
+                    onSelect: function() {}
+                });                  
+            });
+        });        
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
@@ -89,7 +80,7 @@
                 ValidationGroup="Filter">
             </asp:CompareValidator>
         </div>
-        <div style="margin-top:3px; margin-bottom:10px;">
+        <div style="padding-top:3px; margin-bottom:10px;">
             <asp:Button ID="btnFilter" runat="server" Text="Filter" CssClass="ButtonCommon" ValidationGroup="Filter" OnClick="btnFilter_Click" style="width:70px;" />                
         </div>        
     </div>
@@ -136,7 +127,7 @@
             <b>Time Per Question (in seconds)</b><br />
             <asp:Literal ID="ltrTimePerQuestion" runat="server"></asp:Literal>
         </div>     
-        <div class="statisticscontainer">
+        <%--<div class="statisticscontainer">
             Use the tool below to view your statistics from a specific date forward. This is a great way to 
             see what kind of progress you have been making.  Select a date below and press Filter.     
             <div style="margin-top:10px;">
@@ -160,7 +151,7 @@
                 <asp:DropDownList ID="ddlYear" CssClass="DropDownListCommon" runat="server" style="width:auto;"></asp:DropDownList>
                 
             </div>
-        </div>
+        </div>--%>
     </div>
     
     <%--Right Container--%>
