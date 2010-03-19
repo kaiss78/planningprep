@@ -61,8 +61,8 @@
         var _ImgElement = null;
         function ThumbsUp(commentID, imgElement)
         {
-            _ImgElement = imgElement;
-            AjaxService.CommentThumbsUp(commentID, CommentThumbsUp_Success, CommentThumbsUp_Failiure);
+            _ImgElement = imgElement;            
+            AjaxService.CommentThumbsUp(commentID, _UserID, _QuestionID, CommentThumbsUp_Success, CommentThumbsUp_Failiure);
         }
         function CommentThumbsUp_Success(result)
         {
@@ -79,7 +79,7 @@
         function ThumbsDown(commentID, imgElement)
         {
              _ImgElement = imgElement;
-            AjaxService.CommentThumbsDown(commentID, CommentThumbsDown_Success, CommentThumbsDown_Failiure);
+            AjaxService.CommentThumbsDown(commentID, _UserID, _QuestionID, CommentThumbsDown_Success, CommentThumbsDown_Failiure);
         }        
         function CommentThumbsDown_Success(result)
         {

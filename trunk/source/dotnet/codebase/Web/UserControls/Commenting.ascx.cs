@@ -22,7 +22,8 @@ public partial class UserControls_Commenting : BaseUserControl
     protected int _UserID;
     protected int _TotalCount;    
     protected String _CommentListDisplayStyle = "block";
-    private UserManager _UserManager = null; 
+    private UserManager _UserManager = null;
+    private CommentThumbInfoManager _ThumbInfoManager = null;
     
     #region Properties
     public int QuestionID
@@ -35,6 +36,7 @@ public partial class UserControls_Commenting : BaseUserControl
     protected void Page_Load(object sender, EventArgs e)
     {
         _UserManager = new UserManager();
+        _ThumbInfoManager = new CommentThumbInfoManager();
         _UserID = SessionCache.CurrentUser.Author_ID;
         BindCommentList();
     }
@@ -71,12 +73,12 @@ public partial class UserControls_Commenting : BaseUserControl
         Literal ltrThumbs = e.Item.FindControl("ltrThumbs") as Literal;
         String thumbsText = thumbsText = String.Format("+{0} Thumbs", comment.Rank);
             
-        if (comment.UserID == SessionCache.CurrentUser.Author_ID)
+        if (comment.UserID == SessionCache.CurrentUser.Author_ID || _ThumbInfoManager.HasThumbed(SessionCache.CurrentUser.Author_ID, _QuestionID, comment.ID))
             ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown_Disabled.png' alt='Thumbs Down Disabled' title='Thumbs Down Disabled'/> <img src='/Images/ThumbsUp_Disabled.png' alt='Thumbs Up Disabled' title='Thumbs Up  Disabled'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"));
         else
             ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown.png' onclick='ThumbsDown({1}, this);' alt='Thumbs Down this Comment' title='Thumbs Down this Comment' class='clickableimage'/> <img src='/Images/ThumbsUp.png' onclick='ThumbsUp({1}, this);' alt='Thumbs Up this Comment' title='Thumbs Up this Comment' class='clickableimage'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"), comment.ID);
     }
-
+    
     private String GetDifference(DateTime commentTime)
     {        
         double minutes = DateTime.Now.Subtract(commentTime).TotalMinutes;
