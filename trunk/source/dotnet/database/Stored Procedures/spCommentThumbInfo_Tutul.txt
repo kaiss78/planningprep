@@ -11,7 +11,7 @@ CREATE PROCEDURE [dbo].[spCommentThumbInfoDelete]
 AS
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
--- Create date: 3/19/2010 5:39:11 PM
+-- Create date: 3/19/2010 5:48:04 PM
 -- Description: Delete Into Table CommentThumbInfo
 -- =============================================
 -- spCommentThumbInfoDelete ...........
@@ -32,7 +32,7 @@ CREATE PROCEDURE [dbo].[spCommentThumbInfoGetById]
 AS
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
--- Create date: 3/19/2010 5:39:11 PM
+-- Create date: 3/19/2010 5:48:04 PM
 -- Description: GetById Into Table CommentThumbInfo
 -- =============================================
 -- spCommentThumbInfoGetById ...........
@@ -55,7 +55,7 @@ CREATE PROCEDURE [dbo].[spCommentThumbInfoGetAll]
 AS
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
--- Create date: 3/19/2010 5:39:11 PM
+-- Create date: 3/19/2010 5:48:04 PM
 -- Description: GetAll Into Table CommentThumbInfo
 -- =============================================
 -- spCommentThumbInfoGetAll ...........
@@ -78,12 +78,14 @@ CREATE PROCEDURE [dbo].[spCommentThumbInfoSet]
 	 @ID bigint
 	, @CommentID bigint
 	, @UserID int
+	, @QuestionID int
+	, @Created datetime
 
 As
 Begin
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
--- Create date: 3/19/2010 5:39:11 PM
+-- Create date: 3/19/2010 5:48:04 PM
 -- Description: Set Into Table CommentThumbInfo
 -- =============================================
 -- spCommentThumbInfoSet ...........
@@ -92,6 +94,8 @@ Begin
 			Update [dbo].[CommentThumbInfo]
 				 Set [CommentID]= @CommentID
 				, [UserID]= @UserID
+				, [QuestionID]= @QuestionID
+				, [Created]= @Created
 				 
 			 Where [ID]= @ID
 	End
@@ -100,10 +104,14 @@ Begin
 		Insert Into [dbo].[CommentThumbInfo]
 			( [CommentID]
 			, [UserID]
+			, [QuestionID]
+			, [Created]
 			 ) 
 		 VALUES 
 			( @CommentID
 			, @UserID
+			, @QuestionID
+			, @Created
 			 ) 
 		 
 		Set @ID= Scope_Identity()
@@ -120,7 +128,7 @@ CREATE PROCEDURE [dbo].[spCommentThumbInfoGetForUser]
 AS
 -- =============================================
 -- Author:		Shubho (SmartAspects Inc.)
--- Create date: 3/19/2010 5:39:11 PM
+-- Create date: 3/19/2010 5:48:04 PM
 -- Description: GetForUser Into Table CommentThumbInfo
 -- =============================================
 -- spCommentThumbInfoGetForUser ...........
