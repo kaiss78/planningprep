@@ -94,10 +94,11 @@ $(".menuitem").hover(
                     <%=DateTime.Now.Year.ToString() %>, All Rights Reserved</strong>
                 </div>
                 <div>
-                    <p>Material on this site may not be used, transmitted, or copied without expressed written consent by Planning Prep</p>
-<p>*AICP has been used without consent from the American Institute of Certified Planners</p>
-<p><strong>*THIS SITE IS NOT AFFILIATED IN ANY WAY WITH THE AMERICAN PLANNING ASSOCIATION
-OR THE AMERICAN INSTITUTE OF CERTIFIED PLANNERS</strong></p>
+                    <div>Material on this site may not be used, transmitted, or copied without expressed written consent by Planning Prep</div>
+                    <br />
+<div>*AICP has been used without consent from the American Institute of Certified Planners</div>
+<div><strong>*THIS SITE IS NOT AFFILIATED IN ANY WAY WITH THE AMERICAN PLANNING ASSOCIATION
+OR THE AMERICAN INSTITUTE OF CERTIFIED PLANNERS</strong></div>
                 </div>
             </div>
         </div>
