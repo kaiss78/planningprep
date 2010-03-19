@@ -48,6 +48,7 @@
     <Compile Include="Answers\Answers.cs" />
     <Compile Include="AnswerTotals\AnswerTotals.cs" />
     <Compile Include="Comments\Comment.cs" />
+    <Compile Include="Comments\CommentThumbInfo.cs" />
     <Compile Include="Enums\HistoryFieldName.cs" />
     <Compile Include="Enums\AppDbType.cs" />
     <Compile Include="Enums\HistoryDataType.cs" />
