@@ -38,7 +38,7 @@
         	font-weight:bold;
         	font-size:11px;
         	margin-bottom:10px;
-        	background-color:lightGray;
+        	background-color:#dddddd;
         	padding:5px 0px 5px 5px;
         	
         }
