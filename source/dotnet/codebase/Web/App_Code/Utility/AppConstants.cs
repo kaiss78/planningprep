@@ -24,29 +24,43 @@ public class AppConstants
     #region Pages
     public class Pages
     {
+        #region Admin Pages
         public const string EDIT_QUESTION = "/Pages/Admin/EditQuestion.aspx";
         public const string MANAGE_QUESTIONS = "/Pages/Admin/ManageQuestions.aspx";
-        public const string QUESTION_DETAILS = "/Pages/Member/QuestionDetails.aspx";
-        public const string EDIT_USERS = "/Pages/Admin/EditUser.aspx";
-        public const string MANAGE_USERS = "/Pages/Admin/ManageUsers.aspx";
-        public const string USER_DETAILS = "/Pages/Admin/UserDetails.aspx";
-        public const string ANSWER_QUESTION = "/Pages/Member/AnswerQuestion.aspx";
-        public const string EDIT_PROFILE = "/Pages/Member/EditProfile.aspx";        
-        public const string USER_PROFILE = "/Pages/Member/UserProfile.aspx";   
-        public const string JOIN_OUTCOME = "/Pages/Public/JoinOutcome.aspx";
-        public const string ANSWER_OF_THE_WEEK_MESSAGE = "/Pages/Public/AnswerOfTheWeekMessage.aspx";
-        public const string VISIT_FRAME = "/Pages/Public/VisitFrame.aspx";
-        public const string SHOW_CONTENT = "/Pages/Public/ShowContent.aspx";
-        public const string TERMS_OF_USE = "/Pages/Public/TermsOfUse.aspx";
-        public const string ALERT = "/Pages/Public/Alert.aspx";
-        public const string QUESGION_LIST = "/Pages/Member/QuestionList.aspx";
-        public const string QUESGION_SEARCH = "/Pages/Member/Questions.aspx";
-        public const string SHOW_MESSAGE = "/Pages/Public/ShowMessage.aspx";
-        public const string FAQ = "/Pages/Public/FAQ.aspx";
         public const string EDIT_FAQ = "/Pages/Admin/EditFAQ.aspx";
         public const string FAQ_LIST = "/Pages/Admin/FAQList.aspx";
         public const string FAQ_CATEGORY_LIST = "/Pages/Admin/FaqCategoryList.aspx";
-        public const string EDIT_FAQ_CATEGORY = "/Pages/Admin/EditFaqCategory.aspx";        
+        public const string EDIT_FAQ_CATEGORY = "/Pages/Admin/EditFaqCategory.aspx";
+        public const string SEND_EMAIL = "/Pages/Admin/SendEmail.aspx";
+        public const string EDIT_USERS = "/Pages/Admin/EditUser.aspx";
+        public const string MANAGE_USERS = "/Pages/Admin/ManageUsers.aspx";
+        public const string USER_DETAILS = "/Pages/Admin/UserDetails.aspx";
+        #endregion 
+
+        #region Member Pages
+        public const string QUESTION_DETAILS = "/Pages/Member/QuestionDetails.aspx";        
+        public const string ANSWER_QUESTION = "/Pages/Member/AnswerQuestion.aspx";
+        public const string EDIT_PROFILE = "/Pages/Member/EditProfile.aspx";        
+        public const string USER_PROFILE = "/Pages/Member/UserProfile.aspx";
+        public const string QUESGION_LIST = "/Pages/Member/QuestionList.aspx";
+        public const string QUESGION_SEARCH = "/Pages/Member/Questions.aspx";
+        #endregion
+
+        #region Public Pages
+        public const string HOME_PAGE = "/Default.aspx";
+        public const string LOG_IN = "/Login.aspx";
+        public const string ERROR = "/Error.aspx";
+        public const string REGISTER = "/Pages/Public/Register.aspx";
+        public const string JOIN_OUTCOME = "/Pages/Public/JoinOutcome.aspx";
+        public const string CONTACT_US = "/Pages/Public/ContactUs.aspx";
+        public const string FAQ = "/Pages/Public/FAQ.aspx";
+        public const string ALERT = "/Pages/Public/Alert.aspx";
+        public const string VISIT_FRAME = "/Pages/Public/VisitFrame.aspx";
+        public const string SHOW_CONTENT = "/Pages/Public/ShowContent.aspx";
+        public const string TERMS_OF_USE = "/Pages/Public/TermsOfUse.aspx";        
+        public const string SHOW_MESSAGE = "/Pages/Public/ShowMessage.aspx";
+        public const string ANSWER_OF_THE_WEEK_MESSAGE = "/Pages/Public/AnswerOfTheWeekMessage.aspx";
+        #endregion
     }
     #endregion
 
