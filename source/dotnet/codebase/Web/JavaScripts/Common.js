@@ -2,26 +2,29 @@
 {
     return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
 }
-
 function FormatText(text)
 {
     return HtmlEncode(text).replace(/\n/g, '<br />');
 }
+function GetRandomNumber()
+{
+    return Math.floor(Math.random() * 10000);
+}
 function GetLogicalText(count, textToUse)
 {
     if (count > 1)
-        return String.format("+{0} {1}s", count, textToUse);
+        return "+" + count + " " + textToUse + "s"
     else if(count < 0)
     {
         if(count == -1)
-            return String.format("{0} {1}", count, textToUse);
+            return count + " " + textToUse;
         else// if (count < -1)
-            return String.format("{0} {1}s", count, textToUse);
+            return count + " " + textToUse+ "s";
     }    
     else if (count == 0)
-        return String.format("0 {0}s", textToUse);
+        return "0 " + textToUse + "s";
     else 
-        return String.format("+1 {0}", textToUse);
+        return "+1 " + textToUse;
 }
 
 /*Modal Popup Section Starts */
@@ -109,7 +112,8 @@ function ShowShadowContainer()
     var popup = $('#' + _PopupID);
     //var position = popup.position();
     var increaseValue = 8;
-    var domElement = String.format('<div id="divShadow" class="modalpopupshadow" style="width:{0}px; height:{1}px;">&nbsp;</div>', popup.width() + (increaseValue * 2), popup.height() + (increaseValue * 2));
+    //var domElement = String.format('<div id="divShadow" class="modalpopupshadow" style="width:{0}px; height:{1}px;">&nbsp;</div>', popup.width() + (increaseValue * 2), popup.height() + (increaseValue * 2));
+    var domElement = '<div id="divShadow" class="modalpopupshadow" style="width:' + (popup.width() + (increaseValue * 2)) + 'px; height:' + (popup.height() + (increaseValue * 2)) + 'px;">&nbsp;</div>';
     popup.parent().append(domElement);
     $('#divShadow').Center().fadeIn('slow', CreteBlockingContainer);    
 }
