@@ -108,7 +108,8 @@
             <asp:Literal ID="ltrLastLogin" runat="server"></asp:Literal>
         </div>
         <div class="statisticscontainer">
-            <b># of Logins</b><br />
+            <%--<b># of Logins</b><br />--%>
+            <b># of Logins Since Joining
             <asp:Literal ID="ltrNumberOfLogin" runat="server"></asp:Literal>
         </div>
         <div class="statisticscontainer">
