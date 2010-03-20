@@ -397,7 +397,24 @@ public class SessionCache
             }
         }
     }
-
+    public static IList<PlanningPrepUser> SelectedUsersForEmail
+    {
+        get
+        {
+            if (HttpContext.Current.Session == null)
+                return null;
+            if (HttpContext.Current.Session["SELECTED_USERS_FOR_EMAIL"] == null) return null;
+            return HttpContext.Current.Session["SELECTED_USERS_FOR_EMAIL"] as IList<PlanningPrepUser>;
+                 
+        }
+        set
+        {
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["SELECTED_USERS_FOR_EMAIL"] = value;
+            }
+        }
+    }
     #endregion
 
     #region Methods
