@@ -30,8 +30,8 @@ img.PreviewImage
 
 .bodycontaniner
 {
-	max-width:870px;
-	width:870px;	
+	max-width:920px;
+	width:920px;	
 	margin-left:auto;
 	margin-right:auto;
 }
@@ -101,10 +101,10 @@ img.PreviewImage
 	float:left;
 	margin-top:2px;
 	color:#FFFFFF;
-	font-size:12px;
+	font-size:11px;
 	font-weight:bold;
 	padding-left:20px;
-	padding-right:30px;
+	padding-right:20px;
 	height:18px;
 }
 
@@ -112,21 +112,21 @@ img.PreviewImage
 A.headermenu:link
 {
 	color:#FFFFFF;
-	font-size:12px;
+	font-size:11px;
 	font-weight:bold;
 	text-decoration:none;
 }
 A.headermenu:visited
 {
 	color:#FFFFFF;
-	font-size:12px;
+	font-size:11px;
 	font-weight:bold;
 	text-decoration:none;
 }
 A.headermenu:hover
 {
 	color:#FFFFFF;
-	font-size:12px;
+	font-size:11px;
 	font-weight:bold;
 	text-decoration:underline;
 }
@@ -636,7 +636,8 @@ img.EmployeeImage
 }
 .calendarcontainer
 {
-	margin-top:5px;
+	margin-top:15px;
+	margin-bottom:15px;
 }
 .calendarcontainer img
 {
