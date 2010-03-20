@@ -16,6 +16,7 @@ using App.Models.Users;
 
 public partial class UserControls_PaginatedUsers : BaseUserControl
 {
+    #region Properties
     public bool ShowEditLink
     {
         get;
@@ -46,8 +47,8 @@ public partial class UserControls_PaginatedUsers : BaseUserControl
         get;
         set;
     }
+    #endregion Propertiws
 
-   
     private int PageSizeForGettingAllData = 100000000;
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -103,6 +104,9 @@ public partial class UserControls_PaginatedUsers : BaseUserControl
             (item.ItemType == ListItemType.AlternatingItem))
         {
             PlanningPrepUser User = e.Item.DataItem as PlanningPrepUser;
+
+            HtmlInputCheckBox chkSelectUser = e.Item.FindControl("chkSelectUser") as HtmlInputCheckBox;
+            chkSelectUser.Value = User.Author_ID.ToString();
 
             Label lblUser = e.Item.FindControl("lblUser") as Label;
             lblUser.Text = string.Format("{0} {1}", User.FirstName,User.LastName); //AppUtil.Encode(User.User);
