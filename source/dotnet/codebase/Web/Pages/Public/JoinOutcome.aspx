@@ -4,14 +4,10 @@
     <script language="javascript" type="text/javascript">
         function TogglePaybyCheck()
         {
-            if($('#divMainContainer').is(':visible'))
-            {
-                $('#divMainContainer').fadeOut(500, ShowCheck);                
-            }        
-            else
-            {
-                $('#divPayByCheckContainer').fadeOut(500, ShowSubmitPayment);                           
-            }
+            if($('#divMainContainer').is(':visible'))            
+                $('#divMainContainer').fadeOut(500, ShowCheck);                            
+            else            
+                $('#divPayByCheckContainer').fadeOut(500, ShowSubmitPayment);            
         }
         function ShowCheck()
         {
