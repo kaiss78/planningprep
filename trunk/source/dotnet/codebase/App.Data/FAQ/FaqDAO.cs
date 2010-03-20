@@ -34,6 +34,7 @@ namespace App.Data.FAQ
 {
     public interface IFaqDAO : IDataAccess<App.Models.FAQ.Faq>
     {
+        IList<App.Models.FAQ.Faq> GetAllFaqSortByCategory();
     }
 
     public class FaqDAO : BaseDataAccess<App.Models.FAQ.Faq>, IFaqDAO
@@ -64,7 +65,26 @@ namespace App.Data.FAQ
 
             return entity;
         }
-
+        /// <summary>
+        /// Gets All FAQ Questions Sorted by Category Name
+        /// </summary>
+        /// <returns></returns>
+        public IList<App.Models.FAQ.Faq> GetAllFaqSortByCategory()
+        {
+            using (new TimedTraceLog(CurrentUser != null ? CurrentUser.Identity.Name : "", "FaqDAO.GetAllFaqSortByCategory()"))
+            {
+                try
+                {                    
+                    return GetAllInternal("spFaqGetAllSorted", false);                    
+                }
+                catch (Exception ex)
+                {
+                    Exception exToUse = ex.InnerException ?? ex;
+                    throw new DataAccessException(exToUse.Message, exToUse, "FaqDAO.GetAllFaqSortByCategory()");
+                }
+            }
+        }
+        
         protected override void EagerLoad(App.Models.FAQ.Faq entity)
         {
             // Add eager loading functionality here
