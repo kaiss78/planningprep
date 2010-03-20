@@ -29,7 +29,7 @@
             refreshing and broadening their planning knowledge to better prepare them for the 
             certification exam.
             <br /><br />
-            Please explore our site and <a href="<%=AppUtil.GetContentDetailsUrl(ConfigReader.ContentIDOfFAQ) %>">learn more about what we have to offer</a>, or feel free to 
+            Please explore our site and <a href="<%=AppConstants.Pages.FAQ %>">learn more about what we have to offer</a>, or feel free to 
             join and <a href="/Pages/Public/Register.aspx">become a member</a>.
 
         </div>
