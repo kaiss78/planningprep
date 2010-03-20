@@ -14,8 +14,14 @@
         var _Comment = new App.Models.Comments.Comment();
         
         function SaveCommentData()
-        {   
-            _Comment.CommentText = $('#<%=txtComment.ClientID%>').val();
+        {  
+            _Comment.CommentText = jQuery.trim($('#<%=txtComment.ClientID%>').val());            
+            if(_Comment.CommentText.length == 0)
+            {
+                $('#spnValidationMessage').fadeIn();
+                $('#<%=txtComment.ClientID%>').focus();
+                return;
+            }
             _Comment.UserID = _UserID;
             _Comment.QuestionID = _QuestionID;
             AjaxService.SaveComment(_Comment, SaveComment_Success, SaveComment_Failiure);
@@ -37,7 +43,7 @@
             ToggleCommentingBox();
             ///Change Scroll Position to the new comment                    
             $(window).scrollTop($('#divCommentingList div:last-child').position().top);
-                               
+            $('#spnValidationMessage').fadeOut();                   
         }
         function GetThumbsHtml(count, isSameUser)
         {
@@ -101,8 +107,10 @@
                 $('#divCommentingTextBox').fadeOut();            
             else
             {
+                $('#spnValidationMessage').hide();
                 $('#divCommentingTextBox').fadeIn();
-                $('#<%=txtComment.ClientID%>').val('')
+                $('#<%=txtComment.ClientID%>').val('').focus();
+                
             }               
         }      
         /*$('body').click(function() {
@@ -121,6 +129,7 @@
         <div class="contentheading"><asp:Literal ID="ltrCommentHeading" runat="server"></asp:Literal></div>
         <div id="divCommentingTextBox" style="display:none;">    
             <asp:TextBox ID="txtComment" TextMode="MultiLine" MaxLength="2000" runat="server" style="width:350px; height:75px;"></asp:TextBox>
+            <span id="spnValidationMessage" class="ErrorMessage" style="font-weight:normal;"><br />Please write a comment.</span>
             <div style="margin-top:5px; margin-bottom:10px;"><input type="button" value="Save Comment" class="ButtonCommon" onclick="SaveCommentData();" /></div>    
         </div>
     </div>
