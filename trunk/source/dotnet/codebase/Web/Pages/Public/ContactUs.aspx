@@ -35,6 +35,10 @@
         
         
         <table cellpadding="3" cellspacing="0" style="width:100%;">
+            <colgroup>
+                <col style="width:20%;" />
+                <col style="width:80%;" />
+            </colgroup>
             <tr>
                 <td>Name<span id="spnName" runat="server" class="requiredfiled"><sup>*</sup></span></td>
                 <td>
@@ -68,7 +72,7 @@
             <tr>
                 <td>Subject<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
-                    <asp:TextBox ID="txtSubject" runat="server" CssClass="TextBoxCommon" MaxLength="300" style="width:95%;"></asp:TextBox>   
+                    <asp:TextBox ID="txtSubject" runat="server" CssClass="TextBoxCommon" MaxLength="300" style="width:98%;"></asp:TextBox>   
                     <asp:RequiredFieldValidator ID="rfvSubject" runat="server" 
                         ControlToValidate="txtSubject" Display="Dynamic"
                         ErrorMessage="<br/>Please enter a Subject."
@@ -79,7 +83,7 @@
             <tr>
                 <td>Comments<span class="requiredfiled"><sup>*</sup></span></td>
                 <td>
-                    <asp:TextBox ID="txtComment" TextMode="MultiLine" runat="server" MaxLength="2000" style="width:95%; height:100px;"></asp:TextBox>
+                    <asp:TextBox ID="txtComment" TextMode="MultiLine" runat="server" MaxLength="2000" style="width:98%; height:100px;"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvComment" runat="server" 
                         ControlToValidate="txtComment" Display="Dynamic"
                         ErrorMessage="<br/>Please enter a Comment."

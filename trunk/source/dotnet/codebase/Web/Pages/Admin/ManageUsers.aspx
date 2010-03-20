@@ -1,15 +1,16 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ManageUsers.aspx.cs" Inherits="Admin_ManageUsers" Title="Untitled Page" %>
 
-<%@ Register src="../../UserControls/PaginatedUsers.ascx" tagname="PaginatedUsers" tagprefix="uc1" %>
+<%@ Register Src="~/UserControls/PaginatedUsers.ascx" TagName="PaginatedUsers" TagPrefix="UC" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="/CSS/ModalPopup.css" rel="Stylesheet" type="text/css" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentBody" Runat="Server">
 
     <div style="float:right;"><asp:HyperLink ID="hplAddNewUser" runat="server">Add New User</asp:HyperLink></div>
     <div class="clearfloating"></div>
-      <uc1:PaginatedUsers ID="PaginatedUsers1" ShowUserTitle="true" ShowDetailsLink="true" ShowEditLink="true" runat="server" />
+    <UC:PaginatedUsers ID="PaginatedUsers1" ShowLastModifiedDate="true" ShowUserTitle="true" ShowDetailsLink="true" ShowEditLink="true" runat="server" />
 
 </asp:Content>
 

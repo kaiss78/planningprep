@@ -1,6 +1,8 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
     CodeFile="QuestionDetails.aspx.cs" Inherits="Pages_Member_QuestionDetails" Title="Untitled Page" %>
-<%@ Register src="~/UserControls/QuestionDetails.ascx" tagname="QuestionDetails" tagprefix="uc1" %>
+    
+<%@ Register src="/UserControls/QuestionDetails.ascx" tagname="QuestionDetails" tagprefix="uc1" %>
+<%@ Register Src="/UserControls/ModalMessage.ascx" TagName="ModalMessage" TagPrefix="UC" %> 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="/CSS/ModalPopup.css" rel="Stylesheet" type="text/css" />
@@ -67,26 +69,6 @@
     </div>
     <div class="clearfloating"></div>--%>
     
+    <UC:ModalMessage ID="ucModalMessage" runat="server" />
     
-    
-    <%--Modal Popup Section Starts From Here--%>
-    <div class="PopupContainer" id="confirm" style="display: none;">
-        <div class="PopupHeader_111">            
-            <div class="PopupHeaderMiddle">
-                <div style="float: left;" id="popupHeader"><%--The Popup Title Will be shown here--%></div>
-                <div style="float: right;">
-                    <img src="/Images/btn/btn_popup_close.gif" onclick="HideConfirmationPopup('confirm');"
-                        alt="Close" border="0" align="right" title="Close" style="margin-top: 2px; cursor: pointer;" />
-                </div>                
-                <div class="clearfloating"></div>
-            </div>            
-        </div>
-        <div class="PopupBody">
-            <span id="popupMessage"><%--The Message will be shown here--%></span>                        
-        </div>
-        <div class="PopupButtonContainer">
-            <input type="button" value="Ok" class="ButtonCommon" style="padding-right:0px; width:55px;" onclick="HideConfirmationPopup('confirm');" />            
-        </div>
-    </div>
-    <%--Modal Popup Section Ends Here--%>
 </asp:Content>
