@@ -1,6 +1,4 @@
 ﻿
-
-
 #region File Info/History
 /*
  * =============================================
@@ -175,6 +173,27 @@ namespace App.Domain.FAQ
                 ExceptionHelper.HandleException<ManagerException>(ex);
             }
             return result;
+        }
+
+        /// <summary>
+        /// Gets All FAQ Questions Sorted by Category Name
+        /// </summary>
+        /// <returns></returns>
+        public IList<App.Models.FAQ.Faq> GetAllFaqSortByCategory()
+        {
+            IList<App.Models.FAQ.Faq> faqs = new List<Faq>(); 
+            try
+            {
+                using (IFaqDAO dao = (IFaqDAO)DAOFactory.Get<Faq>())
+                {
+                    faqs = dao.GetAllFaqSortByCategory();
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHelper.HandleException<ManagerException>(ex);
+            }
+            return faqs;
         }
         #endregion
     }
