@@ -126,7 +126,7 @@
     
 <div id="divCommentingList">
     <div id="divEventCatcher">
-        <div class="contentheading"><asp:Literal ID="ltrCommentHeading" runat="server"></asp:Literal></div>
+        <div class="contentsubheading"><asp:Literal ID="ltrCommentHeading" runat="server"></asp:Literal></div>
         <div id="divCommentingTextBox" style="display:none;">    
             <asp:TextBox ID="txtComment" TextMode="MultiLine" MaxLength="2000" runat="server" style="width:350px; height:75px;"></asp:TextBox>
             <span id="spnValidationMessage" class="ErrorMessage" style="font-weight:normal;"><br />Please write a comment.</span>
