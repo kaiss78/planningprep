@@ -223,9 +223,10 @@ th{
 	color:#FFFFFF;
 	font-size:11px;
 	font-weight:bold;
-	line-height:150%;
+	height: 22px;
+	/*line-height:150%;
 	padding:3px;
-	cursor:pointer;
+	cursor:pointer;*/
 }
 
 input:button {
@@ -441,7 +442,7 @@ div.PageHeader, div.PageHeader span {
 	padding-top:17px;
 	padding-left:10px;
 }
-#ctl00_UpdateProgress1
+/*#ctl00_UpdateProgress1
 {
     position:absolute;	
 	left: 49%; top:49%; 	
@@ -449,7 +450,7 @@ div.PageHeader, div.PageHeader span {
 	padding:10px;
 	border:#CCCCCC 0px solid;	
 }
-
+*/
 .divRate
 {
 	border:#499779 1px solid;
