@@ -15,6 +15,11 @@ public partial class Pages_Public_JoinOutcome : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        Page.Title = AppUtil.GetPageTitle("Membership Successfully Processed");
+        if (!Page.IsPostBack)
+        {
+            Page.Form.Action = "https://www.paypal.com/cgi-bin/webscr";
+            Page.Form.Method = "post";
+        }
     }
 }
