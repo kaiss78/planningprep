@@ -19,7 +19,7 @@ public class AppConstants
     public const string CURRENT_USER = "CURRENT_USER";
     public const string EMPLOYEE_IMAGE_DIRECTORY = "~/EmployeeImages";
     public const string PRODUCT_IMAGE_DIRECTORY = "~/ProductImages";
-    public const String ERROR_MESSAGE = @"Sorry!<br/>System encountered some problem while saving your preference. An administrator has been notified about the details of this problem. Please try after some time.";
+    public const String ERROR_MESSAGE = @"Sorry!<br/>System encountered a problem while saving your preference. An administrator has been notified about the details of this problem. Please try after some time.";
     
     #region Pages
     public class Pages
@@ -59,6 +59,7 @@ public class AppConstants
         public const string SHOW_CONTENT = "/Pages/Public/ShowContent.aspx";
         public const string TERMS_OF_USE = "/Pages/Public/TermsOfUse.aspx";        
         public const string SHOW_MESSAGE = "/Pages/Public/ShowMessage.aspx";
+        public const string FORGOT_PASSWORD = "/Pages/Public/ForgotPassword.aspx";
         public const string ANSWER_OF_THE_WEEK_MESSAGE = "/Pages/Public/AnswerOfTheWeekMessage.aspx";
         #endregion
     }

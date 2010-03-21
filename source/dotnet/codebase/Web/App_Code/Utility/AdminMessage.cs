@@ -20,7 +20,7 @@ public class AdminMessage
         get;
         set;
     }
-    public String MessagBody
+    public String MessageBody
     {
         get;
         set;
