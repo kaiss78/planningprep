@@ -58,7 +58,7 @@ public partial class Pages_Admin_SendEmail : BasePage
                 if (users != null && users.Count > 0)
                 {
                     StringBuilder sb = new StringBuilder(10);
-                    sb.Append("Your email will be sent to the following selected members:<br />");
+                    sb.Append("Your email will be sent to the following selected member(s):<br />");
                     sb.Append("<ul>");
                     foreach (PlanningPrepUser user in users)
                     {
@@ -113,37 +113,44 @@ public partial class Pages_Admin_SendEmail : BasePage
     [WebMethod(EnableSession=true)]
     public static int SendMessage(AdminMessage message)
     {
-        if (message == null || String.IsNullOrEmpty(message.Subject) || String.IsNullOrEmpty(message.MessagBody))
+        //throw new Exception("App.Dll does have the registration information.");
+        if (message == null || String.IsNullOrEmpty(message.Subject) || String.IsNullOrEmpty(message.MessageBody))
             return -1;
         else
         {
-            PrepareAndSendEmail(message);
-        }        
-        return 1;
+            int noOfEmail = PrepareAndSendEmail(message);
+            ///Clear the Session
+            SessionCache.SelectedUsersForEmail = null;
+            return noOfEmail;
+        }
     }
     /// <summary>
     /// Prepares the Email and Sends to the Corresponding User
     /// </summary>
     /// <param name="message"></param>
-    public static void PrepareAndSendEmail(AdminMessage message)
+    public static int PrepareAndSendEmail(AdminMessage message)
     {
         String template = AppUtil.ReadEmailTemplate(AppConstants.EmailTemplate.GENERAL_EMAIL_TEMPLATE);
         if (template.Length > 0)
         {
             message.FromEmail = String.Format("{0} {1}<{2}>", AppUtil.Encode(SessionCache.CurrentUser.FirstName), AppUtil.Encode(SessionCache.CurrentUser.LastName), SessionCache.CurrentUser.Author_email);
             message.Subject = AppUtil.Encode(message.Subject);
-            message.MessagBody = AppUtil.FormatText(message.MessagBody);
+            message.MessageBody = AppUtil.FormatText(message.MessageBody);
+            int sentMessageCounter = 0;
             foreach (PlanningPrepUser user in SessionCache.SelectedUsersForEmail)
             {
-                String body = String.Format("Dear {0}, <br/><br/>{1}", AppUtil.Encode(user.Username), message.MessagBody);
+                String body = String.Format("Dear {0}, <br/><br/>{1}", AppUtil.Encode(user.Username), message.MessageBody);
                 StringBuilder orgMessage = new StringBuilder(template);
                 orgMessage.Replace(AppConstants.ETConstants.MESSAGE, body);
                 try
                 {
                     MailManager.SendMail(user.Author_email, String.Empty, String.Empty, message.FromEmail, message.Subject, orgMessage.ToString());
+                    sentMessageCounter++;
                 }
                 catch { }
             }
+            return sentMessageCounter;
         }
+        return 0;
     }
 }
