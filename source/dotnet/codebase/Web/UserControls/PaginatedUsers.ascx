@@ -113,6 +113,7 @@
 </asp:Repeater>
 
 <div>
+<br />
     <input type="button" class="ButtonCommon" value="Send Email to Selected User(s)" onclick="SendEmailToSelectedUsers();" />
     <input type="button" class="ButtonCommon" value="Send Email to All Users" onclick="SendEmailToAllUsers();" />
 </div>
