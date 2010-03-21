@@ -22,6 +22,10 @@
         scheduled maintenance, and any other detail you would like the members to know about. 
     </div>
     
+    <div id="divProcessingAnimation" style="display:none;">
+        <img src="/Images/processing.gif" alt="Processing" title="Processing" />
+    </div>
+    
     <%--Left Box--%>
     <div id="divContainer" runat="server" class="homepagecontentbox" style="margin-top:15px;">
         <div style="margin-bottom:10px;">Please note that fields marked with an asterisk (<span class="requiredfiled">*</span>) are mandatory.</div>    
@@ -49,7 +53,7 @@
                     <asp:RequiredFieldValidator ID="rfvSubject" runat="server" 
                         ControlToValidate="txtSubject" Display="Dynamic"
                         ErrorMessage="<br/>Please enter a Subject."
-                        ValidationGroup="Send">
+                        ValidationGroup="SendMessage">
                     </asp:RequiredFieldValidator>           
                 </td>
             </tr>
@@ -60,7 +64,7 @@
                     <asp:RequiredFieldValidator ID="rfvComment" runat="server" 
                         ControlToValidate="txtComment" Display="Dynamic"
                         ErrorMessage="<br/>Please enter a Comment."
-                        ValidationGroup="Send">
+                        ValidationGroup="SendMessage">
                     </asp:RequiredFieldValidator>
                     
                     
@@ -72,8 +76,8 @@
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <input id="btnSend" type="button" value="Send Message" class="ButtonCommon" onclick="SendMessage();" runat="server" validationgroup="Send" />
-                    <%--<asp:Button ID="btnSendMessage" runat="server" Text="Send Message" ValidationGroup="Send" OnClientClick="SendMessage();" />                    --%>
+                    <input type="button" value="Send Message" class="ButtonCommon" onclick="SendMessage();"/>
+                    <%--<asp:Button ID="btnSendMessage" runat="server" Text="Send Message" ValidationGroup="SendMessage" OnClientClick="SendMessage(); return false;" />--%>
                 </td>
             </tr>     
         </table>    
@@ -81,7 +85,7 @@
     
     <%--Right Box--%>
     <div class="homepagecontentbox">
-    
+        &nbsp;
     </div>
     <div class="clearfloating"></div>
     
@@ -91,27 +95,46 @@
         function SendMessage()
         {
             _AdminMessage.Subject = jQuery.trim($('#<%=txtSubject.ClientID %>').val());
-            _AdminMessage.MessagBody = jQuery.trim($('#<%=txtComment.ClientID %>').val());            
-            PageMethods.SendMessage(_AdminMessage, SendMessage_Success, SendMessage_Error);
-            ShowAnimation();
-            $('#<%=txtSubject.ClientID %>').val('')
-            $('#<%=txtComment.ClientID %>').val('')            
+            _AdminMessage.MessageBody = jQuery.trim($('#<%=txtComment.ClientID %>').val());    
+            if(_AdminMessage.Subject.length > 0 && _AdminMessage.MessageBody.length > 0)
+            {                    
+                $('#<%=divContainer.ClientID %>').fadeOut(150, function(){                
+                    $('#divProcessingAnimation').fadeIn(150, function(){
+                        PageMethods.SendMessage(_AdminMessage, SendMessage_Success, SendMessage_Error);
+                    });
+                });
+                $('#<%=txtSubject.ClientID %>').val('')
+                $('#<%=txtComment.ClientID %>').val('')
+            }
+            else
+            {
+                $('#<%=rfvSubject.ClientID %>').show();
+                $('#<%=rfvComment.ClientID %>').show();
+            }
         }
         function SendMessage_Success(result)
         {
-            if(result == -1)
-                CreateConfirmationPopup('confirm', 'Critical Error', 'Please provide necessary information to send emails to the users.');    
+            if(result == -1)            
+                ShowErroMessage('Critical Error', 'Please provide necessary information to send emails to the users.');
+                //CreateConfirmationPopup('confirm', 'Critical Error', 'Please provide necessary information to send emails to the users.');                
             else
-                CreateConfirmationPopup('confirm', 'Information', 'Congratulations!<br />All emails are successfully sent to the corresponding users.');
+            {
+                var emailCount = result == 1 ? '1 Email was' : result + ' Emails were'; 
+                ///As jQuery Show Hide is Not working here
+                document.getElementById('divProcessingAnimation').style.display = 'none';                
+                CreateConfirmationPopup('confirm', 'Information', 'Congratulations!<br />Total ' + emailCount + ' successfully sent to the corresponding users. <a href="<%=AppConstants.Pages.MANAGE_USERS%>">Click Here</a> to Go Back to Manage Users Page');                
+            }
         }
         function SendMessage_Error(Error)
         {
-            CreateConfirmationPopup('confirm', 'Error', Error.get_message());
-        }   
-        function ShowAnimation()
+            ShowErroMessage('Error', '<%=AppConstants.ERROR_MESSAGE %>');            
+        }           
+        function ShowErroMessage(popupTitle, message)
         {
-            //Need to be implement
-        } 
+            document.getElementById('divProcessingAnimation').style.display = 'none';            
+            CreateConfirmationPopup('confirm', popupTitle, message);            
+            $('#<%=divContainer.ClientID %>').fadeIn('slow');
+        }
     </script>
     
     <UC:ModalMessage ID="ucModalMessage" runat="server" />    
