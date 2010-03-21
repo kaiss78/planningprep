@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Pages/Public/MasterPagePublic.master" AutoEventWireup="true" CodeFile="JoinOutcome.aspx.cs" Inherits="Pages_Public_JoinOutcome" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="JoinOutcome.aspx.cs" Inherits="Pages_Public_JoinOutcome" Title="Untitled Page" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <script language="javascript" type="text/javascript">

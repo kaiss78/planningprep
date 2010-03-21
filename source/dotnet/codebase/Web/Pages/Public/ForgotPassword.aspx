@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Pages/Public/MasterPagePublic.master" AutoEventWireup="true" 
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" 
     CodeFile="ForgotPassword.aspx.cs" Inherits="Pages_Public_ForgotPassword" Title="Untitled Page" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">

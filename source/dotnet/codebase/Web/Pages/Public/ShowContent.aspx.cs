@@ -15,6 +15,6 @@ public partial class Pages_Public_ShowContent : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        Page.Title = AppUtil.GetPageTitle(String.Empty);
     }
 }
