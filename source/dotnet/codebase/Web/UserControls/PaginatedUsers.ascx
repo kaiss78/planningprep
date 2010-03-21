@@ -33,7 +33,7 @@
     {
         var userIDs = GetCommaSeparatedIDsOfSelectedUsers();
         if(userIDs.length == 0)
-            CreateConfirmationPopup('confirm', 'Information', 'Please select users from the above list to send them email.');
+            CreateConfirmationPopup('confirm', 'Information', 'Please select users from the <b>User List</b> to send them email.');
         else
         {
             var Url = '<%=AppConstants.Pages.SEND_EMAIL %>?<%=AppConstants.QueryString.ID %>=' + userIDs ;            
