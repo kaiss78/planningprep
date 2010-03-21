@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Pages/Public/MasterPagePublic.master" AutoEventWireup="true" CodeFile="AnswerOfTheWeekMessage.aspx.cs" Inherits="Pages_Public_AnswerOfTheWeekMessage" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AnswerOfTheWeekMessage.aspx.cs" Inherits="Pages_Public_AnswerOfTheWeekMessage" Title="Untitled Page" %>
 
 <%@ Register src="/UserControls/Chart.ascx" TagName="Chart" TagPrefix="Chart" %>
 
@@ -25,12 +25,12 @@
     <div class="clearboth"></div>
     <div>
         <div style="margin-top:15px;">
-            <a href="/Default.aspx">planningprep.com</a> provides members with hundreds of questions and internet links aimed at 
+            <a href="<%=AppConstants.Pages.HOME_PAGE %>">planningprep.com</a> provides members with hundreds of questions and internet links aimed at 
             refreshing and broadening their planning knowledge to better prepare them for the 
             certification exam.
             <br /><br />
             Please explore our site and <a href="<%=AppConstants.Pages.FAQ %>">learn more about what we have to offer</a>, or feel free to 
-            join and <a href="/Pages/Public/Register.aspx">become a member</a>.
+            join and <a href="<%=AppConstants.Pages.REGISTER %>">become a member</a>.
 
         </div>
     </div>

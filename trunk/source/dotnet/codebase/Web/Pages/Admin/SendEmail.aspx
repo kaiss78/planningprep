@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="SendEmail.aspx.cs" Inherits="Pages_Admin_SendEmail" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" 
+    CodeFile="SendEmail.aspx.cs" Inherits="Pages_Admin_SendEmail" Title="Untitled Page" %>
 
 <%@ Register Src="/UserControls/ModalMessage.ascx" TagName="ModalMessage" TagPrefix="UC" %> 
 
@@ -22,7 +23,8 @@
         scheduled maintenance, and any other detail you would like the members to know about. 
     </div>
     
-    <div id="divProcessingAnimation" style="display:none;">
+    <div id="divProcessingAnimation" style="display:none; margin-top:15px;">
+        <b>Sending emails. Please wait...</b><br />
         <img src="/Images/processing.gif" alt="Processing" title="Processing" />
     </div>
     
@@ -106,10 +108,13 @@
                 $('#<%=txtSubject.ClientID %>').val('')
                 $('#<%=txtComment.ClientID %>').val('')
             }
+            ///Show Validation Messages
             else
             {
-                $('#<%=rfvSubject.ClientID %>').show();
-                $('#<%=rfvComment.ClientID %>').show();
+                if(_AdminMessage.Subject.length == 0)
+                    $('#<%=rfvSubject.ClientID %>').show();
+                if(_AdminMessage.MessageBody.length == 0)
+                    $('#<%=rfvComment.ClientID %>').show();
             }
         }
         function SendMessage_Success(result)
