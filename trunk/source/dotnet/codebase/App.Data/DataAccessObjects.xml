@@ -15,7 +15,8 @@
   <entity name="ResultDetails" daoType="App.Data.Exams.ResultDetailsDAO, App.Data" />
   <entity name="QuestionLink" daoType="App.Data.Questions.QuestionLinkDAO, App.Data" />
   <entity name="Comment" daoType="App.Data.Comments.CommentDAO, App.Data" />
-  <entity name="CommentThumbInfo" daoType="App.Data.Comments.CommentThumbInfoDAO, App.Data" />  
+  <entity name="CommentThumbInfo" daoType="App.Data.Comments.CommentThumbInfoDAO, App.Data" />
+  <entity name="CommentReply" daoType="App.Data.Comments.CommentReplyDAO, App.Data" />
   <entity name="Answers" daoType="App.Data.Answers.AnswersDAO, App.Data" />
   <entity name="ExamStatistic" daoType="App.Data.Exams.ExamStatisticDAO, App.Data" />
   <entity name="FaqCategory" daoType="App.Data.FAQ.FaqCategoryDAO, App.Data" />
