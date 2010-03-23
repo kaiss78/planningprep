@@ -100,5 +100,18 @@ public class AjaxService : System.Web.Services.WebService
             questionManager.SaveOrUpdate(question);
         }       
     }
+
+    [WebMethod(EnableSession = true)]
+    public long SaveCommentReply(App.Models.Comments.CommentReply commentReply)
+    {
+        if (commentReply != null)
+        {
+            CommentReplyManager manager = new CommentReplyManager();
+            commentReply.Created = DateTime.Now;
+            manager.SaveOrUpdate(commentReply);
+            return commentReply.Id;
+        }
+        return -1;
+    }
 }
 
