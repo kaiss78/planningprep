@@ -1,0 +1,145 @@
+
+
+
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentReplyDelete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentReplyDelete]
+GO
+CREATE PROCEDURE [dbo].[spCommentReplyDelete] 
+@Id bigint
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/24/2010 1:37:31 AM
+-- Description: Delete Into Table CommentReply
+-- =============================================
+-- spCommentReplyDelete ...........
+BEGIN
+
+		DELETE FROM CommentReply
+		WHERE [ID]=@Id
+
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentReplyGetById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentReplyGetById]
+GO
+CREATE PROCEDURE [dbo].[spCommentReplyGetById] 
+	@Id bigint
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/24/2010 1:37:31 AM
+-- Description: GetById Into Table CommentReply
+-- =============================================
+-- spCommentReplyGetById ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[CommentReply] tab WITH(NOLOCK)
+		WHERE tab.[ID]=@Id
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentReplyGetAll]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentReplyGetAll]
+GO
+CREATE PROCEDURE [dbo].[spCommentReplyGetAll] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/24/2010 1:37:31 AM
+-- Description: GetAll Into Table CommentReply
+-- =============================================
+-- spCommentReplyGetAll ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[CommentReply] tab  WITH(NOLOCK)
+		ORDER BY tab.[ID] DESC
+
+		SET NOCOUNT OFF;
+END
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentReplySet]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentReplySet]
+GO
+CREATE PROCEDURE [dbo].[spCommentReplySet] 
+	 @ID bigint
+	, @CommentID bigint
+	, @Message varchar (max)
+	, @UserID int
+	, @Created datetime
+
+As
+Begin
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/24/2010 1:37:31 AM
+-- Description: Set Into Table CommentReply
+-- =============================================
+-- spCommentReplySet ...........
+		IF (@ID >0)
+		Begin
+			Update [dbo].[CommentReply]
+				 Set [CommentID]= @CommentID
+				, [Message]= @Message
+				, [UserID]= @UserID
+				, [Created]= @Created
+				 
+			 Where [ID]= @ID
+	End
+	Else
+	Begin
+		Insert Into [dbo].[CommentReply]
+			( [CommentID]
+			, [Message]
+			, [UserID]
+			, [Created]
+			 ) 
+		 VALUES 
+			( @CommentID
+			, @Message
+			, @UserID
+			, @Created
+			 ) 
+		 
+		Set @ID= Scope_Identity()
+	End
+ 
+ Select @ID as ID 
+End
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentReplyGetForUser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentReplyGetForUser]
+GO
+CREATE PROCEDURE [dbo].[spCommentReplyGetForUser] 
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/24/2010 1:37:31 AM
+-- Description: GetForUser Into Table CommentReply
+-- =============================================
+-- spCommentReplyGetForUser ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[CommentReply] tab  WITH(NOLOCK)
+	ORDER BY tab.[ID] DESC
+
+	SET NOCOUNT OFF;
+END
+GO
+

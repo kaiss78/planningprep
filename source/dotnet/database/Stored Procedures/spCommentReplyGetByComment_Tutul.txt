@@ -1,0 +1,26 @@
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spCommentReplyGetByComment]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[spCommentReplyGetByComment]
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[spCommentReplyGetByComment] 
+	@CommentID BIGINT
+AS
+-- =============================================
+-- Author:		Shubho (SmartAspects Inc.)
+-- Create date: 3/24/2010 1:37:31 AM
+-- Description: GetAll Into Table CommentReply
+-- =============================================
+-- spCommentReplyGetAll ...........
+BEGIN
+		SET NOCOUNT ON;
+
+		SELECT tab.*  
+		FROM [dbo].[CommentReply] tab  WITH(NOLOCK)
+		WHERE CommentID = @CommentID
+		ORDER BY tab.[Created] DESC
+
+		SET NOCOUNT OFF;
+END
+
