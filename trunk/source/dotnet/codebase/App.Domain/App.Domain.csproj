@@ -50,6 +50,7 @@
     <Compile Include="AnswerTotals\AnswerTotalManager.cs" />
     <Compile Include="BaseBusinessObject.cs" />
     <Compile Include="Comments\CommentManager.cs" />
+    <Compile Include="Comments\CommentReplyManager.cs" />
     <Compile Include="Comments\CommentThumbInfoManager.cs" />
     <Compile Include="DomainInitializer.cs" />
     <Compile Include="Exams\ExamManager.cs" />
