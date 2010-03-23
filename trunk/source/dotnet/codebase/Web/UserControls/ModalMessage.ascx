@@ -16,7 +16,7 @@
     <div class="PopupBody">
         <span id="popupMessage"><%--The Message will be shown here--%></span>                        
     </div>
-    <div class="PopupButtonContainer">
+    <div id="divPopupButtonContainer" class="PopupButtonContainer">
         <input type="button" value="Ok" class="ButtonCommon" style="padding-right:0px; width:55px;" onclick="HideConfirmationPopup('confirm');" />            
     </div>
 </div>
