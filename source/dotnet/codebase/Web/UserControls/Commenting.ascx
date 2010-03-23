@@ -121,7 +121,73 @@
         $('#divEventCatcher').click(function(event){
             event.stopPropagation();
         });*/
-
+        
+        ///Commenting Reply Section
+        function ExpandCollapse(divElement)
+        {
+            alert(divElement.id);
+        }
+        
+        function ShowPopupForCommentReply(commentID)
+        {
+            //_ShowOKButton = false;            
+            $('#divPopupButtonContainer').html(String.format('<input type="button" value="Reply to this Comment" class="ButtonCommon" onclick="SaveCommentReply({0}, this);"/>', commentID));                        
+            CreateConfirmationPopup('confirm', 'Reply of Comment', '<textarea id="txtCommentReply" style="width:310px; height:100px;"/><span id="spnReplyValidationMessage" class="ErrorMessage">&nbsp;</span>');
+        }
+        
+        var _CommentReply = new App.Models.Comments.CommentReply();
+         
+        function SaveCommentReply(commentID, btnElement)
+        {            
+            var reply = jQuery.trim($('#txtCommentReply').val());         
+            if(reply.length == 0)                            
+                document.getElementById('spnReplyValidationMessage').innerHTML = 'Please enter a <b>Reply</b> for this comment.';
+                //$('#spnValidationMessage').html('Please enter a <b>Reply</b> for this comment.');            
+            else
+            {                
+                _CommentReply.CommentID = commentID;
+                _CommentReply.Message = reply;
+                _CommentReply.UserID = _UserID;
+                ///Hide Popup
+                $('#divPopupButtonContainer').html('<input type="button" value="Ok" class="ButtonCommon" style="padding-right:0px; width:55px;" onclick="HideConfirmationPopup(\'confirm\');" />');
+                HideConfirmationPopup('confirm');
+                ///Save Comment Reply
+                AjaxService.SaveCommentReply(_CommentReply, SaveReply_Success, SaveReply_Failure);                  
+            }            
+        }
+        function SaveReply_Success(result)
+        {
+            if(result > 0)
+            {                
+                CreateConfirmationPopup('confirm', 'Information', 'Thank You!<br/>Your reply has been saved successfully.');
+            }
+            else
+                ShowErrorMessag();
+        }
+        function SaveReply_Failure(Error)
+        {
+            ShowErrorMessag();    
+        }
+        function ShowErrorMessag()
+        {
+            //$('#divPopupButtonContainer').html('<input type="button" value="Ok" class="ButtonCommon" style="padding-right:0px; width:55px;" onclick="HideConfirmationPopup(\'confirm\');" />');                        
+            CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');
+        }
+        function ToggleCollapse(element)
+        {       
+            var msgElement = $(element).parent().find('.replymessage');                
+            var imgElement = $(element).find('img');
+            if($(imgElement).attr('src').indexOf('plus.gif') > -1 ) //Is in Hidden Situation
+            {
+                $(imgElement).attr('src', '/Images/minus.gif').attr('alt', 'Collapse').attr('title', 'Collapse');
+                $(msgElement).fadeIn();                    
+            }
+            else
+            {
+                $(imgElement).attr('src', '/Images/plus.gif').attr('alt', 'Expand').attr('title', 'Expand');
+                $(msgElement).fadeOut();                    
+            }            
+        }
     </script>
     
 <div id="divCommentingList">
@@ -139,17 +205,25 @@
             <div class="OddRowListing">
                 <div class="commentuserbox"><asp:Literal ID="ltrUserInfo" runat="server"></asp:Literal></div>
                 <div class="commentbox"><asp:Literal ID="ltrComment" runat="server"></asp:Literal></div>
-                <div class="commentboxforthumbs"><asp:Literal ID="ltrThumbs" runat="server"></asp:Literal></div>                
+                <div class="commentboxforthumbs">
+                    <asp:Literal ID="ltrThumbs" runat="server"></asp:Literal>
+                    <div id="divReply" runat="server" visible="false" style="margin-top:15px;"><asp:HyperLink NavigateUrl="javascript:void(0);" ID="hplReply" runat="server">Reply</asp:HyperLink></div>
+                </div>                
                 <div class="clearboth"></div>
             </div>
+            <div id="divCommentReplyes" class="commentreplycontainer" runat="server"></div>
         </ItemTemplate>
         <AlternatingItemTemplate>
             <div class="EvenRowListing">
                 <div class="commentuserbox"><asp:Literal ID="ltrUserInfo" runat="server"></asp:Literal></div>
                 <div class="commentbox"><asp:Literal ID="ltrComment" runat="server"></asp:Literal></div>
-                <div class="commentboxforthumbs"><asp:Literal ID="ltrThumbs" runat="server"></asp:Literal></div>
-                <div class="clearboth"></div>
+                <div class="commentboxforthumbs">
+                    <asp:Literal ID="ltrThumbs" runat="server"></asp:Literal>
+                    <div id="divReply" runat="server" visible="false" style="margin-top:15px;"><asp:HyperLink NavigateUrl="javascript:void(0);" ID="hplReply" runat="server">Reply</asp:HyperLink></div>
+                </div>
+                <div class="clearboth"></div>                
             </div>
+            <div id="divCommentReplyes" class="commentreplycontainer" runat="server"></div>
         </AlternatingItemTemplate>
     </asp:Repeater>    
 </div>

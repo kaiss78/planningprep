@@ -15,6 +15,7 @@ using App.Models.Comments;
 using App.Domain.Comments;
 using App.Domain.Users;
 using App.Models.Users;
+using System.Text;
 
 public partial class UserControls_Commenting : BaseUserControl
 {
@@ -77,6 +78,42 @@ public partial class UserControls_Commenting : BaseUserControl
             ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown_Disabled.png' alt='Thumbs Down Disabled' title='Thumbs Down Disabled'/> <img src='/Images/ThumbsUp_Disabled.png' alt='Thumbs Up Disabled' title='Thumbs Up  Disabled'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"));
         else
             ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown.png' onclick='ThumbsDown({1}, this);' alt='Thumbs Down this Comment' title='Thumbs Down this Comment' class='clickableimage'/> <img src='/Images/ThumbsUp.png' onclick='ThumbsUp({1}, this);' alt='Thumbs Up this Comment' title='Thumbs Up this Comment' class='clickableimage'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"), comment.ID);
+
+        ///Comment Reply
+        if (comment.UserID != SessionCache.CurrentUser.Author_ID)
+        {
+            HtmlGenericControl divReply = e.Item.FindControl("divReply") as HtmlGenericControl;
+            divReply.Visible = true;
+            HyperLink hplReply = e.Item.FindControl("hplReply") as HyperLink;
+            hplReply.Attributes["onclick"] = String.Format("ShowPopupForCommentReply({0});", comment.ID); 
+        }
+        HtmlGenericControl divCommentReplyes = e.Item.FindControl("divCommentReplyes") as HtmlGenericControl;
+        divCommentReplyes.InnerHtml = GetCommentReplyHtml(comment.Id);
+    }
+
+    private string GetCommentReplyHtml(long commentID)
+    {
+        CommentReplyManager manager = new CommentReplyManager();
+        IList<CommentReply> replyes = manager.GetCommentReplyByCommentID(commentID);
+        if (replyes != null && replyes.Count > 0)
+        {
+            UserManager userManager = new UserManager();
+            StringBuilder sb = new StringBuilder(10);
+            //sb.Append("Comment Replyes:");
+            foreach (CommentReply reply in replyes)
+            {
+                PlanningPrepUser user = userManager.Get(reply.UserID);
+                sb.Append("<div style='margin-top:10px;'>");
+                sb.Append("<div class='ExamTitle' onclick='ToggleCollapse(this)' style='cursor:pointer'>");
+                sb.AppendFormat("<img class='clickableimage' src='/Images/plus.gif' alt='Expand' title='Expand'/> {0}", user.Username);
+                sb.Append("</div>");
+                sb.AppendFormat("<div class='replymessage' style='display:none;'>{0}</div>", reply.Message);
+                sb.Append("</div>");
+                
+            }
+            return sb.ToString();
+        }
+        return String.Empty;
     }
     
     private String GetDifference(DateTime commentTime)
