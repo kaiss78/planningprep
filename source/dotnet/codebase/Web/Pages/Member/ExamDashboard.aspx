@@ -32,16 +32,7 @@
         	font-weight:bold;
         	color:Green;
         	font-size:medium;
-        }
-        .ExamTitle
-        {
-        	font-weight:bold;
-        	font-size:11px;
-        	margin-bottom:10px;
-        	background-color:#dddddd;
-        	padding:5px 0px 5px 5px;
-        	
-        }
+        }        
         .NewExam
         {
         	margin-top:20px;
