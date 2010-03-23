@@ -494,7 +494,7 @@ img.EmployeeImage
 }
 .ErrorMessage
 {
-   font-weight:bold;
+   /*font-weight:bold;*/
    color:#FF0000;      
 }
 .GridViewInputControls{	
@@ -650,4 +650,21 @@ img.EmployeeImage
 .faqanswer
 {
 	margin-bottom:10px;
+}
+.commentreplycontainer
+{
+	padding-left:19%;	
+}
+.replymessage
+{
+	margin-bottom:10px;
+}
+.ExamTitle
+{
+	font-weight:bold;
+	font-size:11px;
+	margin-bottom:10px;
+	background-color:#dddddd;
+	padding:5px 0px 5px 5px;
+	
 }
