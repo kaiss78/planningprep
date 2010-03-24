@@ -80,7 +80,7 @@ CREATE PROCEDURE [dbo].[spCommentSet]
 	, @Created DateTime
 	, @Modified DateTime
 	, @NegativeRank INT
-	, @LinkID BIT
+	, @LinkID INT
 As
 Begin
 -- =============================================
