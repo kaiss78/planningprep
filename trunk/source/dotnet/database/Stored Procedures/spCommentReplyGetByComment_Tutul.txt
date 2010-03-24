@@ -19,7 +19,7 @@ BEGIN
 		SELECT tab.*  
 		FROM [dbo].[CommentReply] tab  WITH(NOLOCK)
 		WHERE CommentID = @CommentID
-		ORDER BY tab.[Created] DESC
+		ORDER BY tab.[Created] ASC
 
 		SET NOCOUNT OFF;
 END
