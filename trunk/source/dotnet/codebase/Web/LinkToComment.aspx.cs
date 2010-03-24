@@ -85,11 +85,11 @@ public partial class LinkToComment : System.Web.UI.Page
         comment.LinkID = link.LinkID;
         comment.QuestionID = questionID;
         
-        ///User ID Should be a Single User according to client requirement
-        
-        //comment.UserID = ConfigReader.UserIDForLinkToCommentConversion;
+        ///User ID Should be "Devine" according to client requirement        
+        comment.UserID = ConfigReader.UserIDForLinkToCommentConversion;
         //OR
-        comment.UserID = SessionCache.CurrentUser.Author_ID;
+        //comment.UserID = SessionCache.CurrentUser.Author_ID;
+
         if (link.TimeStamp == DateTime.MinValue)
         {
             comment.Created = DateTime.Now;
