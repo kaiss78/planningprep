@@ -665,6 +665,13 @@ img.EmployeeImage
 	font-size:11px;
 	margin-bottom:10px;
 	background-color:#dddddd;
-	padding:5px 0px 5px 5px;
-	
+	padding:5px 0px 5px 5px;	
+}
+.replylinkcontainer
+{
+	/*position:absolute;
+	bottom:0;	*/
+	margin-top:20px;
+	text-align:right;
+	margin-right:20px;	
 }

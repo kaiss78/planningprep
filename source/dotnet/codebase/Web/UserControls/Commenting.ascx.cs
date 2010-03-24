@@ -21,11 +21,11 @@ public partial class UserControls_Commenting : BaseUserControl
 {
     protected int _QuestionID;
     protected int _UserID;
-    protected int _TotalCount;    
+    protected int _TotalCount;
     protected String _CommentListDisplayStyle = "block";
     private UserManager _UserManager = null;
     private CommentThumbInfoManager _ThumbInfoManager = null;
-    
+
     #region Properties
     public int QuestionID
     {
@@ -58,7 +58,7 @@ public partial class UserControls_Commenting : BaseUserControl
             //ltrCommentHeading.Text = "<a href='javascript:void(0);' onclick='ToggleCommentingBox();'>Be the first to comment on this question.</a>";
             ltrCommentHeading.Text = "<a href='javascript:void(0);' onclick='ToggleCommentingBox();'>Comment</a>";
         }
-        
+
     }
     protected void rptCommentList_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
@@ -70,33 +70,32 @@ public partial class UserControls_Commenting : BaseUserControl
             ltrUserInfo.Text = String.Format("{0}<br /><span class='minutesago'>{1}</span>", AppUtil.Encode(user.Username), GetDifference(comment.Created));
         }
         Literal ltrComment = e.Item.FindControl("ltrComment") as Literal;
-        ltrComment.Text = string.Format("\"{0}\"",AppUtil.FormatText(comment.CommentText));
+        ltrComment.Text = string.Format("\"{0}\"", AppUtil.FormatText(comment.CommentText));
         Literal ltrThumbs = e.Item.FindControl("ltrThumbs") as Literal;
         String thumbsText = thumbsText = String.Format("+{0} Thumbs", comment.Rank);
-            
+
         if (comment.UserID == SessionCache.CurrentUser.Author_ID || _ThumbInfoManager.HasThumbed(SessionCache.CurrentUser.Author_ID, _QuestionID, comment.ID))
             ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown_Disabled.png' alt='Thumbs Down Disabled' title='Thumbs Down Disabled'/> <img src='/Images/ThumbsUp_Disabled.png' alt='Thumbs Up Disabled' title='Thumbs Up  Disabled'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"));
         else
             ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown.png' onclick='ThumbsDown({1}, this);' alt='Thumbs Down this Comment' title='Thumbs Down this Comment' class='clickableimage'/> <img src='/Images/ThumbsUp.png' onclick='ThumbsUp({1}, this);' alt='Thumbs Up this Comment' title='Thumbs Up this Comment' class='clickableimage'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"), comment.ID);
 
-        ///Comment Reply
-        if (comment.UserID != SessionCache.CurrentUser.Author_ID)
-        {
-            HtmlGenericControl divReply = e.Item.FindControl("divReply") as HtmlGenericControl;
-            divReply.Visible = true;
-            HyperLink hplReply = e.Item.FindControl("hplReply") as HyperLink;
-            hplReply.Attributes["onclick"] = String.Format("ShowPopupForCommentReply({0});", comment.ID); 
-        }
         HtmlGenericControl divCommentReplyes = e.Item.FindControl("divCommentReplyes") as HtmlGenericControl;
-        divCommentReplyes.InnerHtml = GetCommentReplyHtml(comment.Id);
+        divCommentReplyes.InnerHtml = GetCommentReplyHtml(comment, e.Item);
     }
 
-    private string GetCommentReplyHtml(long commentID)
+    protected String GetCommentReplyHtml(Comment comment, RepeaterItem item)
     {
         CommentReplyManager manager = new CommentReplyManager();
-        IList<CommentReply> replyes = manager.GetCommentReplyByCommentID(commentID);
+        IList<CommentReply> replyes = manager.GetCommentReplyByCommentID(comment.ID);
+        HtmlGenericControl divReply = item.FindControl("divReply") as HtmlGenericControl;
+        HyperLink hplReply = item.FindControl("hplReply") as HyperLink;
+
         if (replyes != null && replyes.Count > 0)
         {
+            ///Show the Reply Link
+            divReply.Visible = true;
+            hplReply.Attributes["onclick"] = String.Format("ShowPopupForCommentReply({0}, this);", comment.ID);
+
             UserManager userManager = new UserManager();
             StringBuilder sb = new StringBuilder(10);
             //sb.Append("Comment Replyes:");
@@ -109,15 +108,23 @@ public partial class UserControls_Commenting : BaseUserControl
                 sb.Append("</div>");
                 sb.AppendFormat("<div class='replymessage' style='display:none;'>{0}</div>", reply.Message);
                 sb.Append("</div>");
-                
             }
             return sb.ToString();
         }
+        else
+        {
+            ///Show the Reply Link if this commment is not the users own comment
+            if (comment.UserID != SessionCache.CurrentUser.Author_ID)
+            {
+                divReply.Visible = true;
+                hplReply.Attributes["onclick"] = String.Format("ShowPopupForCommentReply({0});", comment.ID);
+            }
+        }
         return String.Empty;
     }
-    
+
     private String GetDifference(DateTime commentTime)
-    {        
+    {
         double minutes = DateTime.Now.Subtract(commentTime).TotalMinutes;
         minutes = Math.Ceiling(minutes);
         if (minutes < 60)
@@ -141,7 +148,7 @@ public partial class UserControls_Commenting : BaseUserControl
                 }
                 else
                 {
-                    double month = Math.Floor( day / 30);
+                    double month = Math.Floor(day / 30);
                     if (month < 12)
                     {
                         double remainingDays = day % 30;
@@ -154,8 +161,8 @@ public partial class UserControls_Commenting : BaseUserControl
                         return String.Format("{0} {1} ago", GetPluralText(year, "Year"), GetPluralText(remainingMonth, "Month"));
                     }
                 }
-            }                 
-        }        
+            }
+        }
     }
     protected String GetPluralText(double value, String text)
     {
@@ -186,13 +193,13 @@ public partial class UserControls_Commenting : BaseUserControl
                 return String.Format("{0} {1}", count, textToUse);
             else// if (count < -1)
                 return String.Format("{0} {1}s", count, textToUse);
-        }    
+        }
         //else if (count < -1)
         //    return String.Format("{0} {1}s", count, textToUse);
         else if (count == 0)
             return String.Format("0 {0}s", textToUse);
-        else 
+        else
             return String.Format("+1 {0}", textToUse);
-        
+
     }
 }
