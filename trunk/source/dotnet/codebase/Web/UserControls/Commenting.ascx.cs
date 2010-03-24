@@ -106,7 +106,7 @@ public partial class UserControls_Commenting : BaseUserControl
                 sb.Append("<div class='ExamTitle' onclick='ToggleCollapse(this)' style='cursor:pointer'>");
                 sb.AppendFormat("<img class='clickableimage' src='/Images/plus.gif' alt='Expand' title='Expand'/> {0}", user.Username);
                 sb.Append("</div>");
-                sb.AppendFormat("<div class='replymessage' style='display:none;'>{0}</div>", reply.Message);
+                sb.AppendFormat("<div class='replymessage' style='display:none;'>{0}</div>", AppUtil.FormatText(reply.Message));
                 sb.Append("</div>");
             }
             return sb.ToString();
