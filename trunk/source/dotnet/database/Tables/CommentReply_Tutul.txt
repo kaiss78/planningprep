@@ -1,8 +1,7 @@
-
 CREATE TABLE [dbo].[CommentReply](
 	[ID] [bigint] IDENTITY(1,1) NOT NULL,
 	[CommentID] [bigint] NOT NULL,
-	[Message] [nchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Message] [varchar](max) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	[UserID] [int] NOT NULL,
 	[Created] [datetime] NOT NULL,
  CONSTRAINT [PK_CommentReply] PRIMARY KEY CLUSTERED 
@@ -10,3 +9,6 @@ CREATE TABLE [dbo].[CommentReply](
 	[ID] ASC
 )WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
