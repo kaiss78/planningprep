@@ -21,10 +21,10 @@ BEGIN
 		  , tab.Created
 		  , tab.Modified
 		  , tab.NegativeRank			  
-		  , tab.IsLink	
+		  , ISNULL(tab.LinkID, 0) AS LinkID
 		FROM [dbo].[Comment] tab  WITH(NOLOCK)
 		WHERE tab.QuestionID = @QuestionID
-		ORDER BY IsLink DESC, ISNULL(tab.Rank, 0) - ISNULL(tab.NegativeRank, 0) DESC;
+		ORDER BY ISNULL(tab.LinkID, 0) DESC, ISNULL(tab.Rank, 0) - ISNULL(tab.NegativeRank, 0) DESC;
 
 	SET NOCOUNT OFF;
 END
