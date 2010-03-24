@@ -108,6 +108,14 @@ namespace App.Models.Comments
             get;
             set;
         }
+        /// <summary>
+        /// Gets or Sets the IsLink
+        /// </summary>
+        public int LinkID
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Reference Properties
