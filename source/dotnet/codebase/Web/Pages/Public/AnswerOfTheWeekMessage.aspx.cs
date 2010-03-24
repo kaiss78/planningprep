@@ -68,7 +68,7 @@ public partial class Pages_Public_AnswerOfTheWeekMessage : BasePage
             foreach (App.Models.Links.Link link in links)
             {
                 sb.Append("<div style='margin-bottom:15px;'>");
-                String url = String.Format("{0}?{1}={2}&{3}={4}", AppConstants.Pages.VISIT_FRAME, AppConstants.QueryString.LINK_ID, link.LinkID, AppConstants.QueryString.LINK, link.LinkOriginal);
+                String url = String.Format("{0}?{1}={2}&{3}={4}", AppConstants.Pages.VISIT_FRAME, AppConstants.QueryString.LINK_ID, link.LinkID, AppConstants.QueryString.LINK, Server.UrlEncode(link.LinkOriginal));
                 ///Pages/Public/VisitFrame.aspx?Link
                 sb.AppendFormat("<a href='{0}' target='_blank'>{1}</a><br/>", url, link.LinkTitle);
                 sb.Append(link.LinkDescription);
