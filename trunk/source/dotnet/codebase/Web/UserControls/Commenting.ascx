@@ -183,7 +183,7 @@
             if(jQuery.trim($(container).html()).length == 0)
                 html = "<div class='replymessagecontainer' style='margin-top:10px;'>";
             
-            html += String.format("Reply of <b>{0}</b><br />", HtmlEncode(_UserName));
+            html += String.format("<div class='replymessageheading'>Reply of <b>{0}</b></div>", HtmlEncode(_UserName));
             html += FormatText(_CommentReply.Message)
             html += "</div>";
             //$(_ReplyHyperLink).parent().parent().parent().parent().find('.commentreplycontainer').append(html);
