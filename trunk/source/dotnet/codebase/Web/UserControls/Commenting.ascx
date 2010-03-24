@@ -127,12 +127,14 @@
         {
             alert(divElement.id);
         }
-        
-        function ShowPopupForCommentReply(commentID)
+        var _ReplyHyperLink = null;
+        function ShowPopupForCommentReply(commentID, hyperlinkElement)
         {
+            _ReplyHyperLink = hyperlinkElement;
             //_ShowOKButton = false;            
             $('#divPopupButtonContainer').html(String.format('<input type="button" value="Reply to this Comment" class="ButtonCommon" onclick="SaveCommentReply({0}, this);"/>', commentID));                        
             CreateConfirmationPopup('confirm', 'Reply of Comment', '<textarea id="txtCommentReply" style="width:310px; height:100px;"/><span id="spnReplyValidationMessage" class="ErrorMessage">&nbsp;</span>');
+            $('#txtCommentReply').focus();
         }
         
         var _CommentReply = new App.Models.Comments.CommentReply();
@@ -160,6 +162,7 @@
             if(result > 0)
             {                
                 CreateConfirmationPopup('confirm', 'Information', 'Thank You!<br/>Your reply has been saved successfully.');
+                AddCommentToTheList(result);
             }
             else
                 ShowErrorMessag();
@@ -172,6 +175,17 @@
         {
             //$('#divPopupButtonContainer').html('<input type="button" value="Ok" class="ButtonCommon" style="padding-right:0px; width:55px;" onclick="HideConfirmationPopup(\'confirm\');" />');                        
             CreateConfirmationPopup('confirm', 'Error', '<%=AppConstants.ERROR_MESSAGE %>');
+        }
+        function AddCommentToTheList(commentId)
+        {   
+            var html = "<div style='margin-top:10px;'>"; 
+            html += "<div class='ExamTitle' onclick='ToggleCollapse(this)' style='cursor:pointer'>";
+            html += String.format("<img class='clickableimage' src='/Images/minus.gif' alt='Collapse' title='Collapse'/> {0}", _UserName);
+            html += "</div>";
+            html += String.format("<div class='replymessage' style='display:block;'>{0}</div>", FormatText(_CommentReply.Message));
+            html += "</div>";
+                    
+            $(_ReplyHyperLink).parent().parent().parent().parent().find('.commentreplycontainer').append(html);
         }
         function ToggleCollapse(element)
         {       
@@ -202,28 +216,32 @@
     <%--<div class="contentheading" id="divCommentListHeading" style="display:<%=_CommentListDisplayStyle %>;">Comments</div>--%>
     <asp:Repeater ID="rptCommentList" runat="server" onitemdatabound="rptCommentList_ItemDataBound">
         <ItemTemplate>
-            <div class="OddRowListing">
-                <div class="commentuserbox"><asp:Literal ID="ltrUserInfo" runat="server"></asp:Literal></div>
-                <div class="commentbox"><asp:Literal ID="ltrComment" runat="server"></asp:Literal></div>
-                <div class="commentboxforthumbs">
-                    <asp:Literal ID="ltrThumbs" runat="server"></asp:Literal>
-                    <div id="divReply" runat="server" visible="false" style="margin-top:15px;"><asp:HyperLink NavigateUrl="javascript:void(0);" ID="hplReply" runat="server">Reply</asp:HyperLink></div>
-                </div>                
-                <div class="clearboth"></div>
+            <div>
+                <div class="OddRowListing">
+                    <div class="commentuserbox"><asp:Literal ID="ltrUserInfo" runat="server"></asp:Literal></div>
+                    <div class="commentbox"><asp:Literal ID="ltrComment" runat="server"></asp:Literal></div>
+                    <div class="commentboxforthumbs">
+                        <asp:Literal ID="ltrThumbs" runat="server"></asp:Literal>
+                        <div id="divReply" runat="server" visible="false" class="replylinkcontainer"><asp:HyperLink NavigateUrl="javascript:void(0);" ID="hplReply" runat="server">Reply</asp:HyperLink></div>
+                    </div>                
+                    <div class="clearboth"></div>
+                </div>
+                <div id="divCommentReplyes" class="commentreplycontainer" runat="server"></div>
             </div>
-            <div id="divCommentReplyes" class="commentreplycontainer" runat="server"></div>
         </ItemTemplate>
         <AlternatingItemTemplate>
-            <div class="EvenRowListing">
-                <div class="commentuserbox"><asp:Literal ID="ltrUserInfo" runat="server"></asp:Literal></div>
-                <div class="commentbox"><asp:Literal ID="ltrComment" runat="server"></asp:Literal></div>
-                <div class="commentboxforthumbs">
-                    <asp:Literal ID="ltrThumbs" runat="server"></asp:Literal>
-                    <div id="divReply" runat="server" visible="false" style="margin-top:15px;"><asp:HyperLink NavigateUrl="javascript:void(0);" ID="hplReply" runat="server">Reply</asp:HyperLink></div>
+            <div>
+                <div class="EvenRowListing">
+                    <div class="commentuserbox"><asp:Literal ID="ltrUserInfo" runat="server"></asp:Literal></div>
+                    <div class="commentbox"><asp:Literal ID="ltrComment" runat="server"></asp:Literal></div>
+                    <div class="commentboxforthumbs">
+                        <asp:Literal ID="ltrThumbs" runat="server"></asp:Literal>
+                        <div id="divReply" runat="server" visible="false" class="replylinkcontainer"><asp:HyperLink NavigateUrl="javascript:void(0);" ID="hplReply" runat="server">Reply</asp:HyperLink></div>
+                    </div>
+                    <div class="clearboth"></div>                
                 </div>
-                <div class="clearboth"></div>                
+                <div id="divCommentReplyes" class="commentreplycontainer" runat="server"></div>
             </div>
-            <div id="divCommentReplyes" class="commentreplycontainer" runat="server"></div>
         </AlternatingItemTemplate>
     </asp:Repeater>    
 </div>
