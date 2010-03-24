@@ -121,7 +121,7 @@ public partial class UserControls_Commenting : BaseUserControl
                     sb.Append("<div class='replymessagecontainer' style='margin-top:10px;'>");
                 else
                     sb.Append("<div class='replymessagecontainer'>");
-                sb.AppendFormat("<b>Reply</b> of {0}<br />", AppUtil.Encode(user.Username));
+                sb.AppendFormat("Reply of <b>{0}</b><br />", AppUtil.Encode(user.Username));
                 sb.Append(AppUtil.FormatText(reply.Message));                
                 sb.Append("</div>");
             }
