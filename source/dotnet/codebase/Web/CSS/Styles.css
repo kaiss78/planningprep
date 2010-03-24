@@ -653,12 +653,17 @@ img.EmployeeImage
 }
 .commentreplycontainer
 {
-	padding-left:19%;	
+	padding-left:30px;		
 }
 .replymessage
 {
 	margin-left:10px;
 	margin-bottom:10px;
+}
+.replymessagecontainer
+{
+	margin-bottom:10px;	
+	/*border-bottom:#C0C0C0 1px solid;*/
 }
 .ExamTitle
 {

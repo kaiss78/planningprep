@@ -98,17 +98,34 @@ public partial class UserControls_Commenting : BaseUserControl
 
             UserManager userManager = new UserManager();
             StringBuilder sb = new StringBuilder(10);
+            #region Expand Collapse Implementation
             //sb.Append("Comment Replyes:");
-            foreach (CommentReply reply in replyes)
+            //foreach (CommentReply reply in replyes)
+            //{
+            //    PlanningPrepUser user = userManager.Get(reply.UserID);
+            //    sb.Append("<div style='margin-top:10px;'>");
+            //    sb.Append("<div class='ExamTitle' onclick='ToggleCollapse(this)' style='cursor:pointer'>");
+            //    sb.AppendFormat("<img class='clickableimage' src='/Images/plus.gif' alt='Expand' title='Expand'/> {0}", user.Username);
+            //    sb.Append("</div>");
+            //    sb.AppendFormat("<div class='replymessage' style='display:none;'>{0}</div>", AppUtil.FormatText(reply.Message));
+            //    sb.Append("</div>");
+            //}
+            #endregion
+
+
+            for(int i=0; i<replyes.Count; i++) 
             {
+                CommentReply reply = replyes[i];
                 PlanningPrepUser user = userManager.Get(reply.UserID);
-                sb.Append("<div style='margin-top:10px;'>");
-                sb.Append("<div class='ExamTitle' onclick='ToggleCollapse(this)' style='cursor:pointer'>");
-                sb.AppendFormat("<img class='clickableimage' src='/Images/plus.gif' alt='Expand' title='Expand'/> {0}", user.Username);
-                sb.Append("</div>");
-                sb.AppendFormat("<div class='replymessage' style='display:none;'>{0}</div>", AppUtil.FormatText(reply.Message));
+                if (i == 0)
+                    sb.Append("<div class='replymessagecontainer' style='margin-top:10px;'>");
+                else
+                    sb.Append("<div class='replymessagecontainer'>");
+                sb.AppendFormat("<b>Reply</b> of {0}<br />", AppUtil.Encode(user.Username));
+                sb.Append(AppUtil.FormatText(reply.Message));                
                 sb.Append("</div>");
             }
+
             return sb.ToString();
         }
         else
