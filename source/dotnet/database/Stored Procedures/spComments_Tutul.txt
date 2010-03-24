@@ -80,7 +80,7 @@ CREATE PROCEDURE [dbo].[spCommentSet]
 	, @Created DateTime
 	, @Modified DateTime
 	, @NegativeRank INT
-	, @IsLink BIT
+	, @LinkID BIT
 As
 Begin
 -- =============================================
@@ -99,7 +99,7 @@ Begin
 				--, [Created]= @Created
 				, [Modified] = GetDate()
 				, [NegativeRank] = @NegativeRank
-				, IsLink = @IsLink	
+				, [LinkID] = @LinkID
 			 Where [ID]= @ID
 	End
 	Else
@@ -112,7 +112,7 @@ Begin
 			, [Created]
 			, [Modified]
 			, [NegativeRank]
-			, [IsLink]	
+			, [LinkID]	
 			 ) 
 		 VALUES 
 			( @QuestionID
@@ -122,7 +122,7 @@ Begin
 			, GetDate()
 			, GetDate()
 			, @NegativeRank
-			, @IsLink	
+			, @LinkID
 			 ) 
 		 
 		Set @ID= Scope_Identity()
