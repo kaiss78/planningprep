@@ -96,8 +96,8 @@ Begin
 				, [UserID] = @UserID
 				, [CommentText] = @CommentText
 				, [Rank] = @Rank
-				--, [Created]= @Created
-				, [Modified] = GetDate()
+				, [Created]= @Created
+				, [Modified] = @Modified
 				, [NegativeRank] = @NegativeRank
 				, [LinkID] = @LinkID
 			 Where [ID]= @ID
@@ -119,8 +119,8 @@ Begin
 			, @UserID
 			, @CommentText
 			, @Rank
-			, GetDate()
-			, GetDate()
+			, @Created
+			, @Modified
 			, @NegativeRank
 			, @LinkID
 			 ) 
