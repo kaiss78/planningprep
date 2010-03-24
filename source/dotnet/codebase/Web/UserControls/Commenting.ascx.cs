@@ -121,7 +121,7 @@ public partial class UserControls_Commenting : BaseUserControl
                     sb.Append("<div class='replymessagecontainer' style='margin-top:10px;'>");
                 else
                     sb.Append("<div class='replymessagecontainer'>");
-                sb.AppendFormat("Reply of <b>{0}</b><br />", AppUtil.Encode(user.Username));
+                sb.AppendFormat("<div class='replymessageheading'>Reply of <b>{0}</b></div>", AppUtil.Encode(user.Username));
                 sb.Append(AppUtil.FormatText(reply.Message));                
                 sb.Append("</div>");
             }
@@ -134,7 +134,7 @@ public partial class UserControls_Commenting : BaseUserControl
             if (comment.UserID != SessionCache.CurrentUser.Author_ID)
             {
                 divReply.Visible = true;
-                hplReply.Attributes["onclick"] = String.Format("ShowPopupForCommentReply({0});", comment.ID);
+                hplReply.Attributes["onclick"] = String.Format("ShowPopupForCommentReply({0}, this);", comment.ID);
             }
         }
         return String.Empty;
