@@ -1,1 +1,4 @@
 ALTER TABLE dbo.Comment ADD NegativeRank int NULL
+
+ALTER TABLE dbo.Comment ADD
+	IsLink bit NOT NULL CONSTRAINT DF_Comment_IsLink DEFAULT 0
