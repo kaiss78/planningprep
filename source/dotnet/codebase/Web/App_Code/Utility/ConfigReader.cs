@@ -30,6 +30,7 @@ public class ConfigReader
     private const String SUPPORT_EMAIL = "SupportEmail";
     private const String ADMIN_FAQ_QUESTION_LIST_SIZE = "AdminFAQQuestionListSize";
     private const String ADMIN_FAQ_CATEGORY_LIST_SIZE = "AdminFAQCategoryListSize";
+    private const String USER_ID_FOR_LINK_TO_COMMENT_CONVERSION = "UserIDForLinkToCommentConversion";
 
     private static String GetAppSettingsValue(String key)
     {
@@ -180,5 +181,15 @@ public class ConfigReader
             int.TryParse(paramValue, out configValue);
             return configValue;
         }
-    }    
+    }
+    public static int UserIDForLinkToCommentConversion
+    {
+        get
+        {
+            int configValue = 0;
+            String paramValue = GetAppSettingsValue(USER_ID_FOR_LINK_TO_COMMENT_CONVERSION);
+            int.TryParse(paramValue, out configValue);
+            return configValue;
+        }
+    }
 }
