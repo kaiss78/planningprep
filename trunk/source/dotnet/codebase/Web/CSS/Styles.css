@@ -665,6 +665,11 @@ img.EmployeeImage
 	margin-bottom:10px;	
 	/*border-bottom:#C0C0C0 1px solid;*/
 }
+.replymessageheading
+{
+	font-weight:normal;
+	font-style:normal;
+}
 .ExamTitle
 {
 	font-weight:bold;
