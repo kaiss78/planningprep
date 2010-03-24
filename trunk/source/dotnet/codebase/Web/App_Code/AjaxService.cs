@@ -37,7 +37,9 @@ public class AjaxService : System.Web.Services.WebService
     [WebMethod(EnableSession = true)]
     public long SaveComment(App.Models.Comments.Comment comment)
     {
-        App.Domain.Comments.CommentManager manager = new App.Domain.Comments.CommentManager();        
+        App.Domain.Comments.CommentManager manager = new App.Domain.Comments.CommentManager();
+        comment.Created = DateTime.Now;
+        comment.Modified = DateTime.Now;
         manager.SaveOrUpdate(comment);
         return comment.Id;
     }
