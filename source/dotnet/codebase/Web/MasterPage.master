@@ -3,6 +3,9 @@
 <%@ Register Src="~/UserControls/MemberMenu.ascx" TagName="MemberMenu" TagPrefix="MemberMenu" %>
 <%@ Register Src="~/UserControls/AdminMenu.ascx" TagName="AdminMenu" TagPrefix="UC" %>
 <%@ Register Src="~/UserControls/PublicMenu.ascx" TagName="PublicMenu" TagPrefix="UC" %>
+
+<%--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">--%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="header" runat="server">
@@ -16,20 +19,15 @@
 
     <script src="/JavaScripts/Common.js" language="javascript" type="text/javascript"></script>
 
-    <script language="javascript">
+    <script language="javascript" type="text/javascript">
         $(document).ready(function() {
-
-            $(".menuitem").hover(
-  function() {
-      $(this).css("background-color", "#777777");
-  },
-  function() {
-      $(this).css("background-color", "#666666");
-  }
-);
+            $(".menuitem").hover(function() {
+                $(this).css("background-color", "#777777");
+                },
+                function() {
+                    $(this).css("background-color", "#666666");
+            });
         });
-
-
 
         $(document).ready(function() {
             ResetLogoPosition();
@@ -37,7 +35,6 @@
         function ResetLogoPosition() {
             var position = $('#divTopContainer').position();
             $('#divLogoContainer').css({ 'left': position.left, 'top': (position.top + 40) }).fadeIn('slow');
-
         }
         $(window).resize(function() {
             ResetLogoPosition();
@@ -49,63 +46,67 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div class="parentcontaniner">
-        <div class="bodycontaniner">
-            <!-- Top Banner Section Starts -->
-            <div id="divTopContainer" class="topcontainer">
-                <img src="/Images/banner.jpg" style="width: 100%; height: 180px" />
-                <div id="divLogoContainer" class="bannerlogo">
-                    PlanningPrep.com</div>
-            </div>
-            <!-- Top Banner Section Ends -->
-            <div class="menuecontainer">
-                <%
-                    if (SessionCache.CurrentUser == null)
-                    {
-                %>
-                <UC:PublicMenu ID="PublicMenu" runat="server" />
-                <%
-                    }
-                    else
-                    {
-                %>
-                <%if (IsAdministrator())
-                  { %>
-                <UC:AdminMenu ID="ucAdminMenu" runat="server" />
-                <%}
-                  else
-                  {%>
-                <MemberMenu:MemberMenu ID="ucMemberMenu" runat="server" />
-                <%
-                    }
-                    }
-                %>
-            </div>
-            <div class="bottomcontainer">
-                <div class="bottomcontentcontainer">
-                    <asp:ContentPlaceHolder ID="ContentBody" runat="server">
-                    </asp:ContentPlaceHolder>
+        <div class="parentcontaniner">
+            <div class="bodycontaniner">
+                <!-- Top Banner Section Starts -->
+                <div id="divTopContainer" class="topcontainer">
+                    <img src="/Images/banner.jpg" style="width: 100%; height: 180px" />
+                    <div id="divLogoContainer" class="bannerlogo">
+                        PlanningPrep.com</div>
                 </div>
-            </div>
-            <div class="footercontainer">
-                <div>
-                    <strong>Copyright&copy; PlanningPrep.com
-                        <%=DateTime.Now.Year.ToString() %>, All Rights Reserved</strong>
+                <!-- Top Banner Section Ends -->
+                <div class="menuecontainer">
+                    <%
+                        if (SessionCache.CurrentUser == null)
+                        {
+                    %>
+                    <UC:PublicMenu ID="PublicMenu" runat="server" />
+                    <%
+                        }
+                        else
+                        {
+                    %>
+                    <%if (IsAdministrator())
+                      { %>
+                    <UC:AdminMenu ID="ucAdminMenu" runat="server" />
+                    <%}
+                      else
+                      {%>
+                    <MemberMenu:MemberMenu ID="ucMemberMenu" runat="server" />
+                    <%
+                        }
+                        }
+                    %>
                 </div>
-                <div>
-                    <div>
-                        Material on this site may not be used, transmitted, or copied without expressed
-                        written consent by Planning Prep</div>
-                    <br />
-                    <div>
-                        *AICP has been used without consent from the American Institute of Certified Planners</div>
-                    <div>
-                        <strong>*THIS SITE IS NOT AFFILIATED IN ANY WAY WITH THE AMERICAN PLANNING ASSOCIATION
-                            OR THE AMERICAN INSTITUTE OF CERTIFIED PLANNERS</strong></div>
-                </div>
+                <div class="bottomcontainer">
+                    <div class="bottomcontentcontainer">
+                        <asp:ContentPlaceHolder ID="ContentBody" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>                
             </div>
         </div>
-    </div>
+        
+        
+        <%--Footer Section Starts From Here--%>
+        <div class="footercontainer">
+            <div>
+                <strong>Copyright&copy; PlanningPrep.com
+                    <%=DateTime.Now.Year.ToString() %>, All Rights Reserved</strong>
+            </div>
+            <div>
+                <div>
+                    Material on this site may not be used, transmitted, or copied without expressed
+                    written consent by Planning Prep</div>
+                <br />
+                <div>
+                    *AICP has been used without consent from the American Institute of Certified Planners</div>
+                <div>
+                    <strong>*THIS SITE IS NOT AFFILIATED IN ANY WAY WITH THE AMERICAN PLANNING ASSOCIATION
+                        OR THE AMERICAN INSTITUTE OF CERTIFIED PLANNERS</strong></div>
+            </div>
+        </div>
+        <%--Footer Section Ends--%>
     </form>
 </body>
 </html>
