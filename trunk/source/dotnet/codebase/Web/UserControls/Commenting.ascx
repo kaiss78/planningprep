@@ -10,6 +10,7 @@
         var _QuestionID = <%= _QuestionID.ToString()%>;
         var _UserID = <%= _UserID.ToString()%>;
         var _UserName = "<%= SessionCache.CurrentUser.Username %>";
+        var _UserFullName = "<%= string.Format("{0} {1}",SessionCache.CurrentUser.FirstName,SessionCache.CurrentUser.LastName) %>";
         var _TotalCount = <%= _TotalCount.ToString()%>;
         var _Comment = new App.Models.Comments.Comment();
         
@@ -74,7 +75,7 @@
             var thumbsCount = result;
             $(_ImgElement).parent().parent().find('.thumbText').html(GetLogicalText(thumbsCount, 'Thumb') + '&nbsp;');
             DisableThumbImages();            
-            CreateConfirmationPopup('confirm', 'Thumbs Up', 'Thank you!<br/>Thumbs Up information for this comment has been saved successfully.');            
+            CreateConfirmationPopup('confirm', 'Thumbs Up', 'Thanks. <br/>This comment has been Thumbed up!');            
         }
         function CommentThumbsUp_Failiure(error)
         {
@@ -90,7 +91,7 @@
             var thumbsCount = result;
             $(_ImgElement).parent().parent().find('.thumbText').html(GetLogicalText(thumbsCount, 'Thumb') + '&nbsp;');    
             DisableThumbImages();
-            CreateConfirmationPopup('confirm', 'Thumbs Down', 'Thank you!<br/>Your Thumbs Down information for this comment has been saved successfully.');            
+            CreateConfirmationPopup('confirm', 'Thumbs Down', 'Thank you.<br/>This comment has been Thumbed down!');            
         }
         function CommentThumbsDown_Failiure(error)
         {
@@ -185,8 +186,8 @@
             if(jQuery.trim($(container).html()).length == 0)
                 html = "<div class='replymessagecontainer' style='margin-top:10px;'>";
             
-            html += String.format("<div class='replymessageheading'>Reply of <b>{0}</b></div>", HtmlEncode(_UserName));
-            html += FormatText(_CommentReply.Message)
+            html += String.format("<div class='replymessageheading'>Reply of <b>{0}</b></div>", HtmlEncode(_UserFullName));
+            html += FormatText('"'+_CommentReply.Message+'"')
             html += "</div>";
             //$(_ReplyHyperLink).parent().parent().parent().parent().find('.commentreplycontainer').append(html);
             
