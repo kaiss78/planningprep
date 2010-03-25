@@ -3,8 +3,92 @@
     font-size:11px;
 	padding:10px 0px 0px 0px;
 	margin:0px;
-	background-color:#70716D;
+	background-color:#70716D;	
 }
+/*#wrap */
+.parentcontaniner
+{
+	/*background-image: url(/Images/bottom_background.jpg);
+	height:693px;
+	padding-top:20px;*/
+	height:100%;
+	padding-bottom:150px;
+}
+
+
+/*#main 
+.bodycontaniner
+{
+	max-width:920px;
+	width:920px;	
+	margin-left:auto;
+	margin-right:auto;
+}
+*/
+
+/*#footer 
+.footercontainer
+{
+	background-color:#EBEBE9;
+	text-align:center;
+	color:#70716D;
+	padding:10px 20px 10px 20px;
+}
+*/
+/*
+html, body, form, .parentcontaniner, .bodycontaniner {height: 100%;}
+
+body > .parentcontaniner{height: auto; min-height: 100%;} 
+*/
+.bodycontaniner 
+{
+	/*overflow:auto;
+	padding-bottom: 150px;
+	*/
+	
+	background-color:#FFFFFF;	
+	max-width:920px;
+	width:920px;	
+	margin-left:auto;
+	margin-right:auto;			
+}  /* must be same height as the footer */
+
+.footercontainer 
+{
+	/* Old Styles */
+	background-color:#EBEBE9;
+	text-align:center;
+	color:#70716D;
+	
+	clear:both;
+	/*position: relative;*/
+	margin-top: -150px; /* negative value of footer height */
+	height: 150px;	
+} 
+
+/* Opera Fix */
+/*
+body:before {
+	content:"";
+	height:100%;
+	float:left;
+	width:0;
+	margin-top:-32767px;
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 img{
 	border:none;
 	padding:0px;
@@ -20,21 +104,6 @@ img.PreviewImage
                font-style: normal; font-weight: normal; 
                font-variant: normal; text-transform: none; color: #000000; text-align:left }
 /* Newly Added Styles for Planning Prep Start*/
-.parentcontaniner
-{
-	/*background-image: url(/Images/bottom_background.jpg);*/
-	height:693px;
-	padding-top:20px;
-}
-
-
-.bodycontaniner
-{
-	max-width:920px;
-	width:920px;	
-	margin-left:auto;
-	margin-right:auto;
-}
 .topcontainer
 {
 	height:180px;
@@ -82,13 +151,6 @@ img.PreviewImage
 	font-weight:bold;
 	color:#666666;
 	margin:0px 0px 15px 15px;
-}
-.footercontainer
-{
-	background-color:#EBEBE9;
-	text-align:center;
-	color:#70716D;
-	padding:10px 20px 10px 20px;
 }
 .menuecontainer
 {
