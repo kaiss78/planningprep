@@ -177,6 +177,9 @@ public partial class UserControls_Commenting : BaseUserControl
                 hplReply.Attributes["onclick"] = String.Format("ShowPopupForCommentReply({0}, this);", comment.ID);
             }
         }
+        if (_LoggedInUser.Author_ID == 0)
+            divReply.Visible = false;
+
         return String.Empty;
     }
 
