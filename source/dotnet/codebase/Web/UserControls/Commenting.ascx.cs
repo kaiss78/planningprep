@@ -67,7 +67,7 @@ public partial class UserControls_Commenting : BaseUserControl
         if (user != null)
         {
             Literal ltrUserInfo = e.Item.FindControl("ltrUserInfo") as Literal;
-            ltrUserInfo.Text = String.Format("{0}<br /><span class='minutesago'>{1}</span>", AppUtil.Encode(user.Username), GetDifference(comment.Created));
+            ltrUserInfo.Text = String.Format("{0}<br /><span class='minutesago'>{1}</span>", AppUtil.Encode(string.Format("{0} {1}",user.FirstName,user.LastName)), GetDifference(comment.Created));
         }
         Literal ltrComment = e.Item.FindControl("ltrComment") as Literal;
         if(comment.LinkID > 0)
@@ -124,8 +124,8 @@ public partial class UserControls_Commenting : BaseUserControl
                     sb.Append("<div class='replymessagecontainer' style='margin-top:10px;'>");
                 else
                     sb.Append("<div class='replymessagecontainer'>");
-                sb.AppendFormat("<div class='replymessageheading'>Reply of <b>{0}</b></div>", AppUtil.Encode(user.Username));
-                sb.Append(AppUtil.FormatText(reply.Message));                
+                sb.AppendFormat("<div class='replymessageheading'>Reply of <b>{0}</b></div>", AppUtil.Encode(string.Format("{0} {1}",user.FirstName,user.LastName)));
+                sb.Append(string.Format("\"{0}\"", AppUtil.FormatText(reply.Message)));                
                 sb.Append("</div>");
             }
 
