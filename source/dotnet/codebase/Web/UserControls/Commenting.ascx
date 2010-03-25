@@ -160,7 +160,7 @@
         }
         function SaveReply_Success(result)
         {
-            $('#divPopupButtonContainer').html('<input type="button" value="Ok" class="ButtonCommon" style="padding-right:0px; width:55px;" onclick="HideConfirmationPopup(\'confirm\');" />');
+            //$('#divPopupButtonContainer').html('<input type="button" value="Ok" class="ButtonCommon" style="padding-right:0px; width:55px;" onclick="HideConfirmationPopup(\'confirm\');" />');
             if(result > 0)
             {                
                 //CreateConfirmationPopup('confirm', 'Information', 'Thank You!<br/>Your reply has been saved successfully.');
@@ -171,7 +171,7 @@
         }
         function SaveReply_Failure(Error)
         {
-            $('#divPopupButtonContainer').html('<input type="button" value="Ok" class="ButtonCommon" style="padding-right:0px; width:55px;" onclick="HideConfirmationPopup(\'confirm\');" />');
+            //$('#divPopupButtonContainer').html('<input type="button" value="Ok" class="ButtonCommon" style="padding-right:0px; width:55px;" onclick="HideConfirmationPopup(\'confirm\');" />');
             ShowErrorMessag();    
         }
         function ShowErrorMessag()
