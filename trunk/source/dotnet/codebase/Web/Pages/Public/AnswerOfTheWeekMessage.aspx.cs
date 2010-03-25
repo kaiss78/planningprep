@@ -35,6 +35,8 @@ public partial class Pages_Public_AnswerOfTheWeekMessage : BasePage
         if (question != null)
         {
             ucChart.QuestionID = question.QuestionID;
+            ucCommenting.QuestionID = question.QuestionID;
+
             ltrQuestion.Text = question.Question;
             String answer = Request[AppConstants.QueryString.ANSWER];
             if (String.Compare(question.CorrectAnswer, answer, true) == 0)
@@ -55,26 +57,30 @@ public partial class Pages_Public_AnswerOfTheWeekMessage : BasePage
 
             App.Domain.Links.LinkManager linkManager = new App.Domain.Links.LinkManager();
             IList<App.Models.Links.Link> links = linkManager.GetLinksForQuestion(question.QuestionID);
-            BuildHtmlForLinks(links);
-
+            //BuildHtmlForLinks(links);
         }
-    }
-
-    protected void BuildHtmlForLinks(IList<App.Models.Links.Link> links)
-    {
-        if (links != null & links.Count > 0)
+        else
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (App.Models.Links.Link link in links)
-            {
-                sb.Append("<div style='margin-bottom:15px;'>");
-                String url = String.Format("{0}?{1}={2}&{3}={4}", AppConstants.Pages.VISIT_FRAME, AppConstants.QueryString.LINK_ID, link.LinkID, AppConstants.QueryString.LINK, Server.UrlEncode(link.LinkOriginal));
-                ///Pages/Public/VisitFrame.aspx?Link
-                sb.AppendFormat("<a href='{0}' target='_blank'>{1}</a><br/>", url, link.LinkTitle);
-                sb.Append(link.LinkDescription);
-                sb.Append("</div>");                
-            }
-            ltrLinks.Text = sb.ToString();
+            ucChart.Visible = false;
+            ucCommenting.Visible = false;
         }
     }
+
+    //protected void BuildHtmlForLinks(IList<App.Models.Links.Link> links)
+    //{
+    //    if (links != null & links.Count > 0)
+    //    {
+    //        StringBuilder sb = new StringBuilder();
+    //        foreach (App.Models.Links.Link link in links)
+    //        {
+    //            sb.Append("<div style='margin-bottom:15px;'>");
+    //            String url = String.Format("{0}?{1}={2}&{3}={4}", AppConstants.Pages.VISIT_FRAME, AppConstants.QueryString.LINK_ID, link.LinkID, AppConstants.QueryString.LINK, Server.UrlEncode(link.LinkOriginal));
+    //            ///Pages/Public/VisitFrame.aspx?Link
+    //            sb.AppendFormat("<a href='{0}' target='_blank'>{1}</a><br/>", url, link.LinkTitle);
+    //            sb.Append(link.LinkDescription);
+    //            sb.Append("</div>");                
+    //        }
+    //        ltrLinks.Text = sb.ToString();
+    //    }
+    //}
 }
