@@ -10,84 +10,32 @@
 {
 	/*background-image: url(/Images/bottom_background.jpg);
 	height:693px;
-	padding-top:20px;*/
+	padding-top:20px;
 	height:100%;
-	padding-bottom:150px;
+	padding-bottom:150px;*/
 }
 
-
-/*#main 
-.bodycontaniner
-{
-	max-width:920px;
-	width:920px;	
-	margin-left:auto;
-	margin-right:auto;
-}
-*/
-
-/*#footer 
-.footercontainer
-{
-	background-color:#EBEBE9;
-	text-align:center;
-	color:#70716D;
-	padding:10px 20px 10px 20px;
-}
-*/
-/*
-html, body, form, .parentcontaniner, .bodycontaniner {height: 100%;}
-
-body > .parentcontaniner{height: auto; min-height: 100%;} 
-*/
-.bodycontaniner 
-{
-	/*overflow:auto;
-	padding-bottom: 150px;
-	*/
-	
+.bodycontaniner, #divDummy 
+{	
 	background-color:#FFFFFF;	
 	max-width:920px;
 	width:920px;	
 	margin-left:auto;
 	margin-right:auto;			
-}  /* must be same height as the footer */
+}  
 
-.footercontainer 
-{
-	/* Old Styles */
+#footercontainer 
+{	
+	height: 100px;
 	background-color:#EBEBE9;
 	text-align:center;
-	color:#70716D;
-	
-	clear:both;
-	/*position: relative;*/
-	margin-top: -150px; /* negative value of footer height */
-	height: 150px;	
-} 
-
-/* Opera Fix */
-/*
-body:before {
-	content:"";
-	height:100%;
-	float:left;
-	width:0;
-	margin-top:-32767px;
-}*/
-
-
-
-
-
-
-
-
-
-
-
-
-
+	color:#70716D;	
+	max-width:920px;
+	width:920px;	
+	position:absolute;
+	left:50%;	
+	margin-left:-460px;
+}
 
 img{
 	border:none;
