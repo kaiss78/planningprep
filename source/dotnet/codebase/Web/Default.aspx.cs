@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using App.Models.Users;
 
 public partial class Default : BasePage
 {
@@ -119,10 +120,14 @@ public partial class Default : BasePage
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        String givenAnswer = Request.Form["Answer"];
-        App.Domain.Questions.QuestionsManager manager = new App.Domain.Questions.QuestionsManager();
-        manager.SaveQuestionOfTheWeekAnswer(ConfigReader.QuestionOfTheWeekID, 2, givenAnswer);
-        String url = String.Format("{0}?{1}={2}&{3}={4}", AppConstants.Pages.ANSWER_OF_THE_WEEK_MESSAGE, AppConstants.QueryString.QUESTION_ID, ConfigReader.QuestionOfTheWeekID, AppConstants.QueryString.ANSWER, givenAnswer);
-        Response.Redirect(url);
+        if (Page.IsValid)
+        {
+            String givenAnswer = Request.Form["Answer"];
+            App.Domain.Questions.QuestionsManager manager = new App.Domain.Questions.QuestionsManager();
+            manager.SaveQuestionOfTheWeekAnswer(ConfigReader.QuestionOfTheWeekID, 2, givenAnswer);
+            String url = String.Format("{0}?{1}={2}&{3}={4}", AppConstants.Pages.ANSWER_OF_THE_WEEK_MESSAGE, AppConstants.QueryString.QUESTION_ID, ConfigReader.QuestionOfTheWeekID, AppConstants.QueryString.ANSWER, givenAnswer);
+            Response.Redirect(url, false);
+            return;
+        }
     }
 }
