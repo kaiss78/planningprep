@@ -225,12 +225,13 @@
                 <div class="OddRowListing">
                     <div class="commentuserbox"><asp:Literal ID="ltrUserInfo" runat="server"></asp:Literal></div>
                     <div class="commentbox">
-                        <asp:Literal ID="ltrComment" runat="server"></asp:Literal>
+                        <div><asp:Literal ID="ltrComment" runat="server"></asp:Literal></div>
+                        <div id="divReply" runat="server" visible="false" class="replylinkcontainer"><asp:HyperLink NavigateUrl="javascript:void(0);" ID="hplReply" runat="server">Reply</asp:HyperLink></div>
                         <div id="divCommentReplyes" class="commentreplycontainer" runat="server"></div>
                     </div>
                     <div class="commentboxforthumbs">
                         <asp:Literal ID="ltrThumbs" runat="server"></asp:Literal>
-                        <div id="divReply" runat="server" visible="false" class="replylinkcontainer"><asp:HyperLink NavigateUrl="javascript:void(0);" ID="hplReply" runat="server">Reply</asp:HyperLink></div>
+                        
                     </div>                
                     <div class="clearboth"></div>
                 </div>                
@@ -241,12 +242,12 @@
                 <div class="EvenRowListing">
                     <div class="commentuserbox"><asp:Literal ID="ltrUserInfo" runat="server"></asp:Literal></div>
                     <div class="commentbox">
-                        <asp:Literal ID="ltrComment" runat="server"></asp:Literal>
+                        <div> <asp:Literal ID="ltrComment" runat="server"></asp:Literal></div>
+                        <div id="divReply" runat="server" visible="false" class="replylinkcontainer"><asp:HyperLink NavigateUrl="javascript:void(0);" ID="hplReply" runat="server">Reply</asp:HyperLink></div>
                         <div id="divCommentReplyes" class="commentreplycontainer" runat="server"></div>
                     </div>
                     <div class="commentboxforthumbs">
                         <asp:Literal ID="ltrThumbs" runat="server"></asp:Literal>
-                        <div id="divReply" runat="server" visible="false" class="replylinkcontainer"><asp:HyperLink NavigateUrl="javascript:void(0);" ID="hplReply" runat="server">Reply</asp:HyperLink></div>
                     </div>
                     <div class="clearboth"></div>                
                 </div>                
