@@ -8,9 +8,9 @@
     
     <script language="javascript" type="text/javascript">
         var _QuestionID = <%= _QuestionID.ToString()%>;
-        var _UserID = <%= _UserID.ToString()%>;
-        var _UserName = "<%= SessionCache.CurrentUser.Username %>";
-        var _UserFullName = "<%= string.Format("{0} {1}",SessionCache.CurrentUser.FirstName,SessionCache.CurrentUser.LastName) %>";
+        var _UserID = <%= _LoggedInUser.Author_ID.ToString()%>;
+        var _UserName = "<%= AppUtil.Encode(_LoggedInUser.Username) %>";
+        var _UserFullName = "<%= String.Format("{0} {1}", AppUtil.Encode(_LoggedInUser.FirstName), AppUtil.Encode(_LoggedInUser.LastName)) %>";
         var _TotalCount = <%= _TotalCount.ToString()%>;
         var _Comment = new App.Models.Comments.Comment();
         
@@ -219,7 +219,7 @@
             <div style="margin-top:5px; margin-bottom:10px;"><input type="button" value="Save Comment" class="ButtonCommon" onclick="SaveCommentData();" /></div>    
         </div>
     </div>
-    <%--<div class="contentheading" id="divCommentListHeading" style="display:<%=_CommentListDisplayStyle %>;">Comments</div>--%>
+    
     <asp:Repeater ID="rptCommentList" runat="server" onitemdatabound="rptCommentList_ItemDataBound">
         <ItemTemplate>
             <div>

@@ -21,10 +21,13 @@ public partial class UserControls_Commenting : BaseUserControl
 {
     protected int _QuestionID;
     protected int _UserID;
+    protected String _UserName = String.Empty;
+    protected String _UserFullName = String.Empty;
     protected int _TotalCount;
-    protected String _CommentListDisplayStyle = "block";
+    //protected String _CommentListDisplayStyle = "block";
     private UserManager _UserManager = null;
     private CommentThumbInfoManager _ThumbInfoManager = null;
+    protected PlanningPrepUser _LoggedInUser = null;
 
     #region Properties
     public int QuestionID
@@ -38,7 +41,24 @@ public partial class UserControls_Commenting : BaseUserControl
     {
         _UserManager = new UserManager();
         _ThumbInfoManager = new CommentThumbInfoManager();
-        _UserID = SessionCache.CurrentUser.Author_ID;
+        if (SessionCache.CurrentUser == null)
+        {
+            //_UserID = 0;
+            //_UserFullName = "Anonymous";            
+            //_UserName = "Anonymous ";
+            _LoggedInUser = new PlanningPrepUser();
+            _LoggedInUser.Author_ID = 0;
+            _LoggedInUser.Username = "Anonymous";
+            _LoggedInUser.FirstName = "Anonymous";            
+            _LoggedInUser.LastName = String.Empty;
+        }
+        else
+        {
+            //_UserID = SessionCache.CurrentUser.Author_ID;
+            //_UserName = AppUtil.Encode(SessionCache.CurrentUser.Username);
+            //_UserFullName = String.Format("{0} {1}", AppUtil.Encode(_LoggedInUser.FirstName), AppUtil.Encode(_LoggedInUser.LastName));
+            _LoggedInUser = SessionCache.CurrentUser;
+        }
         BindCommentList();
     }
     protected void BindCommentList()
@@ -54,16 +74,33 @@ public partial class UserControls_Commenting : BaseUserControl
             ltrCommentHeading.Text = "<a href='javascript:void(0);' onclick='ToggleCommentingBox();'>Comment</a>";
         else
         {
-            _CommentListDisplayStyle = "none";
+            //_CommentListDisplayStyle = "none";
             //ltrCommentHeading.Text = "<a href='javascript:void(0);' onclick='ToggleCommentingBox();'>Be the first to comment on this question.</a>";
             ltrCommentHeading.Text = "<a href='javascript:void(0);' onclick='ToggleCommentingBox();'>Comment</a>";
         }
-
+        if (_LoggedInUser.Author_ID == 0)//Anonymous User
+        {
+            if (_TotalCount > 0)
+                ltrCommentHeading.Text = "Comments";
+            else
+                ltrCommentHeading.Text = "Sorry! No comment is availabe for this question.";
+        }
     }
     protected void rptCommentList_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         Comment comment = e.Item.DataItem as Comment;
-        PlanningPrepUser user = _UserManager.Get(comment.UserID);
+        PlanningPrepUser user = null;
+        if (comment.UserID == 0)
+        {
+            user = new PlanningPrepUser();
+            user.Author_ID = 0;
+            user.Username = "Anonymous";
+            user.FirstName = "Anonymous";
+            user.LastName = String.Empty;
+        }
+        else        
+            user = _UserManager.Get(comment.UserID);
+        
         if (user != null)
         {
             Literal ltrUserInfo = e.Item.FindControl("ltrUserInfo") as Literal;
@@ -77,7 +114,7 @@ public partial class UserControls_Commenting : BaseUserControl
         Literal ltrThumbs = e.Item.FindControl("ltrThumbs") as Literal;
         String thumbsText = thumbsText = String.Format("+{0} Thumbs", comment.Rank);
 
-        if (comment.UserID == SessionCache.CurrentUser.Author_ID || _ThumbInfoManager.HasThumbed(SessionCache.CurrentUser.Author_ID, _QuestionID, comment.ID))
+        if (_LoggedInUser.Author_ID == 0 || comment.UserID == _LoggedInUser.Author_ID || _ThumbInfoManager.HasThumbed(_LoggedInUser.Author_ID, _QuestionID, comment.ID))
             ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown_Disabled.png' alt='Thumbs Down Disabled' title='Thumbs Down Disabled'/> <img src='/Images/ThumbsUp_Disabled.png' alt='Thumbs Up Disabled' title='Thumbs Up  Disabled'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"));
         else
             ltrThumbs.Text = String.Format("<div class='thumbText'>{0}&nbsp;</div><div class='thumbImage'><img src='/Images/ThumbsDown.png' onclick='ThumbsDown({1}, this);' alt='Thumbs Down this Comment' title='Thumbs Down this Comment' class='clickableimage'/> <img src='/Images/ThumbsUp.png' onclick='ThumbsUp({1}, this);' alt='Thumbs Up this Comment' title='Thumbs Up this Comment' class='clickableimage'/></div><div class='clearfloating'></div>", GetLogicalText(comment.Rank - comment.NegativeRank, "Thumb"), comment.ID);
@@ -134,7 +171,7 @@ public partial class UserControls_Commenting : BaseUserControl
         else
         {
             ///Show the Reply Link if this commment is not the users own comment
-            if (comment.UserID != SessionCache.CurrentUser.Author_ID)
+            if (comment.UserID != _LoggedInUser.Author_ID)
             {
                 divReply.Visible = true;
                 hplReply.Attributes["onclick"] = String.Format("ShowPopupForCommentReply({0}, this);", comment.ID);
