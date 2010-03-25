@@ -156,9 +156,9 @@ public partial class UserControls_QuestionDetails : BaseUserControl
 
         lblQuestionDetails.Text = question.Explanation;
 
-        IList<QuestionLink> links = questionManager.GetQuestionLinks(QuestionID);
-        rptQuestionLinks.DataSource = links;
-        rptQuestionLinks.DataBind();
+        //IList<QuestionLink> links = questionManager.GetQuestionLinks(QuestionID);
+        //rptQuestionLinks.DataSource = links;
+        //rptQuestionLinks.DataBind();
 
         chartForQuestion.QuestionID = QuestionID;
         if (this.ShowComments)

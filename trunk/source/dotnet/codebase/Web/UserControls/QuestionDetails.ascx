@@ -79,9 +79,7 @@
     <p id="QuestionDetails">
         <asp:Label ID="lblQuestionDetails" runat="server" Text=""></asp:Label>
     </p>
-    <p>        
-        More information on this topic can be found at these sites:
-    </p>
+    
     <div>
         <asp:Repeater ID="rptQuestionLinks" runat="server" onitemdatabound="rptQuestionLinks_ItemDataBound">
         <ItemTemplate>
