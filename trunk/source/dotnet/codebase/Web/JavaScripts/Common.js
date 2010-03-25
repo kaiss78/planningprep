@@ -64,6 +64,7 @@ function hideBlocking()
 function RemoveShadeElement()
 { 
     $('#divShadow').remove(); 
+    $('#divPopupButtonContainer').html('<input type="button" value="Ok" class="ButtonCommon" style="padding-right:0px; width:55px;" onclick="HideConfirmationPopup(\'confirm\');" />');
 }
 function CreteBlockingContainer() 
 {
