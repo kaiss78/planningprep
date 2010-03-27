@@ -67,7 +67,9 @@ namespace App.Util
 
                 item.FileName = dr[AppConstants.ExcelColumns.FILE_NAME].ToString();
                 item.Chapter = dr[AppConstants.ExcelColumns.CHAPTER_NAME].ToString();
-                item.StartTime = dr[AppConstants.ExcelColumns.START_POINT].ToString();
+                DateTime startTime = Convert.ToDateTime(dr[AppConstants.ExcelColumns.START_POINT]);
+                
+                item.StartTime = startTime.Second.ToString();
                 item.Duration = dr[AppConstants.ExcelColumns.DURATION].ToString();
                 item.ThumbNail = dr[AppConstants.ExcelColumns.THUMBNAIL].ToString();
                 item.FileType = dr[AppConstants.ExcelColumns.VIDEO_TYPE].ToString();
