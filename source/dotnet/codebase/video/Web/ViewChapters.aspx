@@ -30,10 +30,7 @@
 
     });
     
-    function runVideo(itemNumber)
-    {
-        window.open("WatchVideo.aspx?ItemNumber=" + itemNumber);
-    }
+  
 </script>
 
 </head>
