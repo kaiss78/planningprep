@@ -22,27 +22,42 @@ img{
 	padding:0px;
 	margin:0px;
 }
+h1
+{
+	background-color:#EAEAEA;
+	font-size:12px;
+	font-weight:bold;	
+	color:#3C3C3C;
+	margin:15px 0px 15px 0px;
+	padding:3px 5px;
+}
 #parentcontaniner
 {
 	/*background-image: url(/Images/bottom_background.jpg);
 	height:693px;
 	padding-top:20px;
 	height:100%;
-	padding-bottom:150px;*/
+	padding-bottom:150px;*/	
 }
-
-#bodycontaniner, #divDummy 
-{	
-	background-color:#FFFFFF;	
+#documentcontainer, #divDummy 
+{		
+	background-color:#FFFFFF;
 	max-width:920px;
 	width:920px;	
 	margin-left:auto;
 	margin-right:auto;			
+}
+#headercontainer
+{
+	height: 80px;
 }  
-
+#bodycontaniner
+{
+	padding:5px 20px 20px 20px;	
+}
 #footercontainer 
 {	
-	height: 100px;
+	height: 30px;
 	background-color:#EBEBE9;
 	text-align:center;
 	color:#70716D;	
@@ -122,6 +137,26 @@ A.headermenu:hover
 {
    /*font-weight:bold;*/
    color:#FF0000;      
+}
+.requiredfiled
+{
+	color:#FF0000;
+}
+.MessageBox
+{
+    clear:both;    
+	height:auto;
+    text-align:left;    
+    font-weight:bold;
+    color:#0F7D0A; 	
+}
+.ErrorMessageBox
+{
+    clear:both;    
+	height:auto;	
+    text-align:left;    
+    font-weight:bold;	
+    color:#FF0000;
 }
 /*End of New Styles*/
 .fl
