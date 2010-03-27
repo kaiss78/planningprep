@@ -33,7 +33,7 @@ namespace App.Util
         {
             _XmlWriter.WriteRaw(String.Format(@"<item>
 			            <title>{0}</title>
-			            <media:content url='{1}' type='{2}' start='{3}' duration='4' />
+			            <media:content url='{1}' type='{2}' start='{3}' duration='{4}' />
 			            <media:thumbnail url='{5}' />
 			            <description>{6}</description>
 			            <link>{7}/</link>
