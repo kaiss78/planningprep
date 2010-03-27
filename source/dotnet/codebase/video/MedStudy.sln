@@ -10,6 +10,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "medstudy.local.com", "http://medstudy.local.com", "{1F5F6599-F95C-43D0-B377-47ED44315940}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFramework = "3.5"
+		ProjectReferences = "{F9501334-2496-4399-B1F9-51ADC1F1F258}|App.Data.dll;{BCABF54C-C50A-4136-818C-39B2050355A8}|App.Domain.dll;{FF0E963B-ADA5-4593-B306-A7EA030AE60E}|App.Util.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/medstudy.local.com"
 		Debug.AspNetCompiler.PhysicalPath = "Web\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\medstudy.local.com\"
