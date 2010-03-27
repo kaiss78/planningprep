@@ -36,7 +36,7 @@ namespace App.Util
             {
                 sb.Append("<div class=\"expandCollapseDivWrapper\">");
                 sb.AppendFormat("<div wrapperId={0} class=\"expandCollapseDiv\">+</div>", item.Number);
-                sb.AppendFormat("<div onclick=\"runVideo('{0}')\" class=\"chapterDivWithExpandCollapse\">", AppUtil.GetXmlUrlForItem(item,file));
+                sb.AppendFormat("<div onclick=\"runVideo('{0}')\" class=\"chapterDivWithExpandCollapse\">", item.Number);//AppUtil.GetXmlUrlForItem(item,file));
                 sb.Append(AppUtil.FilterChapterName(item.Chapter));
                 sb.Append("</div>");
                 sb.Append("<div class=\"clearBoth\"></div>");
@@ -52,7 +52,7 @@ namespace App.Util
             }
             else
             {
-                sb.AppendFormat("<div onclick=\"runVideo('{0}')\" class=\"singleItem\">", AppUtil.GetXmlUrlForItem(item,file));
+                sb.AppendFormat("<div onclick=\"runVideo('{0}')\" class=\"singleItem\">", item.Number);//AppUtil.GetXmlUrlForItem(item,file));
 
                 sb.Append(AppUtil.FilterChapterName(item.Chapter));
 

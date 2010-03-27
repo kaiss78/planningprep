@@ -60,6 +60,7 @@
     <Compile Include="ConfigReader.cs" />
     <Compile Include="DataParser.cs" />
     <Compile Include="HtmlHelper.cs" />
+    <Compile Include="SessionCache.cs" />
     <Compile Include="VideoSectionItem.cs" />
     <Compile Include="XmlHelper.cs" />
     <Compile Include="ExelHelper.cs" />
