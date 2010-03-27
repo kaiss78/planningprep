@@ -32,7 +32,6 @@ public partial class uc_WatchVideo : System.Web.UI.UserControl
         if(item != null)
         {
             ChapterUrl = AppUtil.GetXmlUrlForItem(item,file.FileName);
-            Response.Write(ChapterUrl);
         }
     }
 }
