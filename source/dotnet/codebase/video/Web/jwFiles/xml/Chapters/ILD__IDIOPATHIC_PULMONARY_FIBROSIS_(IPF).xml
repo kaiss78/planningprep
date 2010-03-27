@@ -1,0 +1,7 @@
+<rss version='2.0' xmlns:media='http://search.yahoo.com/mrss/'><channel><title>Test playlist with differents video</title><item>
+			            <title>ILD: IDIOPATHIC PULMONARY FIBROSIS (IPF)</title>
+			            <media:content url='http://localhost:1076/Web1/jwFiles/videos/video2.flv' type='video/x-flv' start='12/30/1899 3:02:43 AM' duration='4' />
+			            <media:thumbnail url='http://localhost:1076/Web1/jwFiles/thumbnails/video1.png' />
+			            <description>Test description</description>
+			            <link>http://localhost/cms/</link>
+		            </item></channel></rss>

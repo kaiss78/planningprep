@@ -94,17 +94,10 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
 
     private void DeleteExistingFiles(string filename)
     {
-        try
+        string dir = Path.Combine(Server.MapPath(ConfigReader.XmlDir), filename);
+        if (Directory.Exists(dir))
         {
-            string dir = Path.Combine(Server.MapPath(ConfigReader.XmlDir), filename);
-            if (Directory.Exists(dir))
-            {
-                Directory.Delete(dir, true);
-            }
-        }
-        catch (Exception ex)
-        {
-
+            Directory.Delete(dir, true);
         }
     }
 }
