@@ -33,7 +33,8 @@ public partial class uc_Chapters : System.Web.UI.UserControl
 
                 List<VideoSectionItem> hirarchialItems = DataParser.Instance.GetHirararchialVideoSectionItems(items, Server.MapPath(ConfigReader.XmlDir), levelCount, file.FileName);
 
-                HtmlHelper.Instance.WriteResponseForItems(hirarchialItems, file);
+                string response = HtmlHelper.Instance.GetResponseForItems(hirarchialItems, file);
+                divChapters.InnerHtml = response;
             }
         }
     }

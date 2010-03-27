@@ -1,6 +1,43 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="WatchVideo.ascx.cs" Inherits="uc_WatchVideo" %>
-<script type="text/javascript" src="http://ec.europa.eu/wel/players/jwflvplayer/swfobject.js"/>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"/>
+
 <script language="javascript">
-var videoUrl = "&file=<%=ChapterUrl %>&playlist=right&playlistsize=200&duration=224";
+
+$(document).ready(function(){
+var videoUrl = '&file=<%=ChapterUrl %>&playlist=right&playlistsize=200&duration=224&repeat=list&autostart=true';
+$("#btnPlayMode").click(function(){
+    
+    if($(this).val() == "Switch to play single mode")
+    {
+        $(this).val("Switch to play multiple mode");
+        var videoUrl = '&file=<%=ChapterUrl %>&playlist=right&playlistsize=200&duration=224';
+        $("#spnMode").text("OFF");
+    }
+    else
+    {
+        $(this).val("Switch to play single mode");
+        var videoUrl = '&file=<%=ChapterUrl %>&playlist=right&playlistsize=200&duration=224&repeat=list&autostart=true';
+        $("#spnMode").text("ON");
+    }
+    setVideoUrl(videoUrl);
+});
+//var videoUrl = '&file=http://webtools.ec.europa.eu/flash-player/examples/playlist.xml&playlist=right&playlistsize=200&duration=224'
+setVideoUrl(videoUrl);
+ });
+ 
+function setVideoUrl(currentChapter)
+{
+    var s1 = new SWFObject('http://ec.europa.eu/wel/players/jwflvplayer/player.swf','player','600','400','9');
+	s1.addParam('allowfullscreen','true');
+	s1.addParam('allowscriptaccess','always');
+	s1.addParam('allownetworking','all');
+	s1.addParam('wmode','opaque');
+    s1.addParam('flashvars',currentChapter);
+	s1.write('preview1');
+}
 </script>
+
+<br />
+Multiple play mode is <strong><span id="spnMode">ON</span></strong>&nbsp;&nbsp;<input id="btnPlayMode" type="button" value="Switch to play single mode" />
+<br /><br />
+<div id="preview1">
+    The player will show in this div</div>
