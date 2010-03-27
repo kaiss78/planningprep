@@ -1,0 +1,35 @@
+﻿.fl
+{
+	float:left;
+}
+.fr
+{
+	float:right;
+}
+.clearBoth
+{
+	clear:both;
+}
+.chapterDivWithExpandCollapse
+{
+	padding-left:10px;
+	float:left;
+	cursor:pointer;
+}
+.chapterDivWithoutExpandCollapse
+{
+	padding-left:10px;
+	display:none;
+	cursor:pointer;
+}
+.expandCollapseDiv
+{
+	float:left;
+	width:10px;
+	cursor:pointer;
+}
+.singleItem
+{
+	padding-left:20px;
+	cursor:pointer;
+}
