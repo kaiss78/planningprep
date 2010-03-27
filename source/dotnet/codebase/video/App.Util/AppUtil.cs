@@ -6,6 +6,8 @@ using System.Web;
 using System.Xml.Linq;
 using System.IO;
 using App.Data;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
 /// <summary>
 /// Summary description for AppUtil
@@ -22,6 +24,10 @@ namespace App.Util
         public static DateTime SqlDateTimeMaxValue
         {
             get { return new DateTime(9999, 12, 31); }
+        }
+        public static string GetPageTitle(string title)
+        {
+            return string.Format("MedStudy : {0}", title);
         }
         public static string Encode(String text)
         {
@@ -110,6 +116,16 @@ namespace App.Util
         {
             string path = string.Format("{0}/{1}/{2}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(fileName), GetFilteredDiskFileName(item.Chapter));
             return path;
+        }
+
+        public static void ShowMessage(HtmlGenericControl divMessageBox, String message, bool isError)
+        {
+            if (isError)
+                divMessageBox.Attributes["class"] = "ErrorMessageBox";
+            else
+                divMessageBox.Attributes["class"] = "MessageBox";
+            divMessageBox.InnerHtml = message;
+            divMessageBox.Visible = true;
         }
     }
 }
