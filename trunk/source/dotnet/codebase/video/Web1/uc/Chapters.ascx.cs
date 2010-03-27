@@ -21,16 +21,20 @@ public partial class uc_Chapters : System.Web.UI.UserControl
     protected void Page_Load(object sender, EventArgs e)
     {
         ChapterDefinitionFile file = manager.GetById(ExelFileId);
-        string exelFileName = Path.Combine(Server.MapPath(ConfigReader.InputExel), file.FileName);
-
-        if (File.Exists(exelFileName))
+        if (file != null)
         {
-            List<VideoSectionItem> items = ExelHelper.Instance.GetDataFromExcel(exelFileName);
-            int levelCount = ExelHelper.Instance.GetLevelCount(items);
+            string exelFileName = Path.Combine(Server.MapPath(ConfigReader.InputExel), file.FileName);
+            SessionCache.CurrentFile = file;
+            if (File.Exists(exelFileName))
+            {
+                List<VideoSectionItem> items = ExelHelper.Instance.GetDataFromExcel(exelFileName);
+                SessionCache.VideoSectionItems = items;
+                int levelCount = ExelHelper.Instance.GetLevelCount(items);
 
-            List<VideoSectionItem> hirarchialItems = DataParser.Instance.GetHirararchialVideoSectionItems(items, Server.MapPath(ConfigReader.XmlDir), levelCount, file.FileName);
+                List<VideoSectionItem> hirarchialItems = DataParser.Instance.GetHirararchialVideoSectionItems(items, Server.MapPath(ConfigReader.XmlDir), levelCount, file.FileName);
 
-            HtmlHelper.Instance.WriteResponseForItems(hirarchialItems,file);
+                HtmlHelper.Instance.WriteResponseForItems(hirarchialItems, file);
+            }
         }
     }
 }
