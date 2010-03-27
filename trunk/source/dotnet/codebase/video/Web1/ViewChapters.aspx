@@ -30,9 +30,9 @@
 
     });
     
-    function runVideo(xmlUrl)
+    function runVideo(itemNumber)
     {
-        window.open(xmlUrl);
+        window.open("WatchVideo.aspx?ItemNumber=" + itemNumber);
     }
 </script>
 
