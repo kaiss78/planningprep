@@ -106,9 +106,9 @@ namespace App.Util
             return fileName.Replace(":", "_").Replace(" ", "_").Replace("/", "_").Replace(@"\", "");
         }
 
-        public static string GetXmlUrlForItem(VideoSectionItem item, ChapterDefinitionFile file)
+        public static string GetXmlUrlForItem(VideoSectionItem item,string fileName)
         {
-            string path = string.Format("{0}/{1}/{2}.xml",ConfigReader.XmlUrl,Path.GetFileNameWithoutExtension(file.FileName), GetFilteredDiskFileName(item.Chapter));
+            string path = string.Format("{0}/{1}/{2}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(fileName), GetFilteredDiskFileName(item.Chapter));
             return path;
         }
     }
