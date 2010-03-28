@@ -24,12 +24,26 @@ namespace App.Domain
 
         public ChapterDefinitionFile GetById(int id)
         {
-            return db.ChapterDefinitionFiles.Single(c => c.Id == id);
+            try
+            {
+                return db.ChapterDefinitionFiles.Single(c => c.Id == id);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public ChapterDefinitionFile GetByFileName(string fileName)
         {
-            return db.ChapterDefinitionFiles.Single(c => c.FileName.ToLower() == fileName.ToLower());
+            try
+            {
+                return db.ChapterDefinitionFiles.Single(c => c.FileName.ToLower() == fileName.ToLower());
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public List<ChapterDefinitionFile> GetAll()
