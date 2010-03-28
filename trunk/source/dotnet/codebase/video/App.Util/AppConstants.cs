@@ -33,7 +33,7 @@ namespace App.Util
 
         public class UrlParams
         {
-            public const String EXEL_FILE_ID = "ExelId";
+            public const String EXEL_FILE_ID = "FileId";
             public const String ITEM_NUMBER = "ItemNumber";
         }
     }

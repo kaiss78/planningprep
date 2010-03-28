@@ -130,7 +130,12 @@ namespace App.Util
 
         public static string GetUploadFolderForExel()
         {
-            return Path.Combine(HttpContext.Current.Server.MapPath(@"\"), ConfigReader.InputExel);
+            return Path.Combine(HttpContext.Current.Server.MapPath(@"~\"), ConfigReader.InputExel);
+        }
+
+        public static string GetUploadFolderForXml()
+        {
+            return Path.Combine(HttpContext.Current.Server.MapPath(@"~\"), ConfigReader.XmlDir);
         }
     }
 }

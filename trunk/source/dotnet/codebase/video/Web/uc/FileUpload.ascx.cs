@@ -70,7 +70,7 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
                 ChapterFileManager.Instance.Save(file);
 
                 string filePath = Path.Combine(AppUtil.GetUploadFolderForExel(), file.FileName);
-                string xmlDir = Path.Combine(Server.MapPath(@"\"), ConfigReader.XmlDir);
+                string xmlDir = AppUtil.GetUploadFolderForXml();
 
                 List<VideoSectionItem> videoSectionItems = ExelHelper.Instance.GetDataFromExcel(filePath);
                 int levelCount = ExelHelper.Instance.GetLevelCount(videoSectionItems);
@@ -95,7 +95,7 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
     {
         try
         {
-            string dir = Path.Combine(Server.MapPath(ConfigReader.XmlDir), filename);
+            string dir = Path.Combine(AppUtil.GetUploadFolderForXml(), filename);
             if (Directory.Exists(dir))
             {
                 Directory.Delete(dir, true);
