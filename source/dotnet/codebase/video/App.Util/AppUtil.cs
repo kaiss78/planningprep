@@ -127,5 +127,10 @@ namespace App.Util
             divMessageBox.InnerHtml = message;
             divMessageBox.Visible = true;
         }
+
+        public static string GetUploadFolderForExel()
+        {
+            return Path.Combine(HttpContext.Current.Server.MapPath(@"\"), ConfigReader.InputExel);
+        }
     }
 }
