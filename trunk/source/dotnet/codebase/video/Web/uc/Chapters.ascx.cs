@@ -23,7 +23,7 @@ public partial class uc_Chapters : System.Web.UI.UserControl
         ChapterDefinitionFile file = manager.GetById(ExelFileId);
         if (file != null)
         {
-            string exelFileName = Path.Combine(Path.Combine(Server.MapPath(@"\") ,  ConfigReader.InputExel), file.FileName);
+            string exelFileName = Path.Combine(AppUtil.GetUploadFolderForExel(), file.FileName);
             SessionCache.CurrentFile = file;
             if (File.Exists(exelFileName))
             {
