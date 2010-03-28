@@ -9,8 +9,8 @@
 <div id="divVideo" style="display: block; float: left">
     <div id="videoPanel" style="display: none">
         Multiple play mode is <strong><span id="spnMode">ON</span></strong>&nbsp;&nbsp;<input
-            id="btnPlayMode" type="button" value="Switch to play single mode" />&nbsp;&nbsp;<input
-                id="btnNewWindow" type="button" value="View in new window" />
+            id="btnPlayMode" type="button" value="Play single mode" />&nbsp;&nbsp;<input
+                id="btnNewWindow" type="button" value="New window" />
         <br />
         <br />
     </div>
@@ -36,15 +36,15 @@ setVideoUrl('');
 });
 $("#btnPlayMode").click(function(){
     
-    if($(this).val() == "Switch to play single mode")
+    if($(this).val() == "Play single mode")
     {
-        $(this).val("Switch to play multiple mode");
+        $(this).val("Play multiple mode");
         var videoUrl = '&file=' + currentUrl + '&playlist=right&playlistsize=200&duration=224';
         $("#spnMode").text("OFF");
     }
     else
     {
-        $(this).val("Switch to play single mode");
+        $(this).val("Play single mode");
         var videoUrl = '&file=' + currentUrl + '&playlist=right&playlistsize=200&duration=224&repeat=list&autostart=true';
         $("#spnMode").text("ON");
     }
@@ -58,7 +58,7 @@ setVideoUrl(videoUrl);
 function setVideoUrl(currentChapter)
 {
     
-    var s1 = new SWFObject('http://ec.europa.eu/wel/players/jwflvplayer/player.swf','player','600','400','9');
+    var s1 = new SWFObject('http://ec.europa.eu/wel/players/jwflvplayer/player.swf','player','450','250','9');
 
 	s1.addParam('allowfullscreen','true');
 	s1.addParam('allowscriptaccess','always');
