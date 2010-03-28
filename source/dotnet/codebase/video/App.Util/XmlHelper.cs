@@ -116,7 +116,7 @@ namespace App.Util
 
         private void WriteXml(string upperLevelChapterName, string rootFolderName, List<VideoSectionItem> videoSectionItems, int level)
         {
-            string xmlDir = Path.Combine(HttpContext.Current.Server.MapPath(ConfigReader.XmlDir), rootFolderName);
+            string xmlDir = Path.Combine(AppUtil.GetUploadFolderForXml(), rootFolderName);
             //GenerateXmlfileForItems(items, level, uppderLevelChapterName, dir);
 
             if (videoSectionItems != null && videoSectionItems.Count > 0)
@@ -149,7 +149,7 @@ namespace App.Util
 
         private void WriteXml(string upperLevelChapterName, string rootFolderName, VideoSectionItem videoSectionItem, int level)
         {
-            string xmlDir = Path.Combine(HttpContext.Current.Server.MapPath(ConfigReader.XmlDir), rootFolderName);
+            string xmlDir = Path.Combine(AppUtil.GetUploadFolderForXml(), rootFolderName);
             //GenerateXmlfileForItem(item, level, uppderLevelChapterName, dir);
 
             _StringWriter = new StringWriter();
