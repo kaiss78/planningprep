@@ -24,7 +24,6 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
     public string saveText = "Save as:";
     public string statusText = "Status:";
     public string submitText = "Upload File";
-    public string uploadFolder = HttpContext.Current.Server.MapPath(ConfigReader.InputExel);
 
     private void Page_Load(object o, EventArgs e)
     {
@@ -42,7 +41,7 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
         // try save the file to the web server
         if (filename.PostedFile != null)
         {
-            string sPath = uploadFolder;
+            string sPath = AppUtil.GetUploadFolderForExel();
             if (!Directory.Exists(sPath))
             {
                 Directory.CreateDirectory(sPath);
@@ -70,8 +69,8 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
 
                 ChapterFileManager.Instance.Save(file);
 
-                string filePath = Path.Combine(Server.MapPath(ConfigReader.InputExel),file.FileName);
-                string xmlDir = Server.MapPath(ConfigReader.XmlDir);
+                string filePath = Path.Combine(AppUtil.GetUploadFolderForExel(), file.FileName);
+                string xmlDir = Path.Combine(Server.MapPath(@"\"), ConfigReader.XmlDir);
 
                 List<VideoSectionItem> videoSectionItems = ExelHelper.Instance.GetDataFromExcel(filePath);
                 int levelCount = ExelHelper.Instance.GetLevelCount(videoSectionItems);
