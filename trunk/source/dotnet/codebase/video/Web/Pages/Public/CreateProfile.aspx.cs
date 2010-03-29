@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using App.Util;
 using App.Domain;
 using App.Data;
+using System.Text;
 
 
 public partial class Pages_Public_CreateProfile : System.Web.UI.Page
@@ -58,22 +59,45 @@ public partial class Pages_Public_CreateProfile : System.Web.UI.Page
         if (user.IsResident)
             user.ResidencyYear = Convert.ToInt32(ddlResidency.SelectedValue);
 
+        user.IsActive = false;
+        user.ActivationKey = Guid.NewGuid().ToString();
+
         _UserManager.Save(user);
         //AppUtil.ShowMessage(divMessageBox, "Congratulations"
-        SendEmailNotification();
+        SendEmailNotification(user);
         ShowConfirmationMessage();
     }
 
     private void ShowConfirmationMessage()
     {
-        throw new NotImplementedException();
-    }
-
-    private void SendEmailNotification()
-    {
         pnlDetails.Visible = false;
         pnlConfirmation.Visible = true;
         lblSuccessMessage.Text = String.Format(lblSuccessMessage.Text, txtEmail.Text.Trim());
+    }
+
+    protected void SendEmailNotification(SiteUser user)
+    {
+        StringBuilder template = new StringBuilder(AppUtil.ReadEmailTemplate(AppConstants.EmailTemplate.GENERAL_TEMPLATE));
+        if (template.Length > 0)
+        {
+            String fromEmail = ConfigReader.SupportEmail;
+            String subject = "Activate your account.";
+            StringBuilder sb = new StringBuilder(10);
+            sb.AppendFormat("Dear {0} {1} {2}<br/>", AppUtil.Encode(user.FirstName), AppUtil.Encode(user.MiddleName), AppUtil.Encode(user.LastName));
+            sb.Append("You have successfully created your profile. Please click on the following link to activate your account.<br/><br/>");
+            String Url = String.Format("{0}{1}?{2}={3}", AppUtil.GetDomainAddress(), AppConstants.Pages.ACTIVATE_ACCOUNT, AppConstants.UrlParams.KEY, user.ActivationKey);
+            sb.AppendFormat("<a href='{0}'>{0}</a>", Url);
+            sb.Append("<br/><br/>");
+            sb.Append("Thanks");
+
+            template.Replace(AppConstants.EmailTemplate.CustomTag.MESSAGE, sb.ToString());
+            
+            try
+            {
+                MailHelper.SendMail(user.Email, String.Empty, String.Empty, fromEmail, subject, template.ToString());
+            }
+            catch{}
+        }
     }
     #endregion
 

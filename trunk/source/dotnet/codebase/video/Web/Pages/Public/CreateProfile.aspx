@@ -12,7 +12,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="BodyContents" Runat="Server">
     <h1>Create New Profile</h1>
     
-    <asp:Panel ID="pnlDetails" runat="server">    
+    <asp:Panel ID="pnlDetails" runat="server" DefaultButton="btnRegister">    
         <div>
             Enter the following details and click Submit to create your New Profile.<br />
             Fields marked with an asterisk(<span class="requiredfiled">*</span>) are mandatory.
