@@ -22,10 +22,8 @@ namespace App.Domain
         /// <param name="id"></param>
         /// <returns></returns>
         public SiteUser GetByID(long id)
-        {
-            if (_Data.SiteUsers.Count() == 0)
-                return null;
-            return _Data.SiteUsers.Single(U => U.UserID == id);
+        {            
+            return _Data.SiteUsers.SingleOrDefault(U => U.UserID == id);
         }
         /// <summary>
         /// Gets a Site User by email
@@ -33,10 +31,8 @@ namespace App.Domain
         /// <param name="email"></param>
         /// <returns></returns>
         public SiteUser GetByUserByEmail(String email)
-        {
-            if (_Data.SiteUsers.Count() == 0)
-                return null;
-            return _Data.SiteUsers.Single(U => String.Compare(U.Email, email, true) == 0); 
+        {            
+            return _Data.SiteUsers.SingleOrDefault(U => String.Compare(U.Email, email, true) == 0); 
         }
         /// <summary>
         /// Gets a Site User by Serial Key
@@ -44,10 +40,8 @@ namespace App.Domain
         /// <param name="serialKey"></param>
         /// <returns></returns>
         public SiteUser GetByUserBySerialKey(String serialKey)
-        {
-            if (_Data.SiteUsers.Count() == 0)
-                return null;
-            return _Data.SiteUsers.Single(U => String.Compare(U.SerialKey, serialKey, true) == 0);
+        {            
+            return _Data.SiteUsers.SingleOrDefault(U => String.Compare(U.SerialKey, serialKey, true) == 0);
         }
         /// <summary>
         /// Saves User Information 
