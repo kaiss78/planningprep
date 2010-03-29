@@ -3,19 +3,19 @@
 <script language="javascript">
 
 $(document).ready(function(){
-var videoUrl = '&file=<%=ChapterUrl %>&playlist=right&playlistsize=200&duration=224&repeat=list&autostart=true';
+var videoUrl = '&file=<%=ChapterUrl %>&playlistsize=200&duration=224&repeat=list&autostart=true';
 $("#btnPlayMode").click(function(){
     
     if($(this).val() == "Play single mode")
     {
         $(this).val("Play multiple mode");
-        var videoUrl = '&file=<%=ChapterUrl %>&playlist=right&playlistsize=200&duration=224';
+        var videoUrl = '&file=<%=ChapterUrl %>&playlistsize=200&duration=224';
         $("#spnMode").text("OFF");
     }
     else
     {
         $(this).val("Play single mode");
-        var videoUrl = '&file=<%=ChapterUrl %>&playlist=right&playlistsize=200&duration=224&repeat=list&autostart=true';
+        var videoUrl = '&file=<%=ChapterUrl %>&playlistsize=200&duration=224&repeat=list&autostart=true';
         $("#spnMode").text("ON");
     }
     setVideoUrl(videoUrl);
