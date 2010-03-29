@@ -13,6 +13,13 @@ public partial class uc_ChapterDefinitionFileList : System.Web.UI.UserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        (this.Page as BasePage).FileUploaded += new BasePage.ReloadFileList(uc_ChapterDefinitionFileList_FileUploaded);
+        BindFileList();
+    }
+
+    void uc_ChapterDefinitionFileList_FileUploaded()
+    {
         BindFileList();
     }
 
@@ -69,7 +76,7 @@ public partial class uc_ChapterDefinitionFileList : System.Web.UI.UserControl
             Response.AppendHeader("Content-Type", "application/vnd.ms-excel");
             Response.AppendHeader("Content-disposition", "attachment; filename=" + Path.GetFileName(e.CommandArgument.ToString()));
             
-            Response.TransmitFile(e.CommandArgument.ToString());
+            Response.WriteFile(e.CommandArgument.ToString());
         }
         else if(e.CommandName == "Delete")
         {
@@ -80,6 +87,12 @@ public partial class uc_ChapterDefinitionFileList : System.Web.UI.UserControl
 
                 string xmlDir = Path.Combine(AppUtil.GetUploadFolderForXml(), Path.GetFileNameWithoutExtension(file));
                 Directory.Delete(xmlDir,true);
+
+                ChapterDefinitionFile chapterFile = ChapterFileManager.Instance.GetByFileName(Path.GetFileName(file));
+                if (chapterFile != null)
+                {
+                    ChapterFileManager.Instance.Delete(chapterFile);
+                }
             }
         }
 

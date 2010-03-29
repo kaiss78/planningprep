@@ -13,7 +13,14 @@
                 <input type="file" id="filename" runat="server" />
             </td>
         </tr>
-        
+         <tr>
+            <td valign="top" >
+                Status
+            </td>
+            <td valign="top" >
+                <span id="status" runat="server"></span>   
+            </td>
+        </tr>
         <tr>
             <td valign="top" >
                 &nbsp;
