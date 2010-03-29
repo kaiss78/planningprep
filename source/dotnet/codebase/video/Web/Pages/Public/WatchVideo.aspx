@@ -12,7 +12,7 @@
     <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 
 </head>
-<body>
+<body style="background-color:#ffffff">
     <form id="form1" runat="server">
     <div style="padding:20px;">
     <uc1:WatchVideo ID="watchVideo" runat="server" />
