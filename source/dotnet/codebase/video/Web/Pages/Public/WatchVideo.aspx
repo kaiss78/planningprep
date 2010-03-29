@@ -8,16 +8,15 @@
 <head runat="server">
     <title>Untitled Page</title>
         <script type='text/javascript' src='http://ec.europa.eu/wel/players/jwflvplayer/swfobject.js'></script>
-
+<link type="text/css" href="../../css/style.css" rel="Stylesheet" />
     <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    
-    </div>
+    <div style="padding:20px;">
     <uc1:WatchVideo ID="watchVideo" runat="server" />
+    </div>
     </form>
 </body>
 </html>

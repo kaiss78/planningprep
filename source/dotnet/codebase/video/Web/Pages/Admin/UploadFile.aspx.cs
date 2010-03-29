@@ -8,5 +8,6 @@ public partial class _UploadFile : Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        Page.Title = "Medstudy - Upload Chapter definition file";
     }
 }

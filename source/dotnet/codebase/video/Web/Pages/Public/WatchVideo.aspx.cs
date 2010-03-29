@@ -16,6 +16,7 @@ public partial class WatchVideo : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        Page.Title = "Medstudy - Watch video";
         int ItemNumber = AppUtil.GetRequestParamValueInInt(AppConstants.UrlParams.ITEM_NUMBER);
         watchVideo.ItemNumber = ItemNumber;
     }
