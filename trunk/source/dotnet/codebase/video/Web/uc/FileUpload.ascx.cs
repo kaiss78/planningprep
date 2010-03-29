@@ -49,11 +49,7 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
             //build file info for display
             string sFileInfo =
                 "<br>FileName: " +
-                filename.PostedFile.FileName +
-                "<br>ContentType: " +
-                filename.PostedFile.ContentType +
-                "<br>ContentLength: " +
-                filename.PostedFile.ContentLength.ToString();
+                filename.PostedFile.FileName; 
 
             try
             {
@@ -79,13 +75,14 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
                 DeleteExistingFiles(fileNameWithoutExtension);
                 XmlHelper.Instance.WriteXmlsForItems(fileNameWithoutExtension, fileNameWithoutExtension, items, 0);
-                
-                status.InnerHtml = "File uploaded successfully." + sFileInfo;
+
+                status.InnerHtml = "File uploaded successfully.";
+                hplViewChapters.Visible = true;
+                hplViewChapters.NavigateUrl = "~/pages/public/ViewChapters.aspx?FileID=" + file.Id;
             }
             catch (Exception exc)
             {
-                status.InnerHtml = "Error saving file" +
-                    sFileInfo + "<br>" + e.ToString();
+                status.InnerHtml = "Error saving file."
             }
         }
     }

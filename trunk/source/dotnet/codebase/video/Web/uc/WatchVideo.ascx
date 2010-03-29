@@ -6,15 +6,15 @@ $(document).ready(function(){
 var videoUrl = '&file=<%=ChapterUrl %>&playlist=right&playlistsize=200&duration=224&repeat=list&autostart=true';
 $("#btnPlayMode").click(function(){
     
-    if($(this).val() == "Switch to play single mode")
+    if($(this).val() == "Play single mode")
     {
-        $(this).val("Switch to play multiple mode");
+        $(this).val("Play multiple mode");
         var videoUrl = '&file=<%=ChapterUrl %>&playlist=right&playlistsize=200&duration=224';
         $("#spnMode").text("OFF");
     }
     else
     {
-        $(this).val("Switch to play single mode");
+        $(this).val("Play single mode");
         var videoUrl = '&file=<%=ChapterUrl %>&playlist=right&playlistsize=200&duration=224&repeat=list&autostart=true';
         $("#spnMode").text("ON");
     }
@@ -36,8 +36,7 @@ function setVideoUrl(currentChapter)
 }
 </script>
 
-<br />
-Multiple play mode is <strong><span id="spnMode">ON</span></strong>&nbsp;&nbsp;<input id="btnPlayMode" type="button" value="Switch to play single mode" />
+Multiple play mode is <strong><span id="spnMode">ON</span></strong>&nbsp;&nbsp;<input class="ButtonCommon" id="btnPlayMode" type="button" value="Play single mode" />
 <br /><br />
 <div id="preview1">
     The player will show in this div</div>
