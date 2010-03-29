@@ -35,7 +35,7 @@ $("#divVideo").css("display","block");
 $("#videoPanel").css("display","none");
 setVideoUrl('');
     
-    window.open("WatchVideo.aspx?ItemNumber=" + currentItemNo,"mywin","width=640,height=480,resizable =no,screenX=50,left=50,screenY=50,top=50,status=no,menubar=no");
+    window.open("WatchVideo.aspx?ItemNumber=" + currentItemNo,"mywin","width=640,height=480,resizable =yes,screenX=50,left=50,screenY=50,top=50,status=no,menubar=no");
 });
 $("#btnPlayMode").click(function(){
     

@@ -2,6 +2,22 @@
 
 <script language="javascript">
 
+$(function(){
+
+  $(window).resize(function(){
+    var elem = $(this);
+    var width = elem.width() - 40;
+    var height = elem.height() - 75;
+    //setVideoUrlWithSize(currentVideoUrl,width - 50,height - 50);
+    document.getElementById("player").width = width + "px";
+    document.getElementById("player").height = height + "px";
+  });
+  
+  // Updates the info div immediately.
+  
+});
+
+
 $(document).ready(function(){
 var videoUrl = '&file=<%=ChapterUrl %>&playlistsize=200&duration=224&repeat=list&autostart=true';
 $("#btnPlayMode").click(function(){
@@ -26,7 +42,20 @@ setVideoUrl(videoUrl);
  
 function setVideoUrl(currentChapter)
 {
+    currentVideoUrl = currentChapter;
     var s1 = new SWFObject('http://ec.europa.eu/wel/players/jwflvplayer/player.swf','player','600','400','9');
+	s1.addParam('allowfullscreen','true');
+	s1.addParam('allowscriptaccess','always');
+	s1.addParam('allownetworking','all');
+	s1.addParam('wmode','opaque');
+    s1.addParam('flashvars',currentChapter);
+	s1.write('preview1');
+}
+var currentVideoUrl;
+function setVideoUrlWithSize(currentChapter,width,height)
+{
+    currentVideoUrl = currentChapter;
+    var s1 = new SWFObject('http://ec.europa.eu/wel/players/jwflvplayer/player.swf','player',width,height,'9');
 	s1.addParam('allowfullscreen','true');
 	s1.addParam('allowscriptaccess','always');
 	s1.addParam('allownetworking','all');
