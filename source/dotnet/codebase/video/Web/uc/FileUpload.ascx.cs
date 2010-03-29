@@ -77,7 +77,7 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
 
                 status.InnerText = "File uploaded successfully.";
 
-                ((BasePage) this.Page).SignalFileUploaded();
+                ((PageBase) this.Page).SignalFileUploaded();
                 
             }
             catch (Exception exc)
