@@ -14,13 +14,7 @@ namespace App.Util
         public delegate void ReloadFileList();
         public event ReloadFileList FileUploaded;
 
-        public PageBase()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
-
+        
         public void SignalFileUploaded()
         {
             if (FileUploaded != null)
