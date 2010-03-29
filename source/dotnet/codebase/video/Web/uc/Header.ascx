@@ -2,11 +2,11 @@
 <%@ Import Namespace="System.Web.Security.Membership" %>
 <!--Begin CSSMenuWriter/cssmw0/menu.js -->
 
-<script language="javascript" src="/CSSMenuWriter/cssmw0/menu.js"></script>
+<script language="javascript" src="../../CSSMenuWriter/cssmw0/menu.js"></script>
 
 <!--End CSSMenuWriter/cssmw0/menu.js -->
 <!-- Begin CSSMenuWriter/cssmw0/menu.css-->
-<link rel="Stylesheet" href="/CSSMenuWriter/cssmw0/menu.css" />
+<link rel="Stylesheet" href="../../CSSMenuWriter/cssmw0/menu.css" />
 <!-- End CSSMenuWriter/cssmw0/menu.css-->
 <!--Below replace ONLY "@import url("CSSMenuWriter/cssmw0/menu_ie.css");" with code-->
 <!--[if lte IE 6]>
