@@ -2,10 +2,14 @@
 
 <script type='text/javascript' src='http://ec.europa.eu/wel/players/jwflvplayer/swfobject.js'></script>
 
-<br /><br />
-<div runat="server" id="divChapters" style="width: 400px;margin-left:20px;" class="fl">
+<fieldset style="width:380px" class="fl">
+<legend><strong>Video chapters</strong></legend>
+<div runat="server" id="divChapters" 
+>
+
 </div>
-<div id="divVideo" style="display: block; float: left">
+</fieldset>
+<div id="divVideo" style="display: block; float: left;margin-left:20px;padding-top:6px;">
     <div id="videoPanel" style="display: none">
         Multiple play mode is <strong><span id="spnMode">ON</span></strong>&nbsp;&nbsp;<input
             id="btnPlayMode" type="button" class="ButtonCommon" value="Play single mode" />&nbsp;&nbsp;<input
