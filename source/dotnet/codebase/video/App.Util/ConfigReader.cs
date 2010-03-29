@@ -26,6 +26,10 @@ namespace App.Util
         private const String VIDEO_URL = "VideoUrl";
         private const String SITE_URL = "SiteUrl";
         private const String CONNECTION_STRING = "SiteConnectionString";
+        private const String ADMIN_EMAIL = "AdminEmail";
+        private const String SMTP_HOST = "SmtpHost";
+        private const String SMTP_PORT = "SmtpPort";
+        private const String SUPPORT_EMAIL = "SupportEmail";
       
         private static String GetAppSettingsValue(String key)
         {
@@ -101,6 +105,40 @@ namespace App.Util
             get
             {
                 return ConfigurationManager.ConnectionStrings[CONNECTION_STRING].ConnectionString;
+            }
+        }        
+        public static String SmtpHost
+        {
+            get
+            {
+                return GetAppSettingsValue(SMTP_HOST);
+            }
+        }
+        /// <summary>
+        /// Get the Configuration Value for SMTP port. If not specified then retuns a default value of 25
+        /// </summary>
+        public static int SmtpPort
+        {
+            get
+            {
+                int port = 0;
+                String paramValue = GetAppSettingsValue(SMTP_PORT);
+                int.TryParse(paramValue, out port);
+                return port == 0 ? 25 : port;
+            }
+        }
+        public static String AdminEmail
+        {
+            get
+            {
+                return GetAppSettingsValue(ADMIN_EMAIL);
+            }
+        }
+        public static String SupportEmail
+        {
+            get
+            {
+                return GetAppSettingsValue(SUPPORT_EMAIL);
             }
         }
        
