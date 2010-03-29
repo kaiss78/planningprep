@@ -2,9 +2,9 @@
 
 <script type='text/javascript' src='http://ec.europa.eu/wel/players/jwflvplayer/swfobject.js'></script>
 
-<fieldset style="width:380px" class="fl">
+<fieldset style="width:380px;" class="fl">
 <legend><strong>Video chapters</strong></legend>
-<div runat="server" id="divChapters" 
+<div runat="server" style="padding:10px" id="divChapters" 
 >
 
 </div>
