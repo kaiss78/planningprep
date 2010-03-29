@@ -82,7 +82,7 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
             }
             catch (Exception exc)
             {
-                status.InnerHtml = "Error saving file."
+                status.InnerHtml = "Error saving file.";
             }
         }
     }
