@@ -67,7 +67,7 @@ namespace App.Util
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             return fileName;
         }
@@ -87,7 +87,7 @@ namespace App.Util
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             return fileName;
         }
