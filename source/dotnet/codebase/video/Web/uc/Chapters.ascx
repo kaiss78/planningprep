@@ -4,6 +4,9 @@
 
 <fieldset style="width:380px;" class="fl">
 <legend><strong>Video chapters</strong></legend>
+<div style="padding-left:30px;padding-top:10px;">
+<a href="javascript:void(0)" onclick="runVideo('<%=RootXmlUrl %>',0);"><strong>Play All</strong></a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="closeAll();"><strong>Close All</strong></a>
+</div>
 <div runat="server" style="padding:10px" id="divChapters" 
 >
 
@@ -57,6 +60,13 @@ $("#btnPlayMode").click(function(){
 setVideoUrl(videoUrl);
 
  });
+
+function closeAll()
+{
+    $("#divVideo").css("display","block");
+    $("#videoPanel").css("display","none");
+    setVideoUrl('');
+}
  
 function setVideoUrl(currentChapter)
 {

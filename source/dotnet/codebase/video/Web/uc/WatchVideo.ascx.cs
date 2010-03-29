@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using App.Util;
 using App.Domain;
 using App.Data;
+using System.IO;
 
 public partial class uc_WatchVideo : System.Web.UI.UserControl
 {
@@ -28,10 +29,17 @@ public partial class uc_WatchVideo : System.Web.UI.UserControl
     protected void Page_Load(object sender, EventArgs e)
     {
         ChapterDefinitionFile file = SessionCache.CurrentFile;
-        VideoSectionItem item = SessionCache.GetVideoSectionItemByNumber(ItemNumber);
-        if(item != null)
+        if (ItemNumber > 0)
         {
-            ChapterUrl = AppUtil.GetXmlUrlForItem(item,file.FileName);
+            VideoSectionItem item = SessionCache.GetVideoSectionItemByNumber(ItemNumber);
+            if (item != null)
+            {
+                ChapterUrl = AppUtil.GetXmlUrlForItem(item, file.FileName);
+            }
+        }
+        else
+        {
+            ChapterUrl = string.Format("{0}/{1}/{1}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(file.FileName));
         }
     }
 }

@@ -16,6 +16,11 @@ public partial class uc_Chapters : System.Web.UI.UserControl
         get; set;
     }
 
+    protected string RootXmlUrl
+    {
+        get;
+        set;
+    }
     ChapterFileManager manager = new ChapterFileManager();
 
     protected void Page_Load(object sender, EventArgs e)
@@ -27,6 +32,7 @@ public partial class uc_Chapters : System.Web.UI.UserControl
             SessionCache.CurrentFile = file;
             if (File.Exists(exelFileName))
             {
+                RootXmlUrl = string.Format("{0}/{1}/{1}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(file.FileName));
                 List<VideoSectionItem> items = ExelHelper.Instance.GetDataFromExcel(exelFileName);
                 SessionCache.VideoSectionItems = items;
                 int levelCount = ExelHelper.Instance.GetLevelCount(items);
