@@ -2,15 +2,14 @@
 
 <script type='text/javascript' src='http://ec.europa.eu/wel/players/jwflvplayer/swfobject.js'></script>
 
-<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <br /><br />
 <div runat="server" id="divChapters" style="width: 400px;margin-left:20px;" class="fl">
 </div>
 <div id="divVideo" style="display: block; float: left">
     <div id="videoPanel" style="display: none">
         Multiple play mode is <strong><span id="spnMode">ON</span></strong>&nbsp;&nbsp;<input
-            id="btnPlayMode" type="button" value="Play single mode" />&nbsp;&nbsp;<input
-                id="btnNewWindow" type="button" value="New window" />
+            id="btnPlayMode" type="button" class="ButtonCommon" value="Play single mode" />&nbsp;&nbsp;<input
+                id="btnNewWindow" type="button" class="ButtonCommon" value="New window" />
         <br />
         <br />
     </div>
@@ -32,7 +31,7 @@ $("#divVideo").css("display","block");
 $("#videoPanel").css("display","none");
 setVideoUrl('');
     
-    window.open("WatchVideo.aspx?ItemNumber=" + currentItemNo,"mywin","width=600,height=500,resizable =no,screenX=50,left=50,screenY=50,top=50,status=no,menubar=no");
+    window.open("WatchVideo.aspx?ItemNumber=" + currentItemNo,"mywin","width=640,height=480,resizable =no,screenX=50,left=50,screenY=50,top=50,status=no,menubar=no");
 });
 $("#btnPlayMode").click(function(){
     

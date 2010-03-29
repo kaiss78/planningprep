@@ -2,8 +2,9 @@
 
 
 <!-- create special form for uploading files -->
-
-    <table width="400" cellpadding="4" bgcolor="silver">
+<fieldset style="width:400px">
+<legend><strong>Upload Exel file</strong></legend>
+    <table width="400" cellpadding="4">
         <tr>
             <td valign="top" width="100">
                 <span id="upSpan" runat="server"/>
@@ -18,6 +19,7 @@
             </td>
             <td valign="top" >
                 <span id="status" runat="server" />
+                <asp:HyperLink ID="hplViewChapters" Font-Bold="true" Visible="false" runat="server">View Chapters</asp:HyperLink>
             </td>
         </tr>
         <tr>
@@ -25,12 +27,13 @@
                 &nbsp;
             </td>
             <td valign="top" >
-                <input type=button id="uploadBtn" 
+                <input type=button class="ButtonCommon" id="uploadBtn" 
                     OnServerClick="uploadBtn_Click" 
                     runat="server" />    
             </td>
         </tr>
     </table> 
+</fieldset>
 
 
 
