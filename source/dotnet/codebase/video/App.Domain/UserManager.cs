@@ -23,6 +23,8 @@ namespace App.Domain
         /// <returns></returns>
         public SiteUser GetByID(long id)
         {
+            if (_Data.SiteUsers.Count() == 0)
+                return null;
             return _Data.SiteUsers.Single(U => U.UserID == id);
         }
         /// <summary>
@@ -32,6 +34,8 @@ namespace App.Domain
         /// <returns></returns>
         public SiteUser GetByUserByEmail(String email)
         {
+            if (_Data.SiteUsers.Count() == 0)
+                return null;
             return _Data.SiteUsers.Single(U => String.Compare(U.Email, email, true) == 0); 
         }
         /// <summary>
@@ -41,6 +45,8 @@ namespace App.Domain
         /// <returns></returns>
         public SiteUser GetByUserBySerialKey(String serialKey)
         {
+            if (_Data.SiteUsers.Count() == 0)
+                return null;
             return _Data.SiteUsers.Single(U => String.Compare(U.SerialKey, serialKey, true) == 0);
         }
         /// <summary>
