@@ -29,7 +29,7 @@
                 </tr>
         </HeaderTemplate>
         <ItemTemplate>
-            <tr class="OddRowListing">
+            <tr class="EvenRowListing">
                 <td>
                     <asp:Label ID="lblFile" runat="server" Text=''></asp:Label>
                 </td>
