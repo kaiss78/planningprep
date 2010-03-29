@@ -54,6 +54,7 @@ h1
 #bodycontaniner
 {
 	padding:20px 20px 20px 20px;	
+	min-height:280px;
 }
 #footercontainer 
 {	
