@@ -17,6 +17,11 @@ namespace App.Util
         {
             public const String EXCEL_INPUTS = "/InputExcel";
             public const String XML_LIBRARY = "/XmlLibrary";
+            public const String EMAIL_TEMPLATE = "/EmailTemplates";
+        }
+        public class Pages
+        {
+            public const String ACTIVATE_ACCOUNT = "/ActivateAccount.aspx";
         }
         public class ExcelColumns
         {
@@ -35,6 +40,20 @@ namespace App.Util
         {
             public const String EXEL_FILE_ID = "FileId";
             public const String ITEM_NUMBER = "ItemNumber";
+            public const String KEY = "Key";
         }
+
+        #region Email Templates
+        public class EmailTemplate
+        {
+            public const String GENERAL_TEMPLATE = "GeneralTemplate.html";
+            #region Custom Tags in the Email Templates
+            public class CustomTag
+            {
+                public const String MESSAGE = "[*MESSAGE*]";
+            }
+            #endregion
+        }        
+        #endregion
     }
 }
