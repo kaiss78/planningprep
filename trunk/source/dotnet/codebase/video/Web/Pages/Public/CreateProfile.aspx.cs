@@ -106,16 +106,16 @@ public partial class Pages_Public_CreateProfile : System.Web.UI.Page
     {
         if (Page.IsValid)
         {
-            if (IsEmailExists(txtEmail.Text.Trim()))
-            {
-                AppUtil.ShowMessage(divMessageBox, "Sorry! the email is already taken. Please try with a different email.", true);
-                return;
-            }
-            if(HasSerialKeyTaken(txtSerialKey.Text.Trim()))
+            if (HasSerialKeyTaken(txtSerialKey.Text.Trim()))
             {
                 AppUtil.ShowMessage(divMessageBox, "Sorry! the Serial Key is already taken. Please try with a different Serial Key.", true);
                 return;
             }
+            if (IsEmailExists(txtEmail.Text.Trim()))
+            {
+                AppUtil.ShowMessage(divMessageBox, "Sorry! the email is already taken. Please try with a different email.", true);
+                return;
+            }            
             CreateNewProfile();
         }
     }
