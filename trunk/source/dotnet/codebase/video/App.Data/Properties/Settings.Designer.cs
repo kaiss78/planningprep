@@ -26,10 +26,22 @@ namespace App.Data.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SHUBHO;Initial Catalog=Insite;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Bonjochna\\SQLExpress;Initial Catalog=OnlineVideo;Persist Security Inf" +
+            "o=True;User ID=sa;Password=123")]
         public string InsiteConnectionString {
             get {
                 return ((string)(this["InsiteConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=MIMI-PC\\SQLEXPRESS;Initial Catalog=OnlineVideo;User ID=sa;Password=12" +
+            "3")]
+        public string OnlineVideoConnectionString {
+            get {
+                return ((string)(this["OnlineVideoConnectionString"]));
             }
         }
     }
