@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="OnlineVideo" Class="DbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=Bonjochna\SQLExpress;Initial Catalog=OnlineVideo;Persist Security Info=True;User ID=sa" SettingsObjectName="App.Data.Properties.Settings" SettingsPropertyName="InsiteConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=MIMI-PC\SQLEXPRESS;Initial Catalog=OnlineVideo;User ID=sa" SettingsObjectName="App.Data.Properties.Settings" SettingsPropertyName="OnlineVideoConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.ChapterDefinitionFile" Member="ChapterDefinitionFiles">
     <Type Name="ChapterDefinitionFile">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -23,6 +23,8 @@
       <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="LastLoggedIn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ActivationKey" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>
