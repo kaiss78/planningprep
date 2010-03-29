@@ -14,7 +14,7 @@ public partial class uc_ChapterDefinitionFileList : System.Web.UI.UserControl
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        (this.Page as BasePage).FileUploaded += new BasePage.ReloadFileList(uc_ChapterDefinitionFileList_FileUploaded);
+        (this.Page as PageBase).FileUploaded += new PageBase.ReloadFileList(uc_ChapterDefinitionFileList_FileUploaded);
         BindFileList();
     }
 
