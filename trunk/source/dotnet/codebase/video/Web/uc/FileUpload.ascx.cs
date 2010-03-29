@@ -30,7 +30,6 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
 
         // move attributes into the form
         upSpan.InnerText = uploadText;
-        statusSpan.InnerText = statusText;
         uploadBtn.Value = submitText;
     }
 
@@ -75,14 +74,12 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
                 DeleteExistingFiles(fileNameWithoutExtension);
                 XmlHelper.Instance.WriteXmlsForItems(fileNameWithoutExtension, fileNameWithoutExtension, items, 0);
-
-                status.InnerHtml = "File uploaded successfully.";
-                hplViewChapters.Visible = true;
-                hplViewChapters.NavigateUrl = "~/pages/public/ViewChapters.aspx?FileID=" + file.Id;
+                
+                Page.ClientScript.RegisterStartupScript(this.GetType(),"reload", "location.href=location.href",true);
             }
             catch (Exception exc)
             {
-                status.InnerHtml = "Error saving file.";
+                throw exc;
             }
         }
     }

@@ -13,15 +13,7 @@
                 <input type="file" id="filename" runat="server" />
             </td>
         </tr>
-        <tr>
-            <td valign="top" >
-                <span id="statusSpan" runat="server"/>
-            </td>
-            <td valign="top" >
-                <span id="status" runat="server" />
-                <asp:HyperLink ID="hplViewChapters" Font-Bold="true" Visible="false" runat="server">View Chapters</asp:HyperLink>
-            </td>
-        </tr>
+        
         <tr>
             <td valign="top" >
                 &nbsp;
