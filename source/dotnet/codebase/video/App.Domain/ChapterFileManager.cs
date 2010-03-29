@@ -79,5 +79,16 @@ namespace App.Domain
         {
             
         }
+
+        public void Delete(ChapterDefinitionFile file)
+        {
+            var fileToDelete = from f in db.ChapterDefinitionFiles
+                          where f.FileName == file.FileName
+                          select f;
+            ;
+
+            db.ChapterDefinitionFiles.DeleteAllOnSubmit(fileToDelete);
+            db.SubmitChanges();
+        }
     }
 }
