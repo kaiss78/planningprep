@@ -194,3 +194,24 @@ A.headermenu:hover
 	padding-left:20px;
 	cursor:pointer;
 }
+
+.OddRowListing {
+	/*color: #1A5C3B;*/
+	font-size: 11px;
+	background-color: #E7F7F2;
+	height: 21px;
+	padding: 10px;
+}
+.OddRowListing:hover {
+	background-color: #94E2BA;
+}
+.EvenRowListing {
+	/*color: #1A5C3B;*/
+	font-size: 11px;
+	background-color: #F4FBF9;
+	height: 21px;
+	padding: 10px;
+}
+.EvenRowListing:hover {
+	background-color: #94E2BA;
+}
