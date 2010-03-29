@@ -27,7 +27,6 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
 
     private void Page_Load(object o, EventArgs e)
     {
-
         // move attributes into the form
         upSpan.InnerText = uploadText;
         uploadBtn.Value = submitText;
@@ -52,14 +51,15 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
 
             try
             {
-                filename.PostedFile.SaveAs(System.IO.Path.Combine(sPath, Path.GetFileName(filename.PostedFile.FileName)));
+                string formattedFileName = Path.GetFileName(filename.PostedFile.FileName).Replace(" ","_");
+                filename.PostedFile.SaveAs(System.IO.Path.Combine(sPath, formattedFileName));
 
 
-                ChapterDefinitionFile file = ChapterFileManager.Instance.GetByFileName(Path.GetFileName(filename.PostedFile.FileName));
+                ChapterDefinitionFile file = ChapterFileManager.Instance.GetByFileName(formattedFileName);
                 if (file == null)
                 {
                     file = new ChapterDefinitionFile();
-                    file.FileName = Path.GetFileName(filename.PostedFile.FileName);
+                    file.FileName = formattedFileName;
                 }
 
                 ChapterFileManager.Instance.Save(file);
@@ -74,11 +74,15 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
                 DeleteExistingFiles(fileNameWithoutExtension);
                 XmlHelper.Instance.WriteXmlsForItems(fileNameWithoutExtension, fileNameWithoutExtension, items, 0);
+
+                status.InnerText = "File uploaded successfully.";
+
+                ((BasePage) this.Page).SignalFileUploaded();
                 
-                Page.ClientScript.RegisterStartupScript(this.GetType(),"reload", "location.href=location.href",true);
             }
             catch (Exception exc)
             {
+                status.InnerText = "Failed to upload file.";
                 throw exc;
             }
         }
