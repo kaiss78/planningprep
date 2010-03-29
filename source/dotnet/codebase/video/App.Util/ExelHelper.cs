@@ -41,6 +41,7 @@ namespace App.Util
             }
             catch (Exception ex)
             {
+                throw ex;
                 //log.Error(String.Format("Error Reading Excel File. Name: {0}. Error Message: {1} ", filePath, ex.Message));
             }
             finally
