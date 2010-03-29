@@ -4,7 +4,7 @@ using System.Data;
 using System.Web.UI;
 using App.Util;
 
-public partial class _UploadFile : Page
+public partial class _UploadFile : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
