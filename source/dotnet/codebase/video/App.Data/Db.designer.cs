@@ -36,6 +36,9 @@ namespace App.Data
     partial void InsertSiteUser(SiteUser instance);
     partial void UpdateSiteUser(SiteUser instance);
     partial void DeleteSiteUser(SiteUser instance);
+    partial void InsertSerialKey(SerialKey instance);
+    partial void UpdateSerialKey(SerialKey instance);
+    partial void DeleteSerialKey(SerialKey instance);
     #endregion
 		
 		public DbDataContext() : 
@@ -81,6 +84,14 @@ namespace App.Data
 			get
 			{
 				return this.GetTable<SiteUser>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SerialKey> SerialKeys
+		{
+			get
+			{
+				return this.GetTable<SerialKey>();
 			}
 		}
 	}
@@ -568,6 +579,116 @@ namespace App.Data
 					this._ActivationKey = value;
 					this.SendPropertyChanged("ActivationKey");
 					this.OnActivationKeyChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.SerialKey")]
+	public partial class SerialKey : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _ID;
+		
+		private string _Key;
+		
+		private System.DateTime _Created;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(long value);
+    partial void OnIDChanged();
+    partial void OnKeyChanging(string value);
+    partial void OnKeyChanged();
+    partial void OnCreatedChanging(System.DateTime value);
+    partial void OnCreatedChanged();
+    #endregion
+		
+		public SerialKey()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[Column(Name="[Key]", Storage="_Key", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string Key
+		{
+			get
+			{
+				return this._Key;
+			}
+			set
+			{
+				if ((this._Key != value))
+				{
+					this.OnKeyChanging(value);
+					this.SendPropertyChanging();
+					this._Key = value;
+					this.SendPropertyChanged("Key");
+					this.OnKeyChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Created", DbType="DateTime NOT NULL")]
+		public System.DateTime Created
+		{
+			get
+			{
+				return this._Created;
+			}
+			set
+			{
+				if ((this._Created != value))
+				{
+					this.OnCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._Created = value;
+					this.SendPropertyChanged("Created");
+					this.OnCreatedChanged();
 				}
 			}
 		}
