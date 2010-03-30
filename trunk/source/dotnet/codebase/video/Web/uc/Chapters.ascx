@@ -2,11 +2,13 @@
 
 <script type='text/javascript' src='http://ec.europa.eu/wel/players/jwflvplayer/swfobject.js'></script>
 
-<fieldset style="width:380px;" class="fl">
+<fieldset style="width:435px;" class="fl">
 <legend><strong>Video chapters</strong></legend>
-<div style="padding-left:30px;padding-top:10px;">
-<a href="javascript:void(0)" onclick="runVideo('<%=RootXmlUrl %>',0);"><strong>Play All</strong></a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="closeAll();"><strong>Close All</strong></a>
+<div style="padding-left:10px;padding-top:10px;float:left">
+<a href="javascript:void(0)" onclick="expandAll();" style="text-decoration:none"><strong>+<span style="padding-left:10px">Show All</span></strong></a>&nbsp;&nbsp;<a href="javascript:void(0)" style="text-decoration:none" onclick="closeAll();"><strong>- <span "padding-left:10px">Close All</span></strong></a>
 </div>
+<div class="fr" style="padding-left:10px;padding-top:10px;"><strong>Duration(mm:ss)</strong></div>
+<div class="clearBoth"></div>
 <div runat="server" style="padding:10px" id="divChapters" 
 >
 
@@ -30,7 +32,7 @@
 
 $(document).ready(function(){
 
-var videoUrl = '';//'&file=http://webtools.ec.europa.eu/flash-player/examples/playlist.xml&playlist=right&playlistsize=200&duration=224';
+var videoUrl = '';//'&file=http://webtools.ec.europa.eu/flash-player/examples/playlist.xml&playlistsize=200&duration=224';
 
 $("#btnNewWindow").click(function(){
 
@@ -45,13 +47,13 @@ $("#btnPlayMode").click(function(){
     if($(this).val() == "Play single mode")
     {
         $(this).val("Play multiple mode");
-        var videoUrl = '&file=' + currentUrl + '&playlist=right&playlistsize=200&duration=224';
+        var videoUrl = '&file=' + currentUrl + '&playlistsize=200&duration=224';
         $("#spnMode").text("OFF");
     }
     else
     {
         $(this).val("Play single mode");
-        var videoUrl = '&file=' + currentUrl + '&playlist=right&playlistsize=200&duration=224&repeat=list&autostart=true';
+        var videoUrl = '&file=' + currentUrl + '&playlistsize=200&duration=224&repeat=list&autostart=true';
         $("#spnMode").text("ON");
     }
    setVideoUrl(videoUrl);
@@ -63,15 +65,20 @@ setVideoUrl(videoUrl);
 
 function closeAll()
 {
-    $("#divVideo").css("display","block");
-    $("#videoPanel").css("display","none");
-    setVideoUrl('');
+    $("div[childrenId]").fadeOut(100);
+    $(".expandCollapseDiv").text("+");
+}
+
+function expandAll()
+{
+    $("div[childrenId]").fadeIn(100);
+    $(".expandCollapseDiv").text("-");
 }
  
 function setVideoUrl(currentChapter)
 {
     
-    var s1 = new SWFObject('http://ec.europa.eu/wel/players/jwflvplayer/player.swf','player','450','250','9');
+    var s1 = new SWFObject('http://ec.europa.eu/wel/players/jwflvplayer/player.swf','player','400','370','9');
 
 	s1.addParam('allowfullscreen','true');
 	s1.addParam('allowscriptaccess','always');
@@ -93,7 +100,7 @@ function runVideo(itemUrl,itemNo)
     $("#divVideo").css("display","block");
     $("#videoPanel").css("display","block");
     
-    var videoUrl = '&file=' + itemUrl + '&playlist=right&playlistsize=200&duration=224&repeat=list&autostart=true';
+    var videoUrl = '&file=' + itemUrl + '&playlistsize=200&duration=224&repeat=list&autostart=true';
     setVideoUrl(videoUrl);
 }
 </script>
