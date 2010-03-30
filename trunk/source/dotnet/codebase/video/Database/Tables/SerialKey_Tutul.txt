@@ -1,6 +1,6 @@
 CREATE TABLE [dbo].[SerialKey](
 	[ID] [bigint] IDENTITY(1,1) NOT NULL,
-	[SerialKey] [varchar](250) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Key] [varchar](250) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	[Created] [datetime] NOT NULL CONSTRAINT [DF_SerialKey_Created]  DEFAULT (getdate()),
  CONSTRAINT [PK_SerialKey] PRIMARY KEY CLUSTERED 
 (
