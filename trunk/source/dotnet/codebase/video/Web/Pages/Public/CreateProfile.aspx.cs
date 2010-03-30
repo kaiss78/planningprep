@@ -47,6 +47,11 @@ public partial class Pages_Public_CreateProfile : System.Web.UI.Page
             return false;
         return true;
     }
+    protected bool IsSeriralKeyExists(String key)
+    {
+        SerialKeyManager manager = new SerialKeyManager();
+        return manager.IsKeyExists(key);
+    }
     private void CreateNewProfile()
     {
         SiteUser user = new SiteUser();
@@ -106,6 +111,11 @@ public partial class Pages_Public_CreateProfile : System.Web.UI.Page
     {
         if (Page.IsValid)
         {
+            if (!IsSeriralKeyExists(txtSerialKey.Text.Trim()))
+            {
+                AppUtil.ShowMessage(divMessageBox, "Sorry! the Serial Key does not exist.", true);
+                return;
+            }
             if (HasSerialKeyTaken(txtSerialKey.Text.Trim()))
             {
                 AppUtil.ShowMessage(divMessageBox, "Sorry! the Serial Key is already taken. Please try with a different Serial Key.", true);
