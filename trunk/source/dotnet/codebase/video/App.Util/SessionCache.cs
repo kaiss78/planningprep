@@ -93,7 +93,25 @@ public class SessionCache
             }
         }
     }
-
+    public static SiteUser CurrentUser
+    {
+        get
+        {
+            if (HttpContext.Current.Session == null)
+            {
+                return null;
+            }
+            if (HttpContext.Current.Session["CURRENT_USER"] == null) return null;
+            return HttpContext.Current.Session["CURRENT_USER"] as SiteUser;
+        }
+        set
+        {
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session["CURRENT_USER"] = value;
+            }
+        }
+    }
     #endregion
 
     #region Methods
