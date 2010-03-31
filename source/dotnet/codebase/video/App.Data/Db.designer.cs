@@ -30,15 +30,21 @@ namespace App.Data
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertChapterDefinitionFile(ChapterDefinitionFile instance);
-    partial void UpdateChapterDefinitionFile(ChapterDefinitionFile instance);
-    partial void DeleteChapterDefinitionFile(ChapterDefinitionFile instance);
     partial void InsertSiteUser(SiteUser instance);
     partial void UpdateSiteUser(SiteUser instance);
     partial void DeleteSiteUser(SiteUser instance);
     partial void InsertSerialKey(SerialKey instance);
     partial void UpdateSerialKey(SerialKey instance);
     partial void DeleteSerialKey(SerialKey instance);
+    partial void InsertContentFile(ContentFile instance);
+    partial void UpdateContentFile(ContentFile instance);
+    partial void DeleteContentFile(ContentFile instance);
+    partial void InsertFileTracking(FileTracking instance);
+    partial void UpdateFileTracking(FileTracking instance);
+    partial void DeleteFileTracking(FileTracking instance);
+    partial void InsertFileCategory(FileCategory instance);
+    partial void UpdateFileCategory(FileCategory instance);
+    partial void DeleteFileCategory(FileCategory instance);
     #endregion
 		
 		public DbDataContext() : 
@@ -71,14 +77,6 @@ namespace App.Data
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<ChapterDefinitionFile> ChapterDefinitionFiles
-		{
-			get
-			{
-				return this.GetTable<ChapterDefinitionFile>();
-			}
-		}
-		
 		public System.Data.Linq.Table<SiteUser> SiteUsers
 		{
 			get
@@ -94,138 +92,28 @@ namespace App.Data
 				return this.GetTable<SerialKey>();
 			}
 		}
-	}
-	
-	[Table(Name="dbo.ChapterDefinitionFile")]
-	public partial class ChapterDefinitionFile : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _FileName;
-		
-		private System.Nullable<System.DateTime> _CreationTime;
-		
-		private System.Nullable<System.DateTime> _ModificationTime;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnFileNameChanging(string value);
-    partial void OnFileNameChanged();
-    partial void OnCreationTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreationTimeChanged();
-    partial void OnModificationTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnModificationTimeChanged();
-    #endregion
-		
-		public ChapterDefinitionFile()
-		{
-			OnCreated();
-		}
-		
-		[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
+		public System.Data.Linq.Table<ContentFile> ContentFiles
 		{
 			get
 			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
+				return this.GetTable<ContentFile>();
 			}
 		}
 		
-		[Column(Storage="_FileName", DbType="VarChar(255)")]
-		public string FileName
+		public System.Data.Linq.Table<FileTracking> FileTrackings
 		{
 			get
 			{
-				return this._FileName;
-			}
-			set
-			{
-				if ((this._FileName != value))
-				{
-					this.OnFileNameChanging(value);
-					this.SendPropertyChanging();
-					this._FileName = value;
-					this.SendPropertyChanged("FileName");
-					this.OnFileNameChanged();
-				}
+				return this.GetTable<FileTracking>();
 			}
 		}
 		
-		[Column(Storage="_CreationTime", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreationTime
+		public System.Data.Linq.Table<FileCategory> FileCategories
 		{
 			get
 			{
-				return this._CreationTime;
-			}
-			set
-			{
-				if ((this._CreationTime != value))
-				{
-					this.OnCreationTimeChanging(value);
-					this.SendPropertyChanging();
-					this._CreationTime = value;
-					this.SendPropertyChanged("CreationTime");
-					this.OnCreationTimeChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_ModificationTime", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ModificationTime
-		{
-			get
-			{
-				return this._ModificationTime;
-			}
-			set
-			{
-				if ((this._ModificationTime != value))
-				{
-					this.OnModificationTimeChanging(value);
-					this.SendPropertyChanging();
-					this._ModificationTime = value;
-					this.SendPropertyChanged("ModificationTime");
-					this.OnModificationTimeChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this.GetTable<FileCategory>();
 			}
 		}
 	}
@@ -264,6 +152,10 @@ namespace App.Data
 		
 		private string _ActivationKey;
 		
+		private EntitySet<ContentFile> _ContentFiles;
+		
+		private EntitySet<FileTracking> _FileTrackings;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -300,6 +192,8 @@ namespace App.Data
 		
 		public SiteUser()
 		{
+			this._ContentFiles = new EntitySet<ContentFile>(new Action<ContentFile>(this.attach_ContentFiles), new Action<ContentFile>(this.detach_ContentFiles));
+			this._FileTrackings = new EntitySet<FileTracking>(new Action<FileTracking>(this.attach_FileTrackings), new Action<FileTracking>(this.detach_FileTrackings));
 			OnCreated();
 		}
 		
@@ -583,6 +477,32 @@ namespace App.Data
 			}
 		}
 		
+		[Association(Name="SiteUser_ContentFile", Storage="_ContentFiles", OtherKey="UploadedBy")]
+		public EntitySet<ContentFile> ContentFiles
+		{
+			get
+			{
+				return this._ContentFiles;
+			}
+			set
+			{
+				this._ContentFiles.Assign(value);
+			}
+		}
+		
+		[Association(Name="SiteUser_FileTracking", Storage="_FileTrackings", OtherKey="UserID")]
+		public EntitySet<FileTracking> FileTrackings
+		{
+			get
+			{
+				return this._FileTrackings;
+			}
+			set
+			{
+				this._FileTrackings.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -601,6 +521,30 @@ namespace App.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ContentFiles(ContentFile entity)
+		{
+			this.SendPropertyChanging();
+			entity.SiteUser = this;
+		}
+		
+		private void detach_ContentFiles(ContentFile entity)
+		{
+			this.SendPropertyChanging();
+			entity.SiteUser = null;
+		}
+		
+		private void attach_FileTrackings(FileTracking entity)
+		{
+			this.SendPropertyChanging();
+			entity.SiteUser = this;
+		}
+		
+		private void detach_FileTrackings(FileTracking entity)
+		{
+			this.SendPropertyChanging();
+			entity.SiteUser = null;
 		}
 	}
 	
@@ -711,6 +655,772 @@ namespace App.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[Table(Name="dbo.ContentFile")]
+	public partial class ContentFile : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _FileID;
+		
+		private int _FileCategoryID;
+		
+		private string _Name;
+		
+		private long _Size;
+		
+		private string _XMLFileName;
+		
+		private System.Nullable<long> _VideoLength;
+		
+		private long _UploadedBy;
+		
+		private System.DateTime _UploadedOn;
+		
+		private System.DateTime _Modified;
+		
+		private EntitySet<FileTracking> _FileTrackings;
+		
+		private EntityRef<SiteUser> _SiteUser;
+		
+		private EntityRef<FileCategory> _FileCategory;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFileIDChanging(long value);
+    partial void OnFileIDChanged();
+    partial void OnFileCategoryIDChanging(int value);
+    partial void OnFileCategoryIDChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnSizeChanging(long value);
+    partial void OnSizeChanged();
+    partial void OnXMLFileNameChanging(string value);
+    partial void OnXMLFileNameChanged();
+    partial void OnVideoLengthChanging(System.Nullable<long> value);
+    partial void OnVideoLengthChanged();
+    partial void OnUploadedByChanging(long value);
+    partial void OnUploadedByChanged();
+    partial void OnUploadedOnChanging(System.DateTime value);
+    partial void OnUploadedOnChanged();
+    partial void OnModifiedChanging(System.DateTime value);
+    partial void OnModifiedChanged();
+    #endregion
+		
+		public ContentFile()
+		{
+			this._FileTrackings = new EntitySet<FileTracking>(new Action<FileTracking>(this.attach_FileTrackings), new Action<FileTracking>(this.detach_FileTrackings));
+			this._SiteUser = default(EntityRef<SiteUser>);
+			this._FileCategory = default(EntityRef<FileCategory>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_FileID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long FileID
+		{
+			get
+			{
+				return this._FileID;
+			}
+			set
+			{
+				if ((this._FileID != value))
+				{
+					this.OnFileIDChanging(value);
+					this.SendPropertyChanging();
+					this._FileID = value;
+					this.SendPropertyChanged("FileID");
+					this.OnFileIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FileCategoryID", DbType="Int NOT NULL")]
+		public int FileCategoryID
+		{
+			get
+			{
+				return this._FileCategoryID;
+			}
+			set
+			{
+				if ((this._FileCategoryID != value))
+				{
+					if (this._FileCategory.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFileCategoryIDChanging(value);
+					this.SendPropertyChanging();
+					this._FileCategoryID = value;
+					this.SendPropertyChanged("FileCategoryID");
+					this.OnFileCategoryIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Size", DbType="BigInt NOT NULL")]
+		public long Size
+		{
+			get
+			{
+				return this._Size;
+			}
+			set
+			{
+				if ((this._Size != value))
+				{
+					this.OnSizeChanging(value);
+					this.SendPropertyChanging();
+					this._Size = value;
+					this.SendPropertyChanged("Size");
+					this.OnSizeChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_XMLFileName", DbType="VarChar(255)")]
+		public string XMLFileName
+		{
+			get
+			{
+				return this._XMLFileName;
+			}
+			set
+			{
+				if ((this._XMLFileName != value))
+				{
+					this.OnXMLFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._XMLFileName = value;
+					this.SendPropertyChanged("XMLFileName");
+					this.OnXMLFileNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_VideoLength", DbType="BigInt")]
+		public System.Nullable<long> VideoLength
+		{
+			get
+			{
+				return this._VideoLength;
+			}
+			set
+			{
+				if ((this._VideoLength != value))
+				{
+					this.OnVideoLengthChanging(value);
+					this.SendPropertyChanging();
+					this._VideoLength = value;
+					this.SendPropertyChanged("VideoLength");
+					this.OnVideoLengthChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_UploadedBy", DbType="BigInt NOT NULL")]
+		public long UploadedBy
+		{
+			get
+			{
+				return this._UploadedBy;
+			}
+			set
+			{
+				if ((this._UploadedBy != value))
+				{
+					if (this._SiteUser.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUploadedByChanging(value);
+					this.SendPropertyChanging();
+					this._UploadedBy = value;
+					this.SendPropertyChanged("UploadedBy");
+					this.OnUploadedByChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_UploadedOn", DbType="DateTime NOT NULL")]
+		public System.DateTime UploadedOn
+		{
+			get
+			{
+				return this._UploadedOn;
+			}
+			set
+			{
+				if ((this._UploadedOn != value))
+				{
+					this.OnUploadedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UploadedOn = value;
+					this.SendPropertyChanged("UploadedOn");
+					this.OnUploadedOnChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Modified", DbType="DateTime NOT NULL")]
+		public System.DateTime Modified
+		{
+			get
+			{
+				return this._Modified;
+			}
+			set
+			{
+				if ((this._Modified != value))
+				{
+					this.OnModifiedChanging(value);
+					this.SendPropertyChanging();
+					this._Modified = value;
+					this.SendPropertyChanged("Modified");
+					this.OnModifiedChanged();
+				}
+			}
+		}
+		
+		[Association(Name="ContentFile_FileTracking", Storage="_FileTrackings", OtherKey="FileID")]
+		public EntitySet<FileTracking> FileTrackings
+		{
+			get
+			{
+				return this._FileTrackings;
+			}
+			set
+			{
+				this._FileTrackings.Assign(value);
+			}
+		}
+		
+		[Association(Name="SiteUser_ContentFile", Storage="_SiteUser", ThisKey="UploadedBy", IsForeignKey=true)]
+		public SiteUser SiteUser
+		{
+			get
+			{
+				return this._SiteUser.Entity;
+			}
+			set
+			{
+				SiteUser previousValue = this._SiteUser.Entity;
+				if (((previousValue != value) 
+							|| (this._SiteUser.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SiteUser.Entity = null;
+						previousValue.ContentFiles.Remove(this);
+					}
+					this._SiteUser.Entity = value;
+					if ((value != null))
+					{
+						value.ContentFiles.Add(this);
+						this._UploadedBy = value.UserID;
+					}
+					else
+					{
+						this._UploadedBy = default(long);
+					}
+					this.SendPropertyChanged("SiteUser");
+				}
+			}
+		}
+		
+		[Association(Name="FileCategory_ContentFile", Storage="_FileCategory", ThisKey="FileCategoryID", IsForeignKey=true)]
+		public FileCategory FileCategory
+		{
+			get
+			{
+				return this._FileCategory.Entity;
+			}
+			set
+			{
+				FileCategory previousValue = this._FileCategory.Entity;
+				if (((previousValue != value) 
+							|| (this._FileCategory.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._FileCategory.Entity = null;
+						previousValue.ContentFiles.Remove(this);
+					}
+					this._FileCategory.Entity = value;
+					if ((value != null))
+					{
+						value.ContentFiles.Add(this);
+						this._FileCategoryID = value.ID;
+					}
+					else
+					{
+						this._FileCategoryID = default(int);
+					}
+					this.SendPropertyChanged("FileCategory");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_FileTrackings(FileTracking entity)
+		{
+			this.SendPropertyChanging();
+			entity.ContentFile = this;
+		}
+		
+		private void detach_FileTrackings(FileTracking entity)
+		{
+			this.SendPropertyChanging();
+			entity.ContentFile = null;
+		}
+	}
+	
+	[Table(Name="dbo.FileTracking")]
+	public partial class FileTracking : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _ID;
+		
+		private long _FileID;
+		
+		private System.Nullable<bool> _IsViewed;
+		
+		private System.Nullable<bool> _IsDownloaded;
+		
+		private long _UserID;
+		
+		private string _UserIP;
+		
+		private System.DateTime _Created;
+		
+		private EntityRef<ContentFile> _ContentFile;
+		
+		private EntityRef<SiteUser> _SiteUser;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(long value);
+    partial void OnIDChanged();
+    partial void OnFileIDChanging(long value);
+    partial void OnFileIDChanged();
+    partial void OnIsViewedChanging(System.Nullable<bool> value);
+    partial void OnIsViewedChanged();
+    partial void OnIsDownloadedChanging(System.Nullable<bool> value);
+    partial void OnIsDownloadedChanged();
+    partial void OnUserIDChanging(long value);
+    partial void OnUserIDChanged();
+    partial void OnUserIPChanging(string value);
+    partial void OnUserIPChanged();
+    partial void OnCreatedChanging(System.DateTime value);
+    partial void OnCreatedChanged();
+    #endregion
+		
+		public FileTracking()
+		{
+			this._ContentFile = default(EntityRef<ContentFile>);
+			this._SiteUser = default(EntityRef<SiteUser>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FileID", DbType="BigInt NOT NULL")]
+		public long FileID
+		{
+			get
+			{
+				return this._FileID;
+			}
+			set
+			{
+				if ((this._FileID != value))
+				{
+					if (this._ContentFile.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFileIDChanging(value);
+					this.SendPropertyChanging();
+					this._FileID = value;
+					this.SendPropertyChanged("FileID");
+					this.OnFileIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsViewed", DbType="Bit")]
+		public System.Nullable<bool> IsViewed
+		{
+			get
+			{
+				return this._IsViewed;
+			}
+			set
+			{
+				if ((this._IsViewed != value))
+				{
+					this.OnIsViewedChanging(value);
+					this.SendPropertyChanging();
+					this._IsViewed = value;
+					this.SendPropertyChanged("IsViewed");
+					this.OnIsViewedChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsDownloaded", DbType="Bit")]
+		public System.Nullable<bool> IsDownloaded
+		{
+			get
+			{
+				return this._IsDownloaded;
+			}
+			set
+			{
+				if ((this._IsDownloaded != value))
+				{
+					this.OnIsDownloadedChanging(value);
+					this.SendPropertyChanging();
+					this._IsDownloaded = value;
+					this.SendPropertyChanged("IsDownloaded");
+					this.OnIsDownloadedChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_UserID", DbType="BigInt NOT NULL")]
+		public long UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._SiteUser.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_UserIP", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string UserIP
+		{
+			get
+			{
+				return this._UserIP;
+			}
+			set
+			{
+				if ((this._UserIP != value))
+				{
+					this.OnUserIPChanging(value);
+					this.SendPropertyChanging();
+					this._UserIP = value;
+					this.SendPropertyChanged("UserIP");
+					this.OnUserIPChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Created", DbType="DateTime NOT NULL")]
+		public System.DateTime Created
+		{
+			get
+			{
+				return this._Created;
+			}
+			set
+			{
+				if ((this._Created != value))
+				{
+					this.OnCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._Created = value;
+					this.SendPropertyChanged("Created");
+					this.OnCreatedChanged();
+				}
+			}
+		}
+		
+		[Association(Name="ContentFile_FileTracking", Storage="_ContentFile", ThisKey="FileID", IsForeignKey=true)]
+		public ContentFile ContentFile
+		{
+			get
+			{
+				return this._ContentFile.Entity;
+			}
+			set
+			{
+				ContentFile previousValue = this._ContentFile.Entity;
+				if (((previousValue != value) 
+							|| (this._ContentFile.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ContentFile.Entity = null;
+						previousValue.FileTrackings.Remove(this);
+					}
+					this._ContentFile.Entity = value;
+					if ((value != null))
+					{
+						value.FileTrackings.Add(this);
+						this._FileID = value.FileID;
+					}
+					else
+					{
+						this._FileID = default(long);
+					}
+					this.SendPropertyChanged("ContentFile");
+				}
+			}
+		}
+		
+		[Association(Name="SiteUser_FileTracking", Storage="_SiteUser", ThisKey="UserID", IsForeignKey=true)]
+		public SiteUser SiteUser
+		{
+			get
+			{
+				return this._SiteUser.Entity;
+			}
+			set
+			{
+				SiteUser previousValue = this._SiteUser.Entity;
+				if (((previousValue != value) 
+							|| (this._SiteUser.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SiteUser.Entity = null;
+						previousValue.FileTrackings.Remove(this);
+					}
+					this._SiteUser.Entity = value;
+					if ((value != null))
+					{
+						value.FileTrackings.Add(this);
+						this._UserID = value.UserID;
+					}
+					else
+					{
+						this._UserID = default(long);
+					}
+					this.SendPropertyChanged("SiteUser");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.FileCategory")]
+	public partial class FileCategory : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _CategoryName;
+		
+		private EntitySet<ContentFile> _ContentFiles;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnCategoryNameChanging(string value);
+    partial void OnCategoryNameChanged();
+    #endregion
+		
+		public FileCategory()
+		{
+			this._ContentFiles = new EntitySet<ContentFile>(new Action<ContentFile>(this.attach_ContentFiles), new Action<ContentFile>(this.detach_ContentFiles));
+			OnCreated();
+		}
+		
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CategoryName", DbType="VarChar(255)")]
+		public string CategoryName
+		{
+			get
+			{
+				return this._CategoryName;
+			}
+			set
+			{
+				if ((this._CategoryName != value))
+				{
+					this.OnCategoryNameChanging(value);
+					this.SendPropertyChanging();
+					this._CategoryName = value;
+					this.SendPropertyChanged("CategoryName");
+					this.OnCategoryNameChanged();
+				}
+			}
+		}
+		
+		[Association(Name="FileCategory_ContentFile", Storage="_ContentFiles", OtherKey="FileCategoryID")]
+		public EntitySet<ContentFile> ContentFiles
+		{
+			get
+			{
+				return this._ContentFiles;
+			}
+			set
+			{
+				this._ContentFiles.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ContentFiles(ContentFile entity)
+		{
+			this.SendPropertyChanging();
+			entity.FileCategory = this;
+		}
+		
+		private void detach_ContentFiles(ContentFile entity)
+		{
+			this.SendPropertyChanging();
+			entity.FileCategory = null;
 		}
 	}
 }
