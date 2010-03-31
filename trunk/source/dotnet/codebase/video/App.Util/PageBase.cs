@@ -9,12 +9,20 @@ using System.Web.UI;
 /// </summary>
 namespace App.Util
 {
-    public class PagePage : Page
+    public class PagePage : System.Web.UI.Page
     {
         public delegate void ReloadFileList();
         public event ReloadFileList FileUploaded;
 
-        
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            if(SessionCache.CurrentUser == null)
+            {
+                Response.Redirect("~/Pages/Public/Login.aspx?ReturnUrl=" + HttpContext.Current.Items["_path"]);
+            }
+        }
+
         public void SignalFileUploaded()
         {
             if (FileUploaded != null)
