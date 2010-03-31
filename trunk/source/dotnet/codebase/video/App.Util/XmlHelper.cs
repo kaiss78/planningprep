@@ -34,18 +34,17 @@ namespace App.Util
             _XmlWriter.WriteRaw(String.Format(@"<item>
 			            <title>{0}</title>
 			            <media:content url='{1}' type='{2}' start='{3}' duration='{4}' />
-			            <media:thumbnail url='{5}' />
-			            <description>{6}</description>
-			            <link>{7}/</link>
+			            <description>{5}</description>
+			            <link>{6}/</link>
 		            </item>", AppUtil.FilterChapterName(item.Chapter), GetVideoUrl(item.FileName)
                                 , item.FileType, item.StartTime
-                                , item.Duration, GetThumbNailUrl(item.ThumbNail)
+                                , item.Duration 
                                 , AppUtil.Encode(item.Description), item.Link));
         }
 
         private String GetVideoUrl(string fileName)
         {
-            return String.Format("{0}/{1}", ConfigReader.VideoUrl, fileName);
+            return String.Format("{0}", fileName);
         }
 
         private String GetThumbNailUrl(String fileName)
