@@ -36,7 +36,15 @@ public partial class Pages_Public_Login : System.Web.UI.Page
             AppUtil.ShowMessage(divMessageBox, "Sorry! Your Email Id does not exist.", true);
         else
         {
-            SessionCache.CurrentUser = user;
+            if (user.IsActive)
+            {
+                SessionCache.CurrentUser = user;
+                Response.Redirect("ViewChapters.aspx?FileID=" + 1);
+            }
+            else
+            {
+                AppUtil.ShowMessage(divMessageBox, "Sorry! The user account is not activated yet.", true);
+            }
         }
     }
 }
