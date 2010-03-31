@@ -22,7 +22,7 @@ public partial class ViewChapters : App.Util.PagePage
         }
     }
 
-    private void TrackViewInfo(int fileID)
+    private void TrackViewInfo(long fileID)
     {
         ContentFileManager fileManager = new ContentFileManager();
         ContentFile file = fileManager.GetByID(fileID);
