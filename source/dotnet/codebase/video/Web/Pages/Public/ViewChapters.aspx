@@ -4,7 +4,7 @@
 
 <asp:Content ContentPlaceHolderID="BodyContents" ID="Content1" runat="server">
 
-    <script language="javascript">
+    <script language="javascript" type="text/javascript">
     $(function(){
         // Document is ready
         $(".expandCollapseDiv").click(function () { 
