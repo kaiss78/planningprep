@@ -15,6 +15,10 @@ namespace App.Domain
         {
             _Data = new DbDataContext(ConfigReader.ConnectionString);
         }
+        public List<ContentFile> GetAll()
+        {
+            return _Data.ContentFiles.ToList();
+        }
         /// <summary>
         /// Gets a File Content Object By File ID
         /// </summary>
