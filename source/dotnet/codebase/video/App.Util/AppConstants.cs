@@ -21,7 +21,7 @@ namespace App.Util
         }
         public class Pages
         {
-            public const String ACTIVATE_ACCOUNT = "/ActivateAccount.aspx";
+            public const String ACTIVATE_ACCOUNT = "Pages/Public/ActivateAccount.aspx";
         }
         public class ExcelColumns
         {
