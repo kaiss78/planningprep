@@ -44,6 +44,15 @@ namespace App.Domain
             return _Data.SiteUsers.SingleOrDefault(U => String.Compare(U.SerialKey, serialKey, true) == 0);
         }
         /// <summary>
+        /// Gets User by Activation Key
+        /// </summary>
+        /// <param name="activationKey"></param>
+        /// <returns></returns>
+        public SiteUser GetUserByActivationKey(String activationKey)
+        {
+            return _Data.SiteUsers.SingleOrDefault(U => String.Compare(U.ActivationKey, activationKey, false) == 0);
+        }
+        /// <summary>
         /// Saves User Information 
         /// </summary>
         /// <param name="user"></param>
@@ -55,11 +64,14 @@ namespace App.Domain
                 {
                     user.Created = DateTime.Now;
                     user.Modified = DateTime.Now;
+                    _Data.SiteUsers.InsertOnSubmit(user);
                 }
                 else
+                {
                     user.Modified = DateTime.Now;
+                }
 
-                _Data.SiteUsers.InsertOnSubmit(user);
+                
                 _Data.SubmitChanges();
             }
         }
