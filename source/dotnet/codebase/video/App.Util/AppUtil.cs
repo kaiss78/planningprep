@@ -47,7 +47,14 @@ namespace App.Util
         {
             return String.Format("http://{0}/", HttpContext.Current.Request.Url.Host);
         }
-
+        /// <summary>
+        /// Gets the IP address of the remote user.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetRemoteIPAddress()
+        {
+            return HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+        }
         /// <summary>
         /// Gets the request param value in long.
         /// </summary>
