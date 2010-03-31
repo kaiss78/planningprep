@@ -19,6 +19,11 @@ public partial class Pages_Public_Login : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         Page.Title = AppUtil.GetPageTitle("Login");
+        if (Request["Action"] == "Logout")
+        {
+            SessionCache.ClearSession();
+            return;
+        }
     }
     protected void btnLogin_Click(object sender, EventArgs e)
     {
@@ -38,7 +43,7 @@ public partial class Pages_Public_Login : System.Web.UI.Page
         {
             if (user.IsActive)
             {
-                SessionCache.CurrentUser = user;
+                SessionCache.CurrentUser = user; 
                 Response.Redirect("ViewChapters.aspx?FileID=" + 1);
             }
             else
