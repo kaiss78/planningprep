@@ -15,9 +15,9 @@ namespace App.Util
     {
         public class Directories
         {
-            public const String EXCEL_INPUTS = "/InputExcel";
-            public const String XML_LIBRARY = "/XmlLibrary";
-            public const String EMAIL_TEMPLATE = "/EmailTemplates";
+            public const String EXCEL_INPUTS = "InputExcel";
+            public const String XML_LIBRARY = "XmlLibrary";
+            public const String EMAIL_TEMPLATE = "EmailTemplates";
         }
         public class Pages
         {
