@@ -74,7 +74,7 @@ public class SessionCache
     /// <summary>
     /// Current Chapter definition file
     /// </summary>
-    public static ChapterDefinitionFile CurrentFile
+    public static ContentFile CurrentFile
     {
         get
         {
@@ -83,7 +83,7 @@ public class SessionCache
                 return null;
             }
             if (HttpContext.Current.Session["CHAPTER_FILE"] == null) return null;
-            return HttpContext.Current.Session["CHAPTER_FILE"] as ChapterDefinitionFile;
+            return HttpContext.Current.Session["CHAPTER_FILE"] as ContentFile;
         }
         set
         {
