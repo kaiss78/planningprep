@@ -45,13 +45,13 @@ public partial class Pages_Public_Login : System.Web.UI.Page
             {
                 SessionCache.CurrentUser = user;
                 string returnUrl = Request["ReturnUrl"];
-                if (returnUrl != null)
+                if (returnUrl != null && returnUrl.Length > 0)
                 {
                     Response.Redirect(returnUrl);
                 }
                 else
                 {
-                    Response.Redirect("ViewChapters.aspx?FileID=" + 1);
+                    Response.Redirect("ViewChapters.aspx");
                 }
             }
             else
