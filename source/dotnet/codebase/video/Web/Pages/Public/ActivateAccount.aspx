@@ -4,6 +4,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="BodyContents" Runat="Server">
-
+    <h1>Activate Account</h1>
+    <div id="divMessage" runat="server"></div>
 </asp:Content>
 
