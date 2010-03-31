@@ -17,7 +17,8 @@ namespace App.Util
             }
         }
 
-        public string GetResponseForItems(List<VideoSectionItem> items, ChapterDefinitionFile file)
+        //public string GetResponseForItems(List<VideoSectionItem> items, ChapterDefinitionFile file)
+        public string GetResponseForItems(List<VideoSectionItem> items, ContentFile file)
         {
             HttpContext.Current.Response.Clear();
             StringBuilder sb = new StringBuilder();
@@ -41,13 +42,13 @@ namespace App.Util
             return string.Format("{0}:{1}", strMinutes, strSeconds);
         }
 
-        private void WriteHTMLForDataForItem(VideoSectionItem item, StringBuilder sb, ChapterDefinitionFile file)
+        private void WriteHTMLForDataForItem(VideoSectionItem item, StringBuilder sb, ContentFile file)
         {
             if (item.ChildrenItems != null && item.ChildrenItems.Count > 0)
             {
                 sb.Append("<div class=\"expandCollapseDivWrapper\">");
                 sb.AppendFormat("<div wrapperId={0} class=\"expandCollapseDiv\">+</div>", item.Number);
-                sb.AppendFormat("<div onclick=\"runVideo('{0}','{1}')\" class=\"chapterDivWithExpandCollapse\">", AppUtil.GetXmlUrlForItem(item,file.FileName),item.Number);
+                sb.AppendFormat("<div onclick=\"runVideo('{0}','{1}')\" class=\"chapterDivWithExpandCollapse\">", AppUtil.GetXmlUrlForItem(item,file.XMLFileName),item.Number);
                 sb.Append(AppUtil.FilterChapterName(item.Chapter));
                 sb.Append("</div>");
                 sb.AppendFormat("<div style=\"float:right;\">{0}</div>", GetMinuteSecond(item.Duration));
@@ -64,7 +65,7 @@ namespace App.Util
             }
             else
             {
-                sb.AppendFormat("<div onclick=\"runVideo('{0}','{1}')\" class=\"singleItem\">", AppUtil.GetXmlUrlForItem(item, file.FileName),item.Number);
+                sb.AppendFormat("<div onclick=\"runVideo('{0}','{1}')\" class=\"singleItem\">", AppUtil.GetXmlUrlForItem(item, file.XMLFileName),item.Number);
 
                 sb.Append(AppUtil.FilterChapterName(item.Chapter));
                 sb.AppendFormat("<div style=\"float:right;\">{0}</div>", GetMinuteSecond(item.Duration));
