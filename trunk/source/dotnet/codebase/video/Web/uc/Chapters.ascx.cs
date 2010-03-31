@@ -11,7 +11,7 @@ using App.Util;
 
 public partial class uc_Chapters : System.Web.UI.UserControl
 {
-    public int ExelFileId
+    public long ExelFileId
     {
         get; set;
     }
@@ -21,20 +21,23 @@ public partial class uc_Chapters : System.Web.UI.UserControl
         get;
         set;
     }
-    ChapterFileManager manager = new ChapterFileManager();
+    //ChapterFileManager manager = new ChapterFileManager();
+    ContentFileManager manager = new ContentFileManager();
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        List<ChapterDefinitionFile> files = manager.GetAll();
+        //List<ChapterDefinitionFile> files = manager.GetAll();
+        List<ContentFile> files = manager.GetAll();
 
         if (!IsPostBack)
         {
-            foreach (ChapterDefinitionFile file in files)
+            //foreach (ChapterDefinitionFile file in files)
+            foreach (ContentFile file in files)
             {
-                ListItem item = new ListItem(Path.GetFileNameWithoutExtension(file.FileName), file.Id.ToString());
+                ListItem item = new ListItem(Path.GetFileNameWithoutExtension(file.XMLFileName), file.FileID.ToString());
                 
                 ddlChapterFiles.Items.Add(item);
-                if (ExelFileId == file.Id)
+                if (ExelFileId == file.FileID)
                 {
                     item.Selected = true;
                 }
@@ -43,26 +46,27 @@ public partial class uc_Chapters : System.Web.UI.UserControl
 
         if (ExelFileId == 0 && files!= null && files.Count > 0)
         {
-            ExelFileId = files[0].Id;
+            ExelFileId = files[0].FileID;
         }
         PopuplateUI(ExelFileId);
     }
 
-    protected void PopuplateUI(int fileId)
+    protected void PopuplateUI(long fileId)
     {
-        ChapterDefinitionFile file = manager.GetById(fileId);
+        //ChapterDefinitionFile file = manager.GetById(fileId);
+        ContentFile file = manager.GetByID(fileId);
         if (file != null)
         {
-            string exelFileName = Path.Combine(AppUtil.GetUploadFolderForExel(), file.FileName);
+            string exelFileName = Path.Combine(AppUtil.GetUploadFolderForExel(), file.XMLFileName);
             SessionCache.CurrentFile = file;
             if (File.Exists(exelFileName))
             {
-                RootXmlUrl = string.Format("{0}/{1}/{1}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(file.FileName));
+                RootXmlUrl = string.Format("{0}/{1}/{1}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(file.XMLFileName));
                 List<VideoSectionItem> items = ExelHelper.Instance.GetDataFromExcel(exelFileName);
                 SessionCache.VideoSectionItems = items;
                 int levelCount = ExelHelper.Instance.GetLevelCount(items);
 
-                List<VideoSectionItem> hirarchialItems = DataParser.Instance.GetHirararchialVideoSectionItems(items, Server.MapPath(ConfigReader.XmlDir), levelCount, file.FileName);
+                List<VideoSectionItem> hirarchialItems = DataParser.Instance.GetHirararchialVideoSectionItems(items, Server.MapPath(ConfigReader.XmlDir), levelCount, file.XMLFileName);
 
                 string response = HtmlHelper.Instance.GetResponseForItems(hirarchialItems, file);
                 divChapters.InnerHtml = response;
