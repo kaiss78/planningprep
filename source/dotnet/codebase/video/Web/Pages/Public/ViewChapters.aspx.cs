@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using App.Util;
 
-public partial class ViewChapters : System.Web.UI.Page
+public partial class ViewChapters : App.Util.PagePage
 {
     int ExelFileID;
     protected void Page_Load(object sender, EventArgs e)
