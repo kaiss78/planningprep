@@ -25,7 +25,32 @@ public partial class uc_Chapters : System.Web.UI.UserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        ChapterDefinitionFile file = manager.GetById(ExelFileId);
+        List<ChapterDefinitionFile> files = manager.GetAll();
+
+        if (!IsPostBack)
+        {
+            foreach (ChapterDefinitionFile file in files)
+            {
+                ListItem item = new ListItem(Path.GetFileNameWithoutExtension(file.FileName), file.Id.ToString());
+                
+                ddlChapterFiles.Items.Add(item);
+                if (ExelFileId == file.Id)
+                {
+                    item.Selected = true;
+                }
+            }
+        }
+
+        if (ExelFileId == 0 && files!= null && files.Count > 0)
+        {
+            ExelFileId = files[0].Id;
+        }
+        PopuplateUI(ExelFileId);
+    }
+
+    protected void PopuplateUI(int fileId)
+    {
+        ChapterDefinitionFile file = manager.GetById(fileId);
         if (file != null)
         {
             string exelFileName = Path.Combine(AppUtil.GetUploadFolderForExel(), file.FileName);
@@ -43,5 +68,11 @@ public partial class uc_Chapters : System.Web.UI.UserControl
                 divChapters.InnerHtml = response;
             }
         }
+    }
+
+    protected void ddlChapterFiles_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        int fileId = Convert.ToInt32(ddlChapterFiles.SelectedValue);
+        Response.Redirect("ViewChapters.aspx?FileID=" + fileId);
     }
 }

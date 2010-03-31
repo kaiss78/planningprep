@@ -2,6 +2,12 @@
 
 <script type='text/javascript' src='http://ec.europa.eu/wel/players/jwflvplayer/swfobject.js'></script>
 
+<div>
+    <strong>Select a Chapter:</strong> <asp:DropDownList ID="ddlChapterFiles" AutoPostBack="true" OnSelectedIndexChanged="ddlChapterFiles_SelectedIndexChanged" runat="server">
+    </asp:DropDownList>
+</div>
+<br />
+
 <fieldset style="width:435px;" class="fl">
 <legend><strong>Video chapters</strong></legend>
 <div style="padding-left:10px;padding-top:10px;float:left">
