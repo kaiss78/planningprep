@@ -1,0 +1,9 @@
+IF NOT EXISTS(SELECT * FROM FileCategory WHERE CategoryName = 'Video')
+BEGIN
+	INSERT INTO FileCategory (CategoryName) VALUES ('Video')
+END
+
+IF NOT EXISTS(SELECT * FROM FileCategory WHERE CategoryName = 'PDF')
+BEGIN
+	INSERT INTO FileCategory (CategoryName) VALUES ('PDF')
+END
