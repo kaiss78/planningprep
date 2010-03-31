@@ -1,5 +1,4 @@
-﻿<%@ Control Language="VB"  Inherits="BaseUserControl" %>
-<%@ Import Namespace="System.Web.Security.Membership" %>
+﻿<%@ Control Language="C#" %>
 <!--Begin CSSMenuWriter/cssmw0/menu.js -->
 
 <script language="javascript" src="../../CSSMenuWriter/cssmw0/menu.js"></script>
@@ -31,18 +30,21 @@ padding-left:15px;
 <div id="TopDiv">
  
     <div id="UserLoginStatusTextDiv">
-    <a href="https://checkout.netsuite.com/s.nl?c=317540&sc=1&login=T&reset=T&newcust=T&ck=emNh05hXARUBQLiX&vid=emNh05hXASYBQOsV&cktime=87960">Create Account</a>&nbsp;|
+    
     <%
-        If IsNothing(GetUser) Then
+        if(SessionCache.CurrentUser == null)
+        {
 	        
     %>
-        <a href="Login.aspx?ReturnUrl=<%=HttpContext.Current.Items("_path") %>">Log In</a>
+        <a href="Login.aspx?ReturnUrl=<%=HttpContext.Current.Items["_path"] %>">Log In</a>
     <%
-    Else
+        }
+        else
+        {
         %>
-        <span><%=GetUser.UserName.ToString%></span>
+        <a href="Login.aspx?Action=Logout">Log Out</a> | <span><%=SessionCache.CurrentUser.FirstName + " " +SessionCache.CurrentUser.LastName%></span>
         <%
-        End If
+        }
     %>
     </div>
 </div>
