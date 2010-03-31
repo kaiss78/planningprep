@@ -39,7 +39,7 @@ namespace App.Util
         }
         public static String ReadEmailTemplate(String templateFileName)
         {
-            String filePath = HttpContext.Current.Server.MapPath(AppConstants.Directories.EMAIL_TEMPLATE);
+            String filePath = Path.Combine(HttpContext.Current.Server.MapPath(@"~\"),AppConstants.Directories.EMAIL_TEMPLATE);
             filePath = Path.Combine(filePath, templateFileName);
             return File.ReadAllText(filePath);
         }
