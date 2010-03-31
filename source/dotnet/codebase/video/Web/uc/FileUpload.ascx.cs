@@ -54,24 +54,40 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
                 string formattedFileName = Path.GetFileName(filename.PostedFile.FileName).Replace(" ","_");
                 filename.PostedFile.SaveAs(System.IO.Path.Combine(sPath, formattedFileName));
 
+                    
+                //ChapterDefinitionFile file = ChapterFileManager.Instance.GetByFileName(formattedFileName);
+                //if (file == null)
+                //{
+                //    file = new ChapterDefinitionFile();
+                //    file.FileName = formattedFileName;
+                //}
 
-                ChapterDefinitionFile file = ChapterFileManager.Instance.GetByFileName(formattedFileName);
+                //ChapterFileManager.Instance.Save(file);
+                
+                ///Save File Info
+                ContentFileManager fileManager = new ContentFileManager();
+                ContentFile file = fileManager.GetByFileName(formattedFileName);
                 if (file == null)
                 {
-                    file = new ChapterDefinitionFile();
-                    file.FileName = formattedFileName;
+                    file = new ContentFile();
+                    file.Name = String.Empty;
+                    file.XMLFileName = formattedFileName;
+                    file.UploadedBy = SessionCache.CurrentUser.UserID;
+                    file.UploadedOn = DateTime.Now;
+                    file.Modified = DateTime.Now;
+                    file.FileCategoryID = 1;///Video File
+                    fileManager.Save(file);
                 }
+                
 
-                ChapterFileManager.Instance.Save(file);
-
-                string filePath = Path.Combine(AppUtil.GetUploadFolderForExel(), file.FileName);
+                string filePath = Path.Combine(AppUtil.GetUploadFolderForExel(), file.XMLFileName);
                 string xmlDir = AppUtil.GetUploadFolderForXml();
 
                 List<VideoSectionItem> videoSectionItems = ExelHelper.Instance.GetDataFromExcel(filePath);
                 int levelCount = ExelHelper.Instance.GetLevelCount(videoSectionItems);
-                List<VideoSectionItem> items = DataParser.Instance.GetHirararchialVideoSectionItems(videoSectionItems, xmlDir, levelCount, file.FileName);
+                List<VideoSectionItem> items = DataParser.Instance.GetHirararchialVideoSectionItems(videoSectionItems, xmlDir, levelCount, file.XMLFileName);
 
-                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.XMLFileName);
                 DeleteExistingFiles(fileNameWithoutExtension);
                 XmlHelper.Instance.WriteXmlsForItems(fileNameWithoutExtension, fileNameWithoutExtension, items, 0);
 

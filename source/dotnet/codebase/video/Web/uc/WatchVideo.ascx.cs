@@ -28,18 +28,19 @@ public partial class uc_WatchVideo : System.Web.UI.UserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        ChapterDefinitionFile file = SessionCache.CurrentFile;
+        //ChapterDefinitionFile file = SessionCache.CurrentFile;
+        ContentFile file = SessionCache.CurrentFile;
         if (ItemNumber > 0)
         {
             VideoSectionItem item = SessionCache.GetVideoSectionItemByNumber(ItemNumber);
             if (item != null)
             {
-                ChapterUrl = AppUtil.GetXmlUrlForItem(item, file.FileName);
+                ChapterUrl = AppUtil.GetXmlUrlForItem(item, file.XMLFileName);
             }
         }
         else
         {
-            ChapterUrl = string.Format("{0}/{1}/{1}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(file.FileName));
+            ChapterUrl = string.Format("{0}/{1}/{1}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(file.XMLFileName));
         }
     }
 }

@@ -43,7 +43,9 @@ public partial class uc_ChapterDefinitionFileList : System.Web.UI.UserControl
             string file = e.Item.DataItem as string;
 
             string fileName = Path.GetFileName(file);
-            ChapterDefinitionFile chapterFile = ChapterFileManager.Instance.GetByFileName(fileName);
+            //ChapterDefinitionFile chapterFile = ChapterFileManager.Instance.GetByFileName(fileName);
+            ContentFileManager manager = new ContentFileManager();
+            ContentFile chapterFile = manager.GetByFileName(fileName);
             
             Label lblFileName = e.Item.FindControl("lblFile") as Label;
             LinkButton hplDownload = e.Item.FindControl("hplDownload") as LinkButton;
@@ -56,7 +58,7 @@ public partial class uc_ChapterDefinitionFileList : System.Web.UI.UserControl
                 hplDownload.CommandArgument = file;
                 hplDelete.CommandArgument = file;
 
-                hplChapters.NavigateUrl = string.Format("~/Pages/Public/ViewChapters.aspx?FileId={0}", chapterFile.Id);
+                hplChapters.NavigateUrl = string.Format("~/Pages/Public/ViewChapters.aspx?FileId={0}", chapterFile.FileID);
             }
             else
             {
@@ -88,10 +90,13 @@ public partial class uc_ChapterDefinitionFileList : System.Web.UI.UserControl
                 string xmlDir = Path.Combine(AppUtil.GetUploadFolderForXml(), Path.GetFileNameWithoutExtension(file));
                 Directory.Delete(xmlDir,true);
 
-                ChapterDefinitionFile chapterFile = ChapterFileManager.Instance.GetByFileName(Path.GetFileName(file));
+                //ChapterDefinitionFile chapterFile = ChapterFileManager.Instance.GetByFileName(Path.GetFileName(file));
+                ContentFileManager manager = new ContentFileManager();
+                ContentFile chapterFile = manager.GetByFileName(Path.GetFileName(file));
                 if (chapterFile != null)
                 {
-                    ChapterFileManager.Instance.Delete(chapterFile);
+                    //ChapterFileManager.Instance.Delete(chapterFile);
+                    manager.Delete(chapterFile);
                 }
             }
         }
