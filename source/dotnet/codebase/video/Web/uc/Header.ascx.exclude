@@ -32,18 +32,28 @@ padding-left:15px;
     <div id="UserLoginStatusTextDiv">
     
     <%
-        if(SessionCache.CurrentUser == null)
+        if(SessionCache.CurrentUser == null && !Page.User.Identity.IsAuthenticated)
         {
 	        
     %>
         <a href="Login.aspx?ReturnUrl=<%=HttpContext.Current.Items["_path"] %>">Log In</a>
     <%
         }
+        
         else
         {
+            if(SessionCache.CurrentUser != null)
+            {
         %>
-        <a href="Login.aspx?Action=Logout">Log Out</a> | <span><%=SessionCache.CurrentUser.FirstName + " " +SessionCache.CurrentUser.LastName%></span>
+                <a href="Login.aspx?Action=Logout">Log Out</a> | <span><%=SessionCache.CurrentUser.FirstName + " " +SessionCache.CurrentUser.LastName%></span>
         <%
+            }
+            else
+            {
+                %>
+                <a href="Login.aspx?Action=Logout">Log Out</a> | <span><%=Page.User.Identity.Name%></span>
+        <%
+            }
         }
     %>
     </div>
