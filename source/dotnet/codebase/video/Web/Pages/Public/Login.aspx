@@ -31,6 +31,9 @@
             <div class="fl" style="margin-left:10px;"><asp:Button ID="btnLogin" ValidationGroup="Login" CssClass="ButtonCommon" runat="server" Text="Login" OnClick="btnLogin_Click" /></div>
             <div class="clearBoth"></div>
         </div>
+        <div style="margin-top:10px;">
+            If you don't have a profile with us yet, <a href="CreateProfile.aspx">Click here</a> to create one
+        </div>
     </div>
 
 </asp:Content>
