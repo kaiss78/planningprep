@@ -29,6 +29,13 @@ namespace App.Util
             }
         }
 
+        private string GetDurationInSeconds(string strDurationInMinutes)
+        {
+            float duractionInMinutes = float.Parse(strDurationInMinutes);
+            float seconds = duractionInMinutes * 60;
+            return seconds.ToString();
+        }
+
         private void CreateItemNode(VideoSectionItem item)
         {
             _XmlWriter.WriteRaw(String.Format(@"<item>
@@ -38,7 +45,7 @@ namespace App.Util
 			            <link>{6}/</link>
 		            </item>", AppUtil.FilterChapterName(item.Chapter), GetVideoUrl(item.FileName)
                                 , item.FileType, item.StartTime
-                                , item.Duration 
+                                , GetDurationInSeconds(item.Duration) 
                                 , AppUtil.Encode(item.Description), item.Link));
         }
 
