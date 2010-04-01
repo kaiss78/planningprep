@@ -45,7 +45,7 @@ namespace App.Util
         }
         public static String GetDomainAddress()
         {
-            return String.Format("http://{0}/", HttpContext.Current.Request.Url.Host);
+            return String.Format("http://{0}{1}/", HttpContext.Current.Request.Url.Host,HttpContext.Current.Request.ApplicationPath);
         }
         /// <summary>
         /// Gets the IP address of the remote user.
