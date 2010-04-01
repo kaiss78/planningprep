@@ -19,7 +19,7 @@ namespace App.Util
             base.OnLoad(e);
             if(SessionCache.CurrentUser == null)
             {
-                Response.Redirect("~/Pages/Public/Login.aspx?ReturnUrl=" + HttpContext.Current.Items["_path"]);
+                Response.Redirect("~/Pages/Public/Login.aspx?ReturnUrl=" + HttpContext.Current.Request.Path);
             }
         }
 
