@@ -28,6 +28,7 @@ public partial class Pages_Public_Login : System.Web.UI.Page
         if (Request["Action"] == "Logout")
         {
             SessionCache.ClearSession();
+            FormsAuthentication.SignOut();
             return;
         }
     }
