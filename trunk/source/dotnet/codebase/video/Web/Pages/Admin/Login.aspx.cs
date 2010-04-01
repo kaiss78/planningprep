@@ -25,6 +25,6 @@ public partial class Pages_Admin_Login : System.Web.UI.Page
             SessionCache.ClearSession();
             FormsAuthentication.SignOut();
         }
-        Response.Redirect(@"~\Login.aspx?ReturnUrl=/Pages/Admin/UploadFile.aspx");
+        Response.Redirect(string.Format(@"~\Login.aspx?ReturnUrl={0}/Pages/Admin/UploadFile.aspx",HttpContext.Current.Request.ApplicationPath));
     }
 }
