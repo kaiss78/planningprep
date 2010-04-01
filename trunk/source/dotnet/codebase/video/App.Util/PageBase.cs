@@ -17,9 +17,36 @@ namespace App.Util
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            if(SessionCache.CurrentUser == null)
+
+            if (Request.FilePath.ToLower().EndsWith("admin/uploadfile.aspx"))
             {
-                Response.Redirect("~/Pages/Public/Login.aspx?ReturnUrl=" + HttpContext.Current.Request.Path);
+                bool redirect = false;
+                if (!Page.User.Identity.IsAuthenticated)
+                {
+                    redirect = true;
+
+                }
+                else
+                {
+                    if (!Page.User.IsInRole("Administrators"))
+                    {
+                        redirect = true;
+                    }
+                }
+
+                if (redirect)
+                {
+                    Response.Redirect("~/Login.aspx?ReturnUrl=" + Request.Path);
+                }
+            }
+
+            else
+            {
+
+                if (SessionCache.CurrentUser == null)
+                {
+                    Response.Redirect("~/Pages/Public/Login.aspx?ReturnUrl=" + HttpContext.Current.Request.Path);
+                }
             }
         }
 
