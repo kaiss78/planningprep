@@ -86,11 +86,11 @@ public partial class Pages_Public_CreateProfile : System.Web.UI.Page
         if (template.Length > 0)
         {
             String fromEmail = ConfigReader.SupportEmail;
-            String subject = "Activate your account.";
+            String subject = "Medstudy Admin : Activate your account.";
             StringBuilder sb = new StringBuilder(10);
-            sb.AppendFormat("Dear {0} {1} {2}<br/>", AppUtil.Encode(user.FirstName), AppUtil.Encode(user.MiddleName), AppUtil.Encode(user.LastName));
+            sb.AppendFormat("Dear {0} {1} {2},<br/><br/>", AppUtil.Encode(user.FirstName), AppUtil.Encode(user.MiddleName), AppUtil.Encode(user.LastName));
             sb.Append("You have successfully created your profile. Please click on the following link to activate your account.<br/><br/>");
-            String Url = String.Format("{0}cms/{1}?{2}={3}", AppUtil.GetDomainAddress(), AppConstants.Pages.ACTIVATE_ACCOUNT, AppConstants.UrlParams.KEY, user.ActivationKey);
+            String Url = String.Format("{0}{1}?{2}={3}", AppUtil.GetDomainAddress(), AppConstants.Pages.ACTIVATE_ACCOUNT, AppConstants.UrlParams.KEY, user.ActivationKey);
             sb.AppendFormat("<a href='{0}'>{0}</a>", Url);
             sb.Append("<br/><br/>");
             sb.Append("Thanks");
