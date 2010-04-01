@@ -31,14 +31,15 @@ namespace App.Util
             return sb.ToString();
         }
 
-        private string GetMinuteSecond(string durationInSeconds)
+        private string GetMinuteSecond(string durationInMinutes)
         {
-            int seconds = (int)Convert.ToSingle(durationInSeconds);
-            int minutes = seconds / 60;
-            int secondsAfterMinute = seconds % 60;
+            float minutes = Convert.ToSingle(durationInMinutes);
+            int totalSeconds = (int)(minutes * 60);
+            int minutesAfterSeconds = totalSeconds / 60;
+            int secondsAfterMinutes = totalSeconds % 60;
 
-            string strMinutes = minutes < 10 ? string.Format("0{0}", minutes) : minutes.ToString();
-            string strSeconds = secondsAfterMinute < 10 ? string.Format("0{0}", secondsAfterMinute) : secondsAfterMinute.ToString();
+            string strMinutes = minutesAfterSeconds < 10 ? string.Format("0{0}", minutesAfterSeconds) : minutesAfterSeconds.ToString();
+            string strSeconds = secondsAfterMinutes < 10 ? string.Format("0{0}", secondsAfterMinutes) : secondsAfterMinutes.ToString();
             return string.Format("{0}:{1}", strMinutes, strSeconds);
         }
 
