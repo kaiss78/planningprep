@@ -17,7 +17,7 @@ namespace App.Util
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            //AuthenticateRequest();
+            AuthenticateRequest();
         }
 
         private void AuthenticateRequest()
