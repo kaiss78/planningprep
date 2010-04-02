@@ -35,12 +35,12 @@ public partial class uc_WatchVideo : System.Web.UI.UserControl
             VideoSectionItem item = SessionCache.GetVideoSectionItemByNumber(ItemNumber);
             if (item != null)
             {
-                ChapterUrl = AppUtil.GetXmlUrlForItem(item, file.XMLFileName);
+                ChapterUrl = AppUtil.GetXmlUrlForItem(item, file.FileName);
             }
         }
         else
         {
-            ChapterUrl = string.Format("{0}/{1}/{1}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(file.XMLFileName));
+            ChapterUrl = string.Format("{0}/{1}/{1}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(file.FileName));
         }
     }
 }

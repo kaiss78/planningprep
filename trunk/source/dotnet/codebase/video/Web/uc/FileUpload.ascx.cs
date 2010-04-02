@@ -70,9 +70,8 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
                 if (file == null)
                 {
                     file = new ContentFile();
-                    file.Name = String.Empty;
-                    file.XMLFileName = formattedFileName;
-                    file.UploadedBy = SessionCache.CurrentUser.UserID;
+                    file.FileName = formattedFileName;
+                    file.UploadedBy = string.IsNullOrEmpty(this.Page.User.Identity.Name)?"Admin":this.Page.User.Identity.Name;
                     file.UploadedOn = DateTime.Now;
                     file.Modified = DateTime.Now;
                     file.FileCategoryID = 1;///Video File
@@ -80,14 +79,14 @@ public partial class uc_FileUpload : System.Web.UI.UserControl
                 }
                 
 
-                string filePath = Path.Combine(AppUtil.GetUploadFolderForExel(), file.XMLFileName);
+                string filePath = Path.Combine(AppUtil.GetUploadFolderForExel(), file.FileName);
                 string xmlDir = AppUtil.GetUploadFolderForXml();
 
                 List<VideoSectionItem> videoSectionItems = ExelHelper.Instance.GetDataFromExcel(filePath);
                 int levelCount = ExelHelper.Instance.GetLevelCount(videoSectionItems);
-                List<VideoSectionItem> items = DataParser.Instance.GetHirararchialVideoSectionItems(videoSectionItems, xmlDir, levelCount, file.XMLFileName);
+                List<VideoSectionItem> items = DataParser.Instance.GetHirararchialVideoSectionItems(videoSectionItems, xmlDir, levelCount, file.FileName);
 
-                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.XMLFileName);
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
                 DeleteExistingFiles(fileNameWithoutExtension);
                 XmlHelper.Instance.WriteXmlsForItems(fileNameWithoutExtension, fileNameWithoutExtension, items, 0);
 

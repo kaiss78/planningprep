@@ -34,7 +34,7 @@ public partial class uc_Chapters : System.Web.UI.UserControl
             //foreach (ChapterDefinitionFile file in files)
             foreach (ContentFile file in files)
             {
-                ListItem item = new ListItem(Path.GetFileNameWithoutExtension(file.XMLFileName), file.FileID.ToString());
+                ListItem item = new ListItem(Path.GetFileNameWithoutExtension(file.FileName), file.FileID.ToString());
                 
                 ddlChapterFiles.Items.Add(item);
                 if (ExelFileId == file.FileID)
@@ -57,16 +57,16 @@ public partial class uc_Chapters : System.Web.UI.UserControl
         ContentFile file = manager.GetByID(fileId);
         if (file != null)
         {
-            string exelFileName = Path.Combine(AppUtil.GetUploadFolderForExel(), file.XMLFileName);
+            string exelFileName = Path.Combine(AppUtil.GetUploadFolderForExel(), file.FileName);
             SessionCache.CurrentFile = file;
             if (File.Exists(exelFileName))
             {
-                RootXmlUrl = string.Format("{0}/{1}/{1}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(file.XMLFileName));
+                RootXmlUrl = string.Format("{0}/{1}/{1}.xml", ConfigReader.XmlUrl, Path.GetFileNameWithoutExtension(file.FileName));
                 List<VideoSectionItem> items = ExelHelper.Instance.GetDataFromExcel(exelFileName);
                 SessionCache.VideoSectionItems = items;
                 int levelCount = ExelHelper.Instance.GetLevelCount(items);
 
-                List<VideoSectionItem> hirarchialItems = DataParser.Instance.GetHirararchialVideoSectionItems(items, Server.MapPath(ConfigReader.XmlDir), levelCount, file.XMLFileName);
+                List<VideoSectionItem> hirarchialItems = DataParser.Instance.GetHirararchialVideoSectionItems(items, Server.MapPath(ConfigReader.XmlDir), levelCount, file.FileName);
 
                 string response = HtmlHelper.Instance.GetResponseForItems(hirarchialItems, file);
                 divChapters.InnerHtml = response;
