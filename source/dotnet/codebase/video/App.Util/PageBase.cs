@@ -17,7 +17,11 @@ namespace App.Util
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            //AuthenticateRequest();
+        }
 
+        private void AuthenticateRequest()
+        {
             if (Request.FilePath.ToLower().EndsWith("admin/uploadfile.aspx"))
             {
                 bool redirect = false;
