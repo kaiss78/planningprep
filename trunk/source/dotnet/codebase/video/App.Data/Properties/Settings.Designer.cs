@@ -44,5 +44,15 @@ namespace App.Data.Properties {
                 return ((string)(this["OnlineVideoConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SHUBHO;Initial Catalog=OnlineVideo1;Integrated Security=True")]
+        public string OnlineVideo1ConnectionString {
+            get {
+                return ((string)(this["OnlineVideo1ConnectionString"]));
+            }
+        }
     }
 }

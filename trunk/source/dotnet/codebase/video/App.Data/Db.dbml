@@ -1,6 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Database Name="OnlineVideo" Class="DbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=MIMI-PC\SQLEXPRESS;Initial Catalog=OnlineVideo;User ID=sa" SettingsObjectName="App.Data.Properties.Settings" SettingsPropertyName="OnlineVideoConnectionString" Provider="System.Data.SqlClient" />
+<Database Name="OnlineVideo1" Class="DbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SHUBHO;Initial Catalog=OnlineVideo1;Integrated Security=True" SettingsObjectName="App.Data.Properties.Settings" SettingsPropertyName="OnlineVideo1ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.SerialKey" Member="SerialKeys">
+    <Type Name="SerialKey">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[Key]" Member="Key" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FileTracking" Member="FileTrackings">
+    <Type Name="FileTracking">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FileID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="IsViewed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsDownloaded" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UserIP" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="SiteUser_FileTracking" Member="SiteUser" ThisKey="UserID" OtherKey="UserID" Type="SiteUser" IsForeignKey="true" />
+      <Association Name="ContentFile_FileTracking" Member="ContentFile" ThisKey="FileID" OtherKey="FileID" Type="ContentFile" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FileCategory" Member="FileCategories">
+    <Type Name="FileCategory">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="FileCategory_ContentFile" Member="ContentFiles" ThisKey="ID" OtherKey="FileCategoryID" Type="ContentFile" />
+    </Type>
+  </Table>
   <Table Name="dbo.[User]" Member="SiteUsers">
     <Type Name="SiteUser">
       <Column Name="UserID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -17,51 +44,20 @@
       <Column Name="Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="ActivationKey" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Association Name="SiteUser_ContentFile" Member="ContentFiles" OtherKey="UploadedBy" Type="ContentFile" />
-      <Association Name="SiteUser_FileTracking" Member="FileTrackings" OtherKey="UserID" Type="FileTracking" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SerialKey" Member="SerialKeys">
-    <Type Name="SerialKey">
-      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="[Key]" Member="Key" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="SiteUser_FileTracking" Member="FileTrackings" ThisKey="UserID" OtherKey="UserID" Type="FileTracking" />
     </Type>
   </Table>
   <Table Name="dbo.ContentFile" Member="ContentFiles">
     <Type Name="ContentFile">
       <Column Name="FileID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="FileCategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="Size" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="XMLFileName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="VideoLength" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="UploadedBy" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UploadedBy" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="UploadedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="ContentFile_FileTracking" Member="FileTrackings" OtherKey="FileID" Type="FileTracking" />
-      <Association Name="SiteUser_ContentFile" Member="SiteUser" ThisKey="UploadedBy" Type="SiteUser" IsForeignKey="true" />
-      <Association Name="FileCategory_ContentFile" Member="FileCategory" ThisKey="FileCategoryID" Type="FileCategory" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.FileTracking" Member="FileTrackings">
-    <Type Name="FileTracking">
-      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FileID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="IsViewed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="IsDownloaded" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="UserID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="UserIP" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="ContentFile_FileTracking" Member="ContentFile" ThisKey="FileID" Type="ContentFile" IsForeignKey="true" />
-      <Association Name="SiteUser_FileTracking" Member="SiteUser" ThisKey="UserID" Type="SiteUser" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.FileCategory" Member="FileCategories">
-    <Type Name="FileCategory">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CategoryName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Association Name="FileCategory_ContentFile" Member="ContentFiles" OtherKey="FileCategoryID" Type="ContentFile" />
+      <Association Name="ContentFile_FileTracking" Member="FileTrackings" ThisKey="FileID" OtherKey="FileID" Type="FileTracking" />
+      <Association Name="FileCategory_ContentFile" Member="FileCategory" ThisKey="FileCategoryID" OtherKey="ID" Type="FileCategory" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
