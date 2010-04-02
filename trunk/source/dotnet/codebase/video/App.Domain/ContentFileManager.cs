@@ -35,7 +35,7 @@ namespace App.Domain
         /// <returns></returns>
         public ContentFile GetByFileName(String fileName)
         {
-            return _Data.ContentFiles.SingleOrDefault(F => String.Compare(F.XMLFileName, fileName, true) == 0);
+            return _Data.ContentFiles.SingleOrDefault(F => String.Compare(F.FileName, fileName, true) == 0);
         }
         /// <summary>
         /// Saves a FileContent object to the Database.
@@ -62,7 +62,7 @@ namespace App.Domain
         {
             var filesToDelete =
                 from f in _Data.ContentFiles
-                where f.XMLFileName == file.XMLFileName
+                where f.FileName == file.FileName
                 select f;
             
             if (filesToDelete != null && filesToDelete.Count() > 0)
