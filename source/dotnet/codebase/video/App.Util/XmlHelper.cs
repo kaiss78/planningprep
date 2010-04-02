@@ -36,16 +36,28 @@ namespace App.Util
             return seconds.ToString();
         }
 
+        private  string GetStartPoint(string startPointInSeconds)
+        {
+            int totalSeconds = Convert.ToInt32(startPointInSeconds);
+            
+            int minutesAfterSeconds = totalSeconds / 60;
+            int secondsAfterMinutes = totalSeconds % 60;
+
+            string strMinutes = minutesAfterSeconds < 10 ? string.Format("0{0}", minutesAfterSeconds) : minutesAfterSeconds.ToString();
+            string strSeconds = secondsAfterMinutes < 10 ? string.Format("0{0}", secondsAfterMinutes) : secondsAfterMinutes.ToString();
+            return string.Format("{0}:{1}", strMinutes, strSeconds);
+        }
+
         private void CreateItemNode(VideoSectionItem item)
         {
             _XmlWriter.WriteRaw(String.Format(@"<item>
 			            <title>{0}</title>
-			            <media:content url='{1}' type='{2}' start='{3}' duration='{4}' />
-			            <description>{5}</description>
-			            <link>{6}/</link>
+			            <media:content url='{1}' type='{2}' start='{3}' />
+			            <description>{4}</description>
+			            <link>{5}/</link>
 		            </item>", AppUtil.FilterChapterName(item.Chapter), GetVideoUrl(item.FileName)
-                                , item.FileType, item.StartTime
-                                , GetDurationInSeconds(item.Duration) 
+                                , item.FileType, GetStartPoint(item.StartTime)
+                                //, GetDurationInSeconds(item.Duration) 
                                 , AppUtil.Encode(item.Description), item.Link));
         }
 
