@@ -56,6 +56,50 @@ namespace App.Util
             return ConvertToVideoSectionItemList(result);
         }
 
+        public List<string> ReadSerialKeysFromExcel(String filePath)
+        {
+            IExcelDataReader excelReader = null;
+            DataTable result = new DataTable("SerialKeys");
+            FileStream stream = null;
+            try
+            {
+                stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
+                if (String.Compare(Path.GetExtension(filePath), ".xls", true) == 0)
+                    excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+                else if (String.Compare(Path.GetExtension(filePath), ".xlsx", true) == 0)
+                    excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+
+                if (excelReader != null)
+                {
+                    excelReader.IsFirstRowAsColumnNames = true;
+                    result = excelReader.AsDataSet().Tables[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                //log.Error(String.Format("Error Reading Excel File. Name: {0}. Error Message: {1} ", filePath, ex.Message));
+            }
+            finally
+            {
+                if (excelReader != null && !excelReader.IsClosed)
+                    excelReader.Close();
+                if (stream != null)
+                {
+                    stream.Close();
+                }
+            }
+
+            List<string> keyList = new List<string>();
+            foreach (DataRow dr in result.Rows)
+            {
+                keyList.Add(dr[1].ToString());
+            }
+
+            return keyList;
+        }
+
+
         private List<VideoSectionItem> ConvertToVideoSectionItemList(DataTable dataTable)
         {
             List<VideoSectionItem> videoSectionItems = new List<VideoSectionItem>();
