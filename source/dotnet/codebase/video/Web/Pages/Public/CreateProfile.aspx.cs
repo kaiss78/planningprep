@@ -97,11 +97,9 @@ public partial class Pages_Public_CreateProfile : System.Web.UI.Page
 
             template.Replace(AppConstants.EmailTemplate.CustomTag.MESSAGE, sb.ToString());
             
-            try
-            {
-                MailHelper.SendMail(user.Email, String.Empty, String.Empty, fromEmail, subject, template.ToString());
-            }
-            catch{}
+           
+            MailHelper.SendMail(user.Email, String.Empty, String.Empty, fromEmail, subject, template.ToString());
+           
         }
     }
     #endregion
