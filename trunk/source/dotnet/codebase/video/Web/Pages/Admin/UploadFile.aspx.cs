@@ -5,7 +5,7 @@ using System.Web.UI;
 using App.Util;
 
 
-public partial class _UploadFile : App.Util.PagePage
+public partial class _UploadFile : App.Util.PageBase
 {
     protected void Page_Load(object sender, EventArgs e)
     {

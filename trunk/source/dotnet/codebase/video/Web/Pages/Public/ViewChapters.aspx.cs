@@ -8,7 +8,7 @@ using App.Util;
 using App.Data;
 using App.Domain;
 
-public partial class ViewChapters : App.Util.PagePage
+public partial class ViewChapters : App.Util.PageBase
 {
     int ExelFileID;
     protected void Page_Load(object sender, EventArgs e)
