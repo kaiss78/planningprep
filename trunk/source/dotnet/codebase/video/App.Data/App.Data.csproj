@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F9501334-2496-4399-B1F9-51ADC1F1F258}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -71,7 +71,6 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Db.dbml.layout">
       <DependentUpon>Db.dbml</DependentUpon>
     </None>
