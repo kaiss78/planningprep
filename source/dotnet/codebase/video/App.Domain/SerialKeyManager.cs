@@ -25,5 +25,21 @@ namespace App.Domain
             SerialKey serialKey = _Data.SerialKeys.SingleOrDefault(S => String.Compare(S.Key, key, false) == 0);
             return serialKey == null ? false : true;
         }
+
+        /// <summary>
+        /// Saves key Information 
+        /// </summary>
+        /// <param name="user"></param>
+        public void Save(string strKey)
+        {
+            if (strKey != null && !IsKeyExists(strKey))
+            {
+                SerialKey key = new SerialKey();
+                key.Key = strKey;
+                key.Created = DateTime.Now;
+                _Data.SerialKeys.InsertOnSubmit(key);
+                _Data.SubmitChanges();
+            }
+        }
     }
 }
