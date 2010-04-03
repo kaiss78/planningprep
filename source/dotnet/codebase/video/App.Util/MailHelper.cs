@@ -21,6 +21,9 @@
 
 using System;
 using System.Net.Mail;
+using System.Net.Configuration;
+using System.Configuration;
+using System.Net;
 
 #endregion
 
@@ -79,9 +82,14 @@ namespace App.Util
                     mailMessage.IsBodyHtml = true;
 
                     //sending the mail.
+
+                    SmtpSection smtpSec = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+
                     SmtpClient smtpClient = new SmtpClient();
-                    smtpClient.Host = SmtpHost; //smtpHost;
-                    smtpClient.Port = SmtpPort; //smtpPort;
+                    smtpClient.Host = smtpSec.Network.Host; //smtpHost;
+                    smtpClient.Port = smtpSec.Network.Port; //smtpPort;
+                    smtpClient.Credentials = new NetworkCredential(smtpSec.Network.UserName, smtpSec.Network.Password, smtpSec.Network.Host);
+                    smtpClient.UseDefaultCredentials = false;
                     smtpClient.Send(mailMessage);
                 }
             }

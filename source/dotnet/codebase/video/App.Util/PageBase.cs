@@ -9,7 +9,7 @@ using System.Web.UI;
 /// </summary>
 namespace App.Util
 {
-    public class PagePage : System.Web.UI.Page
+    public class PageBase : System.Web.UI.Page
     {
         public delegate void ReloadFileList();
         public event ReloadFileList FileUploaded;
@@ -17,7 +17,7 @@ namespace App.Util
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            AuthenticateRequest();
+            //AuthenticateRequest();
         }
 
         private void AuthenticateRequest()
