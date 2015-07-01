@@ -1,0 +1,3 @@
+The planningprep.com helps the participators of "American Institute of Certified Planner's**certification exam" by providing study materials/aids (practice questions, practice exams, planning related links etc). Members can also participate in the discussion forums.**
+
+The current Asp/MS Access based application has to be ported to an Asp.net/SQL Server based platform, with a re-architecture of the system by implementing a layered approach. Along with, some key functionality has to be upgraded (e.g. Standard online exam implementation), some new functionality has to be added (e.g. commenting feature etc), and, some existing functionality has to be removed.
